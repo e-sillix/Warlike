@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
+    //Barrack ui handling here.
+    //this will be transferred to new script .
+
+
     [SerializeField] private GameObject BarrackUiPanel; // Assign your UI Panel in the Inspector
     private BarrackCollider selectedObject;
     private BarrackCollider clickedObject;

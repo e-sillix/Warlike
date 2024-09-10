@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TheArmy : MonoBehaviour
 {
+    //this will be renamed to TroopsMarching or something.
     public LayerMask groundLayer; // Assign this to your ground layer in the Inspector
     public float moveSpeed = 5f; // Speed of movement
     
