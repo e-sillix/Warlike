@@ -8,35 +8,29 @@ public class UIManager : MonoBehaviour
     //this will be transferred to new script .
 
 
-    [SerializeField] private GameObject BarrackUiPanel; // Assign your UI Panel in the Inspector
-    private BarrackCollider selectedObject;
+    [SerializeField] private GameObject BarrackTrainingUiPanel; // Assign your UI Panel in the Inspector
+    [SerializeField] private GameObject BarrackCancelUiPanel; // Assign your UI Panel in the Inspector
+    // private BarrackCollider selectedObject;
     private BarrackCollider clickedObject;
+    [SerializeField] private TroopsTraining TrainingManager;
 
     void Start()
     {
         //Remove this-------
-        BarrackUiPanel.SetActive(false); // Start with the panel hidden
+        BarrackTrainingUiPanel.SetActive(false); // Start with the panel hidden
+        TrainingManager=TrainingManager.GetComponent<TroopsTraining>();
     }
 
-     private void ShowPanel(BarrackCollider barrack)
+     private void TrainingPanel()
     {
-        selectedObject = barrack; // Keep track of the selected barrack
-        BarrackUiPanel.SetActive(true); // Show the panel
+        // selectedObject = barrack; // Keep track of the selected barrack
+        BarrackTrainingUiPanel.SetActive(true); // Show the panel
     }
+    private void CancelPanel(){
 
-    public void HidePanel()
-    {
-        selectedObject = null; // Clear the selected object
-        BarrackUiPanel.SetActive(false); // Hide the panel
+        BarrackCancelUiPanel.SetActive(true); // Show the panel
     }
-
-    public void TrainTroops(){       
-        if (selectedObject != null)
-        {
-            selectedObject.StartTraining(); // Trigger the training in the selected barrack
-        }     
-    }
-
+    
     void Update(){
         if (Input.GetMouseButtonDown(0)) // Detect left mouse button click
         {
@@ -46,13 +40,18 @@ public class UIManager : MonoBehaviour
             // Perform the raycast
             if (Physics.Raycast(ray, out hit))
             {
-                // Check if the click was on a moving object
-                BarrackCollider clickedObject = hit.collider.GetComponent<BarrackCollider>();
+                // Check if the click was on a Barrack
+                clickedObject = hit.collider.GetComponent<BarrackCollider>();
 
                 if (clickedObject != null)
                 {
                     clickedObject.ClickedResponse();
-                    ShowPanel(clickedObject);
+                    if(TrainingManager.isTrainingInProgress){
+                        CancelPanel();
+                    }
+                    else{
+                        TrainingPanel();
+                    }
                 }
                 
             }

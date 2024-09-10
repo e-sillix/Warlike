@@ -13,7 +13,7 @@ public class TroopsTraining : MonoBehaviour
     private float adjustedTrainingTime;
     private int barracksCount = 0;
     private float elapsedTime = 0f;
-    private bool isTrainingInProgress = false; // Track if training is active
+    public bool isTrainingInProgress = false; // Track if training is active
     private Coroutine trainingCoroutine;
 
     public void StartTrainingTroops()
@@ -34,6 +34,10 @@ public class TroopsTraining : MonoBehaviour
         {
             Debug.Log("Training is going on!!!!!!!");
         }
+    }
+    public void StopTrainingTroops(){
+        //this will also be triggered by ui panel cancel
+        Debug.Log("This one is underConstruction!!!!!!!");
     }
 
     private void GetAllTheBarracksStats()
