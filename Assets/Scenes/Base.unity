@@ -1012,6 +1012,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a1651d8eb8e93642b5d76e08742bc76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  baseTrainingTime: 10
 --- !u!1 &552576416
 GameObject:
   m_ObjectHideFlags: 0
@@ -3240,6 +3241,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   soldierCapacity: 20
   rateOfTraining: 1
+  TroopsTraining: {fileID: 530708365}
 --- !u!1 &1820845876
 GameObject:
   m_ObjectHideFlags: 0
