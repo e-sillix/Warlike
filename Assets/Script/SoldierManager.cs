@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SoldierManager : MonoBehaviour
 {
+    //this one mananges troops selection on ground
     public LayerMask groundLayer; 
     private SoldierSelector selectedObject; // Currently selected object
 
