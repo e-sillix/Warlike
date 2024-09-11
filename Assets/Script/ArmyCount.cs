@@ -14,6 +14,7 @@ public class ArmyCount : MonoBehaviour
 
     public void AddSoldiers(int Amount){
         SoldierCount=SoldierCount+Amount;
+        Debug.Log("Added Troops:"+Amount);
     }
     public void DepleteSoldiers(int Amount){
         SoldierCount=SoldierCount-Amount;

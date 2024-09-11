@@ -9,6 +9,7 @@ public class TroopsTraining : MonoBehaviour
     // for the barracks being spawned during training should also immediately should be handle somehow.
 
     private int totalBarrackCapacity = 0;
+    [SerializeField] private GameObject ArmyCountManager;//this is for updating Count
     public float baseTrainingTime = 10f; // Base training time for one barrack
     private float adjustedTrainingTime;
     private int barracksCount = 0;
@@ -78,7 +79,17 @@ public class TroopsTraining : MonoBehaviour
     {
         // This should be called after the set amount of time
         Debug.Log("Triggering barracks icons");
-        // Logic to update UI/icons
+        // Logic to update UI/icons   
+
+
+        //this will be removed and changed the amount
+        AcceptNewTroops(totalBarrackCapacity);     
+
+    }
+    public void AcceptNewTroops(int Amount){
+        //this will be triggered by clicking on Trigger icon option
+        ArmyCount troopsCounterManager=ArmyCountManager.GetComponent<ArmyCount>();
+        troopsCounterManager.AddSoldiers(Amount);
     }
 
     private void ReInsitaiteTrainingTime()
