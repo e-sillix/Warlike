@@ -16,6 +16,7 @@ public class TroopsTraining : MonoBehaviour
     private float elapsedTime = 0f;
     public bool isTrainingInProgress = false; // Track if training is active
     private Coroutine trainingCoroutine;
+    private int TroopsCountCurrentlyTraining;
 
     public void StartTrainingTroops()
     {
@@ -44,14 +45,24 @@ public class TroopsTraining : MonoBehaviour
     private void GetAllTheBarracksStats()
     {
         // Find all the barracks for their stats
+        //this function is only created for getting troops training count
         totalBarrackCapacity = 0;
+        barracksCount=0;
         Barracks[] allBarracks = FindObjectsOfType<Barracks>();
         barracksCount = allBarracks.Length;
-
         foreach (Barracks Barrack in allBarracks)
         {
-            totalBarrackCapacity += Barrack.ReturnTroopsCapacity();
+            totalBarrackCapacity += Barrack.ReturnTroopsCapacity();//this will be changed named
         }
+        TroopsCountCurrentlyTraining=totalBarrackCapacity;
+    }
+    private void UpdateAllTheBarracksStats()
+    {
+        // update all the barracks for their stats
+        totalBarrackCapacity = 0;
+        barracksCount=0;
+        Barracks[] allBarracks = FindObjectsOfType<Barracks>();
+        barracksCount = allBarracks.Length;
     }
 
     private IEnumerator TrainingRoutine()
@@ -83,7 +94,7 @@ public class TroopsTraining : MonoBehaviour
 
 
         //this will be removed and changed the amount
-        AcceptNewTroops(totalBarrackCapacity);     
+        AcceptNewTroops(TroopsCountCurrentlyTraining);     
 
     }
     public void AcceptNewTroops(int Amount){
@@ -100,8 +111,8 @@ public class TroopsTraining : MonoBehaviour
 
             // Recalculate the training time
             float remainingTime = adjustedTrainingTime - elapsedTime;
-            GetAllTheBarracksStats();
-            adjustedTrainingTime = remainingTime * barracksCount / FindObjectsOfType<Barracks>().Length;
+            UpdateAllTheBarracksStats();
+            adjustedTrainingTime = remainingTime / barracksCount;
             elapsedTime = 0f;
 
             // Resume training with the new adjusted time
