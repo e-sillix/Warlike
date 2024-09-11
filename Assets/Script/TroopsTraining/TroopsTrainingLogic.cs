@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TroopsTraining : MonoBehaviour
+//this will be attached to troopstrainingmanager
+public class TroopsTrainingLogic : MonoBehaviour
 {
+    //this will be triggered by ui panel
     // this will start training and will accept barracks capacity for training and dividing time.
     // and trigger their icons
     // for the barracks being spawned during training should also immediately should be handle somehow.

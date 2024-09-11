@@ -12,13 +12,13 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject BarrackCancelUiPanel; // Assign your UI Panel in the Inspector
     // private BarrackCollider selectedObject;
     private BarrackCollider clickedObject;
-    [SerializeField] private TroopsTraining TrainingManager;
+    [SerializeField] private TroopsTrainingLogic TrainingManager;
 
     void Start()
     {
         //Remove this-------
         BarrackTrainingUiPanel.SetActive(false); // Start with the panel hidden
-        TrainingManager=TrainingManager.GetComponent<TroopsTraining>();
+        TrainingManager=TrainingManager.GetComponent<TroopsTrainingLogic>();
     }
 
      private void TrainingPanel()

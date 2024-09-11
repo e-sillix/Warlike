@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class TheArmy : MonoBehaviour
+//this one is attached to the main Army or troops.
+public class ArmyMarcher : MonoBehaviour
 {
     //this will be renamed to TroopsMarching or something.
     public LayerMask groundLayer; // Assign this to your ground layer in the Inspector

@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3845240829604247566}
-  - component: {fileID: 7776851819555633065}
+  - component: {fileID: 7871303663021866123}
   m_Layer: 0
   m_Name: TheArmy
   m_TagString: Untagged
@@ -33,7 +33,7 @@ Transform:
   - {fileID: 3189749857195333245}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7776851819555633065
+--- !u!114 &7871303663021866123
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -42,7 +42,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7817682463295282944}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33e935345f6ce2a469cac5bffc6cb51c, type: 3}
+  m_Script: {fileID: 11500000, guid: 21bcdefdee5624e45bac33125b61b265, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   groundLayer:
@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 8263353171778378992}
   - component: {fileID: 833433286206016515}
   - component: {fileID: 6945055147929718588}
-  - component: {fileID: 8133859442259855819}
+  - component: {fileID: 6963925842229166649}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -187,7 +187,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8133859442259855819
+--- !u!114 &6963925842229166649
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -196,7 +196,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8899570883475553693}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c281e427090e08498f3e858f873569a, type: 3}
+  m_Script: {fileID: 11500000, guid: 3f919c04e361f5f4d90cd8c71912d852, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   TheSoldier: {fileID: 7817682463295282944}

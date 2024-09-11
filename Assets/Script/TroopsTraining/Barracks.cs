@@ -9,13 +9,13 @@ public class Barracks : MonoBehaviour
    [SerializeField] private int soldierCapacity=20;//this will be upgraded.
    [SerializeField] private int rateOfTraining=1;// this will be upgraded.
 
-   private TroopsTraining trainer;
+   private TroopsTrainingLogic trainer;
    void Start(){
       //call isTraining,for check if there is any current training going on .
 
       GameObject troopsTraining = GameObject.Find("TroopsTrainingManager");//finding TroopsTrainingManager
       if(troopsTraining){
-      trainer= troopsTraining.GetComponent<TroopsTraining>();
+      trainer= troopsTraining.GetComponent<TroopsTrainingLogic>();
       if(trainer!=null){
          trainer.IsTraining();
       }     

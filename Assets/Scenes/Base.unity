@@ -1457,12 +1457,31 @@ MonoBehaviour:
   m_GameObject: {fileID: 530708365}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a1651d8eb8e93642b5d76e08742bc76, type: 3}
+  m_Script: {fileID: 11500000, guid: 595e86f152b893544a6b040924916763, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ArmyCountManager: {fileID: 214494316}
   baseTrainingTime: 10
   isTrainingInProgress: 0
+--- !u!1 &541492392 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8899570883475553693, guid: f3f49270f0a939941b605a8b13f91495,
+    type: 3}
+  m_PrefabInstance: {fileID: 557059234}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &541492398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 541492392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f919c04e361f5f4d90cd8c71912d852, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TheSoldier: {fileID: 789781539}
 --- !u!1 &552576416
 GameObject:
   m_ObjectHideFlags: 0
@@ -1509,7 +1528,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BarrackTrainingUiPanel: {fileID: 1155725108}
   BarrackCancelUiPanel: {fileID: 467348054}
-  TrainingManager: {fileID: 530708367}
+  TrainingManager: {fileID: 0}
 --- !u!1001 &557059234
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1578,10 +1597,15 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8133859442259855819, guid: f3f49270f0a939941b605a8b13f91495, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8899570883475553693, guid: f3f49270f0a939941b605a8b13f91495,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 541492398}
   m_SourcePrefab: {fileID: 100100000, guid: f3f49270f0a939941b605a8b13f91495, type: 3}
 --- !u!1 &589084855
 GameObject:
@@ -2057,6 +2081,12 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &789781539 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7817682463295282944, guid: f3f49270f0a939941b605a8b13f91495,
+    type: 3}
+  m_PrefabInstance: {fileID: 557059234}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &815700313
 GameObject:
   m_ObjectHideFlags: 0
@@ -2533,7 +2563,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 530708367}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: TroopsTraining, Assembly-CSharp
         m_MethodName: StartTrainingTroops
         m_Mode: 1
@@ -2829,7 +2859,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1273114472}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e32262be9324b3c45a10af8fe358d51f, type: 3}
+  m_Script: {fileID: 11500000, guid: 06f5d41b38d3acb4580ccafa7a8d2d89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   groundLayer:
@@ -2918,7 +2948,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 530708367}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: TroopsTraining, Assembly-CSharp
         m_MethodName: StopTrainingTroops
         m_Mode: 1
@@ -4035,6 +4065,79 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1001 &2081321131
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1897378250038783724, guid: 5efccc3fc5027144fb6eb4a65179d0c6,
+        type: 3}
+      propertyPath: soldierCapacity
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 5066686387632205646, guid: 5efccc3fc5027144fb6eb4a65179d0c6,
+        type: 3}
+      propertyPath: m_Name
+      value: Barrack
+      objectReference: {fileID: 0}
+    - target: {fileID: 5945761267273851875, guid: 5efccc3fc5027144fb6eb4a65179d0c6,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5945761267273851875, guid: 5efccc3fc5027144fb6eb4a65179d0c6,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5945761267273851875, guid: 5efccc3fc5027144fb6eb4a65179d0c6,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5945761267273851875, guid: 5efccc3fc5027144fb6eb4a65179d0c6,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5945761267273851875, guid: 5efccc3fc5027144fb6eb4a65179d0c6,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5945761267273851875, guid: 5efccc3fc5027144fb6eb4a65179d0c6,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5945761267273851875, guid: 5efccc3fc5027144fb6eb4a65179d0c6,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5945761267273851875, guid: 5efccc3fc5027144fb6eb4a65179d0c6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5945761267273851875, guid: 5efccc3fc5027144fb6eb4a65179d0c6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5945761267273851875, guid: 5efccc3fc5027144fb6eb4a65179d0c6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5efccc3fc5027144fb6eb4a65179d0c6, type: 3}
 --- !u!1001 &3389867086068573817
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4165,3 +4268,4 @@ SceneRoots:
   - {fileID: 296699081}
   - {fileID: 557059234}
   - {fileID: 3389867086068573817}
+  - {fileID: 2081321131}

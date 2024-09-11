@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class SoldierManager : MonoBehaviour
+//this one attached to MarchManager
+public class ArmyMarchManager : MonoBehaviour
 {
-    //this one mananges troops selection on ground
+    //this one mananges troops selection on ground and give a position to move to.
     public LayerMask groundLayer; 
-    private SoldierSelector selectedObject; // Currently selected object
+    private ArmySelector selectedObject; // Currently selected object
 
     void Update()
     {
@@ -19,7 +19,7 @@ public class SoldierManager : MonoBehaviour
             if (Physics.Raycast(ray, out hit))
             {
                 // Check if the click was on a moving object
-                SoldierSelector clickedObject = hit.collider.GetComponent<SoldierSelector>();
+                ArmySelector clickedObject = hit.collider.GetComponent<ArmySelector>();
 
                 if (clickedObject != null)
                 {
