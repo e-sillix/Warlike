@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ResourceSpawnManager : MonoBehaviour
@@ -11,8 +12,7 @@ public class ResourceSpawnManager : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;              // The layer mask for the ground
     [SerializeField] private LayerMask BlueLayer;              // The layer mask for the ground
     [SerializeField] private float farmRadius = 2f;           // The radius around the farm to check for collisions
-    [SerializeField] private KeyCode spawnKey = KeyCode.F;    // The key to spawn the blueprint
-    [SerializeField] private KeyCode CancelKey = KeyCode.C;    // The key to cancel the constructions
+    
 
     private GameObject currentBlueprint;    // The current blueprint instance
 
@@ -27,41 +27,7 @@ public class ResourceSpawnManager : MonoBehaviour
     currencyManager=CurrencyManager.GetComponent<CurrencyManager>();
    }
     void Update()
-    {       
-        if (Input.GetKeyDown(spawnKey))
-        {
-            //Get price----------------
-            currentResourcePrice=resourcePriceManager.ReturnFarmPrice();
-
-            //Get current currency
-            currency=currencyManager.ReturnCurrentCurrency();
-            
-            if (currentBlueprint == null)
-            {
-                //conditioning with current money
-                SpawnBlueprint();                
-            }
-            else
-            {
-                if(currentResourcePrice<=currency){
-                    PlaceFarm(); 
-                }
-                else{
-                    Debug.Log("Not Enough");
-                    //visual representation for not enough credits------------
-
-                }
-            }
-        }
-        else if(Input.GetKeyDown(CancelKey)){
-            if(currentBlueprint!=null){
-                //this will cancel the farm blueprint
-                Destroy(currentBlueprint);
-                currentBlueprint = null;
-                Debug.Log("Canceled");
-            }
-        }
-
+    {
         if (currentBlueprint != null)
         {
             UpdateBlueprintPosition();
@@ -112,5 +78,31 @@ public class ResourceSpawnManager : MonoBehaviour
                 currentResourcePrice=0;
             }
         }
-    }    
+    } 
+    public void TriggerBluePrint(){   
+        //Get price---------------- 
+        currentResourcePrice=resourcePriceManager.ReturnFarmPrice();    //this will be changed to dynamic
+        //Get current currency
+        currency=currencyManager.ReturnCurrentCurrency();
+            
+        if (currentBlueprint == null)
+            {
+                //conditioning with current money
+                SpawnBlueprint();                
+            }        
+    }
+    public void TriggerSpawning(){
+        if(currentResourcePrice<=currency){
+                    PlaceFarm(); 
+                }
+            else{
+                    Debug.Log("Not Enough");
+                    //visual representation for not enough credits------------
+                    Destroy(currentBlueprint);//this will be removed
+                    // or may trigger a panel of not enough resources. 
+                }
+    }   
+    public void CancleBuilding(){
+        Destroy(currentBlueprint);
+    }
 }
