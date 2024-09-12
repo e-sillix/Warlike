@@ -39,6 +39,14 @@ public class ArmyMarchManager : MonoBehaviour
                     // Set the target position for the selected object
                     selectedObject.NotifyParentPosition(hit.point);
                 }
+                else if (clickedObject == null && selectedObject != null && !IsGroundLayer(hit.collider.gameObject))
+                {
+                    // Deselect the currently selected army ,if other object is clicked
+                    selectedObject.Highlight(false);
+                    selectedObject = null; // Clear the selected army
+                }
+
+                //there will be attack position or something.
             }
         }
     }
