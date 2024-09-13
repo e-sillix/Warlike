@@ -5,35 +5,52 @@ using UnityEngine;
 
 public class ResourceSpawnManager : MonoBehaviour
 {
+    //should only accept trigger from ui and call the respective resource spawn managers
+    //maybe dynamic trigger respective spawning
+
     [SerializeField] private GameObject farmPrefab;           // The actual farm prefab
     [SerializeField] private GameObject farmBluePrintPrefab;  // The blueprint prefab to show while positioning
+    [SerializeField] private GameObject BarrackPrefab;           // The actual barrack prefab
+    [SerializeField] private GameObject BarrackBluePrintPrefab;  // The blueprint prefab to show while positioning
     [SerializeField] private GameObject ResourcePriceManager;  //for price returning
     [SerializeField] private GameObject CurrencyManager;  //for current resources returning
     [SerializeField] private LayerMask groundLayer;              // The layer mask for the ground
     [SerializeField] private LayerMask BlueLayer;              // The layer mask for the ground
-    [SerializeField] private float farmRadius = 2f;           // The radius around the farm to check for collisions
+    // [SerializeField] private float farmRadius = 2f;           // The radius around the farm to check for collisions
     
 
     private GameObject currentBlueprint;    // The current blueprint instance
 
     private FarmBluePrint farmBluePrint;
-    private ResourcePriceManager resourcePriceManager;
+
+    private ResourceStatsManager resourceStatsManager;
     private CurrencyManager currencyManager;
     private int currentResourcePrice;
     private int currency;
    
    void Start(){
-    resourcePriceManager=ResourcePriceManager.GetComponent<ResourcePriceManager>();
+    resourceStatsManager=ResourcePriceManager.GetComponent<ResourceStatsManager>();
     currencyManager=CurrencyManager.GetComponent<CurrencyManager>();
    }
     void Update()
-    {
+    {//updates blueprint position on screen after the build option is clicked
         if (currentBlueprint != null)
         {
             UpdateBlueprintPosition();
         }
     }
 
+//0. option of building and setting which building is chosen
+    public void FarmIsChoosen(){
+        //set current resource price
+        //Get  and set price---------------- 
+        currentResourcePrice=resourceStatsManager.ReturnFarmPrice();
+        //set current resource prefab and blueprint
+
+    }
+    
+
+//1.blueprint related
     void SpawnBlueprint()
     {
         // Instantiate the blueprint at the center of the screen
@@ -55,7 +72,7 @@ public class ResourceSpawnManager : MonoBehaviour
 
         }
     }
-
+//2.intiating
     void PlaceFarm()
     {
         if (currentBlueprint != null)
@@ -79,9 +96,12 @@ public class ResourceSpawnManager : MonoBehaviour
             }
         }
     } 
+
+//3.taking input from ui
     public void TriggerBluePrint(){   
-        //Get price---------------- 
-        currentResourcePrice=resourcePriceManager.ReturnFarmPrice();    //this will be changed to dynamic
+        //this will be triggered by UI build button
+        // //Get price---------------- 
+        // currentResourcePrice=resourceStatsManager.ReturnFarmPrice();    //this will be changed to dynamic
         //Get current currency
         currency=currencyManager.ReturnCurrentCurrency();
             
@@ -91,6 +111,8 @@ public class ResourceSpawnManager : MonoBehaviour
                 SpawnBlueprint();                
             }        
     }
+
+//4.check currnency and spawn
     public void TriggerSpawning(){
         if(currentResourcePrice<=currency){
                     PlaceFarm(); 
@@ -102,6 +124,8 @@ public class ResourceSpawnManager : MonoBehaviour
                     // or may trigger a panel of not enough resources. 
                 }
     }   
+
+//5.Cleanup
     public void CancleBuilding(){
         Destroy(currentBlueprint);
     }

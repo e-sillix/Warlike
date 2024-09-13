@@ -19,7 +19,7 @@ public class Farm : MonoBehaviour
     private void Start(){
         if (currencyManager == null)
         {
-            GameObject currencyManagerObject = GameObject.Find("CurrencyManager");
+            GameObject currencyManagerObject = GameObject.Find("CurrencyManager"); //parent based search
             if (currencyManagerObject != null)
             {
                 currencyManager = currencyManagerObject.GetComponent<CurrencyManager>();
