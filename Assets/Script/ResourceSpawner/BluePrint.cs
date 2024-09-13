@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class BluePrint : MonoBehaviour
 {
+    //deals with blue print
+    //***************************
+    //remember to set blueprint collider to layer blue.
    private BoxCollider boxCollider;
     public LayerMask groundLayer;
     public LayerMask BlueLayer;

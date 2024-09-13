@@ -21,12 +21,13 @@ public class ResourceSpawnManager : MonoBehaviour
 
     private GameObject currentBlueprint;    // The current blueprint instance
 
-    private FarmBluePrint farmBluePrint;
 
     private ResourceStatsManager resourceStatsManager;
     private CurrencyManager currencyManager;
     private int currentResourcePrice;
     private int currency;
+    private GameObject chosenBlueprint;
+    private GameObject chosenResource;
    
    void Start(){
     resourceStatsManager=ResourcePriceManager.GetComponent<ResourceStatsManager>();
@@ -41,21 +42,47 @@ public class ResourceSpawnManager : MonoBehaviour
     }
 
 //0. option of building and setting which building is chosen
+    public void BarrackIsChoosen(){
+        //set current resource price
+        //Get  and setprice---------------- 
+        currentResourcePrice=resourceStatsManager.ReturnBarrackPrice();
+        //set current resource prefab and blueprint
+        chosenResource=BarrackPrefab;
+        chosenBlueprint=BarrackBluePrintPrefab;
+        //call spawnBlueprint with parameters
+
+    }
     public void FarmIsChoosen(){
         //set current resource price
-        //Get  and set price---------------- 
+        //Get  and setprice---------------- 
         currentResourcePrice=resourceStatsManager.ReturnFarmPrice();
         //set current resource prefab and blueprint
+        chosenResource=farmPrefab;
+        chosenBlueprint=farmBluePrintPrefab;
+        //call spawnBlueprint with parameters
 
     }
     
+    //1.taking input from ui
+    public void TriggerBluePrint(){   
+        //this will be triggered by UI build button
+        // //Get price---------------- 
+        // currentResourcePrice=resourceStatsManager.ReturnFarmPrice();    //this will be changed to dynamic
+        //Get current currency
+        currency=currencyManager.ReturnCurrentCurrency();
+            
+        if (currentBlueprint == null)
+            {
+                //conditioning with current money
+                SpawnBlueprint();                
+            }        
+    }
 
-//1.blueprint related
+//2.blueprint related
     void SpawnBlueprint()
     {
         // Instantiate the blueprint at the center of the screen
-        currentBlueprint = Instantiate(farmBluePrintPrefab);
-        farmBluePrint=currentBlueprint.GetComponent<FarmBluePrint>();
+        currentBlueprint = Instantiate(chosenBlueprint);
         UpdateBlueprintPosition();
     }
 
@@ -72,17 +99,32 @@ public class ResourceSpawnManager : MonoBehaviour
 
         }
     }
-//2.intiating
-    void PlaceFarm()
+
+
+//4.check currnency and spawn
+    public void TriggerSpawning(){
+        //this is called by UI yes confirmation
+        if(currentResourcePrice<=currency){
+                    PlaceResources(); 
+                }
+            else{
+                    Debug.Log("Not Enough");
+                    //visual representation for not enough credits------------
+                    Destroy(currentBlueprint);//this will be removed
+                    // or may trigger a panel of not enough resources. 
+                }
+    }   
+    //2.intiating
+    void PlaceResources()
     {
         if (currentBlueprint != null)
         {
             //
             // Check if the blueprint is in a valid location
-            if (!farmBluePrint.ReturnIsColliding())
+            if (!currentBlueprint.GetComponent<BluePrint>().ReturnIsColliding())
             {
                 // Instantiate the actual farm and destroy the blueprint
-                Instantiate(farmPrefab, currentBlueprint.transform.position, Quaternion.identity);
+                Instantiate(chosenResource, currentBlueprint.transform.position, Quaternion.identity);
                 Destroy(currentBlueprint);
                 currentBlueprint = null;
 
@@ -96,34 +138,6 @@ public class ResourceSpawnManager : MonoBehaviour
             }
         }
     } 
-
-//3.taking input from ui
-    public void TriggerBluePrint(){   
-        //this will be triggered by UI build button
-        // //Get price---------------- 
-        // currentResourcePrice=resourceStatsManager.ReturnFarmPrice();    //this will be changed to dynamic
-        //Get current currency
-        currency=currencyManager.ReturnCurrentCurrency();
-            
-        if (currentBlueprint == null)
-            {
-                //conditioning with current money
-                SpawnBlueprint();                
-            }        
-    }
-
-//4.check currnency and spawn
-    public void TriggerSpawning(){
-        if(currentResourcePrice<=currency){
-                    PlaceFarm(); 
-                }
-            else{
-                    Debug.Log("Not Enough");
-                    //visual representation for not enough credits------------
-                    Destroy(currentBlueprint);//this will be removed
-                    // or may trigger a panel of not enough resources. 
-                }
-    }   
 
 //5.Cleanup
     public void CancleBuilding(){
