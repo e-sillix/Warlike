@@ -6,12 +6,14 @@ using UnityEngine;
 public class ResourceSpawnManager : MonoBehaviour
 {
     //dynamic respective spawning for both original and blueprint,currency management for spawning
-
+    //trigger messages in resourceUI function.
     [SerializeField] private GameObject ResourcePriceManager;  //for price returning
     [SerializeField] private GameObject CurrencyManager;  //for current resources returning
    
     // [SerializeField] private float farmRadius = 2f;           // The radius around the farm to check for collisions
     
+    [SerializeField] private GameObject ResourceUI;
+    private ResourceUI resourceUI;
 
     private GameObject currentBlueprint;    // The current blueprint instance
 
@@ -24,6 +26,8 @@ public class ResourceSpawnManager : MonoBehaviour
    
    void Start(){ 
     currencyManager=CurrencyManager.GetComponent<CurrencyManager>();
+    resourceUI=ResourceUI.GetComponent<ResourceUI>();
+    
    }    
     //1.taking input from ui
     public void TriggerBluePrint(){   
@@ -56,9 +60,9 @@ public class ResourceSpawnManager : MonoBehaviour
         if(currentResourcePrice<=currency){
                     PlaceResources(); 
                 }
-            else{
-                    Debug.Log("Not Enough");
-                    //visual representation for not enough credits------------
+            else{                    
+                    //visual representation for not enough credits
+                    resourceUI.MessageForNotEnoughCredit();
                     Destroy(currentBlueprint);//this will be removed
                     // or may trigger a panel of not enough resources. 
                 }
@@ -81,9 +85,12 @@ public class ResourceSpawnManager : MonoBehaviour
                 //cut the cost--------------
                 currencyManager.SpendWood(currentResourcePrice);
 
-
+                resourceUI.RefreshUIConstruction();
                 //nulling currentResourcePrice
                 currentResourcePrice=0;
+            }
+            else{
+                resourceUI.MessageForNotEnoughSpace();
             }
         }
     } 
@@ -92,5 +99,6 @@ public class ResourceSpawnManager : MonoBehaviour
     public void CancleBuilding(){
         //Triggered by ui cancel X button on confirmation
         Destroy(currentBlueprint);
+        resourceUI.RefreshUIConstruction();
     }
 }
