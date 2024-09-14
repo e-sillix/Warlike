@@ -1337,6 +1337,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1486931851}
+        m_TargetAssemblyTypeName: ResourceSpecifier, Assembly-CSharp
+        m_MethodName: FarmIsChoosen
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &325247886
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3884,20 +3896,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10f47c9dc5ca03e498f081ac8fcd0449, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  farmPrefab: {fileID: 3763684002182264625, guid: 89d0f52c158bb994baab5ff71fb6e7fc,
-    type: 3}
-  farmBluePrintPrefab: {fileID: 3763684002182264625, guid: 872ccb107d0fbe948b80187b5d06aa11,
-    type: 3}
-  BarrackPrefab: {fileID: 0}
-  BarrackBluePrintPrefab: {fileID: 0}
   ResourcePriceManager: {fileID: 1651349198}
   CurrencyManager: {fileID: 411135597}
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  BlueLayer:
-    serializedVersion: 2
-    m_Bits: 128
+  currentResourcePrice: 0
+  chosenBlueprint: {fileID: 0}
+  chosenResource: {fileID: 0}
 --- !u!4 &1199550169
 Transform:
   m_ObjectHideFlags: 0
@@ -4833,8 +4836,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1199550168}
-        m_TargetAssemblyTypeName: ResourceSpawnManager, Assembly-CSharp
+      - m_Target: {fileID: 1486931851}
+        m_TargetAssemblyTypeName: ResourceSpecifier, Assembly-CSharp
         m_MethodName: BarrackIsChoosen
         m_Mode: 1
         m_Arguments:
@@ -4919,6 +4922,60 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -130}
   m_SizeDelta: {x: 200, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1486931850
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1486931852}
+  - component: {fileID: 1486931851}
+  m_Layer: 0
+  m_Name: ResourceSpecifier
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1486931851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1486931850}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cd306732b720014293a83f4fcdde20e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ResourceSpawnManagerGO: {fileID: 1199550167}
+  ResourceStatsManagerGO: {fileID: 1651349198}
+  farmPrefab: {fileID: 3763684002182264625, guid: 89d0f52c158bb994baab5ff71fb6e7fc,
+    type: 3}
+  farmBluePrintPrefab: {fileID: 3763684002182264625, guid: 872ccb107d0fbe948b80187b5d06aa11,
+    type: 3}
+  BarrackPrefab: {fileID: 5066686387632205646, guid: 5efccc3fc5027144fb6eb4a65179d0c6,
+    type: 3}
+  BarrackBluePrintPrefab: {fileID: 5066686387632205646, guid: 05c8a6d8fa6cbfc429cd0bbc2f45ecb9,
+    type: 3}
+--- !u!4 &1486931852
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1486931850}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1785417668}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1568983243
 GameObject:
   m_ObjectHideFlags: 0
@@ -5167,6 +5224,7 @@ Transform:
   m_Children:
   - {fileID: 1199550169}
   - {fileID: 1651349199}
+  - {fileID: 1486931852}
   m_Father: {fileID: 391697916}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1820845876

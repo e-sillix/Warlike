@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class BluePrint : MonoBehaviour
 {
-    //deals with blue print
+    //deals with blue print ,it's movement and collision which is returned to RSpM
     //***************************
     //remember to set blueprint collider to layer blue.
-   private BoxCollider boxCollider;
+    private BoxCollider boxCollider;
     public LayerMask groundLayer;
     public LayerMask BlueLayer;
     [SerializeField] private GameObject TheCollider;
@@ -31,6 +31,8 @@ public class BluePrint : MonoBehaviour
 
     private void Update()
     {
+        UpdateBlueprintPosition();
+        
         if (boxCollider != null)
         {
             IsBluePrintColliding();
@@ -51,6 +53,24 @@ public class BluePrint : MonoBehaviour
             IsBlueColliding=false;
         }
     }
+
+    //*will update position according to camera position
+    void UpdateBlueprintPosition()
+    {
+        // Create a ray from the center of the screen
+        Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+        RaycastHit hit;
+
+        // Perform the raycast and check if it hits the ground
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, groundLayer))
+        {
+            transform.position = hit.point;
+
+        }
+    }
+
+
+    //*updating color according to collisions
     private void UpdateColorOfBluePrint(){
         Renderer renderer = TheCollider.GetComponent<Renderer>();
     if (renderer != null)
@@ -66,6 +86,8 @@ public class BluePrint : MonoBehaviour
         }
     }
     }
+
+    //*return to RSM for check for placing farm
     public bool ReturnIsColliding(){        
         return IsBlueColliding;
     }

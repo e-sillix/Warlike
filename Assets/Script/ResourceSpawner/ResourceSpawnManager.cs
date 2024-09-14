@@ -5,77 +5,42 @@ using UnityEngine;
 
 public class ResourceSpawnManager : MonoBehaviour
 {
-    //should only accept trigger from ui and call the respective resource spawn managers
-    //maybe dynamic trigger respective spawning
+    //dynamic respective spawning for both original and blueprint,currency management for spawning
 
-    [SerializeField] private GameObject farmPrefab;           // The actual farm prefab
-    [SerializeField] private GameObject farmBluePrintPrefab;  // The blueprint prefab to show while positioning
-    [SerializeField] private GameObject BarrackPrefab;           // The actual barrack prefab
-    [SerializeField] private GameObject BarrackBluePrintPrefab;  // The blueprint prefab to show while positioning
     [SerializeField] private GameObject ResourcePriceManager;  //for price returning
     [SerializeField] private GameObject CurrencyManager;  //for current resources returning
-    [SerializeField] private LayerMask groundLayer;              // The layer mask for the ground
-    [SerializeField] private LayerMask BlueLayer;              // The layer mask for the ground
+   
     // [SerializeField] private float farmRadius = 2f;           // The radius around the farm to check for collisions
     
 
     private GameObject currentBlueprint;    // The current blueprint instance
 
 
-    private ResourceStatsManager resourceStatsManager;
     private CurrencyManager currencyManager;
-    private int currentResourcePrice;
+    public int currentResourcePrice;
     private int currency;
-    private GameObject chosenBlueprint;
-    private GameObject chosenResource;
+    public GameObject chosenBlueprint;
+    public GameObject chosenResource;
    
-   void Start(){
-    resourceStatsManager=ResourcePriceManager.GetComponent<ResourceStatsManager>();
+   void Start(){ 
     currencyManager=CurrencyManager.GetComponent<CurrencyManager>();
-   }
-    void Update()
-    {//updates blueprint position on screen after the build option is clicked
-        if (currentBlueprint != null)
-        {
-            UpdateBlueprintPosition();
-        }
-    }
-
-//0. option of building and setting which building is chosen
-    public void BarrackIsChoosen(){
-        //set current resource price
-        //Get  and setprice---------------- 
-        currentResourcePrice=resourceStatsManager.ReturnBarrackPrice();
-        //set current resource prefab and blueprint
-        chosenResource=BarrackPrefab;
-        chosenBlueprint=BarrackBluePrintPrefab;
-        //call spawnBlueprint with parameters
-
-    }
-    public void FarmIsChoosen(){
-        //set current resource price
-        //Get  and setprice---------------- 
-        currentResourcePrice=resourceStatsManager.ReturnFarmPrice();
-        //set current resource prefab and blueprint
-        chosenResource=farmPrefab;
-        chosenBlueprint=farmBluePrintPrefab;
-        //call spawnBlueprint with parameters
-
-    }
-    
+   }    
     //1.taking input from ui
     public void TriggerBluePrint(){   
         //this will be triggered by UI build button
-        // //Get price---------------- 
-        // currentResourcePrice=resourceStatsManager.ReturnFarmPrice();    //this will be changed to dynamic
-        //Get current currency
+       //Get current currency
         currency=currencyManager.ReturnCurrentCurrency();
             
         if (currentBlueprint == null)
             {
                 //conditioning with current money
                 SpawnBlueprint();                
-            }        
+            }       
+            else{
+                Destroy(currentBlueprint);
+                currentBlueprint=null;
+                SpawnBlueprint();
+            } 
     }
 
 //2.blueprint related
@@ -83,25 +48,9 @@ public class ResourceSpawnManager : MonoBehaviour
     {
         // Instantiate the blueprint at the center of the screen
         currentBlueprint = Instantiate(chosenBlueprint);
-        UpdateBlueprintPosition();
     }
 
-    void UpdateBlueprintPosition()
-    {
-        // Create a ray from the center of the screen
-        Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
-        RaycastHit hit;
-
-        // Perform the raycast and check if it hits the ground
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, groundLayer))
-        {
-            currentBlueprint.transform.position = hit.point;
-
-        }
-    }
-
-
-//4.check currnency and spawn
+//4.check currency and spawn
     public void TriggerSpawning(){
         //this is called by UI yes confirmation
         if(currentResourcePrice<=currency){
@@ -141,6 +90,7 @@ public class ResourceSpawnManager : MonoBehaviour
 
 //5.Cleanup
     public void CancleBuilding(){
+        //Triggered by ui cancel X button on confirmation
         Destroy(currentBlueprint);
     }
 }
