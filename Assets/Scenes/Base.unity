@@ -4247,8 +4247,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: TroopsTraining, Assembly-CSharp
+      - m_Target: {fileID: 530708367}
+        m_TargetAssemblyTypeName: TroopsTrainingLogic, Assembly-CSharp
         m_MethodName: StartTrainingTroops
         m_Mode: 1
         m_Arguments:
@@ -4853,8 +4853,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: TroopsTraining, Assembly-CSharp
+      - m_Target: {fileID: 530708367}
+        m_TargetAssemblyTypeName: TroopsTrainingLogic, Assembly-CSharp
         m_MethodName: StopTrainingTroops
         m_Mode: 1
         m_Arguments:

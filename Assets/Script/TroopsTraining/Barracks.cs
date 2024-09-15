@@ -19,6 +19,9 @@ public class Barracks : MonoBehaviour
       if(trainer!=null){
          trainer.IsTraining();
       }     
+      else{
+         Debug.Log("1");
+      }
       }
    }
    public int ReturnTroopsCapacity(){
