@@ -7,23 +7,22 @@ public class ArmySelector : MonoBehaviour
     //this act as collider convey to it's parent to move and changed color with it's selection
     //and pass the coordinate to move to.
     [SerializeField] private GameObject TheSoldier;
+    [SerializeField] private GameObject SelectorIcon;
     private ArmyMarcher Parent;
-    private Renderer objectRenderer;
+
     void Start(){
         Parent  = TheSoldier.GetComponent<ArmyMarcher>();
-        objectRenderer = GetComponent<Renderer>();
+
     }
 
     public void NotifyParentPosition(Vector3 position){
+        //takes position from manager and pass it to parent.
         Parent.SetTargetPosition(position);
     }
 
     // Method to highlight the object when selected (e.g., change color)
     public void Highlight(bool isSelected)
-    {
-        if (objectRenderer != null)
-        {
-            objectRenderer.material.color = isSelected ? Color.yellow : Color.white;
-        }
+    {    
+        SelectorIcon.SetActive(isSelected);
     }
 }
