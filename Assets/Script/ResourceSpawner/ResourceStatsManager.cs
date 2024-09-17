@@ -7,6 +7,7 @@ public class ResourceStatsManager : MonoBehaviour
 
 
 
+
     [SerializeField] private int farmPrice;
     [SerializeField] private int barrackPrice;
     
@@ -19,4 +20,5 @@ public class ResourceStatsManager : MonoBehaviour
 
     
 }
+
 
