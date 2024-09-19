@@ -6,13 +6,14 @@ using UnityEngine.Video;
 
 public class Farm : MonoBehaviour
 {
+    public ResourceType resourceType; //for choosing the resources to produce
     [SerializeField] private CurrencyManager currencyManager;
 
     [SerializeField] private int leastAmountForConsuming;
     private bool isConsumed;   //for starting consuming animation.
     private bool isEnough=false;
     public bool triggerConsumingAnimation=false;
-    private int woods=0;
+    private int resourceAmount=0;
     private float timer = 0f;
     public float interval = 1f;
 
@@ -45,52 +46,54 @@ public class Farm : MonoBehaviour
         if (timer >= interval)
         {
             // Increment currency by 1
-            UpdateWoods(1);
+            UpdateresourceAmount(1);
 
             // Reset the timer
             timer = 0f;
         }
 
         //check if resources are enough to collect .
-        if(woods>=leastAmountForConsuming){
+        if(resourceAmount>=leastAmountForConsuming){
             isEnough=true;
         }
         else{
             isEnough=false;
         }
     }
-    private void UpdateWoods(int amount){
-        //this continues update farm woods count.
-        woods += amount;
-
+    private void UpdateresourceAmount(int amount){
+        //this continues update farm resourceAmount count.
+        resourceAmount += amount;
     }
 
 
-    private void TriggerCollectionOfWoods(){
-        //calling function in currency manager to call for transfering all woods
-        currencyManager.CollectingAllWoods(); 
-        //trigger whole woods prefabs animations of consuming.
+    private void TriggerCollectionOfresourceAmount(){
+        //calling function in currency manager to call for transfering all resourceAmount
+        currencyManager.CollectingAllresourceAmount(); 
+        //trigger whole resourceAmount prefabs animations of consuming.
         isEnough=false;
     }
 
-    public int ReturnWoods(){
-        return woods;
+    public int ReturnResourceAmount(){
+        int collected=resourceAmount;
+        resourceAmount=0;
+
+        //triggers animations for consuming and it is being accessed by farmanimator update
+        //trigger this dyanmically-------------
+        triggerConsumingAnimation=true;
+
+        return collected;
     }
-    public void ResetWoods(){
-        woods=0;
-    }
+    
 
  
     public void OnClickIcon(){
     //click on image icon will triggers this.    
-    //transfer currency and reset it to zero.
-    if(isEnough){
+    //transfer currency and reset it to zero.    
 
-   
-    TriggerCollectionOfWoods();
+    // have to do this dynamically------
 
-    //triggers animations for consuming and it is being accessed by farmanimator update
-    triggerConsumingAnimation=true;
+    if(isEnough){   
+    TriggerCollectionOfresourceAmount();
     }
    
     }
@@ -101,3 +104,4 @@ public bool returnIsEnough(){
     }
 
 }
+
