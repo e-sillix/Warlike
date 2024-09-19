@@ -4,13 +4,7 @@ using UnityEngine;
 
 public class ResourceStatsManager : MonoBehaviour
 {//Returns Stats of Resource for spawning.
-    // [SerializeField]private int totalWood = 0;
-    // [SerializeField]private int totalGrain = 0;
-    // [SerializeField]private int totalStone = 0;
-
-
-    // [SerializeField] private int farmPrice;
-    // [SerializeField] private int barrackPrice;
+    
     // Dictionary to store resource costs for each building type
     private Dictionary<string, BuildingCost> buildingCosts;
 
