@@ -10,7 +10,6 @@ public class Farm : MonoBehaviour
     [SerializeField] private CurrencyManager currencyManager;
 
     [SerializeField] private int leastAmountForConsuming;
-    private bool isConsumed;   //for starting consuming animation.
     private bool isEnough=false;
     public bool triggerConsumingAnimation=false;
     private int resourceAmount=0;
@@ -68,7 +67,7 @@ public class Farm : MonoBehaviour
 
     private void TriggerCollectionOfresourceAmount(){
         //calling function in currency manager to call for transfering all resourceAmount
-        currencyManager.CollectingAllresourceAmount(); 
+        currencyManager.CollectingAllresourceAmount(resourceType); 
         //trigger whole resourceAmount prefabs animations of consuming.
         isEnough=false;
     }
@@ -78,7 +77,6 @@ public class Farm : MonoBehaviour
         resourceAmount=0;
 
         //triggers animations for consuming and it is being accessed by farmanimator update
-        //trigger this dyanmically-------------
         triggerConsumingAnimation=true;
 
         return collected;
@@ -88,10 +86,7 @@ public class Farm : MonoBehaviour
  
     public void OnClickIcon(){
     //click on image icon will triggers this.    
-    //transfer currency and reset it to zero.    
-
-    // have to do this dynamically------
-
+    //transfer currency and reset it to zero.
     if(isEnough){   
     TriggerCollectionOfresourceAmount();
     }

@@ -1,22 +1,34 @@
 using UnityEngine.UI; 
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
 public class CurrencyManager : MonoBehaviour
 {
-    [SerializeField]private int totalWood = 0;
-    [SerializeField]private int totalGrain = 0;
-    [SerializeField]private int totalStone = 0;
+    [SerializeField]private int deltaWood = 0;
+    [SerializeField]private int deltaGrain = 0;
+    [SerializeField]private int deltaStone = 0;
     public TextMeshProUGUI woodsCounter;    
     public TextMeshProUGUI grainCounter;    
     public TextMeshProUGUI stoneCounter;    
-    [SerializeField] private int woodCurrentCurrency=0;
+    // [SerializeField] private int woodCurrentCurrency=0;
+    private Dictionary<ResourceType, int> resourceCurrencies = new Dictionary<ResourceType, int>()
+    {
+        { ResourceType.Wood, 0 },
+        { ResourceType.Grain, 0 },
+        { ResourceType.Stone, 0 }
+    };
     
+    void Start(){
+        resourceCurrencies[ResourceType.Wood] = deltaWood;
+        resourceCurrencies[ResourceType.Grain] = deltaGrain;
+        resourceCurrencies[ResourceType.Stone] = deltaStone;
+    }
     
     private void UpdateUICounter(){
-        woodsCounter.text = "Woods: " + totalWood.ToString();
-        grainCounter.text = "Grains: " + totalGrain.ToString();
-        stoneCounter.text = "Stone: " + totalStone.ToString();
+        woodsCounter.text = "Woods: " + resourceCurrencies[ResourceType.Wood].ToString();
+        grainCounter.text = "Grains: " + resourceCurrencies[ResourceType.Grain].ToString();
+        stoneCounter.text = "Stone: " + resourceCurrencies[ResourceType.Stone].ToString();
     }
 
 
@@ -25,38 +37,42 @@ public class CurrencyManager : MonoBehaviour
         switch (type)
         {
             case ResourceType.Wood:
-                totalWood += amount;
+                resourceCurrencies[ResourceType.Wood] += amount;
                 break;
             case ResourceType.Grain:
-                totalGrain += amount;
+                resourceCurrencies[ResourceType.Grain] += amount;
                 break;
             case ResourceType.Stone:
-                totalStone += amount;
+                resourceCurrencies[ResourceType.Stone] += amount;
                 break;
         }
     }
 
-    public void CollectingAllresourceAmount(){
+    public void CollectingAllresourceAmount(ResourceType resourceTypeToCollect){
         //this will be called by TriggerCollectionOfresourceAmount in farm (indirectly by ui icon)
         
         Farm[] allFarms = FindObjectsOfType<Farm>();
         foreach (Farm farm in allFarms)
         {
-            // woodCurrentCurrency += farm.ReturnresourceAmount();
-            // farm.triggerConsumingAnimation=true;
-            int collected = farm.ReturnResourceAmount();
-            AddResource(farm.resourceType, collected);
+            if (farm.resourceType == resourceTypeToCollect)
+            {
+                int collected = farm.ReturnResourceAmount();
+                AddResource(farm.resourceType, collected);
+            }
           
         }        
-            UpdateUICounter();       
-           
+            UpdateUICounter();   
     }
-    public int ReturnCurrentCurrency(){
-        return woodCurrentCurrency;
+     public Dictionary<ResourceType, int> ReturnAllResources()
+    {
+        return new Dictionary<ResourceType, int>(resourceCurrencies); // Return a copy of the dictionary
     }
 
-    public void SpendWood(int amount){
-        woodCurrentCurrency=woodCurrentCurrency-amount;
+    public void SpendBuildingCost(int woodCost,int grainCost,int stoneCost){
+        //this needs to be changed.
+        resourceCurrencies[ResourceType.Wood] -= woodCost;
+        resourceCurrencies[ResourceType.Grain] -= grainCost;
+        resourceCurrencies[ResourceType.Stone] -= stoneCost;
         UpdateUICounter();
     }
    

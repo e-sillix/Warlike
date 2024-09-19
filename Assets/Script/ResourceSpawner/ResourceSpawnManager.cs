@@ -19,10 +19,13 @@ public class ResourceSpawnManager : MonoBehaviour
 
 
     private CurrencyManager currencyManager;
-    public int currentResourcePrice;
-    private int currency;
+    public int woodCost;
+    public int grainCost;
+    public int stoneCost;
+    // private int currency;
     public GameObject chosenBlueprint;
     public GameObject chosenResource;
+    private Dictionary<ResourceType, int> allResources;
    
    void Start(){ 
     currencyManager=CurrencyManager.GetComponent<CurrencyManager>();
@@ -33,7 +36,7 @@ public class ResourceSpawnManager : MonoBehaviour
     public void TriggerBluePrint(){   
         //this will be triggered by UI build button
        //Get current currency
-        currency=currencyManager.ReturnCurrentCurrency();
+        allResources = currencyManager.ReturnAllResources();
             
         if (currentBlueprint == null)
             {
@@ -56,8 +59,11 @@ public class ResourceSpawnManager : MonoBehaviour
 
 //4.check currency and spawn
     public void TriggerSpawning(){
+
         //this is called by UI yes confirmation
-        if(currentResourcePrice<=currency){
+        if(allResources[ResourceType.Wood] >= woodCost &&
+            allResources[ResourceType.Grain] >= grainCost &&
+            allResources[ResourceType.Stone] >= stoneCost){
                     PlaceResources(); 
                 }
             else{                    
@@ -83,11 +89,13 @@ public class ResourceSpawnManager : MonoBehaviour
 
 
                 //cut the cost--------------
-                currencyManager.SpendWood(currentResourcePrice);
+                currencyManager.SpendBuildingCost(woodCost, grainCost, stoneCost);
 
                 resourceUI.RefreshUIConstruction();
                 //nulling currentResourcePrice
-                currentResourcePrice=0;
+                woodCost=0;
+                grainCost=0;
+                stoneCost=0;                
             }
             else{
                 resourceUI.MessageForNotEnoughSpace();
