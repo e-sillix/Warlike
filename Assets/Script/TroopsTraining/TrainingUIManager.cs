@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UIManager : MonoBehaviour
+public class TrainingUIManager : MonoBehaviour
 {
     //Barrack ui handling here.
     //this will be transferred to new script .
