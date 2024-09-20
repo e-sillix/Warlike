@@ -13,6 +13,7 @@ public class ArmyCount : MonoBehaviour
     }
 
     public void AddSoldiers(int Amount){
+        //this called bt AcceptNewTroops of troopstraininglogic
         SoldierCount=SoldierCount+Amount;
         Debug.Log("Added Troops:"+Amount);
     }

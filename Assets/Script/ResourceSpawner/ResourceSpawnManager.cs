@@ -5,10 +5,9 @@ using UnityEngine;
 
 public class ResourceSpawnManager : MonoBehaviour
 {
-    //dynamic respective spawning for both original and blueprint,currency management for spawning
+    //dynamic respective spawning for both original and blueprint,trigger purchase 
     //trigger messages in resourceUI function.
-    [SerializeField] private GameObject ResourcePriceManager;  //for price returning
-    [SerializeField] private GameObject CurrencyManager;  //for current resources returning
+    [SerializeField] private TradingManager tradingManagerCS;  //for current resources returning
    
     // [SerializeField] private float farmRadius = 2f;           // The radius around the farm to check for collisions
     
@@ -16,19 +15,16 @@ public class ResourceSpawnManager : MonoBehaviour
     private ResourceUI resourceUI;
 
     private GameObject currentBlueprint;    // The current blueprint instance
-
-
-    private CurrencyManager currencyManager;
+  
     public int woodCost;
     public int grainCost;
     public int stoneCost;
-    // private int currency;
     public GameObject chosenBlueprint;
     public GameObject chosenResource;
     private Dictionary<ResourceType, int> allResources;
    
    void Start(){ 
-    currencyManager=CurrencyManager.GetComponent<CurrencyManager>();
+    // currencyManager=CurrencyManager.GetComponent<CurrencyManager>();
     resourceUI=ResourceUI.GetComponent<ResourceUI>();
     
    }    
@@ -36,7 +32,7 @@ public class ResourceSpawnManager : MonoBehaviour
     public void TriggerBluePrint(){   
         //this will be triggered by UI build button
        //Get current currency
-        allResources = currencyManager.ReturnAllResources();
+        // allResources = currencyManager.ReturnAllResources();//------------------
             
         if (currentBlueprint == null)
             {
@@ -59,11 +55,8 @@ public class ResourceSpawnManager : MonoBehaviour
 
 //4.check currency and spawn
     public void TriggerSpawning(){
-
         //this is called by UI yes confirmation
-        if(allResources[ResourceType.Wood] >= woodCost &&
-            allResources[ResourceType.Grain] >= grainCost &&
-            allResources[ResourceType.Stone] >= stoneCost){
+        if(tradingManagerCS.IsEnoughResource(woodCost,grainCost,stoneCost)){
                     PlaceResources(); 
                 }
             else{                    
@@ -78,7 +71,6 @@ public class ResourceSpawnManager : MonoBehaviour
     {
         if (currentBlueprint != null)
         {
-            //
             // Check if the blueprint is in a valid location
             if (!currentBlueprint.GetComponent<BluePrint>().ReturnIsColliding())
             {
@@ -88,8 +80,8 @@ public class ResourceSpawnManager : MonoBehaviour
                 currentBlueprint = null;
 
 
-                //cut the cost--------------
-                currencyManager.SpendBuildingCost(woodCost, grainCost, stoneCost);
+                //cut the cost
+                tradingManagerCS.SpendingResources(woodCost, grainCost, stoneCost);
 
                 resourceUI.RefreshUIConstruction();
                 //nulling currentResourcePrice

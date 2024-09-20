@@ -20,12 +20,14 @@ public class CurrencyManager : MonoBehaviour
     };
     
     void Start(){
+        //initializing with editor given no..
         resourceCurrencies[ResourceType.Wood] = deltaWood;
         resourceCurrencies[ResourceType.Grain] = deltaGrain;
         resourceCurrencies[ResourceType.Stone] = deltaStone;
     }
     
     private void UpdateUICounter(){
+        //update counter ui
         woodsCounter.text = "Woods: " + resourceCurrencies[ResourceType.Wood].ToString();
         grainCounter.text = "Grains: " + resourceCurrencies[ResourceType.Grain].ToString();
         stoneCounter.text = "Stone: " + resourceCurrencies[ResourceType.Stone].ToString();
@@ -34,6 +36,7 @@ public class CurrencyManager : MonoBehaviour
 
     public void AddResource(ResourceType type, int amount)
     {
+        //collection of resource by farms.
         switch (type)
         {
             case ResourceType.Wood:
@@ -69,6 +72,7 @@ public class CurrencyManager : MonoBehaviour
     }
 
     public void SpendBuildingCost(int woodCost,int grainCost,int stoneCost){
+        //spending resources 
         //this needs to be changed.
         resourceCurrencies[ResourceType.Wood] -= woodCost;
         resourceCurrencies[ResourceType.Grain] -= grainCost;
