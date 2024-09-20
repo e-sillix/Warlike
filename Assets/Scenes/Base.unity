@@ -128,6 +128,39 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2074233537}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &29656528
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 29656529}
+  m_Layer: 0
+  m_Name: CurrencyManagers
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &29656529
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 29656528}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 411135599}
+  - {fileID: 2061975414}
+  m_Father: {fileID: 391697916}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &38791190
 GameObject:
   m_ObjectHideFlags: 0
@@ -952,7 +985,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Train Soldier?
+  m_text: Train Infantry?
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2089,10 +2122,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 29656529}
   - {fileID: 1785417668}
   - {fileID: 1384693194}
   - {fileID: 117048137}
-  - {fileID: 411135599}
   - {fileID: 200914119}
   - {fileID: 839549158}
   m_Father: {fileID: 0}
@@ -2127,7 +2160,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 391697916}
+  m_Father: {fileID: 29656529}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &411135600
 MonoBehaviour:
@@ -2141,8 +2174,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abf6b04e9e278c84facc5ceb3985d365, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deltaWood: 50
-  deltaGrain: 50
+  deltaWood: 45
+  deltaGrain: 40
   deltaStone: 50
   woodsCounter: {fileID: 1196518568}
   grainCounter: {fileID: 1568983245}
@@ -2420,6 +2453,7 @@ MonoBehaviour:
   ArmyCountManager: {fileID: 214494316}
   baseTrainingTime: 10
   isTrainingInProgress: 0
+  resourceSpending: {fileID: 1632795005}
 --- !u!1 &552576416
 GameObject:
   m_ObjectHideFlags: 0
@@ -2464,6 +2498,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4845572da655a3a4bb398daa74884cf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  resourceSpending: {fileID: 1632795005}
   BarrackTrainingUiPanel: {fileID: 1155725108}
   BarrackCancelUiPanel: {fileID: 467348054}
   TrainingManager: {fileID: 530708367}
@@ -5223,6 +5258,74 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 592337860}
   m_CullTransparentMesh: 1
+--- !u!1001 &593091042
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5066686387632205646, guid: 5efccc3fc5027144fb6eb4a65179d0c6,
+        type: 3}
+      propertyPath: m_Name
+      value: Barrack
+      objectReference: {fileID: 0}
+    - target: {fileID: 5945761267273851875, guid: 5efccc3fc5027144fb6eb4a65179d0c6,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.59
+      objectReference: {fileID: 0}
+    - target: {fileID: 5945761267273851875, guid: 5efccc3fc5027144fb6eb4a65179d0c6,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5945761267273851875, guid: 5efccc3fc5027144fb6eb4a65179d0c6,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -17.47
+      objectReference: {fileID: 0}
+    - target: {fileID: 5945761267273851875, guid: 5efccc3fc5027144fb6eb4a65179d0c6,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5945761267273851875, guid: 5efccc3fc5027144fb6eb4a65179d0c6,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5945761267273851875, guid: 5efccc3fc5027144fb6eb4a65179d0c6,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5945761267273851875, guid: 5efccc3fc5027144fb6eb4a65179d0c6,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5945761267273851875, guid: 5efccc3fc5027144fb6eb4a65179d0c6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5945761267273851875, guid: 5efccc3fc5027144fb6eb4a65179d0c6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5945761267273851875, guid: 5efccc3fc5027144fb6eb4a65179d0c6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5efccc3fc5027144fb6eb4a65179d0c6, type: 3}
 --- !u!1 &613764490
 GameObject:
   m_ObjectHideFlags: 0
@@ -8213,8 +8316,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10f47c9dc5ca03e498f081ac8fcd0449, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ResourcePriceManager: {fileID: 1651349198}
-  CurrencyManager: {fileID: 411135597}
+  tradingManagerCS: {fileID: 2061975415}
   ResourceUI: {fileID: 2092241528}
   woodCost: 0
   grainCost: 0
@@ -8874,6 +8976,7 @@ Transform:
   - {fileID: 214494317}
   - {fileID: 530708366}
   - {fileID: 552576417}
+  - {fileID: 1632795004}
   m_Father: {fileID: 391697916}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &1391257494
@@ -9985,6 +10088,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1605975765}
   m_CullTransparentMesh: 1
+--- !u!1 &1632795003
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1632795004}
+  - component: {fileID: 1632795005}
+  m_Layer: 0
+  m_Name: TrainingCostManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1632795004
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1632795003}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1384693194}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1632795005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1632795003}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24d2b30c66547ff49b8ceaf75e8d1d4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tradingManager: {fileID: 2061975415}
 --- !u!1 &1651349198
 GameObject:
   m_ObjectHideFlags: 0
@@ -11015,6 +11163,51 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f4c396aa1901dac46a29f4d4e428341c, type: 3}
+--- !u!1 &2061975413
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2061975414}
+  - component: {fileID: 2061975415}
+  m_Layer: 0
+  m_Name: TradingManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2061975414
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2061975413}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 29656529}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2061975415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2061975413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b92d0927bd423a408f61540c19d578c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currencyManagerGO: {fileID: 411135600}
 --- !u!1001 &2074233537
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11416,3 +11609,4 @@ SceneRoots:
   - {fileID: 286404001}
   - {fileID: 412651538}
   - {fileID: 358556725}
+  - {fileID: 593091042}

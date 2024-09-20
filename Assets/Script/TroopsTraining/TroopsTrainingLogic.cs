@@ -19,10 +19,13 @@ public class TroopsTrainingLogic : MonoBehaviour
     public bool isTrainingInProgress = false; // Track if training is active
     private Coroutine trainingCoroutine;
     private int TroopsCountCurrentlyTraining;
+    [SerializeField] private ResourceSpending resourceSpending;
 
     public void StartTrainingTroops()
     {
         // this will be triggered by barrack prefab panel "yes"
+        //need to check if it has enough resources
+        if(resourceSpending.IsEnoughForTroops()){        
         if (!isTrainingInProgress)
         {
             GetAllTheBarracksStats();
@@ -31,12 +34,17 @@ public class TroopsTrainingLogic : MonoBehaviour
                 adjustedTrainingTime = baseTrainingTime / barracksCount;
                 elapsedTime = 0f; // Reset elapsed time before starting
                 trainingCoroutine = StartCoroutine(TrainingRoutine());
+                resourceSpending.SpendingOnTraining();
                 isTrainingInProgress = true;
             }
         }
         else
         {
             Debug.Log("Training is going on!!!!!!!");
+        }
+        }
+        else{
+            Debug.Log("not enough resources for training.");
         }
     }
     public void StopTrainingTroops(){

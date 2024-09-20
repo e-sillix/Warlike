@@ -7,6 +7,7 @@ public class TrainingUIManager : MonoBehaviour
     //Barrack ui handling here.
     //this will be transferred to new script .
 
+    [SerializeField] private ResourceSpending resourceSpending;
 
     [SerializeField] private GameObject BarrackTrainingUiPanel; // Assign your UI Panel in the Inspector
     [SerializeField] private GameObject BarrackCancelUiPanel; // Assign your UI Panel in the Inspector
@@ -40,8 +41,8 @@ public class TrainingUIManager : MonoBehaviour
             // Perform the raycast
             if (Physics.Raycast(ray, out hit))
             {
-                // Check if the click was on a Barrack
                 clickedObject = hit.collider.GetComponent<BarrackCollider>();
+                // Check if the click was on a Barrack
 
                 if (clickedObject != null)
                 {
@@ -50,6 +51,7 @@ public class TrainingUIManager : MonoBehaviour
                         CancelPanel();
                     }
                     else{
+                        resourceSpending.InfantryIsChosen();//---------this will be removed for making it dynamic
                         TrainingPanel();
                     }
                 }

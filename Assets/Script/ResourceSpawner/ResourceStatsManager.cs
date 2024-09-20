@@ -20,14 +20,7 @@ public class ResourceStatsManager : MonoBehaviour
         // Add more buildings here as needed
     }
     
-    public BuildingCost ReturnFarmPrice(){//this name will be changed----
-        string buildingName="Wood";
-        return buildingCosts[buildingName];       
-    }
-    public BuildingCost ReturnBarrackPrice(){
-        // string buildingName="Barracks";        
-            return buildingCosts["Barracks"];
-    }
+    
     public BuildingCost GetBuildingCost(string buildingName)
     {
         if (buildingCosts.TryGetValue(buildingName, out BuildingCost cost))
