@@ -24,9 +24,9 @@ public class ResourceSpending : MonoBehaviour
 
         //they will be added in future
 
-        // TroopsCosts.Add("Grain", new TroopsCost(wood: 10, grain: 5, stone: 10));
-        // TroopsCosts.Add("Stone", new TroopsCost(wood: 15, grain: 5, stone: 20));
-        // TroopsCosts.Add("Barracks", new TroopsCost(wood: 20, grain: 20, stone: 20));
+        // TroopsCosts.Add("Archer", new TroopsCost(wood: 10, grain: 5, stone: 10));
+        // TroopsCosts.Add("Cavalry", new TroopsCost(wood: 15, grain: 5, stone: 20));
+        // TroopsCosts.Add("Mage", new TroopsCost(wood: 20, grain: 20, stone: 20));
         // Add more Troopss here as needed
     }
 
@@ -41,7 +41,6 @@ public class ResourceSpending : MonoBehaviour
         woodCost=CostData.woodCostTr;
         grainCost=CostData.grainCostTr;
         stoneCost=CostData.stoneCostTr;
-        Debug.Log("Cost:"+","+stoneCost+","+grainCost+","+stoneCost);
     }
     private TroopsCost GetTroopsCost(string TroopsName)
     {

@@ -8,6 +8,7 @@ public class TrainingUIManager : MonoBehaviour
     //this will be transferred to new script .
 
     [SerializeField] private ResourceSpending resourceSpending;
+    [SerializeField] private InputUIManager inputUIManager;
 
     [SerializeField] private GameObject BarrackTrainingUiPanel; // Assign your UI Panel in the Inspector
     [SerializeField] private GameObject BarrackCancelUiPanel; // Assign your UI Panel in the Inspector
@@ -19,7 +20,6 @@ public class TrainingUIManager : MonoBehaviour
     {
         //Remove this-------
         BarrackTrainingUiPanel.SetActive(false); // Start with the panel hidden
-        TrainingManager=TrainingManager.GetComponent<TroopsTrainingLogic>();
     }
 
      private void TrainingPanel()
@@ -52,6 +52,8 @@ public class TrainingUIManager : MonoBehaviour
                     }
                     else{
                         resourceSpending.InfantryIsChosen();//---------this will be removed for making it dynamic
+                        inputUIManager.setLimitValues();//this one triggers ui have correct max and min value
+
                         TrainingPanel();
                     }
                 }

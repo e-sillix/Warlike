@@ -76,11 +76,7 @@ public class CurrencyManager : MonoBehaviour
         //this needs to be changed.
         resourceCurrencies[ResourceType.Wood] -= woodCost;
         resourceCurrencies[ResourceType.Grain] -= grainCost;
-        resourceCurrencies[ResourceType.Stone] -= stoneCost;
-        Debug.Log("remaining");
-        Debug.Log(resourceCurrencies[ResourceType.Wood]);        
-        Debug.Log(resourceCurrencies[ResourceType.Grain]);        
-        Debug.Log(resourceCurrencies[ResourceType.Stone]);        
+        resourceCurrencies[ResourceType.Stone] -= stoneCost;     
         UpdateUICounter();
     }
    

@@ -12,26 +12,32 @@ public class TroopsTrainingLogic : MonoBehaviour
 
     private int totalBarrackCapacity = 0;
     [SerializeField] private GameObject ArmyCountManager;//this is for updating Count
+    [SerializeField] private float rateOfTraining=0.5f;
     public float baseTrainingTime = 10f; // Base training time for one barrack
     private float adjustedTrainingTime;
     private int barracksCount = 0;
     private float elapsedTime = 0f;
     public bool isTrainingInProgress = false; // Track if training is active
     private Coroutine trainingCoroutine;
-    private int TroopsCountCurrentlyTraining;
     [SerializeField] private ResourceSpending resourceSpending;
+    [SerializeField] private InputUIManager inputUIManager;
+    private int troopsToTrain;
 
     public void StartTrainingTroops()
     {
-        // this will be triggered by barrack prefab panel "yes"
+        // this will be triggered by barrack prefab panel "Train"
         //need to check if it has enough resources
+        troopsToTrain=inputUIManager.GetNoofTroopsToTrain();
+        Debug.Log(troopsToTrain);
         if(resourceSpending.IsEnoughForTroops()){        
         if (!isTrainingInProgress)
         {
             GetAllTheBarracksStats();
             if (barracksCount > 0)
             {
-                adjustedTrainingTime = baseTrainingTime / barracksCount;
+                // adjustedTrainingTime = baseTrainingTime / barracksCount;
+                float notadjustedTime=rateOfTraining*troopsToTrain;
+                adjustedTrainingTime = notadjustedTime / barracksCount;
                 elapsedTime = 0f; // Reset elapsed time before starting
                 trainingCoroutine = StartCoroutine(TrainingRoutine());
                 resourceSpending.SpendingOnTraining();
@@ -56,20 +62,20 @@ public class TroopsTrainingLogic : MonoBehaviour
     {
         // Find all the barracks for their stats
         //this function is only created for getting troops training count
-        totalBarrackCapacity = 0;
+        // totalBarrackCapacity = 0;
         barracksCount=0;
         Barracks[] allBarracks = FindObjectsOfType<Barracks>();
         barracksCount = allBarracks.Length;
-        foreach (Barracks Barrack in allBarracks)
-        {
-            totalBarrackCapacity += Barrack.ReturnTroopsCapacity();//this will be changed named
-        }
-        TroopsCountCurrentlyTraining=totalBarrackCapacity;
+        // foreach (Barracks Barrack in allBarracks)
+        // {
+        //     totalBarrackCapacity += Barrack.ReturnTroopsCapacity();//this will be changed named
+        // }
+        // TroopsCountCurrentlyTraining=totalBarrackCapacity;
     }
     private void UpdateAllTheBarracksStats()
     {
         // update all the barracks for their stats
-        totalBarrackCapacity = 0;
+        // totalBarrackCapacity = 0;
         barracksCount=0;
         Barracks[] allBarracks = FindObjectsOfType<Barracks>();
         barracksCount = allBarracks.Length;
@@ -104,7 +110,7 @@ public class TroopsTrainingLogic : MonoBehaviour
 
 
         //this will be removed and changed the amount
-        AcceptNewTroops(TroopsCountCurrentlyTraining);     
+        AcceptNewTroops(troopsToTrain);     
 
     }
     public void AcceptNewTroops(int Amount){
