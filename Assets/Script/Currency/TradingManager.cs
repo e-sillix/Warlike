@@ -20,9 +20,10 @@ public class TradingManager : MonoBehaviour
         return allResources[ResourceType.Wood] >= woodCost && 
         allResources[ResourceType.Grain] >= grainCost &&
         allResources[ResourceType.Stone] >= stoneCost;
-    }
+    }   
 
     public void SpendingResources(int woodCost,int grainCost,int stoneCost){
+        Debug.Log("Cost cutted :"+ woodCost+","+ grainCost+","+ stoneCost);
         currencyManager.SpendBuildingCost(woodCost, grainCost, stoneCost);
     }
 }

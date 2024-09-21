@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class InputUIManager : MonoBehaviour
 {
-    //this handles ui for taking input and giving how many to train
+    //this handles ui for taking input and giving how many to train to trainingManager
     public Slider resourceSlider;
     public TMP_InputField resourceInputField; // For TextMeshPro InputField    
 
@@ -70,7 +70,7 @@ public class InputUIManager : MonoBehaviour
     // Method to get the selected value if needed elsewhere
     public int GetNoofTroopsToTrain()
     {
-        //this will be called to get how many troops to trains
+        //this will be called to get how many troops to train
         return currentValue;
     }
 }

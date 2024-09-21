@@ -8,19 +8,18 @@ public class ResourceSpending : MonoBehaviour
     //this will store stats for troops cost for now
     //and handle spending on them and returning is is it to TroopsTrainingLogic
 
-    // [SerializeField] private int ;
 
     private Dictionary<string, TroopsCost> TroopsCosts;
     private TroopsCost CostData;
-    [SerializeField] private TradingManager tradingManager;
-    private int woodCost,grainCost,stoneCost; 
+    // [SerializeField] private TradingManager tradingManager;
+    public int woodCost,grainCost,stoneCost; 
 
     void Start()
     {
         TroopsCosts = new Dictionary<string, TroopsCost>();
 
        // Add costs for different Troopss (name of Troops as key)
-        TroopsCosts.Add("Infantry", new TroopsCost(wood: 10, grain: 15, stone: 10));
+        TroopsCosts.Add("Infantry", new TroopsCost(wood: 2, grain: 3, stone: 1));
 
         //they will be added in future
 
@@ -54,14 +53,5 @@ public class ResourceSpending : MonoBehaviour
             return null;
         }
     }
-    
-    //now checking is it enough
-    public bool IsEnoughForTroops(){
-        Debug.Log("passed for checking"+woodCost+","+grainCost+","+stoneCost);
-        return tradingManager.IsEnoughResource(woodCost,grainCost,stoneCost);
-    }
-    public void SpendingOnTraining(){
-        tradingManager.SpendingResources(woodCost,grainCost,stoneCost);
-        CostData=null;
-    }
+
 }

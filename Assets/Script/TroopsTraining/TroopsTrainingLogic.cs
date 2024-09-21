@@ -10,72 +10,45 @@ public class TroopsTrainingLogic : MonoBehaviour
     // and trigger their icons
     // for the barracks being spawned during training should also immediately should be handle somehow.
 
-    private int totalBarrackCapacity = 0;
-    [SerializeField] private GameObject ArmyCountManager;//this is for updating Count
+    // private int totalBarrackCapacity = 0;
     [SerializeField] private float rateOfTraining=0.5f;
-    public float baseTrainingTime = 10f; // Base training time for one barrack
     private float adjustedTrainingTime;
     private int barracksCount = 0;
     private float elapsedTime = 0f;
     public bool isTrainingInProgress = false; // Track if training is active
     private Coroutine trainingCoroutine;
-    [SerializeField] private ResourceSpending resourceSpending;
-    [SerializeField] private InputUIManager inputUIManager;
-    private int troopsToTrain;
+    [SerializeField] private TrainingManager trainingManager;
+    private int troops;
 
-    public void StartTrainingTroops()
+    public void StartTrainingTroops(int troopsToTrain)
     {
-        // this will be triggered by barrack prefab panel "Train"
+        //By Training Manager
         //need to check if it has enough resources
-        troopsToTrain=inputUIManager.GetNoofTroopsToTrain();
-        Debug.Log(troopsToTrain);
-        if(resourceSpending.IsEnoughForTroops()){        
-        if (!isTrainingInProgress)
-        {
+        troops=troopsToTrain;
+        Debug.Log(troops);
             GetAllTheBarracksStats();
             if (barracksCount > 0)
             {
-                // adjustedTrainingTime = baseTrainingTime / barracksCount;
-                float notadjustedTime=rateOfTraining*troopsToTrain;
+                float notadjustedTime=rateOfTraining*troops;
                 adjustedTrainingTime = notadjustedTime / barracksCount;
                 elapsedTime = 0f; // Reset elapsed time before starting
                 trainingCoroutine = StartCoroutine(TrainingRoutine());
-                resourceSpending.SpendingOnTraining();
                 isTrainingInProgress = true;
             }
-        }
-        else
-        {
-            Debug.Log("Training is going on!!!!!!!");
-        }
-        }
-        else{
-            Debug.Log("not enough resources for training.");
-        }
     }
-    public void StopTrainingTroops(){
-        //this will also be triggered by ui panel cancel
-        Debug.Log("This one is underConstruction!!!!!!!");
-    }
+    
 
     private void GetAllTheBarracksStats()
     {
         // Find all the barracks for their stats
         //this function is only created for getting troops training count
-        // totalBarrackCapacity = 0;
+        
         barracksCount=0;
         Barracks[] allBarracks = FindObjectsOfType<Barracks>();
         barracksCount = allBarracks.Length;
-        // foreach (Barracks Barrack in allBarracks)
-        // {
-        //     totalBarrackCapacity += Barrack.ReturnTroopsCapacity();//this will be changed named
-        // }
-        // TroopsCountCurrentlyTraining=totalBarrackCapacity;
     }
     private void UpdateAllTheBarracksStats()
     {
-        // update all the barracks for their stats
-        // totalBarrackCapacity = 0;
         barracksCount=0;
         Barracks[] allBarracks = FindObjectsOfType<Barracks>();
         barracksCount = allBarracks.Length;
@@ -96,30 +69,13 @@ public class TroopsTrainingLogic : MonoBehaviour
 
     private void TrainingDone()
     {
-        Debug.Log("Training completed. Adding troops.");
         isTrainingInProgress = false;
+
+        trainingManager.TrainingDone(troops);
         // Code to add troops
-        TriggerBarracksAllIcons();
     }
 
-    private void TriggerBarracksAllIcons()
-    {
-        // This should be called after the set amount of time
-        Debug.Log("Triggering barracks icons");
-        // Logic to update UI/icons   
-
-
-        //this will be removed and changed the amount
-        AcceptNewTroops(troopsToTrain);     
-
-    }
-    public void AcceptNewTroops(int Amount){
-        //this will be triggered by clicking on Trigger icon option
-        ArmyCount troopsCounterManager=ArmyCountManager.GetComponent<ArmyCount>();
-        troopsCounterManager.AddSoldiers(Amount);
-    }
-
-    private void ReInsitaiteTrainingTime()
+    public void ReInsitaiteTrainingTime()
     {
         if (trainingCoroutine != null)
         {
@@ -135,13 +91,5 @@ public class TroopsTrainingLogic : MonoBehaviour
             trainingCoroutine = StartCoroutine(TrainingRoutine());
         }
     }
-
-    public void IsTraining()
-    {
-        if (isTrainingInProgress)
-        {
-            Debug.Log("New barrack created during training");
-            ReInsitaiteTrainingTime();
-        }
-    }
+    
 }

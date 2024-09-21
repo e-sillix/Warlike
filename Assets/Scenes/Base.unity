@@ -2595,9 +2595,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abf6b04e9e278c84facc5ceb3985d365, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deltaWood: 45
-  deltaGrain: 40
-  deltaStone: 50
+  deltaWood: 100
+  deltaGrain: 100
+  deltaStone: 100
   woodsCounter: {fileID: 1196518568}
   grainCounter: {fileID: 1568983245}
   stoneCounter: {fileID: 1690072422}
@@ -2951,7 +2951,7 @@ MonoBehaviour:
   baseTrainingTime: 10
   isTrainingInProgress: 0
   resourceSpending: {fileID: 1632795005}
-  inputUIManager: {fileID: 1569805908}
+  trainingManager: {fileID: 864980647}
 --- !u!1 &552576416
 GameObject:
   m_ObjectHideFlags: 0
@@ -7434,6 +7434,55 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f4c396aa1901dac46a29f4d4e428341c, type: 3}
+--- !u!1 &864980645
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 864980646}
+  - component: {fileID: 864980647}
+  m_Layer: 0
+  m_Name: TrainingManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &864980646
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 864980645}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1384693194}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &864980647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 864980645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 159ad1e0cd8cc1841bc2caaa9c44a384, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resourceSpending: {fileID: 1632795005}
+  inputUIManager: {fileID: 1569805908}
+  tradingManager: {fileID: 2061975415}
+  trainingLogic: {fileID: 530708367}
+  troopsCounter: {fileID: 214494318}
 --- !u!1001 &900007201
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8642,10 +8691,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 530708367}
-        m_TargetAssemblyTypeName: TroopsTrainingLogic, Assembly-CSharp
-        m_MethodName: StartTrainingTroops
-        m_Mode: 1
+      - m_Target: {fileID: 1155725108}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -8654,10 +8703,10 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1155725108}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 864980647}
+        m_TargetAssemblyTypeName: TrainingManager, Assembly-CSharp
+        m_MethodName: InitiatingTrainingProcess
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -9431,8 +9480,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 530708367}
-        m_TargetAssemblyTypeName: TroopsTrainingLogic, Assembly-CSharp
+      - m_Target: {fileID: 864980647}
+        m_TargetAssemblyTypeName: TrainingManager, Assembly-CSharp
         m_MethodName: StopTrainingTroops
         m_Mode: 1
         m_Arguments:
@@ -9701,6 +9750,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 214494317}
+  - {fileID: 864980646}
   - {fileID: 530708366}
   - {fileID: 552576417}
   - {fileID: 1632795004}
@@ -10961,7 +11011,7 @@ GameObject:
   - component: {fileID: 1632795004}
   - component: {fileID: 1632795005}
   m_Layer: 0
-  m_Name: TrainingCostManager
+  m_Name: TrainingSpendingManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10995,6 +11045,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tradingManager: {fileID: 2061975415}
+  woodCost: 0
+  grainCost: 0
+  stoneCost: 0
 --- !u!1 &1651349198
 GameObject:
   m_ObjectHideFlags: 0
