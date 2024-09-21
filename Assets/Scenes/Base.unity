@@ -2913,7 +2913,7 @@ GameObject:
   - component: {fileID: 530708366}
   - component: {fileID: 530708367}
   m_Layer: 0
-  m_Name: TroopsTrainingManager
+  m_Name: TrainingLogic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2946,11 +2946,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 595e86f152b893544a6b040924916763, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ArmyCountManager: {fileID: 214494316}
   rateOfTraining: 0.5
-  baseTrainingTime: 10
   isTrainingInProgress: 0
-  resourceSpending: {fileID: 1632795005}
   trainingManager: {fileID: 864980647}
 --- !u!1 &552576416
 GameObject:
@@ -11044,7 +11041,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24d2b30c66547ff49b8ceaf75e8d1d4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tradingManager: {fileID: 2061975415}
   woodCost: 0
   grainCost: 0
   stoneCost: 0
