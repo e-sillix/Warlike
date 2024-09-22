@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 //this one is attached to the main Army or troops.
-public class ArmyMarcher : MonoBehaviour
+public class TheUnit : MonoBehaviour
 {
     public LayerMask groundLayer; // Assign this to your ground layer in the Inspector
     public float moveSpeed = 5f; // Speed of movement
