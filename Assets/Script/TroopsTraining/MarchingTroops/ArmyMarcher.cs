@@ -17,7 +17,8 @@ public class ArmyMarcher : MonoBehaviour
         if (shouldMove)
         {
             // Move the object towards the target position smoothly
-            transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, targetPosition, 
+            moveSpeed * Time.deltaTime);
 
             // Check if the object has reached the target position
             if (Vector3.Distance(transform.position, targetPosition) < 0.1f)
