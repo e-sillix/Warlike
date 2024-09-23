@@ -9,6 +9,8 @@ public class TheUnit : MonoBehaviour
     
     private Vector3 targetPosition;
     private bool shouldMove = false;
+    [SerializeField] private GameObject SelectorIcon;
+
 
    
 
@@ -35,4 +37,8 @@ public class TheUnit : MonoBehaviour
         shouldMove = true;
     }
 
+    public void Highlight(bool isSelected)
+    {    
+        SelectorIcon.SetActive(isSelected);
+    }
 }

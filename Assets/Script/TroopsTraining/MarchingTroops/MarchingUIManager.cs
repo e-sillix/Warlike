@@ -10,13 +10,13 @@ public class MarchingUIManager : MonoBehaviour
     public TMP_InputField troopsInputField; // For TextMeshPro InputField    
 
     private int NumberOfTroops;
-    public LayerMask groundLayer; 
-    [SerializeField] UnitSelectionManager selectionManager;
-    private UnitSelector selectedObject;
+    public LayerMask groundLayer;    
     
     [SerializeField] private TroopsMarchManager marchManager;
     [SerializeField] private GameObject MarchingUIPanel;
     [SerializeField] private ArmyCount armyCount;
+    private TheUnit TheselectedObject;
+    private Vector3 positionToMarch;
 
     void Start()
     {
@@ -40,39 +40,44 @@ public class MarchingUIManager : MonoBehaviour
 
             // Perform the raycast
             if (Physics.Raycast(ray, out hit))//this will move
-            {                
-                //this will pass the to check if it is a army
-                //then selected
-                if(CheckArmySelected(hit)||IsGroundLayer(hit.collider.gameObject)){
-                selectedObject=selectionManager.selectedObject;
-
-                
-                if(CheckArmySelected(hit)){//return true it clicked on army
-                    if(selectedObject!=null){//null if previous
-                    selectionManager.DeselectTheUnit();//deselecting previous unit
-                    }
-                    selectionManager.selectTheUnit(CheckArmySelected(hit));// pass the clicked unit prefab
-                }
-                 else if (selectedObject != null && IsGroundLayer(hit.collider.gameObject))
-                {                    
-                    marchManager.InitiateTheMarchProcess(selectedObject,hit.point);
-
-                }  
-                else if(IsGroundLayer(hit.collider.gameObject)){
-                    setLimitValues();
+            {
+                 if(IsGroundLayer(hit.collider.gameObject)&& !TheselectedObject){
+                    positionToMarch=hit.point;
                     MarchingUIPanel.SetActive(true);
-                }            
-                }
-                else{
-                    if( selectedObject != null){
-                        // Deselect the currently selected army ,if other object is clicked
-                        selectedObject.Highlight(false);
-                        selectionManager.DeselectTheUnit();//deselecting previous unit
+                    //this will open up ui 
+
+                    //need to refresh ui max numbers
+                    troopsSlider.maxValue = armyCount.ReturnSoldierCount(); //get the total troops present
+
+                    //need to find a way to select initiated prefab as selected                    
+                 }
+                 else if(IsGroundLayer(hit.collider.gameObject)&& TheselectedObject){
+                    marchManager.InitiateTheMarchProcess(TheselectedObject,hit.point);
+                    
+                 }
+                 else if(CheckArmySelected(hit)){
+                    if(TheselectedObject){
+                    TheselectedObject.Highlight(false);//previous selected one
+                    TheselectedObject=null;
                     }
-                }
-            }
+                    TheselectedObject=CheckArmySelected(hit).ReturnTheUnit();//assigning new one
+                    TheselectedObject.Highlight(true);
+                    Debug.Log("3");
+                 }
+                else if(!IsGroundLayer(hit.collider.gameObject)&& TheselectedObject){
+                    TheselectedObject.Highlight(false);
+                    TheselectedObject=null;
+                    Debug.Log("4");
+                 }
+             }
         }
     }
+
+    public void StartNewMarch(){
+        //this will be triggered by UI March 
+       TheselectedObject= marchManager.InitiateNewMarchProcess(GetNoofTroopsToTrain(),positionToMarch);
+    }
+
     private bool IsGroundLayer(GameObject obj)
     {
         return (groundLayer.value & (1 << obj.layer)) != 0;
@@ -81,6 +86,7 @@ public class MarchingUIManager : MonoBehaviour
         UnitSelector clickedObject = hit.collider.GetComponent<UnitSelector>();  
         return clickedObject;
     }
+    
 
 //slider handling
 
@@ -119,7 +125,7 @@ public void setLimitValues(){//++++ need to pass a value for max capacity
     }
 
     // Method to get the selected value if needed elsewhere
-    public int GetNoofTroopsToTrain()
+    private int GetNoofTroopsToTrain()
     {
         //this will be called to get how many troops to train
         return NumberOfTroops;

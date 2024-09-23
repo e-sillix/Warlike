@@ -190,6 +190,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   moveSpeed: 5
+  SelectorIcon: {fileID: 1120540834530551616}
 --- !u!1 &7906592544192707190
 GameObject:
   m_ObjectHideFlags: 0
@@ -358,8 +359,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f919c04e361f5f4d90cd8c71912d852, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TheSoldier: {fileID: 7817682463295282944}
-  SelectorIcon: {fileID: 1120540834530551616}
+  theUnit: {fileID: 7871303663021866123}
 --- !u!1 &9101309565667963561
 GameObject:
   m_ObjectHideFlags: 0
