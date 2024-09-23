@@ -515,6 +515,7 @@ MonoBehaviour:
   TheUnitPrefab: {fileID: 7817682463295282944, guid: f3f49270f0a939941b605a8b13f91495,
     type: 3}
   Spawnpoint: {fileID: 1112301322}
+  troopsCounter: {fileID: 214494318}
 --- !u!4 &96948972
 Transform:
   m_ObjectHideFlags: 0

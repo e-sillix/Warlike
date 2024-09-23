@@ -8,6 +8,7 @@ public class TroopsMarchManager : MonoBehaviour
     private GameObject selectedGO;
     [SerializeField] private GameObject TheUnitPrefab;
     [SerializeField] private GameObject Spawnpoint;
+    [SerializeField] private ArmyCount troopsCounter;
    
 
   
@@ -19,6 +20,9 @@ public class TroopsMarchManager : MonoBehaviour
    public TheUnit InitiateNewMarchProcess(int troopsCount,Vector3 position){
      //this will be triggered when MUIM doesn't have selected
      selectedGO=Instantiate(TheUnitPrefab,Spawnpoint.transform.position, Spawnpoint.transform.rotation);
+
+     //cut the soldier count from the base
+     troopsCounter.WithDrawingTroopsFromBase(troopsCount);
 
      selectedObject=selectedGO.GetComponent<TheUnit>();
      selectedObject.SetTroopsVisualCount(troopsCount);
