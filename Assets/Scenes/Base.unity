@@ -1575,7 +1575,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6196d4b5a0975ec47b805a4244f180a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SoldierCount: 0
+  SoldierCount: 100
 --- !u!1 &226651629
 GameObject:
   m_ObjectHideFlags: 0
@@ -8958,7 +8958,7 @@ PrefabInstance:
     - target: {fileID: 5945761267273851875, guid: 5efccc3fc5027144fb6eb4a65179d0c6,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.44
+      value: -10.42
       objectReference: {fileID: 0}
     - target: {fileID: 5945761267273851875, guid: 5efccc3fc5027144fb6eb4a65179d0c6,
         type: 3}
@@ -13853,7 +13853,7 @@ PrefabInstance:
     - target: {fileID: 5945761267273851875, guid: 5efccc3fc5027144fb6eb4a65179d0c6,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.44
+      value: 5.18
       objectReference: {fileID: 0}
     - target: {fileID: 5945761267273851875, guid: 5efccc3fc5027144fb6eb4a65179d0c6,
         type: 3}

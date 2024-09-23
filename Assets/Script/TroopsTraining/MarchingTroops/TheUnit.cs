@@ -10,9 +10,14 @@ public class TheUnit : MonoBehaviour
     private Vector3 targetPosition;
     private bool shouldMove = false;
     [SerializeField] private GameObject SelectorIcon;
+    [SerializeField] private VisualCountDispayer TroopsCountDisplayer;
+
+    // private int NumberOfTroops;
 
 
-   
+//    void Start(){
+
+//    }
 
     void Update()
     {
@@ -40,5 +45,9 @@ public class TheUnit : MonoBehaviour
     public void Highlight(bool isSelected)
     {    
         SelectorIcon.SetActive(isSelected);
+    }
+    public void SetTroopsVisualCount(int count){
+        Debug.Log(count);
+        TroopsCountDisplayer.DisplaySoldiers(count);
     }
 }

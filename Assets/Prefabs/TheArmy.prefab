@@ -191,6 +191,7 @@ MonoBehaviour:
     m_Bits: 64
   moveSpeed: 5
   SelectorIcon: {fileID: 1120540834530551616}
+  TroopsCountDisplayer: {fileID: 2858234061686820882}
 --- !u!1 &7906592544192707190
 GameObject:
   m_ObjectHideFlags: 0
@@ -238,9 +239,9 @@ MonoBehaviour:
   soldierPrefab: {fileID: 5256397312744503924, guid: 4fd41ad7debc273418a85807805cefad,
     type: 3}
   spawnAreaSize: {x: 3, y: 0, z: 3}
-  SoldierCountRightNow: 7
-  minSoldiers: 3
-  maxSoldiers: 10
+  SoldierCountRightNow: 0
+  minSoldiers: 1
+  maxSoldiers: 15
 --- !u!1 &8899570883475553693
 GameObject:
   m_ObjectHideFlags: 0

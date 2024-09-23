@@ -6,13 +6,13 @@ public class VisualCountDispayer : MonoBehaviour
 {//attached to visual GO onside Army prefab for 
     [SerializeField] private GameObject soldierPrefab;  // The soldier prefab to instantiate
     [SerializeField] private Vector3 spawnAreaSize = new Vector3(3, 0, 3);  // Size of the area in which soldiers can spawn
-    public int SoldierCountRightNow=7;
-    public int minSoldiers = 3;
-    public int maxSoldiers = 10;
+    public int SoldierCountRightNow;
+    public int minSoldiers ;
+    public int maxSoldiers ;
 
-    void Start(){
-        DisplaySoldiers(SoldierCountRightNow);
-    }
+    // void Start(){
+    //     DisplaySoldiers(SoldierCountRightNow);
+    // }
     public void DisplaySoldiers(int soldierCount)
     {
         //probably called on creation of army and during combat
