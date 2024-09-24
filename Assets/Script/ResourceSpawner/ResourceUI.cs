@@ -39,6 +39,7 @@ public class ResourceUI : MonoBehaviour
 // This method will deactivate the GameObject
     void HideNotEnoughCreditsMessage()
         {
+            //this is getting invoked by messageFornotenoughcredit.
             NotEnoughCreditsGameobject.SetActive(false);
         }   
     public void MessageForNotEnoughSpace(){
