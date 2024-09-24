@@ -9,6 +9,9 @@ public class BluePrint : MonoBehaviour
     //remember to set blueprint collider to layer blue.
     private BoxCollider boxCollider;
     public LayerMask groundLayer;
+    public LayerMask innerKingdomLayer;
+    public LayerMask outerKingdomLayer;
+
     public LayerMask BlueLayer;
     [SerializeField] private GameObject TheCollider;
     private bool IsBlueColliding;

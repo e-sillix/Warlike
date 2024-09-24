@@ -6,33 +6,21 @@ using UnityEngine;
 public class ResourceSpawnManager : MonoBehaviour
 {
     //dynamic respective spawning for both original and blueprint,trigger purchase 
-    //trigger messages in resourceUI function.
-    [SerializeField] private TradingManager tradingManagerCS;  //for current resources returning
+    //trigger messages in resourceUI function.   
    
     // [SerializeField] private float farmRadius = 2f;           // The radius around the farm to check for collisions
     
-    [SerializeField] private GameObject ResourceUI;
-    private ResourceUI resourceUI;
+    [SerializeField] private ResourceUI resourceUI;
 
     private GameObject currentBlueprint;    // The current blueprint instance
   
-    public int woodCost;
-    public int grainCost;
-    public int stoneCost;
     public GameObject chosenBlueprint;
     public GameObject chosenResource;
     private Dictionary<ResourceType, int> allResources;
    
-   void Start(){ 
-    // currencyManager=CurrencyManager.GetComponent<CurrencyManager>();
-    resourceUI=ResourceUI.GetComponent<ResourceUI>();
-    
-   }    
+ 
     //1.taking input from ui
-    public void TriggerBluePrint(){   
-        //this will be triggered by UI build button
-       //Get current currency
-        // allResources = currencyManager.ReturnAllResources();//------------------
+    public void TriggerBluePrint(){     
             
         if (currentBlueprint == null)
             {
@@ -54,20 +42,9 @@ public class ResourceSpawnManager : MonoBehaviour
     }
 
 //4.check currency and spawn
-    public void TriggerSpawning(){
-        //this is called by UI yes confirmation
-        if(tradingManagerCS.IsEnoughResource(woodCost,grainCost,stoneCost)){
-                    PlaceResources(); 
-                }
-            else{                    
-                    //visual representation for not enough credits
-                    resourceUI.MessageForNotEnoughCredit();
-                    Destroy(currentBlueprint);//this will be removed
-                    // or may trigger a panel of not enough resources. 
-                }
-    }   
+    
     //2.intiating
-    void PlaceResources()
+    public void PlaceResources()
     {
         if (currentBlueprint != null)
         {
@@ -78,27 +55,15 @@ public class ResourceSpawnManager : MonoBehaviour
                 Instantiate(chosenResource, currentBlueprint.transform.position, Quaternion.identity);
                 Destroy(currentBlueprint);
                 currentBlueprint = null;
-
-
-                //cut the cost
-                tradingManagerCS.SpendingResources(woodCost, grainCost, stoneCost);
-
-                resourceUI.RefreshUIConstruction();
-                //nulling currentResourcePrice
-                woodCost=0;
-                grainCost=0;
-                stoneCost=0;                
+                //cut the cost               
+                resourceUI.TheBuildingPlaced();                               
             }
             else{
                 resourceUI.MessageForNotEnoughSpace();
             }
         }
-    } 
-
-//5.Cleanup
-    public void CancleBuilding(){
-        //Triggered by ui cancel X button on confirmation
+    }
+    public void DestroyTheBlueprint(){
         Destroy(currentBlueprint);
-        resourceUI.RefreshUIConstruction();
     }
 }
