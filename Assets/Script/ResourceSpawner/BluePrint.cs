@@ -15,6 +15,7 @@ public class BluePrint : MonoBehaviour
     public LayerMask BlueLayer;
     [SerializeField] private GameObject TheCollider;
     private bool IsBlueColliding;
+    private bool buildingUI;
     private void Start()
     {
        if (TheCollider != null)
@@ -65,6 +66,12 @@ public class BluePrint : MonoBehaviour
         {
             IsBlueColliding = true;
         }
+        if(innerKingdomCollision){
+            buildingUI=true; 
+        }
+        else{
+            buildingUI=false;//this will be used to turn off ui.
+        }
     }
 
     //*will update position according to camera position
@@ -103,5 +110,8 @@ public class BluePrint : MonoBehaviour
     //*return to RSM for check for placing farm
     public bool ReturnIsColliding(){        
         return IsBlueColliding;
+    }
+    public bool ReturnBuildingUI(){        
+        return buildingUI;
     }
 }

@@ -14,6 +14,7 @@ public class ResourceUI : MonoBehaviour
     [SerializeField] private float messageDisappearingTime=0.5f;
     [SerializeField] private ResourceSpawnManager SpawnManager;
     [SerializeField] private TradingManager tradingManagerCS;
+    private BluePrint bluePrint;
     public int woodCost;
     public int grainCost;
     public int stoneCost;
