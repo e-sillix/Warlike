@@ -45,15 +45,25 @@ public class BluePrint : MonoBehaviour
     }
 
     private void IsBluePrintColliding()
-    {
-        LayerMask combinedLayerMask = ~groundLayer&~BlueLayer;
-        // Use the BoxCollider's center and size for the overlap check
-        Collider[] hitColliders = Physics.OverlapBox(boxCollider.bounds.center, boxCollider.bounds.extents, Quaternion.identity,combinedLayerMask);
-        //Debug.Log(hitColliders.Length);
-        if( hitColliders.Length!=0){
-            IsBlueColliding=true;
-        }else{
-            IsBlueColliding=false;
+    {       
+        bool groundCollision = Physics.OverlapBox(boxCollider.bounds.center, boxCollider.bounds.extents, Quaternion.identity, groundLayer).Length != 0;
+        bool blueCollision = Physics.OverlapBox(boxCollider.bounds.center, boxCollider.bounds.extents, Quaternion.identity, BlueLayer).Length != 0;
+        bool outerKingdomCollision = Physics.OverlapBox(boxCollider.bounds.center, boxCollider.bounds.extents, Quaternion.identity, outerKingdomLayer).Length != 0;
+        bool innerKingdomCollision = Physics.OverlapBox(boxCollider.bounds.center, boxCollider.bounds.extents, Quaternion.identity, innerKingdomLayer).Length != 0;
+
+        LayerMask allowedLayers = groundLayer | BlueLayer | outerKingdomLayer | innerKingdomLayer;
+        LayerMask allOtherLayers = ~allowedLayers;
+
+        bool otherCollision = Physics.OverlapBox(boxCollider.bounds.center, boxCollider.bounds.extents, Quaternion.identity, allOtherLayers).Length != 0;
+
+        // Set IsBlueColliding to true only if all required layers are colliding and there are no other collisions
+        if (groundCollision && blueCollision && outerKingdomCollision && innerKingdomCollision && !otherCollision)//false if colliding
+        {
+            IsBlueColliding = false;
+        }
+        else
+        {
+            IsBlueColliding = true;
         }
     }
 
