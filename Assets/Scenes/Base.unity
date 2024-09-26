@@ -2409,9 +2409,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1486931851}
-        m_TargetAssemblyTypeName: ResourceSpecifier, Assembly-CSharp
-        m_MethodName: WoodIsChoosen
+      - m_Target: {fileID: 536403204}
+        m_TargetAssemblyTypeName: BuildingUIManager, Assembly-CSharp
+        m_MethodName: WoodFarmIsChosen
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2917,6 +2917,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 29656529}
+  - {fileID: 627841137}
   - {fileID: 1785417668}
   - {fileID: 1384693194}
   - {fileID: 117048137}
@@ -3013,6 +3014,54 @@ Transform:
   - {fileID: 286404001}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &416393049
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 416393050}
+  - component: {fileID: 416393051}
+  m_Layer: 0
+  m_Name: BuildingStatsManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &416393050
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 416393049}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 627841137}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &416393051
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 416393049}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b9b0df6fb9f10440a3e3b84f886fcf3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  woodFarmData: {fileID: 11400000, guid: e2707e601b3b0be47995d243d57b51c8, type: 2}
+  grainFarmData: {fileID: 11400000, guid: 401610c10c0e9ab43b3454ff1fac7834, type: 2}
+  stoneFarmData: {fileID: 11400000, guid: 61ae52d912f455a41b6852765dd78b51, type: 2}
+  barrackData: {fileID: 11400000, guid: 007244c7002887c4888b1ec049d62b8d, type: 2}
 --- !u!1 &438558852
 GameObject:
   m_ObjectHideFlags: 0
@@ -3621,6 +3670,60 @@ MonoBehaviour:
   rateOfTraining: 0.5
   isTrainingInProgress: 0
   trainingManager: {fileID: 864980647}
+--- !u!1 &536403202
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 536403203}
+  - component: {fileID: 536403204}
+  m_Layer: 0
+  m_Name: BuilidingUIManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &536403203
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 536403202}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 627841137}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &536403204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 536403202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0417228061b64114692184936ae5ce68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CheckingUpUIGameobject: {fileID: 440431208}
+  BottomLeftUIGameobject: {fileID: 38791190}
+  ConfirmationUI: {fileID: 1258393783}
+  NotEnoughCreditsGameobject: {fileID: 1957760667}
+  NoSpaceGameobject: {fileID: 1162391400}
+  NotInsideKingdom: {fileID: 0}
+  Success: {fileID: 0}
+  messageDisappearingTime: 0.5
+  tradingManagerCS: {fileID: 2061975415}
+  buildingManager: {fileID: 1817804700}
 --- !u!1 &538814699
 GameObject:
   m_ObjectHideFlags: 0
@@ -7130,6 +7233,40 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 616442818}
   m_CullTransparentMesh: 1
+--- !u!1 &627841136
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 627841137}
+  m_Layer: 0
+  m_Name: BuildingManagers
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &627841137
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 627841136}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1817804699}
+  - {fileID: 416393050}
+  - {fileID: 536403203}
+  m_Father: {fileID: 391697916}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &654369236
 GameObject:
   m_ObjectHideFlags: 0
@@ -7576,9 +7713,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1486931851}
-        m_TargetAssemblyTypeName: ResourceSpecifier, Assembly-CSharp
-        m_MethodName: GrainIsChoosen
+      - m_Target: {fileID: 536403204}
+        m_TargetAssemblyTypeName: BuildingUIManager, Assembly-CSharp
+        m_MethodName: GrainFarmIsChosen
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -10539,9 +10676,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10f47c9dc5ca03e498f081ac8fcd0449, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resourceUI: {fileID: 2092241529}
-  chosenBlueprint: {fileID: 0}
-  chosenResource: {fileID: 0}
 --- !u!4 &1199550169
 Transform:
   m_ObjectHideFlags: 0
@@ -10692,18 +10826,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1258393783}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
       - m_Target: {fileID: 440431208}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
@@ -10719,6 +10841,18 @@ MonoBehaviour:
       - m_Target: {fileID: 2092241529}
         m_TargetAssemblyTypeName: ResourceUI, Assembly-CSharp
         m_MethodName: ChoosedABuildng
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 536403204}
+        m_TargetAssemblyTypeName: BuildingUIManager, Assembly-CSharp
+        m_MethodName: BuildOptionClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -11987,6 +12121,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 536403204}
+        m_TargetAssemblyTypeName: BuildingUIManager, Assembly-CSharp
+        m_MethodName: ConfirmationClicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1431441786
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12169,9 +12315,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1486931851}
-        m_TargetAssemblyTypeName: ResourceSpecifier, Assembly-CSharp
-        m_MethodName: BarrackIsChoosen
+      - m_Target: {fileID: 536403204}
+        m_TargetAssemblyTypeName: BuildingUIManager, Assembly-CSharp
+        m_MethodName: BarrackIsChosen
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -12525,25 +12671,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cd306732b720014293a83f4fcdde20e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resourceSpawnManager: {fileID: 1199550168}
-  UImanager: {fileID: 2092241529}
-  resourceStatsManager: {fileID: 1651349200}
-  BarrackPrefab: {fileID: 5066686387632205646, guid: 5efccc3fc5027144fb6eb4a65179d0c6,
-    type: 3}
-  BarrackBluePrintPrefab: {fileID: 5066686387632205646, guid: 05c8a6d8fa6cbfc429cd0bbc2f45ecb9,
-    type: 3}
-  woodPrefab: {fileID: 3763684002182264625, guid: 860e2c5f1c63b1046be57229b4665945,
-    type: 3}
-  woodBluePrintPrefab: {fileID: 3763684002182264625, guid: 872ccb107d0fbe948b80187b5d06aa11,
-    type: 3}
-  stonePrefab: {fileID: 3763684002182264625, guid: 72c7e663430197448a1067bb70f38702,
-    type: 3}
-  stoneBluePrintPrefab: {fileID: 3763684002182264625, guid: 872ccb107d0fbe948b80187b5d06aa11,
-    type: 3}
-  grainPrefab: {fileID: 3763684002182264625, guid: f4c396aa1901dac46a29f4d4e428341c,
-    type: 3}
-  grainBluePrintPrefab: {fileID: 3763684002182264625, guid: 872ccb107d0fbe948b80187b5d06aa11,
-    type: 3}
 --- !u!4 &1486931852
 Transform:
   m_ObjectHideFlags: 0
@@ -13677,9 +13804,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1486931851}
-        m_TargetAssemblyTypeName: ResourceSpecifier, Assembly-CSharp
-        m_MethodName: StoneIsChoosen
+      - m_Target: {fileID: 536403204}
+        m_TargetAssemblyTypeName: BuildingUIManager, Assembly-CSharp
+        m_MethodName: StoneFarmIsChosen
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -14216,7 +14343,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1785417668
 Transform:
   m_ObjectHideFlags: 0
@@ -14272,6 +14399,79 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1400, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1817804698
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1817804699}
+  - component: {fileID: 1817804700}
+  - component: {fileID: 1817804701}
+  - component: {fileID: 1817804702}
+  m_Layer: 0
+  m_Name: BuildingManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1817804699
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1817804698}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 627841137}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1817804700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1817804698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03798027b9bfa904c865f6d4a687f921, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  statsManager: {fileID: 416393051}
+  tradingManager: {fileID: 2061975415}
+--- !u!114 &1817804701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1817804698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92eaa90425581c047a58652590ce1985, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tradingManager: {fileID: 2061975415}
+--- !u!114 &1817804702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1817804698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b352e1f6d0e111469aa6255a1bd998a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1820845876
 GameObject:
   m_ObjectHideFlags: 0
@@ -15356,17 +15556,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85b2188564a82674fa2d421a1f0c213e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CheckingUpUIGameobject: {fileID: 440431208}
-  BottomLeftUIGameobject: {fileID: 38791190}
-  ConfirmationUI: {fileID: 1258393783}
-  NotEnoughCreditsGameobject: {fileID: 1957760667}
-  NoSpaceGameobject: {fileID: 1162391400}
-  messageDisappearingTime: 0.5
-  SpawnManager: {fileID: 1199550168}
-  tradingManagerCS: {fileID: 2061975415}
-  woodCost: 0
-  grainCost: 0
-  stoneCost: 0
 --- !u!4 &2092241530
 Transform:
   m_ObjectHideFlags: 0
@@ -15465,9 +15654,21 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2092241529}
-        m_TargetAssemblyTypeName: ResourceUI, Assembly-CSharp
-        m_MethodName: CancelBuilding
+      - m_Target: {fileID: 536403204}
+        m_TargetAssemblyTypeName: BuildingUIManager, Assembly-CSharp
+        m_MethodName: RevertingUI
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 536403204}
+        m_TargetAssemblyTypeName: BuildingUIManager, Assembly-CSharp
+        m_MethodName: CancelIsClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

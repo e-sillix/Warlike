@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1296674914388394950}
-  - component: {fileID: 2673683209620781626}
+  - component: {fileID: 9070835978527377825}
   m_Layer: 0
   m_Name: FarmBluePrint
   m_TagString: Untagged
@@ -33,7 +33,7 @@ Transform:
   - {fileID: 413137207854788412}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2673683209620781626
+--- !u!114 &9070835978527377825
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -42,7 +42,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3763684002182264625}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c758b9c60d026f145949705f6020c433, type: 3}
+  m_Script: {fileID: 11500000, guid: 41bc551734481624ab17a7e79f7977ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   groundLayer:

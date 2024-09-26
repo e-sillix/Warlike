@@ -16,6 +16,7 @@ public class BluePrint : MonoBehaviour
     [SerializeField] private GameObject TheCollider;
     private bool IsBlueColliding;
     private bool buildingUI;
+    private bool IsInsideKingdom;
     private void Start()
     {
        if (TheCollider != null)
@@ -58,7 +59,8 @@ public class BluePrint : MonoBehaviour
         bool otherCollision = Physics.OverlapBox(boxCollider.bounds.center, boxCollider.bounds.extents, Quaternion.identity, allOtherLayers).Length != 0;
 
         // Set IsBlueColliding to true only if all required layers are colliding and there are no other collisions
-        if (groundCollision && blueCollision && outerKingdomCollision && innerKingdomCollision && !otherCollision)//false if colliding
+        if (groundCollision && blueCollision && outerKingdomCollision && 
+        innerKingdomCollision && !otherCollision)//false if colliding with other than it should
         {
             IsBlueColliding = false;
         }
@@ -67,10 +69,12 @@ public class BluePrint : MonoBehaviour
             IsBlueColliding = true;
         }
         if(innerKingdomCollision){
-            buildingUI=true; 
+            // buildingUI=true; 
+            IsInsideKingdom=true;
         }
         else{
-            buildingUI=false;//this will be used to turn off ui.
+            // buildingUI=false;//this will be used to turn off ui.
+            IsInsideKingdom=false;
         }
     }
 
@@ -111,7 +115,10 @@ public class BluePrint : MonoBehaviour
     public bool ReturnIsColliding(){        
         return IsBlueColliding;
     }
-    public bool ReturnBuildingUI(){        
-        return buildingUI;
+    // public bool ReturnBuildingUI(){        
+    //     return buildingUI;
+    // }
+    public bool ReturnIsInsideKingdom(){
+        return IsInsideKingdom;
     }
 }
