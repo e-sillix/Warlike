@@ -61,6 +61,7 @@ public class BuildingUIManager : MonoBehaviour
         if(!buildingManager.IsEnoughCredit()){
             MessageForNotEnoughCredit();
             status=3;
+            RevertingUI();
         }        
         else{
             //this for creating blueprint
