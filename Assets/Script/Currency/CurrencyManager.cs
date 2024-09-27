@@ -8,9 +8,9 @@ public class CurrencyManager : MonoBehaviour
     [SerializeField]private int deltaWood = 0;
     [SerializeField]private int deltaGrain = 0;
     [SerializeField]private int deltaStone = 0;
-    public TextMeshProUGUI woodsCounter;    
-    public TextMeshProUGUI grainCounter;    
-    public TextMeshProUGUI stoneCounter;    
+    [SerializeField]private TextMeshProUGUI woodsCounter;    
+    [SerializeField]private TextMeshProUGUI grainCounter;    
+    [SerializeField]private TextMeshProUGUI stoneCounter;    
     // [SerializeField] private int woodCurrentCurrency=0;
     private Dictionary<ResourceType, int> resourceCurrencies = new Dictionary<ResourceType, int>()
     {

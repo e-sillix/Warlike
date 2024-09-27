@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using TMPro;
 
 public class BuildingUIManager : MonoBehaviour
 {
@@ -18,7 +19,10 @@ public class BuildingUIManager : MonoBehaviour
     // [SerializeField] private ResourceSpawnManager SpawnManager;
     [SerializeField] private TradingManager tradingManagerCS;
     [SerializeField] BuildingManager buildingManager;
-    private BluePrint bluePrint;
+    [SerializeField]private TextMeshProUGUI woodsCostUI;    
+    [SerializeField]private TextMeshProUGUI grainCostUI;    
+    [SerializeField]private TextMeshProUGUI stoneCostUI;    
+    // private BluePrint bluePrint;
     private int woodCost;
     private int grainCost;
     private int stoneCost;
@@ -125,7 +129,10 @@ public class BuildingUIManager : MonoBehaviour
         stoneCost=0; 
     }
     private void DisplayingDataUI(){
-        //this will display costdata of that building.        
+        //this will display costdata of that building. 
+        woodsCostUI.text = "W:" + woodCost.ToString() ;      
+        stoneCostUI.text = "G: " + stoneCost.ToString();       
+        grainCostUI.text = "S: " + grainCost.ToString() ;      
     }
 
     public void RevertingUI(){
