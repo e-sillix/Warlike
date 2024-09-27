@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class CurrencyManager : MonoBehaviour
 {
-    [SerializeField]private int deltaWood = 0;
-    [SerializeField]private int deltaGrain = 0;
-    [SerializeField]private int deltaStone = 0;
+    [SerializeField]private int deltaWood ;
+    [SerializeField]private int deltaGrain ;
+    [SerializeField]private int deltaStone ;
     [SerializeField]private TextMeshProUGUI woodsCounter;    
     [SerializeField]private TextMeshProUGUI grainCounter;    
     [SerializeField]private TextMeshProUGUI stoneCounter;    
@@ -24,6 +24,7 @@ public class CurrencyManager : MonoBehaviour
         resourceCurrencies[ResourceType.Wood] = deltaWood;
         resourceCurrencies[ResourceType.Grain] = deltaGrain;
         resourceCurrencies[ResourceType.Stone] = deltaStone;
+        UpdateUICounter();
     }
     
     private void UpdateUICounter(){
