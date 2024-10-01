@@ -7,40 +7,6 @@ public class BuildingStatsManager : MonoBehaviour
     [SerializeField] private BuildingData stoneFarmData; // Drag the BuildingData ScriptableObject here
     [SerializeField] private BuildingData barrackData; // Drag the BuildingData ScriptableObject here
 
-    // void Start()
-    // {
-    //     LoadBuildingStats();
-    // }
-
-    // void LoadBuildingStats()
-    // {
-    //     // Log upgrade costs for the wood farm
-    //     for (int level = 0; level < woodFarmData.woodUpgradeCost.Length; level++)
-    //     {
-    //         Debug.Log($"Wood Farm Level {level + 1} W: {woodFarmData.woodUpgradeCost[level]} G: {woodFarmData.grainUpgradeCost[level]} S: {woodFarmData.stoneUpgradeCost[level]}");
-    //     }
-    // }
-
-    // public int GetUpgradeCost(int level, ResourceType resourceType)
-    // {
-    //     if (level < 0 || level >= 30) // Ensure level is within valid range
-    //     {
-    //         Debug.LogError("Level must be between 1 and 30");
-    //         return 0;
-    //     }
-
-    //     switch (resourceType)
-    //     {
-    //         case ResourceType.Wood:
-    //             return woodFarmData.woodUpgradeCost[level];
-    //         case ResourceType.Grain:
-    //             return woodFarmData.grainUpgradeCost[level];
-    //         case ResourceType.Stone:
-    //             return woodFarmData.stoneUpgradeCost[level];
-    //         default:
-    //             return 0;
-    //     }
-    // }
    
     public BuildingCost GetBuildingStats(string buildingName, int levelNumber){
          // Ensure the levelNumber is valid (between 1 and 30)

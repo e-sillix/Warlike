@@ -6,6 +6,7 @@ public class BarrackCollider : MonoBehaviour
 {
     //this check if the raycasted is Barrack or not checking this script as component. By UI manager 
     //which will be changed.
+    [SerializeField] private GameObject TheBarrack;
     public void ClickedResponse(){
         //useless 
         Debug.Log("Barracks got clicked!!!!!");
@@ -13,5 +14,8 @@ public class BarrackCollider : MonoBehaviour
     public void StartTraining(){
         //useless 
         Debug.Log("Starting!!!!!");
+    }
+    public GameObject ReturnTheBarrack(){
+        return TheBarrack;
     }
 }
