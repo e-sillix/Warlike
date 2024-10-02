@@ -21,6 +21,7 @@ public class UITroopsTrainingManager : MonoBehaviour
     private string barrackType;
     private int barrackCapacity;
 
+//stage 1
     void Update(){
          if (Input.GetMouseButtonDown(0)) // Detect left mouse button click
         {//stage 1
@@ -70,6 +71,11 @@ public class UITroopsTrainingManager : MonoBehaviour
 
     }   
 
+private void TriggerUIForOngoingTraining(){
+        //cancellation,progress,boosting,troops data 
+        Debug.Log("training is going on,cancel panel will be here");
+    }  
+//stage 2 
     //this will give dynamic cost
     public void InputValueChanged(){
         //this will be triggered by all five slider on value change,this will be changed when adding input 
@@ -86,6 +92,7 @@ public class UITroopsTrainingManager : MonoBehaviour
         CostUI.text="W: "+trainingCost[0]+"G: "+trainingCost[1]+"S: "+trainingCost[2]+"t: "+trainingCost[3];
     }
 
+// Stage 3
     public void TrainIsClicked(){
         // Stage 2
         //this will be triggered by ui ,condition when barrack is not occupied.
@@ -97,6 +104,9 @@ public class UITroopsTrainingManager : MonoBehaviour
             Debug.Log("starting training");
 
             //cut the cost
+            tradingManager.SpendingResources(trainingCost[0],trainingCost[1],trainingCost[2]);
+
+            //start
 
             troopsTrainingManager.StartTrainingProcess(troopsData,trainingCost[3]); //time
 
@@ -106,7 +116,12 @@ public class UITroopsTrainingManager : MonoBehaviour
             Debug.Log("Not Enough");
         }
     }  
-    private void TriggerUIForOngoingTraining(){
-        //cancellation,progress,boosting,troops data 
-    }  
+    
+//stage 4
+    public void TrainingIsDone(){
+        //this will be triggered by manager
+        Debug.Log("show a message for training Done here ");
+    }
 }
+
+

@@ -20,19 +20,35 @@ public class TheBarrack : MonoBehaviour
     public float rateOfTraining=1;
     [SerializeField] private TrainingHandler trainingHandler;
     private int[] troopsDataLocal;
+    private TroopsCountManager troopsCountManager;
 
     //some buffs
 
     public int level=1;
 
+    void Start(){
+        troopsCountManager=FindObjectOfType<TroopsCountManager>();
+    }
     public void StartTraining(int[] troopsData,int time){
         troopsDataLocal=troopsData;
         UpdateStateOfBarrack(true);
         //call function  for training
         trainingHandler.StartTraining(time);
     }
+    private void UpdateStateOfBarrack(bool status){
+        isTrainingOngoing=status;
+    }
     public void TrainingEnded(){
+        //this is called by training handler
+        //allow the icons here
+        Debug.Log("enable icon here");
         UpdateStateOfBarrack(false);
+        //tell ui training ended or triiger message
+
+        //for now add troops directly
+        troopsCountManager.UpdateTroopsCount(barrackType.ToString(),troopsDataLocal);
+
+
     }
     public void UpgradeBarrackLevel(int Level){
         level=Level;
@@ -41,7 +57,5 @@ public class TheBarrack : MonoBehaviour
     private void TriggerPrefabChange(){
         //change the look of barrack
     }
-    private void UpdateStateOfBarrack(bool status){
-        isTrainingOngoing=status;
-    }
+    
 }
