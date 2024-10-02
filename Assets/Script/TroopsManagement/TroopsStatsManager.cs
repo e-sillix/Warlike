@@ -34,10 +34,10 @@ public class TroopsStatsManager : MonoBehaviour
 
     // Return the resource costs for the specified level
     return new TroopsDataPayload(  //this one is in resource Spawner
-        troopsData.WoodUpgradeCost[levelIndex], 
-        troopsData.GrainUpgradeCost[levelIndex], 
-        troopsData.StoneUpgradeCost[levelIndex],
-        troopsData.UpgradeTime[levelIndex],
+        troopsData.WoodCost[levelIndex], 
+        troopsData.GrainCost[levelIndex], 
+        troopsData.StoneCost[levelIndex],
+        troopsData.TrainingTime[levelIndex],
         troopsData.AttackRange,
         troopsData.Damage[levelIndex],
         troopsData.Health[levelIndex],     

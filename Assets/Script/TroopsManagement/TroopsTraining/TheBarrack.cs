@@ -18,20 +18,30 @@ public class TheBarrack : MonoBehaviour
     public bool isTrainingOngoing=false;
     public int TrainingCappacity=50;//this will be update with levels
     public float rateOfTraining=1;
+    [SerializeField] private TrainingHandler trainingHandler;
+    private int[] troopsDataLocal;
 
     //some buffs
 
     public int level=1;
 
+    public void StartTraining(int[] troopsData,int time){
+        troopsDataLocal=troopsData;
+        UpdateStateOfBarrack(true);
+        //call function  for training
+        trainingHandler.StartTraining(time);
+    }
+    public void TrainingEnded(){
+        UpdateStateOfBarrack(false);
+    }
     public void UpgradeBarrackLevel(int Level){
         level=Level;
         TriggerPrefabChange();
-        UpdateStatsOfBarrack();
     }
     private void TriggerPrefabChange(){
         //change the look of barrack
     }
-    private void UpdateStatsOfBarrack(){
-
+    private void UpdateStateOfBarrack(bool status){
+        isTrainingOngoing=status;
     }
 }

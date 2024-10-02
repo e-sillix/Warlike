@@ -8,12 +8,14 @@ public class TroopsData :  ScriptableObject
 {
     public string troopName;
 
-// cost 
-    public int[] WoodUpgradeCost = new int[5];  // Upgrade costs for that troop
-    public int[] GrainUpgradeCost = new int[5];  // Upgrade costs for that troop
-    public int[] StoneUpgradeCost = new int[5];  // Upgrade costs for that troop
+// Training cost 
+    public int[] WoodCost = new int[5];  // Upgrade costs for that troop
+    public int[] GrainCost = new int[5];  // Upgrade costs for that troop
+    public int[] StoneCost = new int[5];  // Upgrade costs for that troop
 
-    public int[] UpgradeTime=new int[5];// ***** this will store for each level
+    public int[] TrainingTime=new int[5];// ***** this will store for each level
+
+    //upgrading will be included in future
 
 // stats
 

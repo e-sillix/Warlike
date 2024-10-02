@@ -3,12 +3,19 @@ using UnityEngine;
 [System.Serializable]
 public class TroopsDataPayload
 {
-    //upgrade or initial cost
-    public int woodCost;
-    public int grainCost;
-    public int stoneCost;
-    public int timeCost;    
-    public int upgradeTime;
+    //training cost
+    public int woodTrainingCost;
+    public int grainTrainingCost;
+    public int stoneTrainingCost;
+    public int timeTrainingCost;    
+    public int TrainingTime;
+
+    //upgrading cost
+    // public int upgradingTime;
+    // public int woodUpgradingCost;
+    // public int grainUpgradingCost;
+    // public int stoneUpgradingCost;
+    // public int timeUpgradingCost;    
 
     //stats
     //non-upgradable one's
@@ -25,10 +32,10 @@ public class TroopsDataPayload
     public TroopsDataPayload(int wood, int grain, int stone,int time, int Range,int TheDamage,int TheHealth,
     int Speed,int TheArmor)
     {
-        woodCost = wood;
-        grainCost = grain;
-        stoneCost = stone;
-        upgradeTime= time;
+        woodTrainingCost = wood;
+        grainTrainingCost = grain;
+        stoneTrainingCost = stone;        
+        TrainingTime= time;
         attackRange= Range;
         damage= TheDamage; 
         health= TheHealth;

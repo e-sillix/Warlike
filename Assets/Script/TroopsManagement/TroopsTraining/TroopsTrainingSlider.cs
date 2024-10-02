@@ -12,8 +12,11 @@ public class TroopsTrainingSlider : MonoBehaviour
     // public TMP_InputField level1Field,level2Field,level3Field,level4Field,level5Field; 
     // For TextMeshPro InputField   
 
+    private int level1CounterLM,level2CounterLM,level3CounterLM,level4CounterLM,level5CounterLM;
     private int BarrackCapacity ; // Max unit capacity
     private int currentTotal;           // Sum of all slider values
+    private int totalSliderValue;
+   
 
     void Start(){
         // Configure sliders to only allow whole number values
@@ -23,15 +26,6 @@ public class TroopsTrainingSlider : MonoBehaviour
         level4Slider.wholeNumbers = true;
         level5Slider.wholeNumbers = true;}
 
-        //this will be passed to someother function++++++++++++
-        // Set initial max value for each slider
-        // {level1Slider.maxValue = BarrackCapacity;
-        // level2Slider.maxValue = BarrackCapacity;
-        // level3Slider.maxValue = BarrackCapacity;
-        // level4Slider.maxValue = BarrackCapacity;
-        // level5Slider.maxValue = BarrackCapacity;
-        // }
-        // Add listeners to each slider to detect value changes
         {level1Slider.onValueChanged.AddListener(delegate { AValueIsChanged(level1Slider, level1Counter); });
         level2Slider.onValueChanged.AddListener(delegate { AValueIsChanged(level2Slider, level2Counter); });
         level3Slider.onValueChanged.AddListener(delegate { AValueIsChanged(level3Slider, level3Counter); });
@@ -52,35 +46,56 @@ public class TroopsTrainingSlider : MonoBehaviour
     
     void AValueIsChanged(Slider slider, TextMeshProUGUI counter){
         //this will be triggered by all five inputs
-        // Update the corresponding TextMeshProUGUI to show the slider value
-       // Calculate the current sum of all slider values
-        int totalSliderValue = GetCurrentTotal();
+        // Calculate the current total sum of all slider values
+        totalSliderValue = GetCurrentTotal();
+
         // If the total exceeds BarrackCapacity, adjust the last changed slider
         if (totalSliderValue > BarrackCapacity)
         {
-            // Identify the slider that needs to be reduced
-            Slider lastChangedSlider = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.GetComponent<Slider>();
+            // Identify the last changed slider
+            Slider lastChangedSlider = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject?.GetComponent<Slider>();
 
-            // Reduce the last changed slider so the total stays within the limit
-            if(lastChangedSlider){
-                //this will be null when chosing different barrack.
-            lastChangedSlider.value -= (totalSliderValue - BarrackCapacity);
+            if (lastChangedSlider != null)
+            {
+                // Reduce the last changed slider value to stay within the limit
+                lastChangedSlider.value -= (totalSliderValue - BarrackCapacity);
             }
         }
+        else
+        {
+            // Update local variables for each slider value
+            level1CounterLM = Mathf.FloorToInt(level1Slider.value);
+            level2CounterLM = Mathf.FloorToInt(level2Slider.value);
+            level3CounterLM = Mathf.FloorToInt(level3Slider.value);
+            level4CounterLM = Mathf.FloorToInt(level4Slider.value);
+            level5CounterLM = Mathf.FloorToInt(level5Slider.value);
+        }
 
-        // Update the counter values for each slider
-        level1Counter.text = Mathf.RoundToInt(level1Slider.value).ToString();
-        level2Counter.text = Mathf.RoundToInt(level2Slider.value).ToString();
-        level3Counter.text = Mathf.RoundToInt(level3Slider.value).ToString();
-        level4Counter.text = Mathf.RoundToInt(level4Slider.value).ToString();
-        level5Counter.text = Mathf.RoundToInt(level5Slider.value).ToString();
+        // Update the corresponding TextMeshProUGUI with the new slider value
+        level1Counter.text = level1CounterLM.ToString();
+        level2Counter.text = level2CounterLM.ToString();
+        level3Counter.text = level3CounterLM.ToString();
+        level4Counter.text = level4CounterLM.ToString();
+        level5Counter.text = level5CounterLM.ToString();
     }
 
+     void UpdateAllValues()
+{
+    // Manually trigger the value update for all sliders
+    AValueIsChanged(level1Slider, level1Counter);
+    AValueIsChanged(level2Slider, level2Counter);
+    AValueIsChanged(level3Slider, level3Counter);
+    AValueIsChanged(level4Slider, level4Counter);
+    AValueIsChanged(level5Slider, level5Counter);
+}
     private int GetCurrentTotal()
-    {//this will return total number of slider value.
-        return Mathf.RoundToInt(level1Slider.value) + Mathf.RoundToInt(level2Slider.value) +
-               Mathf.RoundToInt(level3Slider.value) + Mathf.RoundToInt(level4Slider.value) +
-               Mathf.RoundToInt(level5Slider.value);
+    {//this will return total number of slider value.        
+        currentTotal=Mathf.FloorToInt(level1Slider.value) + Mathf.FloorToInt(level2Slider.value) +
+               Mathf.FloorToInt(level3Slider.value) + Mathf.FloorToInt(level4Slider.value) +
+               Mathf.FloorToInt(level5Slider.value);
+
+        // Debug.Log("currnt"+currentTotal);
+        return currentTotal;
     }
 
     public void RefreshAllValues(){
@@ -90,21 +105,28 @@ public class TroopsTrainingSlider : MonoBehaviour
         level2Slider.maxValue = BarrackCapacity;
         level3Slider.maxValue = BarrackCapacity;
         level4Slider.maxValue = BarrackCapacity;
-        level5Slider.maxValue = BarrackCapacity;       
+        level5Slider.maxValue = BarrackCapacity;   
+        level1CounterLM=0;
+        level2CounterLM=0;
+        level3CounterLM=0;
+        level4CounterLM=0;
+        level5CounterLM=0;    
     }   
 
 
     public int[] ReturnTroopsData()
     {
+        UpdateAllValues();
         //this will be returned to ui manager
         int[] troopsData = new int[5]; // Array to hold the number of troops per level
 
-        troopsData[0] = Mathf.RoundToInt(level1Slider.value);  // Troops for Level 1
-        troopsData[1] = Mathf.RoundToInt(level2Slider.value);  // Troops for Level 2
-        troopsData[2] = Mathf.RoundToInt(level3Slider.value);  // Troops for Level 3
-        troopsData[3] = Mathf.RoundToInt(level4Slider.value);  // Troops for Level 4
-        troopsData[4] = Mathf.RoundToInt(level5Slider.value);  // Troops for Level 5
-
+        troopsData[0] = level1CounterLM;  // Troops for Level 1
+        troopsData[1] = level2CounterLM;  // Troops for Level 2
+        troopsData[2] = level3CounterLM;  // Troops for Level 3
+        troopsData[3] = level4CounterLM;  // Troops for Level 4
+        troopsData[4] = level5CounterLM;  // Troops for Level 5
+        // Debug.Log(troopsData[0]+","+troopsData[1]+","+troopsData[2]+","+troopsData[3]+","+troopsData[4]);
+        // Debug.Log("total slider value"+totalSliderValue);
         return troopsData;  // Returns the array containing troops per level
     }
 }

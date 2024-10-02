@@ -8,7 +8,7 @@ public class TroopsTrainingManager : MonoBehaviour
     private GameObject TheBarrackGO;
     private TheBarrack theBarrack;
     [SerializeField]private TroopsStatsManager troopsStatsManager;
-    private string troopType;
+    public string troopType;
     private TroopsDataPayload troopsAllStats;
     private int barrackCapacity;
     private int[] troopsData=new int[5];
@@ -36,7 +36,8 @@ public class TroopsTrainingManager : MonoBehaviour
         //this will be call every time the input is changed by ui
         //
     }
-    public void StartTrainingProcess(){
-        troopsData=
+    public void StartTrainingProcess(int[] troopsData,int time){
+        //get that barrack assign it.
+        theBarrack.StartTraining(troopsData,time);
     }
 }
