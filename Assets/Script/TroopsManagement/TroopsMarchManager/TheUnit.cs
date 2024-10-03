@@ -10,7 +10,7 @@ public class TheUnit : MonoBehaviour
     private Vector3 targetPosition;
     private bool shouldMove = false;
     [SerializeField] private GameObject SelectorIcon;
-    [SerializeField] private VisualCountDispayer TroopsCountDisplayer;
+    
 
     // private int NumberOfTroops;
 
@@ -48,9 +48,9 @@ public class TheUnit : MonoBehaviour
     }
     public void SetTroopsData(string TroopsType,int[] TroopsData){
         Debug.Log(TroopsType);
-        for(int i=0;i<5;i++){
-            Debug.Log(TroopsData[i]);
-        }
+        Debug.Log(TroopsData[0]+","+TroopsData[1]+","+TroopsData[2]+","+TroopsData[3]+","+
+        TroopsData[4]);
+        
         // TroopsCountDisplayer.DisplaySoldiers(count);
     }
 }

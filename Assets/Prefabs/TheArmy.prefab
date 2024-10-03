@@ -191,7 +191,6 @@ MonoBehaviour:
     m_Bits: 64
   moveSpeed: 5
   SelectorIcon: {fileID: 1120540834530551616}
-  TroopsCountDisplayer: {fileID: 2858234061686820882}
 --- !u!1 &7906592544192707190
 GameObject:
   m_ObjectHideFlags: 0
@@ -201,7 +200,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3189749857195333245}
-  - component: {fileID: 2858234061686820882}
   m_Layer: 0
   m_Name: Visual
   m_TagString: Untagged
@@ -224,24 +222,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3845240829604247566}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2858234061686820882
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7906592544192707190}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a9736d6f5679354a948e5c526b3712f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  soldierPrefab: {fileID: 5256397312744503924, guid: 4fd41ad7debc273418a85807805cefad,
-    type: 3}
-  spawnAreaSize: {x: 3, y: 0, z: 3}
-  SoldierCountRightNow: 0
-  minSoldiers: 1
-  maxSoldiers: 15
 --- !u!1 &8899570883475553693
 GameObject:
   m_ObjectHideFlags: 0
@@ -254,7 +234,6 @@ GameObject:
   - component: {fileID: 8263353171778378992}
   - component: {fileID: 833433286206016515}
   - component: {fileID: 6945055147929718588}
-  - component: {fileID: 6963925842229166649}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -348,19 +327,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &6963925842229166649
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8899570883475553693}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f919c04e361f5f4d90cd8c71912d852, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  theUnit: {fileID: 0}
 --- !u!1 &9101309565667963561
 GameObject:
   m_ObjectHideFlags: 0
