@@ -6,7 +6,13 @@ public class TroopsCountManager : MonoBehaviour
 {//this will store troop count for all types and manage it.
 
 
-   private int[] cavalry=new int[5],infantry=new int[5];
+   private int[] cavalry=new int[5],infantry=new int[5],archer=new int[5],mage=new int[5];
+    void Start(){
+        cavalry = new int[] { 0,0,0,0,0 };
+        infantry = new int[] { 1, 2, 3, 4, 5 };  // Similarly for other arrays
+        archer = new int[] { 3,4,2, 62 ,2 };
+        mage = new int[] { 0,0,0,0,0};
+    }
     
    public void UpdateTroopsCount(string barrackType,int[] troopsData){
       //this will be called by barrack for now.
@@ -41,16 +47,36 @@ public class TroopsCountManager : MonoBehaviour
     }
     else
     {
-        Debug.LogError("Unknown barrack type: " + barrackType);
+        Debug.LogError("Unknown barrack type in countmanager: " + barrackType);
     }
 
     Debug.Log(barrackType + " troops updated.");
    
    }
-   public void GetTotalTroopsStats(){
+   public int[] GetTroopsCount(string TroopsType){
     //for marching or ui purposes
-
-   }
+    if (TroopsType == "Cavalry")
+    {
+        return cavalry;
+    }
+    else if (TroopsType == "Infantry")
+    {
+       return infantry;
+    }
+    else if (TroopsType == "Archer")
+    {
+       return archer;
+    }
+    else if (TroopsType == "Mage")
+    {
+       return mage;
+    }
+    else{
+        Debug.Log("data not found in Count Mananger");
+        return new int[5];
+    }
+    }
+   
    public void WithDrawTroops(){
     //depleting troops for marching from base.or injured 
 

@@ -148,7 +148,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3845240829604247566}
-  - component: {fileID: 7871303663021866123}
+  - component: {fileID: 8875590478063644433}
   m_Layer: 0
   m_Name: TheArmy
   m_TagString: Untagged
@@ -174,7 +174,7 @@ Transform:
   - {fileID: 5506248644785942797}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7871303663021866123
+--- !u!114 &8875590478063644433
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -183,7 +183,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7817682463295282944}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21bcdefdee5624e45bac33125b61b265, type: 3}
+  m_Script: {fileID: 11500000, guid: f6ae293d52c0eed43b5c8060d59bfcef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   groundLayer:
@@ -360,7 +360,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f919c04e361f5f4d90cd8c71912d852, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  theUnit: {fileID: 7871303663021866123}
+  theUnit: {fileID: 0}
 --- !u!1 &9101309565667963561
 GameObject:
   m_ObjectHideFlags: 0

@@ -14,7 +14,7 @@ public class MarchingUIManager : MonoBehaviour
     
     [SerializeField] private TroopsMarchManager marchManager;
     [SerializeField] private GameObject MarchingUIPanel;
-    [SerializeField] private ArmyCount armyCount;
+    [SerializeField] private TroopsCountManager armyCount;
     private TheUnit TheselectedObject;
     private Vector3 positionToMarch;
 
@@ -47,7 +47,9 @@ public class MarchingUIManager : MonoBehaviour
                     //this will open up ui 
 
                     //need to refresh ui max numbers
-                    troopsSlider.maxValue = armyCount.ReturnSoldierCountInTheBase(); //get the total troops present
+                    
+                    // +++++++++++++++
+                    // troopsSlider.maxValue = armyCount.ReturnSoldierCountInTheBase(); //get the total troops present
 
                     //need to find a way to select initiated prefab as selected                    
                  }
@@ -76,12 +78,14 @@ public class MarchingUIManager : MonoBehaviour
     public void StartNewMarch(){
         //this will be triggered by UI March 
         //check if enough troops present
-        if(armyCount.ReturnSoldierCountInTheBase()>0){
-       TheselectedObject= marchManager.InitiateNewMarchProcess(GetNoofTroopsToTrain(),positionToMarch);
-        }
-        else{
-            Debug.Log("Not Enough Troops To March");
-        }
+
+        // +++++++++++++++++
+    //     if(armyCount.ReturnSoldierCountInTheBase()>0){
+    //    TheselectedObject= marchManager.InitiateNewMarchProcess(GetNoofTroopsToTrain(),positionToMarch);
+    //     }
+    //     else{
+    //         Debug.Log("Not Enough Troops To March");
+    //     }
     }
 
     private bool IsGroundLayer(GameObject obj)
@@ -100,7 +104,8 @@ public void setLimitValues(){//++++ need to pass a value for max capacity
         //this will be triggered by start and on every time barrack is clicked.RN TrainingUIManager 56.
         // Set the slider's min and max values
         troopsSlider.minValue = 0;
-        troopsSlider.maxValue = armyCount.ReturnSoldierCountInTheBase(); //get the total troops present
+        // +++++++++++++++
+        // troopsSlider.maxValue = armyCount.ReturnSoldierCountInTheBase(); //get the total troops present
         troopsSlider.value = troopsSlider.maxValue;
     }
     

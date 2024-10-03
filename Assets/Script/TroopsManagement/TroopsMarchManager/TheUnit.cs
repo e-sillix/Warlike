@@ -46,8 +46,11 @@ public class TheUnit : MonoBehaviour
     {    
         SelectorIcon.SetActive(isSelected);
     }
-    public void SetTroopsVisualCount(int count){
-        Debug.Log(count);
-        TroopsCountDisplayer.DisplaySoldiers(count);
+    public void SetTroopsData(string TroopsType,int[] TroopsData){
+        Debug.Log(TroopsType);
+        for(int i=0;i<5;i++){
+            Debug.Log(TroopsData[i]);
+        }
+        // TroopsCountDisplayer.DisplaySoldiers(count);
     }
 }

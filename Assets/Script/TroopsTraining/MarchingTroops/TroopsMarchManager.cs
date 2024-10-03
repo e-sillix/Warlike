@@ -8,7 +8,7 @@ public class TroopsMarchManager : MonoBehaviour
     private GameObject selectedGO;
     [SerializeField] private GameObject TheUnitPrefab;
     [SerializeField] private GameObject Spawnpoint;
-    [SerializeField] private ArmyCount troopsCounter;
+    [SerializeField] private TroopsCountManager troopsCounter;
    
 
   
@@ -22,10 +22,11 @@ public class TroopsMarchManager : MonoBehaviour
      selectedGO=Instantiate(TheUnitPrefab,Spawnpoint.transform.position, Spawnpoint.transform.rotation);
 
      //cut the soldier count from the base
-     troopsCounter.WithDrawingTroopsFromBase(troopsCount);
+    //  +++++++++
+    //  troopsCounter.WithDrawingTroopsFromBase(troopsCount);
 
      selectedObject=selectedGO.GetComponent<TheUnit>();
-     selectedObject.SetTroopsVisualCount(troopsCount);
+    //  selectedObject.SetTroopsVisualCount(troopsCount);
      InitiateTheMarchProcess(selectedObject,position);
      return selectedObject;
    }
