@@ -725,12 +725,12 @@ PrefabInstance:
     - target: {fileID: 5066686387632205646, guid: 3d78866e1b3271b4996c505f4de5cbb6,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5945761267273851875, guid: 3d78866e1b3271b4996c505f4de5cbb6,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.44
+      value: -85.7
       objectReference: {fileID: 0}
     - target: {fileID: 5945761267273851875, guid: 3d78866e1b3271b4996c505f4de5cbb6,
         type: 3}
@@ -3374,12 +3374,12 @@ PrefabInstance:
     - target: {fileID: 5066686387632205646, guid: b8aca5780d68bba42a1c8dfe7920ae93,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5945761267273851875, guid: b8aca5780d68bba42a1c8dfe7920ae93,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.54
+      value: -74.76
       objectReference: {fileID: 0}
     - target: {fileID: 5945761267273851875, guid: b8aca5780d68bba42a1c8dfe7920ae93,
         type: 3}
@@ -3518,6 +3518,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1762029218}
+        m_TargetAssemblyTypeName: UITroopsTrainingManager, Assembly-CSharp
+        m_MethodName: EndStage
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -4103,6 +4115,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1762029218}
+        m_TargetAssemblyTypeName: UITroopsTrainingManager, Assembly-CSharp
+        m_MethodName: EndStage
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &387165256
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4170,12 +4194,12 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1180219575}
   - {fileID: 29656529}
   - {fileID: 627841137}
   - {fileID: 1492182854}
   - {fileID: 200914119}
   - {fileID: 839549158}
-  - {fileID: 1180219575}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &401315522
@@ -13407,6 +13431,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   uIMarchManager: {fileID: 147570835}
+  globalUIManager: {fileID: 1180219576}
   TheUnitPrefab: {fileID: 7817682463295282944, guid: f3f49270f0a939941b605a8b13f91495,
     type: 3}
   Spawnpoint: {fileID: 286404000}
@@ -14286,7 +14311,7 @@ Transform:
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
   m_LocalRotation: {x: 0.2588191, y: 0, z: 0, w: 0.9659258}
-  m_LocalPosition: {x: 0, y: 20, z: -30}
+  m_LocalPosition: {x: -52.6, y: 20, z: -30}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -16590,7 +16615,7 @@ Transform:
   m_GameObject: {fileID: 1157592734}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.45, z: 0}
+  m_LocalPosition: {x: 0, y: -3.29, z: 0}
   m_LocalScale: {x: 95, y: 1, z: 95}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -16938,8 +16963,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1180219575}
+  - component: {fileID: 1180219576}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: GlobalUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16960,6 +16986,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 391697916}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1180219576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1180219574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11b36feb9e0c24e40bc3b0834c7f27db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  uITroopsTrainingManager: {fileID: 1762029218}
+  marchManager: {fileID: 916464414}
 --- !u!1 &1194627257
 GameObject:
   m_ObjectHideFlags: 0
@@ -23407,6 +23450,7 @@ MonoBehaviour:
   StartingTrainingUIPanel: {fileID: 1139126138}
   trainingCostManager: {fileID: 1574388607}
   tradingManager: {fileID: 2061975415}
+  globalUIManager: {fileID: 1180219576}
   CostUI: {fileID: 1532555338}
 --- !u!1 &1771511292
 GameObject:

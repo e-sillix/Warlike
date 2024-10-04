@@ -14,6 +14,7 @@ public class UITroopsTrainingManager : MonoBehaviour
     [SerializeField] private GameObject StartingTrainingUIPanel;
     [SerializeField] private TrainingCostManager trainingCostManager;
     [SerializeField] private TradingManager tradingManager;
+    [SerializeField] private GlobalUIManager globalUIManager;
     private int[] troopsData = new int[5];
     private TroopsDataPayload troopsStats;
     [SerializeField]private TextMeshProUGUI CostUI;   
@@ -22,32 +23,17 @@ public class UITroopsTrainingManager : MonoBehaviour
     private int barrackCapacity;
 
 //stage 1
-    void Update(){
-         if (Input.GetMouseButtonDown(0)) // Detect left mouse button click
-        {//stage 1
-            // Debug.Log("1");
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-
-            // Perform the raycast
-            if (Physics.Raycast(ray, out hit))
-            {
-                // Debug.Log("2");
-                clickedObject = hit.collider.GetComponent<BarrackCollider>();            
-                if(clickedObject){
-                    // Debug.Log("3");
-                    // TroopData=
-                    troopsStats=troopsTrainingManager.BarrackIsClicked(clickedObject);
+    public void BarrackIsClicked(BarrackCollider ClickedObject){
+        clickedObject=ClickedObject;
+        //this is now being triggered by global ui
+         troopsStats=troopsTrainingManager.BarrackIsClicked(clickedObject);
                     if(troopsTrainingManager.IsBarrackOccupied()){
                         Debug.Log("occupied");
                         TriggerUIForOngoingTraining();
                     }else{
                         TriggerUIForTraining();
                     }
-                }    
-            }
-        }
-    } 
+    }
 
     
     private void TriggerUIForTraining(){
@@ -111,6 +97,8 @@ private void TriggerUIForOngoingTraining(){
             troopsTrainingManager.StartTrainingProcess(troopsData,trainingCost[3]); //time
 
             //disable ui with succes message
+            EndStage();
+            RefreshUI();
         }
         else{
             Debug.Log("Not Enough");
@@ -121,6 +109,16 @@ private void TriggerUIForOngoingTraining(){
     public void TrainingIsDone(){
         //this will be triggered by manager
         Debug.Log("show a message for training Done here ");
+    }
+
+    //end stage
+    public void EndStage(){
+        //refresh every thing here and in global ui
+        //this will be run by cancel buttons
+        globalUIManager.RefreshPermission();
+    }
+    private void RefreshUI(){
+        StartingTrainingUIPanel.SetActive(false);
     }
 }
 

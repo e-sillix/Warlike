@@ -103,5 +103,6 @@ public class UIMarchManager : MonoBehaviour
         MarchingStage2UIPanel.SetActive(false);
         MarchingStage3UIPanel.SetActive(false);
         MarchingStage4UIPanel.SetActive(false);
+        marchManager.EndStage();
     }
 }

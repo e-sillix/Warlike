@@ -7,6 +7,7 @@ public class MarchManager : MonoBehaviour
     public bool marchAllowed=true;//this will set up global ui and local
     [SerializeField]private LayerMask groundLayer,innerKingdomLayer; 
     [SerializeField] private UIMarchManager uIMarchManager;
+    [SerializeField] private GlobalUIManager globalUIManager;
     private Vector3 position;  
     private GameObject clickedObject;
     private int[] troopsData;
@@ -16,34 +17,50 @@ public class MarchManager : MonoBehaviour
     private TheUnit TheArmy;
 
     //stage 1
-    void Update(){
-        if(marchAllowed){
-            if (Input.GetMouseButtonDown(0)){ // Detect left mouse button click
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                RaycastHit hit;
+    // void Update(){
+    //     if(marchAllowed){
+    //         if (Input.GetMouseButtonDown(0)){ // Detect left mouse button click
+    //             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+    //             RaycastHit hit;
 
-                // Perform the raycast
-                if (Physics.Raycast(ray, out hit))//this will move
-                {  
-                    clickedObject=hit.collider.gameObject;
-                    // Debug.Log(clickedObject.layer);
-                    if(IsGroundLayer(clickedObject)&&!IsInnerKingdomLayer(clickedObject)){
-                        //this will be "not innerkingdom collider" condition                        
-                            position=hit.point;
-                            // marchAllowed=false;
-                            uIMarchManager.TriggerForMarchStage1(position);                            
-                    }
-                    else{
-                        Debug.Log(" not on ground or on innerkingdom");
-                    }
+    //             // Perform the raycast
+    //             if (Physics.Raycast(ray, out hit))//this will move
+    //             {  
+    //                 clickedObject=hit.collider.gameObject;
+    //                 // Debug.Log(clickedObject.layer);
+    //                 if(IsGroundLayer(clickedObject)&&!IsInnerKingdomLayer(clickedObject)){
+    //                     //this will be "not innerkingdom collider" condition                        
+    //                         position=hit.point;
+    //                         // marchAllowed=false;
+    //                         uIMarchManager.TriggerForMarchStage1(position);                            
+    //                 }
+    //                 else{
+    //                     Debug.Log(" not on ground or on innerkingdom");
+    //                 }
                     
-                }        
+    //             }        
+    //         }
+    //     }
+    //     else{
+    //         Debug.Log("March Not Allowed ,manager");
+    //     }
+    // }
+ //stage 1
+    public void GroundIsClicked(GameObject ClickedObject,RaycastHit hit){
+        //triggered by global ui manager
+        if(!IsInnerKingdomLayer(ClickedObject)){
+            //this will be "not innerkingdom collider" condition                        
+            position=hit.point;
+            // marchAllowed=false;
+            uIMarchManager.TriggerForMarchStage1(position);                            
             }
-        }
-        else{
-            Debug.Log("March Not Allowed ,manager");
-        }
-    }
+            else{
+                Debug.Log(" not on ground or on innerkingdom");
+                }    
+            }        
+    
+
+
     private bool IsGroundLayer(GameObject obj)
     {
         return (groundLayer.value & (1 << obj.layer)) != 0;
@@ -75,4 +92,9 @@ public class MarchManager : MonoBehaviour
      //it will be triggered by initiatenewmarchprocess  
      TheArmy.SetTargetPosition(position);
    }
+
+    //end stage
+    public void EndStage(){
+        globalUIManager.RefreshPermission();
+    }
 }
