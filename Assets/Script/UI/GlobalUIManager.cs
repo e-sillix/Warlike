@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GlobalUIManager : MonoBehaviour
 {
-    [SerializeField]private LayerMask groundLayer;
+    [SerializeField]private LayerMask groundLayer,enemyLayer,mineLayer;
 
     private bool permissionForUI=true; //this will be falsed by other cancel managers only
     private GameObject clickedObject;
@@ -31,6 +31,14 @@ public class GlobalUIManager : MonoBehaviour
             Debug.Log("Ground is Clicked.");
             marchManager.GroundIsClicked(ClickedObject,hit);
         }
+        else if(IsEnemyLayer(ClickedObject)){
+            Debug.Log("Enemey is Clicked.");
+            marchManager.MarchTargetClicked(ClickedObject,"Enemy");
+        }
+        else if(IsMineLayer(ClickedObject)){
+            Debug.Log("Mine is Clicked.");
+            marchManager.MarchTargetClicked(ClickedObject,"Mine");
+        }
         else if(ClickedObject.GetComponent<BarrackCollider>()){
             Debug.Log("Barrack is clicked");
             uITroopsTrainingManager.BarrackIsClicked(ClickedObject.GetComponent<BarrackCollider>());
@@ -43,6 +51,14 @@ public class GlobalUIManager : MonoBehaviour
     private bool IsGroundLayer(GameObject obj)
     {
         return (groundLayer.value & (1 << obj.layer)) != 0;
+    }
+    private bool IsEnemyLayer(GameObject obj)
+    {
+        return (enemyLayer.value & (1 << obj.layer)) != 0;
+    }
+    private bool IsMineLayer(GameObject obj)
+    {
+        return (mineLayer.value & (1 << obj.layer)) != 0;
     }
     public void RefreshPermission(){
         permissionForUI=true;

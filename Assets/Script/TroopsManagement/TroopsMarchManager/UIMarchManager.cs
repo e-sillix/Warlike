@@ -37,7 +37,6 @@ public class UIMarchManager : MonoBehaviour
     private void SetTroopType(string troopType)
     {
         selectedTroopType = troopType;
-        // Debug.Log("Selected Troop Type: " + selectedTroopType);
         // You can now use the 'selectedTroopType' string for further logic
         if(troopType!=""){
         MarchStage3Trigger();
@@ -48,7 +47,6 @@ public class UIMarchManager : MonoBehaviour
         //starting tick or icon one
         //automatically by stage 1 in marchmanger
         position=Position;
-        // Debug.Log(position);
         //ui triggering
         MarchingStage1UIPanel.SetActive(true);
 
@@ -71,11 +69,7 @@ public class UIMarchManager : MonoBehaviour
         TroopsTypeUI.text=selectedTroopType.ToString();
         MarchingStage2UIPanel.SetActive(false);
         troopsNumber=troopsCountManager.GetTroopsCount(selectedTroopType);//set the max limit of troops level
-        //according to counting
-        // Debug.Log("in ui");
-        // for (int i =0;i<5;i++){
-        //     Debug.Log(troopsNumber[i]);
-        // }
+        
         //slider one
         MarchingStage3UIPanel.SetActive(true);
         //passing the troops data to ui slider
@@ -85,10 +79,7 @@ public class UIMarchManager : MonoBehaviour
     public void MarchStage4Trigger(){
         //triggered by slider ui march button
         troopsToMarch=marchSlider.ReturnTroopsData();
-        //  Debug.Log("in ui");
-        // for (int i =0;i<5;i++){
-        //     Debug.Log(troopsToMarch[i]);
-        // }
+        
         marchManager.StartMarching(selectedTroopType,troopsToMarch);//pass the troops numbers with levels
         EndStageTriggered();
 
@@ -100,7 +91,6 @@ public class UIMarchManager : MonoBehaviour
     public void EndStageTriggered(){
         //this will be triggered by ui cancel buttons
         // refresh all ui;
-        // marchAllowed =true;
         SetTroopType("");
         MarchingStage1UIPanel.SetActive(false);
         MarchingStage2UIPanel.SetActive(false);

@@ -8,6 +8,7 @@ public class MarchManager : MonoBehaviour
     [SerializeField]private LayerMask groundLayer,innerKingdomLayer; 
     [SerializeField] private UIMarchManager uIMarchManager;
     [SerializeField] private GlobalUIManager globalUIManager;
+    [SerializeField] private TroopsCountManager troopsCountManager;
     private Vector3 position;  
     private GameObject clickedObject;
     private int[] troopsData;
@@ -15,36 +16,11 @@ public class MarchManager : MonoBehaviour
     [SerializeField] private GameObject Spawnpoint;
     private GameObject TheArmyGO;
     private TheUnit TheArmy;
+    private string targetType;
+    private GameObject target;
+    private bool troopsAction;
 
-    //stage 1
-    // void Update(){
-    //     if(marchAllowed){
-    //         if (Input.GetMouseButtonDown(0)){ // Detect left mouse button click
-    //             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-    //             RaycastHit hit;
-
-    //             // Perform the raycast
-    //             if (Physics.Raycast(ray, out hit))//this will move
-    //             {  
-    //                 clickedObject=hit.collider.gameObject;
-    //                 // Debug.Log(clickedObject.layer);
-    //                 if(IsGroundLayer(clickedObject)&&!IsInnerKingdomLayer(clickedObject)){
-    //                     //this will be "not innerkingdom collider" condition                        
-    //                         position=hit.point;
-    //                         // marchAllowed=false;
-    //                         uIMarchManager.TriggerForMarchStage1(position);                            
-    //                 }
-    //                 else{
-    //                     Debug.Log(" not on ground or on innerkingdom");
-    //                 }
-                    
-    //             }        
-    //         }
-    //     }
-    //     else{
-    //         Debug.Log("March Not Allowed ,manager");
-    //     }
-    // }
+   
  //stage 1
     public void GroundIsClicked(GameObject ClickedObject,RaycastHit hit){
         //triggered by global ui manager
@@ -58,7 +34,15 @@ public class MarchManager : MonoBehaviour
                 Debug.Log(" not on ground or on innerkingdom");
                 }    
             }        
-    
+    public void MarchTargetClicked(GameObject Target,string TargetType){
+        targetType=TargetType;
+        target=Target;
+        
+        Debug.Log(targetType);
+        Debug.Log(target.transform.position);
+        uIMarchManager.TriggerForMarchStage1(position);
+        troopsAction=true;
+    }
 
 
     private bool IsGroundLayer(GameObject obj)
@@ -76,14 +60,20 @@ public class MarchManager : MonoBehaviour
         //spawn army with the given stats
         //pass the position to army
         TheArmyGO=Instantiate(TheUnitPrefab,Spawnpoint.transform.position, Spawnpoint.transform.rotation);
-
-     //cut the soldier count from the base
+     
+        troopsCountManager.WithDrawTroops(TroopsType,TroopsData);
     //  +++++++++
     //  troopsCounter.WithDrawingTroopsFromBase(troopsCount);
 
         TheArmy=TheArmyGO.GetComponent<TheUnit>();
         TheArmy.SetTroopsData(TroopsType,troopsData);
+        if(troopsAction){
+            TheArmy.SetTroopsTarget(target);   
+        }
+        else{
+
         InitiateTheMarchProcess(TheArmy,position);
+        }
      
     }    
    
@@ -95,6 +85,7 @@ public class MarchManager : MonoBehaviour
 
     //end stage
     public void EndStage(){
+        troopsAction=false;
         globalUIManager.RefreshPermission();
     }
 }

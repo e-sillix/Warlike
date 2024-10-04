@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class TroopsCountManager : MonoBehaviour
 {//this will store troop count for all types and manage it.
-
-
    private int[] cavalry=new int[5],infantry=new int[5],archer=new int[5],mage=new int[5];
     void Start(){
         cavalry = new int[] { 0,0,0,0,0 };
@@ -27,7 +25,6 @@ public class TroopsCountManager : MonoBehaviour
             cavalry[i] += troopsData[i];  // Add corresponding troop data to cavalry array
         }
         for(int i=0;i<5;i++){
-      Debug.Log(cavalry[i]);
    }
     }
     else if (barrackType == "Infantry")
@@ -37,7 +34,6 @@ public class TroopsCountManager : MonoBehaviour
             infantry[i] += troopsData[i];  // Add corresponding troop data to infantry array
         }
          for(int i=0;i<5;i++){
-      Debug.Log(infantry[i]);
    }
     }
     else if (barrackType == "Archer")
@@ -47,7 +43,6 @@ public class TroopsCountManager : MonoBehaviour
             archer[i] += troopsData[i];  // Add corresponding troop data to infantry array
         }
          for(int i=0;i<5;i++){
-      Debug.Log(infantry[i]);
    }
    }
     else if (barrackType == "Mage")
@@ -57,7 +52,6 @@ public class TroopsCountManager : MonoBehaviour
             mage[i] += troopsData[i];  // Add corresponding troop data to infantry array
         }
          for(int i=0;i<5;i++){
-      Debug.Log(infantry[i]);
    }
    }
     else
@@ -65,7 +59,6 @@ public class TroopsCountManager : MonoBehaviour
         Debug.LogError("Unknown barrack type in countmanager: " + barrackType);
     }
 
-    Debug.Log(barrackType + " troops updated.");
    
    }
 
@@ -93,8 +86,50 @@ public class TroopsCountManager : MonoBehaviour
     }
     }
    
-   public void WithDrawTroops(){
+   public void WithDrawTroops(string barrackType,int[] troopsData){
+    //called when march starting
     //depleting troops for marching from base.or injured 
+     // Check for the barrack type and update the corresponding array
+    if (barrackType == "Cavalry")
+    {
+        for (int i = 0; i < cavalry.Length; i++)
+        {
+            cavalry[i] -= troopsData[i];  // Add corresponding troop data to cavalry array
+        }
+        for(int i=0;i<5;i++){
+   }
+    }
+    else if (barrackType == "Infantry")
+    {
+        for (int i = 0; i < infantry.Length; i++)
+        {
+            infantry[i] -= troopsData[i];  // Add corresponding troop data to infantry array
+        }
+         for(int i=0;i<5;i++){
+   }
+    }
+    else if (barrackType == "Archer")
+    {
+        for (int i = 0; i < archer.Length; i++)
+        {
+            archer[i] -= troopsData[i];  // Add corresponding troop data to infantry array
+        }
+         for(int i=0;i<5;i++){
+   }
+   }
+    else if (barrackType == "Mage")
+    {
+        for (int i = 0; i < mage.Length; i++)
+        {
+            mage[i] -= troopsData[i];  // Add corresponding troop data to infantry array
+        }
+         for(int i=0;i<5;i++){
+   }
+   }
+    else
+    {
+        Debug.LogError("Unknown barrack type in countmanager: " + barrackType);
+    }
 
    }
    public void ReturnTroops(){

@@ -10,14 +10,12 @@ public class TheUnit : MonoBehaviour
     private Vector3 targetPosition;
     private bool shouldMove = false;
     [SerializeField] private GameObject SelectorIcon;
+    // private GameObject target;
     
 
     // private int NumberOfTroops;
 
 
-//    void Start(){
-
-//    }
 
     void Update()
     {
@@ -39,6 +37,8 @@ public class TheUnit : MonoBehaviour
     public void SetTargetPosition(Vector3 position)
     {
         targetPosition = position;
+        Debug.Log("The unit 2"+targetPosition);
+        
         shouldMove = true;
     }
 
@@ -47,10 +47,14 @@ public class TheUnit : MonoBehaviour
         SelectorIcon.SetActive(isSelected);
     }
     public void SetTroopsData(string TroopsType,int[] TroopsData){
-        Debug.Log(TroopsType);
-        Debug.Log(TroopsData[0]+","+TroopsData[1]+","+TroopsData[2]+","+TroopsData[3]+","+
-        TroopsData[4]);
+        // Debug.Log(TroopsType);
+        // Debug.Log(TroopsData[0]+","+TroopsData[1]+","+TroopsData[2]+","+TroopsData[3]+","+
+        // TroopsData[4]);
         
         // TroopsCountDisplayer.DisplaySoldiers(count);
+    }
+    public void SetTroopsTarget(GameObject target){
+        Debug.Log("The unit 1"+target.transform.position);
+        SetTargetPosition(target.transform.position);
     }
 }
