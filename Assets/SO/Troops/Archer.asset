@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d551a565c437fa4b9e51bf8894ee51e, type: 3}
+  m_Name: Archer
+  m_EditorClassIdentifier: 
+  troopName: Archer
+  WoodCost: 050000000a0000001e000000640000002c010000
+  GrainCost: 050000000a0000001e00000064000000c8000000
+  StoneCost: 04000000140000001e00000064000000c8000000
+  TrainingTime: 050000000a0000002800000064000000c8000000
+  AttackRange: 3
+  Damage: 0500000016000000de000000ae080000de000000
+  Health: 010000000b0000006f00000057040000050d0000
+  MarchSpeed: 06000000090000000b0000000f00000016000000
+  Armor: 0200000003000000040000000600000009000000

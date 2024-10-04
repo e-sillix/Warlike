@@ -6,7 +6,9 @@ public class TroopsStatsManager : MonoBehaviour
 {
     [SerializeField] private TroopsData InfantryData; // Drag the troopsData ScriptableObject here
     [SerializeField] private TroopsData CavalryData; // Drag the troopsData ScriptableObject here
-    
+
+    [SerializeField] private TroopsData ArcherData; 
+    [SerializeField] private TroopsData MageData;    
     public TroopsDataPayload GetTroopsData(string troopsType, int level){
         if (level < 1 || level > 5)
         {
@@ -23,6 +25,14 @@ public class TroopsStatsManager : MonoBehaviour
     else if (troopsType == "Cavalry")
     {
         troopsData = CavalryData; // Reference to the ScriptableObject containing Barracks data
+    }
+    else if (troopsType == "Archer")
+    {
+        troopsData = ArcherData; // Reference to the ScriptableObject containing Barracks data
+    }
+    else if (troopsType == "Mage")
+    {
+        troopsData = MageData; // Reference to the ScriptableObject containing Barracks data
     }
     else
     {

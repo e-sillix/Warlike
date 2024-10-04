@@ -17,7 +17,7 @@ public class UITroopsTrainingManager : MonoBehaviour
     [SerializeField] private GlobalUIManager globalUIManager;
     private int[] troopsData = new int[5];
     private TroopsDataPayload troopsStats;
-    [SerializeField]private TextMeshProUGUI CostUI;   
+    [SerializeField]private TextMeshProUGUI CostUI,troopsTypeUI;   
     private int[] trainingCost=new int[4];
     private string barrackType;
     private int barrackCapacity;
@@ -50,6 +50,7 @@ public class UITroopsTrainingManager : MonoBehaviour
         // .text= barrackType;
         // .text=barrackCapacity;
 
+        troopsTypeUI.text="Train "+barrackType.ToString();
 
         //triggering Starting training ui
         StartingTrainingUIPanel.SetActive(true);

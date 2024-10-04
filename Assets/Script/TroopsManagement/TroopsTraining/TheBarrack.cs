@@ -8,9 +8,9 @@ public class TheBarrack : MonoBehaviour
     public enum BarrackType
     {
         Infantry,
-        Archers,
+        Archer,
         Cavalry,
-        Mages
+        Mage
     }
 
     // Public variable to select from dropdown in the Inspector

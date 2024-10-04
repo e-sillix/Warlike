@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class UIMarchManager : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class UIMarchManager : MonoBehaviour
     [SerializeField] private Button archerButton;
     [SerializeField] private Button mageButton;
     [SerializeField] private MarchSlider marchSlider;
+    [SerializeField] private TextMeshProUGUI TroopsTypeUI;
 
     private string selectedTroopType;
 
@@ -66,6 +68,7 @@ public class UIMarchManager : MonoBehaviour
     private void MarchStage3Trigger(){
         //triggered by march button in stage 2 panel or here indirectly by settroopstype
         // get data for that troops type number,set it to max slider value all five
+        TroopsTypeUI.text=selectedTroopType.ToString();
         MarchingStage2UIPanel.SetActive(false);
         troopsNumber=troopsCountManager.GetTroopsCount(selectedTroopType);//set the max limit of troops level
         //according to counting

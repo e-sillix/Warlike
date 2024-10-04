@@ -18,12 +18,7 @@ public class TroopsCountManager : MonoBehaviour
       //this will be called by barrack for now.
       //when training is done
       // Make sure that troopsData length matches the size of your arrays (e.g., 5)
-    if (troopsData.Length != cavalry.Length)
-    {
-        Debug.LogError("Mismatch in troop data length!");
-        return;
-    }
-
+    
     // Check for the barrack type and update the corresponding array
     if (barrackType == "Cavalry")
     {
@@ -45,6 +40,26 @@ public class TroopsCountManager : MonoBehaviour
       Debug.Log(infantry[i]);
    }
     }
+    else if (barrackType == "Archer")
+    {
+        for (int i = 0; i < archer.Length; i++)
+        {
+            archer[i] += troopsData[i];  // Add corresponding troop data to infantry array
+        }
+         for(int i=0;i<5;i++){
+      Debug.Log(infantry[i]);
+   }
+   }
+    else if (barrackType == "Mage")
+    {
+        for (int i = 0; i < mage.Length; i++)
+        {
+            mage[i] += troopsData[i];  // Add corresponding troop data to infantry array
+        }
+         for(int i=0;i<5;i++){
+      Debug.Log(infantry[i]);
+   }
+   }
     else
     {
         Debug.LogError("Unknown barrack type in countmanager: " + barrackType);
@@ -53,6 +68,7 @@ public class TroopsCountManager : MonoBehaviour
     Debug.Log(barrackType + " troops updated.");
    
    }
+
    public int[] GetTroopsCount(string TroopsType){
     //for marching or ui purposes
     if (TroopsType == "Cavalry")
