@@ -10,6 +10,7 @@ public class GlobalUIManager : MonoBehaviour
     private GameObject clickedObject;
     [SerializeField] private UITroopsTrainingManager uITroopsTrainingManager;
     [SerializeField] private MarchManager marchManager;
+    [SerializeField] private TroopsExpeditionManager troopsExpeditionManager;
     void Update(){
         if(permissionForUI){        
         if (Input.GetMouseButtonDown(0)){ // Detect left mouse button click
@@ -27,17 +28,20 @@ public class GlobalUIManager : MonoBehaviour
     }}
 
     void ClickAnalysis(GameObject ClickedObject,RaycastHit hit){
-        if(IsGroundLayer(ClickedObject)){
-            Debug.Log("Ground is Clicked.");
-            marchManager.GroundIsClicked(ClickedObject,hit);
-        }
-        else if(IsEnemyLayer(ClickedObject)){
-            Debug.Log("Enemey is Clicked.");
-            marchManager.MarchTargetClicked(ClickedObject,"Enemy");
-        }
-        else if(IsMineLayer(ClickedObject)){
-            Debug.Log("Mine is Clicked.");
-            marchManager.MarchTargetClicked(ClickedObject,"Mine");
+        // if(IsGroundLayer(ClickedObject)){
+        //     Debug.Log("Ground is Clicked.");
+        //     marchManager.GroundIsClicked(ClickedObject,hit);
+        // }
+        // else if(IsEnemyLayer(ClickedObject)){
+        //     Debug.Log("Enemey is Clicked.");
+        //     marchManager.MarchTargetClicked(ClickedObject,"Enemy");
+        // }
+        // else if(IsMineLayer(ClickedObject)){
+        //     Debug.Log("Mine is Clicked.");
+        //     marchManager.MarchTargetClicked(ClickedObject,"Mine");
+        // }
+        if(IsGroundLayer(ClickedObject)||IsEnemyLayer(ClickedObject)||IsMineLayer(ClickedObject)){
+            troopsExpeditionManager.PotentialTargetForMarchClicked(ClickedObject,hit);
         }
         else if(ClickedObject.GetComponent<BarrackCollider>()){
             Debug.Log("Barrack is clicked");

@@ -20,9 +20,10 @@ public class UIMarchManager : MonoBehaviour
     [SerializeField] private Button archerButton;
     [SerializeField] private Button mageButton;
     [SerializeField] private MarchSlider marchSlider;
-    [SerializeField] private TextMeshProUGUI TroopsTypeUI;
+    [SerializeField] private TextMeshProUGUI TroopsTypeUI,TroopsAction;
 
     private string selectedTroopType;
+    private GameObject target;
 
 
     void Start()
@@ -43,14 +44,23 @@ public class UIMarchManager : MonoBehaviour
         }
     } 
    
-    public void TriggerForMarchStage1(Vector3 Position){
+    public void TriggerForMarchStage1(Vector3 Position,GameObject Target,string TargetType){
         //starting tick or icon one
         //automatically by stage 1 in marchmanger
         position=Position;
         //ui triggering
         MarchingStage1UIPanel.SetActive(true);
-
         //spawn a ui element on position ,like a anchor
+        TroopsTypeUI.text=selectedTroopType.ToString();
+
+        if(Target){
+            target=Target;
+            TroopsAction.text=TargetType;
+        }
+        else{
+            TroopsAction.text="Just Marching";
+        }
+        // Debug.Log("target Layer"+target.layer.ToString());
     }
 
 //stage 2
@@ -66,7 +76,7 @@ public class UIMarchManager : MonoBehaviour
     private void MarchStage3Trigger(){
         //triggered by march button in stage 2 panel or here indirectly by settroopstype
         // get data for that troops type number,set it to max slider value all five
-        TroopsTypeUI.text=selectedTroopType.ToString();
+        
         MarchingStage2UIPanel.SetActive(false);
         troopsNumber=troopsCountManager.GetTroopsCount(selectedTroopType);//set the max limit of troops level
         
@@ -97,5 +107,6 @@ public class UIMarchManager : MonoBehaviour
         MarchingStage3UIPanel.SetActive(false);
         MarchingStage4UIPanel.SetActive(false);
         marchManager.EndStage();
+        target=null;
     }
 }

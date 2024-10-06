@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,7 +11,9 @@ public class TheUnit : MonoBehaviour
     private Vector3 targetPosition;
     private bool shouldMove = false;
     [SerializeField] private GameObject SelectorIcon;
-    // private GameObject target;
+    public GameObject target;
+    private string actionOfTroop;
+    public bool IsReturn=false;
     
 
     // private int NumberOfTroops;
@@ -34,7 +37,7 @@ public class TheUnit : MonoBehaviour
     }
 
     // Method to set the target position and start moving
-    public void SetTargetPosition(Vector3 position)
+    void SetTargetPosition(Vector3 position)
     {
         targetPosition = position;
         Debug.Log("The unit 2"+targetPosition);
@@ -53,8 +56,15 @@ public class TheUnit : MonoBehaviour
         
         // TroopsCountDisplayer.DisplaySoldiers(count);
     }
-    public void SetTroopsTarget(GameObject target){
+    public void SetTroopsTarget(Vector3 position,GameObject Target){        
         Debug.Log("The unit 1"+target.transform.position);
+        target=Target;
+        if(target){
+            actionOfTroop=target.layer.ToString();
+        }
+        else{
+
+        }
         SetTargetPosition(target.transform.position);
     }
 }
