@@ -14,11 +14,16 @@ public class TheUnit : MonoBehaviour
     public GameObject target;
     private string actionOfTroop;
     public bool IsReturn=false;
+
+    public int ArmyId;
+    private TroopsExpeditionManager troopsExpeditionManager;
     
 
     // private int NumberOfTroops;
 
-
+    void Start(){
+        troopsExpeditionManager=FindAnyObjectByType<TroopsExpeditionManager>();
+    }
 
     void Update()
     {
@@ -32,6 +37,7 @@ public class TheUnit : MonoBehaviour
             if (Vector3.Distance(transform.position, targetPosition) < 0.1f)
             {
                 shouldMove = false; // Stop moving
+                TargetReached();
             }
         }
     }
@@ -57,14 +63,16 @@ public class TheUnit : MonoBehaviour
         // TroopsCountDisplayer.DisplaySoldiers(count);
     }
     public void SetTroopsTarget(Vector3 position,GameObject Target){        
-        Debug.Log("The unit 1"+target.transform.position);
-        target=Target;
-        if(target){
-            actionOfTroop=target.layer.ToString();
+        target=Target;              
+        if(target.layer==6){
+            SetTargetPosition(position);
         }
         else{
-
-        }
-        SetTargetPosition(target.transform.position);
+            SetTargetPosition(target.transform.position);            
+        }        
+    }
+    void TargetReached(){
+        // Debug.Log("target reached");
+        troopsExpeditionManager.MarchDone(gameObject);
     }
 }

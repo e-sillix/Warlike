@@ -1,0 +1,71 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using TMPro; 
+
+public class ExpeditionUI : MonoBehaviour
+{
+    [SerializeField] private GameObject InitialConfirmPanel,ConfirmPanel2;
+    [SerializeField] private Button Army1Button,Army2Button,Army3Button,Army4Button,Army5Button;
+    [SerializeField] private TextMeshProUGUI army1Id,army2Id,army3Id,army4Id,army5Id;
+    private TroopsExpeditionManager troopsExpeditionManager;
+    private TheUnit ChoosenUnit;
+    private TheUnit[] Armys;
+    void Start(){
+        troopsExpeditionManager=GetComponent<TroopsExpeditionManager>();
+        // Add listeners to each button
+        
+
+        // Army1Button.onClick.AddListener(()=>ExitingIsChoosen(1));
+    }
+    public void TriggerConfirmationUI(){
+        Debug.Log("Triggered");
+        InitialConfirmPanel.SetActive(true);
+    }
+    public void Stage2ConfirmationUI(){//triggered by stage 1 confirmation
+        //the one with exiting army or creating another army option
+        ConfirmPanel2.SetActive(true);
+        Armys=troopsExpeditionManager.GetAllThePresentUnits();
+
+        army1Id.text=Armys[0].ArmyId.ToString();
+        army2Id.text=Armys[1].ArmyId.ToString();
+        army3Id.text=Armys[2].ArmyId.ToString();
+        army4Id.text=Armys[3].ArmyId.ToString();
+        army5Id.text=Armys[4].ArmyId.ToString();
+
+        Army1Button.onClick.AddListener(()=>ArmyIsChosen(Armys[0]));
+        Army2Button.onClick.AddListener(()=>ArmyIsChosen(Armys[1]));
+        Army3Button.onClick.AddListener(()=>ArmyIsChosen(Armys[2]));
+        Army4Button.onClick.AddListener(()=>ArmyIsChosen(Armys[3]));
+        Army5Button.onClick.AddListener(()=>ArmyIsChosen(Armys[4]));
+
+    }
+    void ArmyIsChosen(TheUnit ChoosedOne){
+        ChoosenUnit=ChoosedOne;
+        Debug.Log(ChoosedOne.ArmyId);
+
+        troopsExpeditionManager.ArmyIsChoosed(ChoosenUnit);
+    }
+
+    public void NewArmyChoosen(){//by new create option ui
+        troopsExpeditionManager.NewArmyChoosenClicked();
+    }
+   
+    public void EndStageTriggered(){
+        //this will be triggered by ui cancel buttons
+        // refresh all ui;
+
+        // SetTroopType("");
+        // MarchingStage1UIPanel.SetActive(false);
+        // MarchingStage2UIPanel.SetActive(false);
+        // MarchingStage3UIPanel.SetActive(false);
+        // MarchingStage4UIPanel.SetActive(false);
+        // marchManager.EndStage();
+        // target=null;
+        InitialConfirmPanel.SetActive(false);
+        ConfirmPanel2.SetActive(false);
+
+        troopsExpeditionManager.EndStage();
+    }
+}
