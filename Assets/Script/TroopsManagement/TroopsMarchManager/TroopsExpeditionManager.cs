@@ -26,6 +26,7 @@ public class TroopsExpeditionManager : MonoBehaviour
         //trigger march manager stage 1 -----
 
         // marchManager.ATargetIsClick(Target,hit);---------
+        Debug.Log("RE");
 
         expeditionUI.TriggerConfirmationUI();
         
@@ -60,6 +61,8 @@ public class TroopsExpeditionManager : MonoBehaviour
     void march(){
         // Debug.Log(ChoosenUnit.ArmyId);
         ChoosenUnit.SetTroopsTarget(position,target);
+        
+        EndStage();
 
     }
 

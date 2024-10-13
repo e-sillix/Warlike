@@ -67,7 +67,8 @@ public class ExpeditionUI : MonoBehaviour
 
     public void NewArmyChoosen(){//by new create option ui
         troopsExpeditionManager.NewArmyChoosenClicked();
-        EndStageTriggered();
+        InitialConfirmPanel.SetActive(false);
+        ConfirmPanel2.SetActive(false);
     }
    
     public void EndStageTriggered(){
