@@ -9,7 +9,6 @@ public class GlobalUIManager : MonoBehaviour
     private bool permissionForUI=true; //this will be falsed by other cancel managers only
     private GameObject clickedObject;
     [SerializeField] private UITroopsTrainingManager uITroopsTrainingManager;
-    [SerializeField] private MarchManager marchManager;
     [SerializeField] private TroopsExpeditionManager troopsExpeditionManager;
     void Update(){
         if(permissionForUI){        

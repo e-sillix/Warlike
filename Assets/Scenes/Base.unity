@@ -2897,9 +2897,21 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 147570835}
-        m_TargetAssemblyTypeName: UIMarchManager, Assembly-CSharp
+      - m_Target: {fileID: 850240513}
+        m_TargetAssemblyTypeName: ExpeditionUI, Assembly-CSharp
         m_MethodName: EndStageTriggered
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2034049741}
+        m_TargetAssemblyTypeName: NewArmyManger, Assembly-CSharp
+        m_MethodName: EndStageUI
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3617,6 +3629,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TheArmy (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7817682463295282944, guid: f3f49270f0a939941b605a8b13f91495,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8875590478063644433, guid: f3f49270f0a939941b605a8b13f91495,
         type: 3}
@@ -6996,7 +7013,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &556064173
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11539,9 +11556,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 147570835}
-        m_TargetAssemblyTypeName: UIMarchManager, Assembly-CSharp
-        m_MethodName: MarchStage4Trigger
+      - m_Target: {fileID: 2034049741}
+        m_TargetAssemblyTypeName: NewArmyManger, Assembly-CSharp
+        m_MethodName: MarchIsClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -14461,6 +14478,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TheArmy
       objectReference: {fileID: 0}
+    - target: {fileID: 7817682463295282944, guid: f3f49270f0a939941b605a8b13f91495,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8875590478063644433, guid: f3f49270f0a939941b605a8b13f91495,
         type: 3}
       propertyPath: ArmyId
@@ -16310,6 +16332,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TheArmy (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7817682463295282944, guid: f3f49270f0a939941b605a8b13f91495,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8875590478063644433, guid: f3f49270f0a939941b605a8b13f91495,
         type: 3}
@@ -19592,6 +19619,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TheArmy (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7817682463295282944, guid: f3f49270f0a939941b605a8b13f91495,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8875590478063644433, guid: f3f49270f0a939941b605a8b13f91495,
         type: 3}
@@ -24046,9 +24078,21 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 147570835}
-        m_TargetAssemblyTypeName: UIMarchManager, Assembly-CSharp
+      - m_Target: {fileID: 850240513}
+        m_TargetAssemblyTypeName: ExpeditionUI, Assembly-CSharp
         m_MethodName: EndStageTriggered
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2034049741}
+        m_TargetAssemblyTypeName: NewArmyManger, Assembly-CSharp
+        m_MethodName: EndStageUI
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -29236,6 +29280,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TheArmy (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 7817682463295282944, guid: f3f49270f0a939941b605a8b13f91495,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8875590478063644433, guid: f3f49270f0a939941b605a8b13f91495,
         type: 3}
       propertyPath: ArmyId
@@ -30180,8 +30229,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 147570835}
-        m_TargetAssemblyTypeName: UIMarchManager, Assembly-CSharp
+      - m_Target: {fileID: 850240513}
+        m_TargetAssemblyTypeName: ExpeditionUI, Assembly-CSharp
         m_MethodName: EndStageTriggered
         m_Mode: 1
         m_Arguments:
@@ -30510,6 +30559,8 @@ MonoBehaviour:
   troopsCountManager: {fileID: 903222388}
   marchSlider: {fileID: 990738985}
   troopsExpeditionManager: {fileID: 850240512}
+  TroopsTypeUI: {fileID: 1932034020}
+  TroopsAction: {fileID: 0}
 --- !u!1 &2046283250
 GameObject:
   m_ObjectHideFlags: 0

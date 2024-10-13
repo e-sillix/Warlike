@@ -46,11 +46,11 @@ public class TroopsExpeditionManager : MonoBehaviour
     public void ArmyCreationDone(TheUnit newArmy){//called by newarmymanager after creation is done
         ChoosenUnit=newArmy;//this is for storing 
 
-        //march it
-        march();
-        
+        ArmyIsChoosed(ChoosenUnit);        
     }
-
+    public void ExistingArmyIsChoosen(TheUnit choosedOne){
+        ArmyIsChoosed(choosedOne);
+    }
     public void ArmyIsChoosed(TheUnit choosedOne){
         ChoosenUnit=choosedOne;
 
@@ -89,9 +89,9 @@ public class TroopsExpeditionManager : MonoBehaviour
         }
         // InitiateMarchProcess(TheArmy);
     }
-    public void ExistingArmyIsChoosen(TheUnit TheArmy){
-        InitiateMarchProcess(TheArmy);
-    }
+    // public void ExistingArmyIsChoosen(TheUnit TheArmy){
+    //     InitiateMarchProcess(TheArmy);
+    // }
     void InitiateMarchProcess(TheUnit TheArmy){
         // marchManager.InitiateTheMarchProcess(TheArmy ,target);
     }

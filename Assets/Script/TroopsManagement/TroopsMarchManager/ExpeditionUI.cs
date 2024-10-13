@@ -20,36 +20,54 @@ public class ExpeditionUI : MonoBehaviour
         // Army1Button.onClick.AddListener(()=>ExitingIsChoosen(1));
     }
     public void TriggerConfirmationUI(){
+        //by expedition manager 
         Debug.Log("Triggered");
-        InitialConfirmPanel.SetActive(true);
+        InitialConfirmPanel.SetActive(true);//the one will with tick and cross panel
     }
-    public void Stage2ConfirmationUI(){//triggered by stage 1 confirmation
+    public void Stage2ConfirmationUI(){//triggered by stage 1 confirmation ui
         //the one with exiting army or creating another army option
         ConfirmPanel2.SetActive(true);
         Armys=troopsExpeditionManager.GetAllThePresentUnits();
-
+        
+        if(Armys[0]){
         army1Id.text=Armys[0].ArmyId.ToString();
-        army2Id.text=Armys[1].ArmyId.ToString();
-        army3Id.text=Armys[2].ArmyId.ToString();
-        army4Id.text=Armys[3].ArmyId.ToString();
-        army5Id.text=Armys[4].ArmyId.ToString();
-
         Army1Button.onClick.AddListener(()=>ArmyIsChosen(Armys[0]));
+        }
+
+        if(Armys[1]){
+        army2Id.text=Armys[1].ArmyId.ToString();
         Army2Button.onClick.AddListener(()=>ArmyIsChosen(Armys[1]));
+        }
+
+        if(Armys[2]){
+        army3Id.text=Armys[2].ArmyId.ToString();
         Army3Button.onClick.AddListener(()=>ArmyIsChosen(Armys[2]));
+        }
+        
+        if(Armys[3]){
+        army4Id.text=Armys[3].ArmyId.ToString();
         Army4Button.onClick.AddListener(()=>ArmyIsChosen(Armys[3]));
+        }
+        
+        if(Armys[4]){
+        army5Id.text=Armys[4].ArmyId.ToString();
         Army5Button.onClick.AddListener(()=>ArmyIsChosen(Armys[4]));
+        }
+
 
     }
     void ArmyIsChosen(TheUnit ChoosedOne){
         ChoosenUnit=ChoosedOne;
-        Debug.Log(ChoosedOne.ArmyId);
+        Debug.Log("clicked"+ChoosedOne.ArmyId);
 
-        troopsExpeditionManager.ArmyIsChoosed(ChoosenUnit);
+        troopsExpeditionManager.ExistingArmyIsChoosen(ChoosenUnit);
+
+        EndStageTriggered();
     }
 
     public void NewArmyChoosen(){//by new create option ui
         troopsExpeditionManager.NewArmyChoosenClicked();
+        EndStageTriggered();
     }
    
     public void EndStageTriggered(){

@@ -19,6 +19,7 @@ public class NewArmyManger : MonoBehaviour
     private TheUnit newArmy;
     private GameObject newArmyGO;
     [SerializeField] private TroopsExpeditionManager troopsExpeditionManager;
+    [SerializeField] private TextMeshProUGUI TroopsTypeUI,TroopsAction;
 
      void Start()
     {
@@ -43,6 +44,8 @@ public class NewArmyManger : MonoBehaviour
     void Stage2ArmyInitiation(){
         newArmyStage1Panel.SetActive(false);
 
+        TroopsTypeUI.text=selectedTroopType.ToString();
+
         troopsNumber=troopsCountManager.GetTroopsCount(selectedTroopType);//set the max limit of troops level
         //slider one
         Stage2ArmyInitiationPanel.SetActive(true);
@@ -65,5 +68,11 @@ public class NewArmyManger : MonoBehaviour
         newArmy=newArmyGO.GetComponent<TheUnit>();
         newArmy.SetTroopsData(selectedTroopType,troopsToMarch);
         troopsExpeditionManager.ArmyCreationDone(newArmy);
+        EndStageUI();
+    }
+    public void EndStageUI(){
+        //called by ui cancel of new army stage.
+        newArmyStage1Panel.SetActive(false);
+        Stage2ArmyInitiationPanel.SetActive(false);
     }
 }
