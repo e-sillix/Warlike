@@ -7,8 +7,12 @@ using TMPro;
 public class ExpeditionUI : MonoBehaviour
 {
     [SerializeField] private GameObject InitialConfirmPanel,ConfirmPanel2;
-    [SerializeField] private Button Army1Button,Army2Button,Army3Button,Army4Button,Army5Button;
-    [SerializeField] private TextMeshProUGUI army1Id,army2Id,army3Id,army4Id,army5Id;
+    [SerializeField] private Button[] ArmyButton;
+    [SerializeField] private GameObject[] ArmyButtonGO;
+
+    [SerializeField] private GameObject CreateButton;
+
+     [SerializeField] private TextMeshProUGUI[] armyId;
     private TroopsExpeditionManager troopsExpeditionManager;
     private TheUnit ChoosenUnit;
     private TheUnit[] Armys;
@@ -21,38 +25,32 @@ public class ExpeditionUI : MonoBehaviour
     }
     public void TriggerConfirmationUI(){
         //by expedition manager 
-        Debug.Log("Triggered");
+        // Debug.Log("Triggered");
         InitialConfirmPanel.SetActive(true);//the one will with tick and cross panel
     }
     public void Stage2ConfirmationUI(){//triggered by stage 1 confirmation ui
         //the one with exiting army or creating another army option
         ConfirmPanel2.SetActive(true);
         Armys=troopsExpeditionManager.GetAllThePresentUnits();
-        
-        if(Armys[0]){
-        army1Id.text=Armys[0].ArmyId.ToString();
-        Army1Button.onClick.AddListener(()=>ArmyIsChosen(Armys[0]));
-        }
+            int armyCount = Mathf.Min(Armys.Length, 5); // Ensure we handle only up to 5 armies
+            if(armyCount>4){
+                CreateButton.SetActive(false);
+            }
+            else{
+                CreateButton.SetActive(true);
+            }
+            for (int i = 0; i < armyCount; i++) {
+                ArmyButtonGO[i].SetActive(true);              // Activate the button
+                armyId[i].text = Armys[i].ArmyId.ToString();  // Set the army ID on the button
 
-        if(Armys[1]){
-        army2Id.text=Armys[1].ArmyId.ToString();
-        Army2Button.onClick.AddListener(()=>ArmyIsChosen(Armys[1]));
-        }
+                int index = i; // Capture 'i' locally to prevent closure issue in the listener
+                ArmyButton[i].onClick.AddListener(() => ArmyIsChosen(Armys[index])); // Assign the listener
+            }
 
-        if(Armys[2]){
-        army3Id.text=Armys[2].ArmyId.ToString();
-        Army3Button.onClick.AddListener(()=>ArmyIsChosen(Armys[2]));
-        }
-        
-        if(Armys[3]){
-        army4Id.text=Armys[3].ArmyId.ToString();
-        Army4Button.onClick.AddListener(()=>ArmyIsChosen(Armys[3]));
-        }
-        
-        if(Armys[4]){
-        army5Id.text=Armys[4].ArmyId.ToString();
-        Army5Button.onClick.AddListener(()=>ArmyIsChosen(Armys[4]));
-        }
+            // Optionally hide extra buttons if fewer than 5 armies
+            for (int i = armyCount; i < ArmyButtonGO.Length; i++) {
+                ArmyButtonGO[i].SetActive(false); // Hide buttons for unused army slots
+            }      
 
 
     }

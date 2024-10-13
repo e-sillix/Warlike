@@ -963,9 +963,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 850240511}
-  - {fileID: 147570834}
   - {fileID: 2034049740}
-  - {fileID: 916464413}
   - {fileID: 1129043917}
   m_Father: {fileID: 1492182854}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1428,50 +1426,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 147491058}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &147570833
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 147570834}
-  - component: {fileID: 147570835}
-  m_Layer: 0
-  m_Name: UIMarchManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &147570834
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 147570833}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 117048137}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &147570835
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 147570833}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b0452a7afa6acf4192a61fc677f2a26, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &180263071
 GameObject:
   m_ObjectHideFlags: 0
@@ -11972,7 +11926,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &732913896
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13570,7 +13524,7 @@ MonoBehaviour:
   actionManager: {fileID: 1129043918}
   globalUIManager: {fileID: 1180219576}
   newArmyManger: {fileID: 2034049741}
-  SpawnPoint: {fileID: 916464412}
+  SpawnPoint: {fileID: 286404000}
 --- !u!114 &850240513
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13585,16 +13539,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InitialConfirmPanel: {fileID: 144076576}
   ConfirmPanel2: {fileID: 556064172}
-  Army1Button: {fileID: 1652672593}
-  Army2Button: {fileID: 1685157637}
-  Army3Button: {fileID: 732913897}
-  Army4Button: {fileID: 1795772403}
-  Army5Button: {fileID: 1852123465}
-  army1Id: {fileID: 846806721}
-  army2Id: {fileID: 1168563843}
-  army3Id: {fileID: 1825002283}
-  army4Id: {fileID: 1204102225}
-  army5Id: {fileID: 1900986611}
+  ArmyButton:
+  - {fileID: 1652672593}
+  - {fileID: 1685157637}
+  - {fileID: 732913897}
+  - {fileID: 1795772403}
+  - {fileID: 1852123465}
+  ArmyButtonGO:
+  - {fileID: 1652672591}
+  - {fileID: 1685157635}
+  - {fileID: 732913895}
+  - {fileID: 1795772401}
+  - {fileID: 1852123463}
+  CreateButton: {fileID: 2114384896}
+  armyId:
+  - {fileID: 846806721}
+  - {fileID: 1168563843}
+  - {fileID: 1825002283}
+  - {fileID: 1204102225}
+  - {fileID: 1900986611}
 --- !u!1 &852808223
 GameObject:
   m_ObjectHideFlags: 0
@@ -14545,50 +14508,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Padding: {x: -8, y: -5, z: -8, w: -5}
   m_Softness: {x: 0, y: 0}
---- !u!1 &916464412
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 916464413}
-  - component: {fileID: 916464414}
-  m_Layer: 0
-  m_Name: MarchManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &916464413
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 916464412}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 117048137}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &916464414
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 916464412}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ae91077080f56e47941e0402612555e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &924666407
 GameObject:
   m_ObjectHideFlags: 0
@@ -18591,7 +18510,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   uITroopsTrainingManager: {fileID: 1762029218}
-  marchManager: {fileID: 916464414}
   troopsExpeditionManager: {fileID: 850240512}
 --- !u!1 &1194627257
 GameObject:
@@ -24158,7 +24076,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1652672592
 RectTransform:
   m_ObjectHideFlags: 0
@@ -24638,7 +24556,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1685157636
 RectTransform:
   m_ObjectHideFlags: 0
@@ -26500,7 +26418,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1795772402
 RectTransform:
   m_ObjectHideFlags: 0
@@ -27736,7 +27654,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1852123464
 RectTransform:
   m_ObjectHideFlags: 0
