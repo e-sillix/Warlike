@@ -4,15 +4,21 @@ using UnityEngine;
 
 public class MinesStats : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+   [SerializeField] private int[] woodResourceWithLevel,grainResourceWithLevel,stoneResourceWithLevel;
+   //five level at most for now.
+   public int GetResourceValue(string mineType,int level){//this will be called when mine is spawned
+      if(mineType=="wood"){        
+         return woodResourceWithLevel[level];         
+      }
+      else if(mineType=="grain"){        
+         return grainResourceWithLevel[level];         
+      }
+      else if(mineType=="stone"){        
+         return stoneResourceWithLevel[level];         
+      }
+      else{
+         Debug.Log("unknown mine resource asked for.");
+         return 0;
+      }
+   }
 }

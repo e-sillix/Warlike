@@ -12,12 +12,15 @@ public class TheUnit : MonoBehaviour
     private bool shouldMove = false;
     [SerializeField] private GameObject SelectorIcon;
     public GameObject target;
-    private string actionOfTroop;
     public bool IsReturn=false;
 
     public int ArmyId;
+
+    private int[] resources;//[wood,grain,stone];
     private TroopsExpeditionManager troopsExpeditionManager;
     
+    private int[] troopsStats;//[lvl1,lvl2,...,lvl5]
+    private string troopsType;//store type of troops inf,arch,mage....
 
     // private int NumberOfTroops;
 
@@ -56,12 +59,14 @@ public class TheUnit : MonoBehaviour
         SelectorIcon.SetActive(isSelected);
     }
     public void SetTroopsData(string TroopsType,int[] TroopsData){
-        // Debug.Log(TroopsType);
-        // Debug.Log(TroopsData[0]+","+TroopsData[1]+","+TroopsData[2]+","+TroopsData[3]+","+
-        // TroopsData[4]);
+        troopsType=TroopsType;
+        troopsStats=TroopsData;
+    //     // Debug.Log(TroopsType);
+    //     // Debug.Log(TroopsData[0]+","+TroopsData[1]+","+TroopsData[2]+","+TroopsData[3]+","+
+    //     // TroopsData[4]);
         
-        // TroopsCountDisplayer.DisplaySoldiers(count);
-    }
+    //     // TroopsCountDisplayer.DisplaySoldiers(count);
+     }
     public void SetTroopsTarget(Vector3 position,GameObject Target){        
         target=Target;              
         if(target.layer==6){

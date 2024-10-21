@@ -12,7 +12,9 @@ public class ExpeditionUI : MonoBehaviour
 
     [SerializeField] private GameObject CreateButton;
 
-     [SerializeField] private TextMeshProUGUI[] armyId;
+    [SerializeField] private TextMeshProUGUI[] armyId;
+    
+    public int ArmyLimit=5;
     private TroopsExpeditionManager troopsExpeditionManager;
     private TheUnit ChoosenUnit;
     private TheUnit[] Armys;
@@ -33,7 +35,7 @@ public class ExpeditionUI : MonoBehaviour
         ConfirmPanel2.SetActive(true);
         Armys=troopsExpeditionManager.GetAllThePresentUnits();
             int armyCount = Mathf.Min(Armys.Length, 5); // Ensure we handle only up to 5 armies
-            if(armyCount>4){
+            if(armyCount>=ArmyLimit){
                 CreateButton.SetActive(false);
             }
             else{
