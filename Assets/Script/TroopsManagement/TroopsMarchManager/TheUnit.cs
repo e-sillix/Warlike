@@ -6,8 +6,7 @@ using UnityEngine;
 public class TheUnit : MonoBehaviour
 {
     public LayerMask groundLayer; // Assign this to your ground layer in the Inspector
-    public float moveSpeed = 5f; // Speed of movement
-    
+    public float moveSpeed = 5f; // Speed of movement    
     private Vector3 targetPosition;
     private bool shouldMove = false;
     [SerializeField] private GameObject SelectorIcon;
@@ -16,16 +15,28 @@ public class TheUnit : MonoBehaviour
 
     public int ArmyId;
 
-    private int[] resources;//[wood,grain,stone];
+   
     private TroopsExpeditionManager troopsExpeditionManager;
     
-    private int[] troopsStats;//[lvl1,lvl2,...,lvl5]
-    private string troopsType;//store type of troops inf,arch,mage....
+    public int[] troopsStats;//[lvl1,lvl2,...,lvl5]
+    public string troopsType;//store type of troops inf,arch,mage....
 
     // private int NumberOfTroops;
 
+
+//mining related
+    private int[] resources;//[wood,grain,stone];
+    public bool isMining;//this will be changed by 
+
+    private int ResourceCapacity=10,miningRate=1;
+    public int usedCapacity=0;
+
+    private Mining mining;
+
+
     void Start(){
         troopsExpeditionManager=FindAnyObjectByType<TroopsExpeditionManager>();
+        mining = GetComponent<Mining>();
     }
 
     void Update()
@@ -43,13 +54,18 @@ public class TheUnit : MonoBehaviour
                 TargetReached();
             }
         }
+    
+         if(isMining)
+        {
+            // MineResource();
+        }    
     }
 
     // Method to set the target position and start moving
     void SetTargetPosition(Vector3 position)
     {
         targetPosition = position;
-        Debug.Log("The unit 2"+targetPosition);
+        // Debug.Log("The unit 2"+targetPosition);
         
         shouldMove = true;
     }
@@ -67,7 +83,8 @@ public class TheUnit : MonoBehaviour
         
     //     // TroopsCountDisplayer.DisplaySoldiers(count);
      }
-    public void SetTroopsTarget(Vector3 position,GameObject Target){        
+    public void SetTroopsTarget(Vector3 position,GameObject Target){   
+        StopAllAction();     
         target=Target;              
         if(target.layer==6){
             SetTargetPosition(position);
@@ -80,4 +97,22 @@ public class TheUnit : MonoBehaviour
         // Debug.Log("target reached");
         troopsExpeditionManager.MarchDone(gameObject);
     }
+
+
+    public int ReturnResourceCapacity(){
+        return ResourceCapacity;
+    }
+    public int ReturnMineRate(){
+        return miningRate;
+    }
+    void StopAllAction(){       
+        if(isMining){
+            isMining=false;
+            mining.StopMining();
+        }        
+    }
+    public void TransferResourceToTroops(int Amount){
+        usedCapacity+=Amount;
+    }
+
 }

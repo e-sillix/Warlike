@@ -10,20 +10,26 @@ public class ActionManager : MonoBehaviour
     //after completing  it's march
         theArmy=TheArmy;
         target=theArmy.GetComponent<TheUnit>().target;
-        Debug.Log("will perform on this "+TheArmy.GetComponent<TheUnit>().ArmyId);  
-        Debug.Log(target);  
+        // Debug.Log("will perform on this "+TheArmy.GetComponent<TheUnit>().ArmyId);  
+        // Debug.Log(target);  
         AnalyseAction();
     }
     void AnalyseAction(){
         TheMine theMine=target.GetComponentInParent<TheMine>();
         TheCreep theCreep=target.GetComponentInParent<TheCreep>();
-            Debug.Log("12");
+            // Debug.Log("12");
         if(theMine!=null){
-            Debug.Log("Mining");
+            Debug.Log("Mining analysed");
+            // if(theMine){
+            //     Debug.Log("the mine ");
+            // }
+            // if(theArmy){
+            //     Debug.Log("the Army ");
+            // }
             InitiateMining(theMine);
         }
         if(theCreep!=null){
-            Debug.Log("Attack");
+            Debug.Log("Attack analysed");
         }
     }
     void InitiateMining(TheMine theMine){

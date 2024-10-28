@@ -16,12 +16,13 @@ public class TheMine : MonoBehaviour
     public int level;
     
     public int InitialAmount;
-    public int currentResource;
+    private int currentResource=10;
 
     private MinesStats minesStats;
     
    
-    public void InitializeMineStats(int Level){//this will be called by MinesManager after spawning to init the stats 
+    public void InitializeMineStats(int Level){//this will be called by MinesManager after
+    //  spawning to init the stats 
     //to it.        
         level = Level;
         // Debug.Log(mineType.ToString());
@@ -30,6 +31,7 @@ public class TheMine : MonoBehaviour
         if(minesStats==null){           
             Debug.Log("can't find minesStats.");
         }  
+        Debug.Log("Called by minemanager");
 
         // Fetch the initial amount of resources based on mine type and level
         InitialAmount = minesStats.GetResourceValue(mineType.ToString(), level-1);
@@ -37,7 +39,7 @@ public class TheMine : MonoBehaviour
 
         Debug.Log(InitialAmount);
     }
-    public void reduceResource(int Amount){//mining rate
+    public void DeductResources(int Amount){//mining rate
         //this will be called by TheUnit every second mining
         currentResource=currentResource-Amount;
 
@@ -45,9 +47,14 @@ public class TheMine : MonoBehaviour
            //when resources reaches zero despawn. 
            Destroy(gameObject);
         }
+        Debug.Log("Resource deducted:"+Amount);
     }
-    public int returnResource(){
-        //this will be called by when clicked on mine
+    // public int returnResource(){
+    //     //this will be called by when clicked on mine
+    //     return currentResource;
+    // }
+
+    public int ReturnResources(){
         return currentResource;
     }
 

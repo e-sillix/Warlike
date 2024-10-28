@@ -58,7 +58,7 @@ public class ExpeditionUI : MonoBehaviour
     }
     void ArmyIsChosen(TheUnit ChoosedOne){
         ChoosenUnit=ChoosedOne;
-        Debug.Log("clicked"+ChoosedOne.ArmyId);
+        // Debug.Log("clicked"+ChoosedOne.ArmyId);
 
         troopsExpeditionManager.ExistingArmyIsChoosen(ChoosenUnit);
 

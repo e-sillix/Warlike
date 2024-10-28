@@ -26,7 +26,7 @@ public class TroopsExpeditionManager : MonoBehaviour
         //trigger march manager stage 1 -----
 
         // marchManager.ATargetIsClick(Target,hit);---------
-        Debug.Log("RE");
+        // Debug.Log("RE");
 
         expeditionUI.TriggerConfirmationUI();
         
@@ -36,9 +36,9 @@ public class TroopsExpeditionManager : MonoBehaviour
     //current present army
         //by ui stage1 confirmation
         theUnits = FindObjectsOfType<TheUnit>();
-        for(int i=0;i<theUnits.Length;i++){
-            Debug.Log(theUnits[i].ArmyId);
-        }
+        // for(int i=0;i<theUnits.Length;i++){
+        //     Debug.Log(theUnits[i].ArmyId);
+        // }
         return theUnits;
     }
     public void NewArmyChoosenClicked(){//by ui manager
@@ -72,16 +72,7 @@ public class TroopsExpeditionManager : MonoBehaviour
 
     public void MarchDone(GameObject TheArmyInst){//called by TheUnit when unit reached.
         actionManager.PerformAction(TheArmyInst);
-    }
-
-
-
-
-
-
-
-
-    
+    }   
     public void StoreNewArmy(TheUnit TheArmy){
         //called by marchmanager when created new army
         for(int i=0; i<5;i++){
