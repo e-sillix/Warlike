@@ -28,7 +28,7 @@ public class TheUnit : MonoBehaviour
     private int[] resources;//[wood,grain,stone];
     public bool isMining;//this will be changed by 
 
-    private int ResourceCapacity=10,miningRate=1;
+    public int totalResourceCapacity=10,miningRate=1;
     public int usedCapacity=0;
 
     private Mining mining;
@@ -98,19 +98,21 @@ public class TheUnit : MonoBehaviour
         troopsExpeditionManager.MarchDone(gameObject);
     }
 
-
-    public int ReturnResourceCapacity(){
-        return ResourceCapacity;
-    }
-    public int ReturnMineRate(){
-        return miningRate;
-    }
+//action 
     void StopAllAction(){       
         if(isMining){
             isMining=false;
             mining.StopMining();
         }        
     }
+//mining
+    public int ReturnResourceCapacity(){
+        return totalResourceCapacity;
+    }
+    public int ReturnMineRate(){
+        return miningRate;
+    }
+   
     public void TransferResourceToTroops(int Amount){
         usedCapacity+=Amount;
     }

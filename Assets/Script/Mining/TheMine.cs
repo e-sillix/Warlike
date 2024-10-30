@@ -20,6 +20,7 @@ public class TheMine : MonoBehaviour
 
     private MinesStats minesStats;
     
+    private bool occupied;
    
     public void InitializeMineStats(int Level){//this will be called by MinesManager after
     //  spawning to init the stats 
@@ -56,6 +57,12 @@ public class TheMine : MonoBehaviour
 
     public int ReturnResources(){
         return currentResource;
+    }
+    public bool IsMineOccupied(){
+        return occupied;
+    }
+    public void setMineStatus(bool status){
+        occupied=status;
     }
 
 }

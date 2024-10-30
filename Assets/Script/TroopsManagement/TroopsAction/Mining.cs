@@ -25,7 +25,7 @@ public class Mining : MonoBehaviour
     }
     public void StartMining(TheMine TheMineP)
     {
-        
+        Debug.Log("starting mine");
         theMine=TheMineP;
         minesResources=theMine.ReturnResources();
         usedCapacity=theUnit.usedCapacity;
@@ -42,7 +42,7 @@ public class Mining : MonoBehaviour
 
     // Function to stop mining and transfer collected resources
     public void StopMining()
-    {
+    {//this is being called by theUnit 
         if (miningCoroutine != null)
         {
             StopCoroutine(miningCoroutine);
@@ -70,8 +70,9 @@ public class Mining : MonoBehaviour
 
         // If mining completes naturally, calculate total mined resources
         CalculateAndStoreMinedResources();
-        theUnit.isMining=false;
-        Refresh();
+        Debug.Log("mining stopped with process");
+        TransferResourcesToTroops();
+        
     }
 
     // Calculate and store mined resources based on elapsed time
@@ -100,9 +101,11 @@ public class Mining : MonoBehaviour
         Refresh();
     }
     void Refresh(){
+        theMine.setMineStatus(false);
         minedAmount=0;
         minesResources=0;
         miningStartTime=0;
         theMine=null;
+        theUnit.isMining=false;
     }
 }

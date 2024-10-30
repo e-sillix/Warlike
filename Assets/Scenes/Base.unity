@@ -6378,6 +6378,7 @@ MonoBehaviour:
   TroopsStatsPanel: {fileID: 2097872632}
   TroopsTypeText: {fileID: 1164711061}
   TroopsStatsText: {fileID: 1121920991}
+  TroopsLoad: {fileID: 1606507424}
 --- !u!1 &521666749
 GameObject:
   m_ObjectHideFlags: 0
@@ -24245,7 +24246,7 @@ GameObject:
   - component: {fileID: 1606507425}
   - component: {fileID: 1606507424}
   m_Layer: 5
-  m_Name: TroopsData (1)
+  m_Name: TroopsLoad
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

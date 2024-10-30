@@ -6,10 +6,11 @@ public class TroopsUI : MonoBehaviour
 {
     [SerializeField] private GlobalUIManager globalUIManager;
     [SerializeField] private GameObject TroopsStatsPanel;
-    [SerializeField] private TextMeshProUGUI TroopsTypeText,TroopsStatsText;
+    [SerializeField] private TextMeshProUGUI TroopsTypeText,TroopsStatsText,TroopsLoad;
 
     private string troopsType;
     private int[] troopsData;
+    private int usedCapacity,totalCapacity;
     
     public void TroopsClicked(TheUnit clickedUnit){
         //this will be called by global ui.
@@ -17,6 +18,8 @@ public class TroopsUI : MonoBehaviour
         //getting that unit data 
         troopsType=clickedUnit.troopsType;
         troopsData=clickedUnit.troopsStats;
+        usedCapacity=clickedUnit.usedCapacity;
+        totalCapacity=clickedUnit.totalResourceCapacity;
         DisplayData();
 
     }
@@ -25,6 +28,7 @@ public class TroopsUI : MonoBehaviour
         TroopsTypeText.text=troopsType;
         TroopsStatsText.text="lvl1: "+troopsData[0]+"lvl2: "+troopsData[1]+"lvl3: "+troopsData[2]
         +"lvl4: "+troopsData[3]+"lvl5: "+troopsData[4];
+        TroopsLoad.text="Load :"+usedCapacity+"/"+totalCapacity;
         TroopsStatsPanel.SetActive(true);
     }
     
