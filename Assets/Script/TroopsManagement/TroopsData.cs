@@ -13,6 +13,8 @@ public class TroopsData :  ScriptableObject
     public int[] GrainCost = new int[5];  // Upgrade costs for that troop
     public int[] StoneCost = new int[5];  // Upgrade costs for that troop
 
+    public int[] LoadCapacity= new int[5];
+
     public int[] TrainingTime=new int[5];// ***** this will store for each level
 
     //upgrading will be included in future

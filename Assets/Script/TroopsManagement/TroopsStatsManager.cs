@@ -55,5 +55,31 @@ public class TroopsStatsManager : MonoBehaviour
         troopsData.Armor[levelIndex]     
     );
     }
+    public LoadDataPayload GetTroopsLoadData(string troopsType){
+        TroopsData troopsData=null;
+         // Find the correct troops based on its name
+    if (troopsType == "Infantry")
+    {
+        troopsData = InfantryData; // Reference to the ScriptableObject containing Wood Farm data
+    }
+    else if (troopsType == "Cavalry")
+    {
+        troopsData = CavalryData; // Reference to the ScriptableObject containing Barracks data
+    }
+    else if (troopsType == "Archer")
+    {
+        troopsData = ArcherData; // Reference to the ScriptableObject containing Barracks data
+    }
+    else if (troopsType == "Mage")
+    {
+        troopsData = MageData; // Reference to the ScriptableObject containing Barracks data
+    }
+    else
+    {
+        Debug.LogError("Building not found: " + troopsType);
+        return null;
+    }
+        return new LoadDataPayload(troopsData.LoadCapacity);
+    }
     
 }

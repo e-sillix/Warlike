@@ -17,8 +17,10 @@ public class TheUnit : MonoBehaviour
 
    
     private TroopsExpeditionManager troopsExpeditionManager;
+    private TroopsStatsManager troopsStatsManager;
     
     public int[] troopsStats;//[lvl1,lvl2,...,lvl5]
+    private int[] eachLvlLoad;
     public string troopsType;//store type of troops inf,arch,mage....
 
     // private int NumberOfTroops;
@@ -33,10 +35,21 @@ public class TheUnit : MonoBehaviour
 
     private Mining mining;
 
+    public void SetLoadCapacity(int Amount){//called by troopsExpedetionManager when spawning
+        totalResourceCapacity=Amount;
+    }
 
     void Start(){
         troopsExpeditionManager=FindAnyObjectByType<TroopsExpeditionManager>();
+        troopsStatsManager=FindAnyObjectByType<TroopsStatsManager>();
+        eachLvlLoad=troopsStatsManager.GetComponent<TroopsStatsManager>().GetTroopsLoadData(troopsType).load;
         mining = GetComponent<Mining>();
+        SetLoadCapacity();
+
+    }
+    void SetLoadCapacity(){
+        totalResourceCapacity=troopsStats[0]*eachLvlLoad[0]+troopsStats[1]*eachLvlLoad[1]+
+        troopsStats[2]*eachLvlLoad[2]+troopsStats[3]*eachLvlLoad[3]+troopsStats[4]*eachLvlLoad[4];
     }
 
     void Update()
@@ -77,6 +90,8 @@ public class TheUnit : MonoBehaviour
     public void SetTroopsData(string TroopsType,int[] TroopsData){
         troopsType=TroopsType;
         troopsStats=TroopsData;
+        // totalResourceCapacity=;
+
     //     // Debug.Log(TroopsType);
     //     // Debug.Log(TroopsData[0]+","+TroopsData[1]+","+TroopsData[2]+","+TroopsData[3]+","+
     //     // TroopsData[4]);
@@ -112,6 +127,7 @@ public class TheUnit : MonoBehaviour
     public int ReturnMineRate(){
         return miningRate;
     }
+  
    
     public void TransferResourceToTroops(int Amount){
         usedCapacity+=Amount;
