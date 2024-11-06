@@ -27,7 +27,7 @@ public class TheUnit : MonoBehaviour
 
 
 //mining related
-    private int[] resourcesType;//[wood,grain,stone] store actual resource data.
+    private int[] resourcesTypeLoad={0,0,0};//[wood,grain,stone] store actual resource data.
     public bool isMining;//this will be changed by 
 
     public int totalResourceCapacity=10,miningRate=1;
@@ -129,8 +129,22 @@ public class TheUnit : MonoBehaviour
     }
   
    
-    public void TransferResourceToTroops(int Amount){
+    public void TransferResourceToTroops(int Amount,string mineType){
         usedCapacity+=Amount;
+        if(mineType=="wood"){
+            resourcesTypeLoad[0]+=Amount;
+        }
+        else if(mineType=="grain"){
+            resourcesTypeLoad[1]+=Amount;
+        }
+        else if(mineType=="stone"){
+            resourcesTypeLoad[2]+=Amount;
+        }
+        else{
+            Debug.Log("trying to load something unknown");
+        }
     }
-
+    public int[] ReturnResourceTypeLoad(){
+        return resourcesTypeLoad;
+    }
 }

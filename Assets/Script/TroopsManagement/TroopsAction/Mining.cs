@@ -10,6 +10,7 @@ public class Mining : MonoBehaviour
     private float miningStartTime; // Track when mining started
     
     private TheMine theMine;//mining reference
+    private string mineType;
     
 
 
@@ -26,7 +27,7 @@ public class Mining : MonoBehaviour
     public void StartMining(TheMine TheMineP)
     {
         theMine=TheMineP;
-        string mineType=theMine.mineType.ToString();
+        mineType=theMine.mineType.ToString();
         Debug.Log("starting mine:"+mineType);
         minesResources=theMine.ReturnResources();
         usedCapacity=theUnit.usedCapacity;
@@ -98,7 +99,7 @@ public class Mining : MonoBehaviour
     {
         // ResourceStorage.Instance.AddResource(resourceType, currentResource);
         Debug.Log("Mined Resources:"+minedAmount);
-        theUnit.TransferResourceToTroops(minedAmount);
+        theUnit.TransferResourceToTroops(minedAmount,mineType);
         Refresh();
     }
     void Refresh(){
