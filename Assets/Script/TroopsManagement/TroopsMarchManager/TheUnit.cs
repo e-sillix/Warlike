@@ -20,14 +20,14 @@ public class TheUnit : MonoBehaviour
     private TroopsStatsManager troopsStatsManager;
     
     public int[] troopsStats;//[lvl1,lvl2,...,lvl5]
-    private int[] eachLvlLoad;
+    private int[] eachLvlLoad;//store each troop load capacity acc. to load.
     public string troopsType;//store type of troops inf,arch,mage....
 
     // private int NumberOfTroops;
 
 
 //mining related
-    private int[] resources;//[wood,grain,stone];
+    private int[] resourcesType;//[wood,grain,stone] store actual resource data.
     public bool isMining;//this will be changed by 
 
     public int totalResourceCapacity=10,miningRate=1;

@@ -25,8 +25,9 @@ public class Mining : MonoBehaviour
     }
     public void StartMining(TheMine TheMineP)
     {
-        Debug.Log("starting mine");
         theMine=TheMineP;
+        string mineType=theMine.mineType.ToString();
+        Debug.Log("starting mine:"+mineType);
         minesResources=theMine.ReturnResources();
         usedCapacity=theUnit.usedCapacity;
         if(capacity<=usedCapacity){
@@ -107,5 +108,6 @@ public class Mining : MonoBehaviour
         miningStartTime=0;
         theMine=null;
         theUnit.isMining=false;
+        miningCoroutine = null;
     }
 }
