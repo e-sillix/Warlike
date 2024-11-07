@@ -6,6 +6,7 @@ public class ActionManager : MonoBehaviour
 {
     private GameObject target,theArmy;
     [SerializeField] private MiningManager miningManager;
+    [SerializeField]private AttackManager attackManager;
     public void PerformAction(GameObject TheArmy){//called by expedition manager indireclty by the unit
     //after completing  it's march
         theArmy=TheArmy;
@@ -30,9 +31,13 @@ public class ActionManager : MonoBehaviour
         }
         if(theCreep!=null){
             Debug.Log("Attack analysed");
+            InitiateAttack(theCreep);
         }
     }
     void InitiateMining(TheMine theMine){
         miningManager.InitiateMiningProcess(theArmy,theMine);
+    }
+    void InitiateAttack(TheCreep theCreep){
+        attackManager.InitiateAttack(theArmy,theCreep);
     }
 }

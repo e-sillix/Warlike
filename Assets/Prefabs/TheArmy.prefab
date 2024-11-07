@@ -150,6 +150,7 @@ GameObject:
   - component: {fileID: 3845240829604247566}
   - component: {fileID: 8875590478063644433}
   - component: {fileID: 9102771807924519296}
+  - component: {fileID: 799784354764450812}
   m_Layer: 0
   m_Name: TheArmy
   m_TagString: Untagged
@@ -198,6 +199,9 @@ MonoBehaviour:
   troopsStats: 
   troopsType: 
   isMining: 0
+  totalResourceCapacity: 10
+  miningRate: 1
+  usedCapacity: 0
 --- !u!114 &9102771807924519296
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -208,6 +212,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 95c640b490f14cc409414f4cc4815c94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &799784354764450812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7817682463295282944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2940df47fe47bb47b320004d0344c50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &7906592544192707190
