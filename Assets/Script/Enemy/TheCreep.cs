@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TheCreep : MonoBehaviour
 {
@@ -14,18 +15,23 @@ public class TheCreep : MonoBehaviour
 
     // Public variable to select from dropdown in the Inspector
     public enemyType barrackType;
+    public Image healthFill;
     public int level;
 
     //-----------
     private int troopsQuantity=5; //determined by level dynamically.
-    public int health=6;
+    [SerializeField]private int health,totalHealth=6;
     public int Damage=2;
 
     private bool isFighting=false;
-     private float timer = 0f;
+    private float timer = 0f;
     [SerializeField]private float RateOfAttack = 1f;
 
     private Attacking attacker;
+
+    void Start(){
+        health=totalHealth;
+    }
 
     public int ReturnCreepNumbers(){
         return troopsQuantity;
@@ -40,14 +46,15 @@ public class TheCreep : MonoBehaviour
         }
     }
     void Update(){
-        if(isFighting && attacker.health>0){
+        if(isFighting && attacker.ReturnHealth()>0){
             timer += Time.deltaTime;
 
         // Check if one second has passed
         if (timer >= RateOfAttack)
         {   
             attacker.TakeDamage(Damage);  
-            if(attacker.health<=0){
+            UpdateHealth();
+            if(attacker.ReturnHealth()<=0){
                 isFighting=false;
             }          
 
@@ -55,5 +62,10 @@ public class TheCreep : MonoBehaviour
             timer = 0f;
         }
         }
+    }
+    void UpdateHealth(){
+        float fillPercent=(float)health / (float)totalHealth;
+        // Debug.Log("health:"+fillPercent);
+        healthFill.fillAmount = fillPercent;
     }
 }

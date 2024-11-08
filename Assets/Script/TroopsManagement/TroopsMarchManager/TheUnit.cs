@@ -9,8 +9,10 @@ public class TheUnit : MonoBehaviour
     public float moveSpeed = 5f; // Speed of movement    
     private Vector3 targetPosition;
     private bool shouldMove = false;
+    public float closeDistance=0.4f;
     [SerializeField] private GameObject SelectorIcon;
     public GameObject target;
+
     public bool IsReturn=false;
 
     public int ArmyId;
@@ -61,7 +63,7 @@ public class TheUnit : MonoBehaviour
             moveSpeed * Time.deltaTime);
 
             // Check if the object has reached the target position
-            if (Vector3.Distance(transform.position, targetPosition) < 0.1f)
+            if (Vector3.Distance(transform.position, targetPosition) < closeDistance)
             {
                 shouldMove = false; // Stop moving
                 TargetReached();
