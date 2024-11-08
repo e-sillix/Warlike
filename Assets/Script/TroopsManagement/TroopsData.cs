@@ -29,7 +29,7 @@ public class TroopsData :  ScriptableObject
     public int[] Damage = new int[5];
     public int[] Health = new int[5];
     public int[] MarchSpeed = new int[5];
-    public int[] Armor = new int[5];
+    public float[] Armor = new float[5];
     //+++++++ add load capacity and mining 
     
 

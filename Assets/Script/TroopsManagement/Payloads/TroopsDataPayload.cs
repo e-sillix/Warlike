@@ -26,11 +26,11 @@ public class TroopsDataPayload
     public int damage;
     public int health;
     public int marchSpeed;
-    public int armor;
+    public float armor;
     
 
     public TroopsDataPayload(int wood, int grain, int stone,int time, int Range,int TheDamage,int TheHealth,
-    int Speed,int TheArmor)
+    int Speed,float TheArmor)
     {
         woodTrainingCost = wood;
         grainTrainingCost = grain;

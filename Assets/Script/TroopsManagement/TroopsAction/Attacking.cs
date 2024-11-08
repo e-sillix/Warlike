@@ -14,8 +14,12 @@ public class Attacking : MonoBehaviour
     public int Damage=2;
 
     public Image healthFill; // Reference to the HealthFill image.
-
+    private TroopsStatsManager troopsStatsManager;
+    private TroopsInstanceStatsManager troopsInstanceStatsManager;
     void Start(){
+        troopsStatsManager=FindAnyObjectByType<TroopsStatsManager>();
+        troopsInstanceStatsManager=GetComponent<TroopsInstanceStatsManager>();
+        troopsInstanceStatsManager.SetFightingStats();
         health=totalHealth;
         UpdateHealth();
     }

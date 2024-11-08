@@ -21,7 +21,7 @@ public class TheUnit : MonoBehaviour
     private TroopsExpeditionManager troopsExpeditionManager;
     private TroopsStatsManager troopsStatsManager;
     
-    public int[] troopsStats;//[lvl1,lvl2,...,lvl5]
+    public int[] troopsStats;//[lvl1,lvl2,...,lvl5] number of each troops
     private int[] eachLvlLoad;//store each troop load capacity acc. to load.
     public string troopsType;//store type of troops inf,arch,mage....
 

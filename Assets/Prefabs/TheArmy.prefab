@@ -338,6 +338,7 @@ GameObject:
   - component: {fileID: 8875590478063644433}
   - component: {fileID: 9102771807924519296}
   - component: {fileID: 799784354764450812}
+  - component: {fileID: 8440777637523353077}
   m_Layer: 0
   m_Name: TheArmy
   m_TagString: Untagged
@@ -419,6 +420,18 @@ MonoBehaviour:
   totalHealth: 10
   Damage: 2
   healthFill: {fileID: 7441336613034639074}
+--- !u!114 &8440777637523353077
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7817682463295282944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41bf4004a2a76054ba4c5254d0382e5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7906592544192707190
 GameObject:
   m_ObjectHideFlags: 0

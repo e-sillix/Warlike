@@ -9,6 +9,8 @@ public class TroopsStatsManager : MonoBehaviour
 
     [SerializeField] private TroopsData ArcherData; 
     [SerializeField] private TroopsData MageData;    
+    
+    //Almost all data related single level at a time
     public TroopsDataPayload GetTroopsData(string troopsType, int level){
         if (level < 1 || level > 5)
         {
@@ -55,6 +57,10 @@ public class TroopsStatsManager : MonoBehaviour
         troopsData.Armor[levelIndex]     
     );
     }
+    
+    
+    //Load 
+    
     public LoadDataPayload GetTroopsLoadData(string troopsType){
         TroopsData troopsData=null;
          // Find the correct troops based on its name
@@ -82,4 +88,33 @@ public class TroopsStatsManager : MonoBehaviour
         return new LoadDataPayload(troopsData.LoadCapacity);
     }
     
+
+//Attack and defense related related
+
+    public AttackStatPayload GetFightData(string troopsType){
+        TroopsData troopsData=null;
+         // Find the correct troops based on its name
+        if (troopsType == "Infantry")
+        {
+            troopsData = InfantryData; // Reference to the ScriptableObject containing Wood Farm data
+        }   
+        else if (troopsType == "Cavalry")
+        {
+            troopsData = CavalryData; // Reference to the ScriptableObject containing Barracks data
+        }
+        else if (troopsType == "Archer")
+        {
+            troopsData = ArcherData; // Reference to the ScriptableObject containing Barracks data
+        }
+        else if (troopsType == "Mage")
+        {
+            troopsData = MageData; // Reference to the ScriptableObject containing Barracks data
+        }
+        else
+        {
+            Debug.LogError("Building not found: " + troopsType);
+            return null;
+        }
+        return new AttackStatPayload(troopsData.Damage,troopsData.Health,troopsData.Armor);
+    }
 }
