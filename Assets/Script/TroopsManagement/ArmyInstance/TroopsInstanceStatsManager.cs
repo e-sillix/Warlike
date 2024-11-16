@@ -6,6 +6,7 @@ public class TroopsInstanceStatsManager : MonoBehaviour
 {
     private TroopsStatsManager troopsStatsManager;
     private TheUnit theUnit;
+    private Attacking attacking;
 
     private AttackStatPayload attackStatPayload;
     private float armor,moveSpeed,totalNumberOfTroops;
@@ -15,6 +16,8 @@ public class TroopsInstanceStatsManager : MonoBehaviour
 
     void Assigner(){
         theUnit=GetComponent<TheUnit>();
+        attacking=GetComponent<Attacking>();
+
         troopsStatsManager=FindAnyObjectByType<TroopsStatsManager>();
         troopsType=theUnit.troopsType;   
         troopsNumber=theUnit.troopsStats;     
@@ -39,5 +42,11 @@ public class TroopsInstanceStatsManager : MonoBehaviour
         attackStatPayload.armor[4]*(float)troopsNumber[4])/totalNumberOfTroops;
 
         Debug.Log("Heath:"+health+"Damage:"+damage+"armor:"+armor);
+
+        //assigning
+
+        attacking.StatsAssigning(health,damage,(int)armor);
+
+
     }
 }

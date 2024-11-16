@@ -9,19 +9,24 @@ public class Attacking : MonoBehaviour
     [SerializeField]private float RateOfAttack = 1f;
     private TheCreep theCreep;
 
-    [SerializeField]private int health,totalHealth=10;
+    private int health,Damage=2,totalHealth=10,armor=1;
 
-    public int Damage=2;
+    // public int Damage=2,totalHealth=10,armor=1;
 
     public Image healthFill; // Reference to the HealthFill image.
-    private TroopsStatsManager troopsStatsManager;
     private TroopsInstanceStatsManager troopsInstanceStatsManager;
     void Start(){
-        troopsStatsManager=FindAnyObjectByType<TroopsStatsManager>();
         troopsInstanceStatsManager=GetComponent<TroopsInstanceStatsManager>();
         troopsInstanceStatsManager.SetFightingStats();
         health=totalHealth;
         UpdateHealth();
+    }
+
+    public void StatsAssigning(int h,int d,int a){
+        //by troopsinstanceStatsmanager
+        health=h;
+        Damage=d;
+        armor=a;
     }
     public void StartAttacking(TheCreep TheCreep){
         theCreep=TheCreep;
