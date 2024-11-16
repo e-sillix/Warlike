@@ -11,15 +11,16 @@ public class Attacking : MonoBehaviour
 
     private int health,Damage=2,totalHealth=10,armor=1;
 
-    // public int Damage=2,totalHealth=10,armor=1;
 
     public Image healthFill; // Reference to the HealthFill image.
-    private TroopsInstanceStatsManager troopsInstanceStatsManager;
+
+    // private TroopsInstanceStatsManager troopsInstanceStatsManager;
     void Start(){
-        troopsInstanceStatsManager=GetComponent<TroopsInstanceStatsManager>();
-        troopsInstanceStatsManager.SetFightingStats();
+        // will used when apply adv damage mech
+        // troopsInstanceStatsManager=GetComponent<TroopsInstanceStatsManager>();
+        
         health=totalHealth;
-        UpdateHealth();
+        UpdateHealthVisual();
     }
 
     public void StatsAssigning(int h,int d,int a){
@@ -50,17 +51,27 @@ public class Attacking : MonoBehaviour
         }
     }
     }
+
+    //is being called by creep directly 
     public int ReturnHealth(){
         return health;
     }
     public void TakeDamage(int Damage){
         health-=Damage;
-        UpdateHealth();
+
+        //visual change
+        UpdateHealthVisual();
+
         if(health<=0){
             Debug.Log("You Lost!!!!!");
         }
     }
-    void UpdateHealth(){
+
+    //
+
+    void UpdateHealthVisual(){
+        //change it's name to update stats++++++
+        //and update other stats too like damage
         float fillPercent=(float)health / (float)totalHealth;
         Debug.Log("health:"+fillPercent);
         healthFill.fillAmount = fillPercent;

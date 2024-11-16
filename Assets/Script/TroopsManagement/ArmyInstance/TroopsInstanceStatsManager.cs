@@ -7,25 +7,57 @@ public class TroopsInstanceStatsManager : MonoBehaviour
     private TroopsStatsManager troopsStatsManager;
     private TheUnit theUnit;
     private Attacking attacking;
+    private Mining mining;
+
 
     private AttackStatPayload attackStatPayload;
-    private float armor,moveSpeed,totalNumberOfTroops;
-    private int health,damage;
-    private string troopsType;
-    private int[] troopsNumber;
 
-    void Assigner(){
+    //attacking
+    private float armor,moveSpeed,totalNumberOfTroops;
+    private int health,damage ;
+    private string troopsType;
+    private int[] troopsNumber,eachLvlLoad;
+
+
+    //mining
+    private int totalResourceCapacity=0;
+
+
+    void Start(){
         theUnit=GetComponent<TheUnit>();
         attacking=GetComponent<Attacking>();
+        mining = GetComponent<Mining>();
 
-        troopsStatsManager=FindAnyObjectByType<TroopsStatsManager>();
         troopsType=theUnit.troopsType;   
-        troopsNumber=theUnit.troopsStats;     
+        troopsNumber=theUnit.troopsStats;//each lvl
+
+        StartCoroutine(InitializeWhenReady());
+
+        SetFightingStats(); 
+
+        SetLoadData();
     }
-    public void SetFightingStats(){
-        if(!troopsStatsManager){
-            Assigner();
+
+
+//attacking 
+    IEnumerator InitializeWhenReady()
+    {
+    while (troopsStatsManager == null)
+    {
+        troopsStatsManager = FindAnyObjectByType<TroopsStatsManager>();
+        if (troopsStatsManager == null)
+        {
+            yield return null; // Wait for the next frame and try again
         }
+    }  
+
+    eachLvlLoad = troopsStatsManager.GetTroopsLoadData(troopsType).load;    
+
+    SetFightingStats();
+    }
+
+     void SetFightingStats(){
+              
         totalNumberOfTroops=troopsNumber[0]+troopsNumber[1]+troopsNumber[2]+troopsNumber[3]
         +troopsNumber[4];
         attackStatPayload=troopsStatsManager.GetFightData(troopsType);
@@ -46,7 +78,15 @@ public class TroopsInstanceStatsManager : MonoBehaviour
         //assigning
 
         attacking.StatsAssigning(health,damage,(int)armor);
+    }
 
+    //mininig
 
+    void SetLoadData(){
+        //this might be called after fighting.
+        totalResourceCapacity=troopsNumber[0]*eachLvlLoad[0]+troopsNumber[1]*eachLvlLoad[1]+
+        troopsNumber[2]*eachLvlLoad[2]+troopsNumber[3]*eachLvlLoad[3]+troopsNumber[4]*eachLvlLoad[4];
+        
+        mining.SetMiningStats(totalResourceCapacity);
     }
 }

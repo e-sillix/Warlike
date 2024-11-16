@@ -6,12 +6,11 @@ public class MiningManager : MonoBehaviour
 {
     private Mining mining;
     public void InitiateMiningProcess(GameObject TheUnit,TheMine theMine){
-        TheUnit theUnit=TheUnit.GetComponent<TheUnit>();
+        Mining mining=TheUnit.GetComponent<Mining>();
         if(!theMine.IsMineOccupied()){
-            if(theUnit.totalResourceCapacity>theUnit.usedCapacity){
-                mining=theUnit.GetComponent<Mining>();
+            if(mining.IsMiningPossible()){                
                 mining.StartMining(theMine);
-                theUnit.GetComponent<TheUnit>().isMining=true;
+                TheUnit.GetComponent<TheUnit>().isMining=true;
                 theMine.setMineStatus(true);
                 Refresh();
             }

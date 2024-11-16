@@ -16,13 +16,16 @@ public class TroopsUI : MonoBehaviour
     
     public void TroopsClicked(TheUnit clickedUnit){
         //this will be called by global ui.
+       
+        Mining clickedUnitMining=clickedUnit.GetComponent<Mining>();
 
         //getting that unit data 
         troopsType=clickedUnit.troopsType;
         troopsData=clickedUnit.troopsStats;
-        usedCapacity=clickedUnit.usedCapacity;
-        totalCapacity=clickedUnit.totalResourceCapacity;
-        resourceTypeLoad=clickedUnit.ReturnResourceTypeLoad();
+        int [] miningData=clickedUnitMining.ReturnMiningData();
+        totalCapacity=miningData[0];
+        usedCapacity=miningData[1];
+        resourceTypeLoad=clickedUnitMining.ReturnResourcesTypeLoad();
         DisplayData();
 
     }

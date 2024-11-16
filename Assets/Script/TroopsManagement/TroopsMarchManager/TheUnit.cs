@@ -22,37 +22,22 @@ public class TheUnit : MonoBehaviour
     private TroopsStatsManager troopsStatsManager;
     
     public int[] troopsStats;//[lvl1,lvl2,...,lvl5] number of each troops
-    private int[] eachLvlLoad;//store each troop load capacity acc. to load.
     public string troopsType;//store type of troops inf,arch,mage....
 
-    // private int NumberOfTroops;
 
 
 //mining related
-    private int[] resourcesTypeLoad={0,0,0};//[wood,grain,stone] store actual resource data.
     public bool isMining;//this will be changed by 
 
-    public int totalResourceCapacity=10,miningRate=1;
-    public int usedCapacity=0;
 
     private Mining mining;
-
-    public void SetLoadCapacity(int Amount){//called by troopsExpedetionManager when spawning
-        totalResourceCapacity=Amount;
-    }
-
+    
     void Start(){
         troopsExpeditionManager=FindAnyObjectByType<TroopsExpeditionManager>();
-        troopsStatsManager=FindAnyObjectByType<TroopsStatsManager>();
-        eachLvlLoad=troopsStatsManager.GetComponent<TroopsStatsManager>().GetTroopsLoadData(troopsType).load;
-        mining = GetComponent<Mining>();
-        SetLoadCapacity();
-
+        troopsStatsManager=FindAnyObjectByType<TroopsStatsManager>();        
+        mining = GetComponent<Mining>();       
     }
-    void SetLoadCapacity(){
-        totalResourceCapacity=troopsStats[0]*eachLvlLoad[0]+troopsStats[1]*eachLvlLoad[1]+
-        troopsStats[2]*eachLvlLoad[2]+troopsStats[3]*eachLvlLoad[3]+troopsStats[4]*eachLvlLoad[4];
-    }
+    
 
     void Update()
     {
@@ -92,13 +77,7 @@ public class TheUnit : MonoBehaviour
     public void SetTroopsData(string TroopsType,int[] TroopsData){
         troopsType=TroopsType;
         troopsStats=TroopsData;
-        // totalResourceCapacity=;
-
-    //     // Debug.Log(TroopsType);
-    //     // Debug.Log(TroopsData[0]+","+TroopsData[1]+","+TroopsData[2]+","+TroopsData[3]+","+
-    //     // TroopsData[4]);
-        
-    //     // TroopsCountDisplayer.DisplaySoldiers(count);
+       
      }
     public void SetTroopsTarget(Vector3 position,GameObject Target){   
         StopAllAction();     
@@ -122,31 +101,5 @@ public class TheUnit : MonoBehaviour
             mining.StopMining();
         }        
     }
-//mining
-    public int ReturnResourceCapacity(){
-        return totalResourceCapacity;
-    }
-    public int ReturnMineRate(){
-        return miningRate;
-    }
   
-   
-    public void TransferResourceToTroops(int Amount,string mineType){
-        usedCapacity+=Amount;
-        if(mineType=="wood"){
-            resourcesTypeLoad[0]+=Amount;
-        }
-        else if(mineType=="grain"){
-            resourcesTypeLoad[1]+=Amount;
-        }
-        else if(mineType=="stone"){
-            resourcesTypeLoad[2]+=Amount;
-        }
-        else{
-            Debug.Log("trying to load something unknown");
-        }
-    }
-    public int[] ReturnResourceTypeLoad(){
-        return resourcesTypeLoad;
-    }
 }

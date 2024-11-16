@@ -6,23 +6,26 @@ public class Mining : MonoBehaviour
 {//attached to theUnit
     private Coroutine miningCoroutine;
     private TheUnit theUnit;
-    private int capacity,minesResources,miningRate,minedAmount,usedCapacity;
+    private int capacity,minesResources,miningRate=1,minedAmount,usedCapacity;
     private float miningStartTime; // Track when mining started
     
     private TheMine theMine;//mining reference
     private string mineType;
+
+
+    private int[] resourcesTypeLoad={0,0,0};
     
-
-
     void Start(){
-        theUnit=GetComponent<TheUnit>();
-        if(theUnit!=null){
-            capacity=theUnit.ReturnResourceCapacity();
-            miningRate=theUnit.ReturnMineRate();
-        }
-        else{
-            Debug.Log("Can't find theUnit!!");
-        }
+        theUnit=GetComponent<TheUnit>();        
+    }
+    public void SetMiningStats(int trc){
+        //by tism
+        capacity=trc;
+    }
+
+    public bool IsMiningPossible(){
+        // by mining manager
+        return capacity>usedCapacity;
     }
     public void StartMining(TheMine TheMineP)
     {
@@ -30,7 +33,7 @@ public class Mining : MonoBehaviour
         mineType=theMine.mineType.ToString();
         Debug.Log("starting mine:"+mineType);
         minesResources=theMine.ReturnResources();
-        usedCapacity=theUnit.usedCapacity;
+        // usedCapacity=theUnit.usedCapacity;
         if(capacity<=usedCapacity){
             Debug.Log("can't load more");
             return;
@@ -91,17 +94,32 @@ public class Mining : MonoBehaviour
         theMine.DeductResources(minedAmount); // Update mine's resources
         
         
-        // ResourceStorage.Instance.AddResource(resourceType, minedAmount);
-    }
+    }    
 
     // Transfer collected resources to central storage
     private void TransferResourcesToTroops()
     {
-        // ResourceStorage.Instance.AddResource(resourceType, currentResource);
         Debug.Log("Mined Resources:"+minedAmount);
-        theUnit.TransferResourceToTroops(minedAmount,mineType);
+        TransferResourceToTroops();
         Refresh();
     }
+
+    void TransferResourceToTroops(){
+        usedCapacity+=minedAmount;
+        if(mineType=="wood"){
+            resourcesTypeLoad[0]+=minedAmount;
+        }
+        else if(mineType=="grain"){
+            resourcesTypeLoad[1]+=minedAmount;
+        }
+        else if(mineType=="stone"){
+            resourcesTypeLoad[2]+=minedAmount;
+        }
+        else{
+            Debug.Log("trying to load something unknown");
+        }
+    }
+
     void Refresh(){
         theMine.setMineStatus(false);
         minedAmount=0;
@@ -111,4 +129,15 @@ public class Mining : MonoBehaviour
         theUnit.isMining=false;
         miningCoroutine = null;
     }
+
+
+
+    public int[] ReturnResourcesTypeLoad(){
+        return resourcesTypeLoad;
+    }
+    public int[] ReturnMiningData(){
+        // for ui 
+        return new int[] { capacity, usedCapacity };
+    }
+    
 }
