@@ -14,8 +14,11 @@ public class TroopsUI : MonoBehaviour
     private int usedCapacity,totalCapacity;
     
     
-    public void TroopsClicked(TheUnit clickedUnit){
-        //this will be called by global ui.
+    public void ShowTroopsInfo(TheUnit clickedUnit){
+        //this will be called by TheUnit ui info icon.
+
+
+        // clickedUnit.TriggerUIButtons();
        
         Mining clickedUnitMining=clickedUnit.GetComponent<Mining>();
 

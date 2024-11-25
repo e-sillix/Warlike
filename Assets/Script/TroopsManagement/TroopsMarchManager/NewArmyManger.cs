@@ -75,4 +75,11 @@ public class NewArmyManger : MonoBehaviour
         newArmyStage1Panel.SetActive(false);
         Stage2ArmyInitiationPanel.SetActive(false);
     }
+
+
+
+    //returning troops
+    public void ReturnTroops(string selectedTroopType,int [] troopsToMarch){
+        troopsCountManager.ReturnTroops(selectedTroopType,troopsToMarch);
+    }
 }

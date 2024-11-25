@@ -37,7 +37,14 @@ public class GlobalUIManager : MonoBehaviour
         }
         else if(ClickedObject.GetComponentInParent<TheUnit>()){
             Debug.Log("Troops Clicked.");
-            troopsUI.TroopsClicked(ClickedObject.GetComponentInParent<TheUnit>());
+            TheUnit theUnit= ClickedObject.GetComponentInParent<TheUnit>();
+            TroopsInstanceUI troopsInstanceUI=ClickedObject.GetComponentInParent<TroopsInstanceUI>();
+            //nothing should happen visibly
+            troopsInstanceUI.GetTroopsUIComponent(troopsUI,GetComponent<GlobalUIManager>());
+            troopsInstanceUI.TriggerUIButtons();
+            
+            //---
+            // troopsUI.TroopsClicked(ClickedObject.GetComponentInParent<TheUnit>());
         }
         //for ui buttons too
         permissionForUI=false;

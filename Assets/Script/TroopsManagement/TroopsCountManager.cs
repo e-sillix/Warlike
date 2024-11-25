@@ -132,8 +132,48 @@ public class TroopsCountManager : MonoBehaviour
     }
 
    }
-   public void ReturnTroops(){
+   public void ReturnTroops(string barrackType,int[] troopsData){
     //getting back troops from march or hospital
-
+    if (barrackType == "Cavalry")
+    {
+        for (int i = 0; i < cavalry.Length; i++)
+        {
+            cavalry[i] += troopsData[i];  // Add corresponding troop data to cavalry array
+        }
+        for(int i=0;i<5;i++){
+            Debug.Log("cav added=" +troopsData[i]);
+   }
+    }
+    else if (barrackType == "Infantry")
+    {
+        for (int i = 0; i < infantry.Length; i++)
+        {
+            infantry[i] += troopsData[i];  // Add corresponding troop data to infantry array
+        }
+         for(int i=0;i<5;i++){
+   }
+    }
+    else if (barrackType == "Archer")
+    {
+        for (int i = 0; i < archer.Length; i++)
+        {
+            archer[i] += troopsData[i];  // Add corresponding troop data to infantry array
+        }
+         for(int i=0;i<5;i++){
+   }
+   }
+    else if (barrackType == "Mage")
+    {
+        for (int i = 0; i < mage.Length; i++)
+        {
+            mage[i] += troopsData[i];  // Add corresponding troop data to infantry array
+        }
+         for(int i=0;i<5;i++){
+   }
+   }
+    else
+    {
+        Debug.LogError("Unknown barrack type in countmanager: " + barrackType);
+    }
    }
 }

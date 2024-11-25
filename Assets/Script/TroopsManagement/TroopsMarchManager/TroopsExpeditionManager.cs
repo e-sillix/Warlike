@@ -60,7 +60,7 @@ public class TroopsExpeditionManager : MonoBehaviour
     }
     void march(){
         // Debug.Log(ChoosenUnit.ArmyId);
-        ChoosenUnit.SetTroopsTarget(position,target);
+        ChoosenUnit.SetTroopsTarget(position,target,SpawnPoint);
        
         EndStage();
 
@@ -73,6 +73,10 @@ public class TroopsExpeditionManager : MonoBehaviour
     public void MarchDone(GameObject TheArmyInst){//called by TheUnit when unit reached.
         actionManager.PerformAction(TheArmyInst);
     }   
+    public void ReturnTroopsToBase(string selectedTroopType,int [] troopsToMarch){
+        //by unit when target reached with null
+        newArmyManger.ReturnTroops(selectedTroopType,troopsToMarch);
+    }
     public void StoreNewArmy(TheUnit TheArmy){
         //called by marchmanager when created new army
         for(int i=0; i<5;i++){

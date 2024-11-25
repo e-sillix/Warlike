@@ -13,7 +13,14 @@ public class ActionManager : MonoBehaviour
         target=theArmy.GetComponent<TheUnit>().target;
         // Debug.Log("will perform on this "+TheArmy.GetComponent<TheUnit>().ArmyId);  
         // Debug.Log(target);  
+        if(target){
+
         AnalyseAction();
+        }
+        else{
+            Debug.Log("we going home analysed");
+            Destroy(TheArmy);
+        }
     }
     void AnalyseAction(){
         TheMine theMine=target.GetComponentInParent<TheMine>();
@@ -33,6 +40,7 @@ public class ActionManager : MonoBehaviour
             Debug.Log("Attack analysed");
             InitiateAttack(theCreep);
         }
+        
     }
     void InitiateMining(TheMine theMine){
         miningManager.InitiateMiningProcess(theArmy,theMine);

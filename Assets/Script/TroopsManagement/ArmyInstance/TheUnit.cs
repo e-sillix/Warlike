@@ -23,6 +23,8 @@ public class TheUnit : MonoBehaviour
     
     public int[] troopsStats;//[lvl1,lvl2,...,lvl5] number of each troops
     public string troopsType;//store type of troops inf,arch,mage....
+    private GameObject spawnpoint;
+    
 
 
 
@@ -36,8 +38,7 @@ public class TheUnit : MonoBehaviour
         troopsExpeditionManager=FindAnyObjectByType<TroopsExpeditionManager>();
         troopsStatsManager=FindAnyObjectByType<TroopsStatsManager>();        
         mining = GetComponent<Mining>();       
-    }
-    
+    }    
 
     void Update()
     {
@@ -55,10 +56,7 @@ public class TheUnit : MonoBehaviour
             }
         }
     
-         if(isMining)
-        {
-            // MineResource();
-        }    
+           
     }
 
     // Method to set the target position and start moving
@@ -79,8 +77,10 @@ public class TheUnit : MonoBehaviour
         troopsStats=TroopsData;
        
      }
-    public void SetTroopsTarget(Vector3 position,GameObject Target){   
+    public void SetTroopsTarget(Vector3 position,GameObject Target,GameObject SpawnPoint){   
+        spawnpoint=SpawnPoint;
         StopAllAction();     
+
         target=Target;              
         if(target.layer==6){
             SetTargetPosition(position);
@@ -91,6 +91,10 @@ public class TheUnit : MonoBehaviour
     }
     void TargetReached(){
         // Debug.Log("target reached");
+        if(target==null&&IsReturn==true){
+        troopsExpeditionManager.ReturnTroopsToBase(troopsType,troopsStats);
+
+        }
         troopsExpeditionManager.MarchDone(gameObject);
     }
 
@@ -102,4 +106,13 @@ public class TheUnit : MonoBehaviour
         }        
     }
   
+
+  //returning troops
+  public void ReturnTroops(){
+    target=null;
+    //called by ui buttons
+    SetTargetPosition(spawnpoint.transform.position);
+    IsReturn=true;
+    
+    }
 }
