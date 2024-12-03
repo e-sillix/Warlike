@@ -50,9 +50,10 @@ public class TroopsExpeditionManager : MonoBehaviour
         ArmyIsChoosed(ChoosenUnit);        
     }
     public void ExistingArmyIsChoosen(TheUnit choosedOne){
+        //By expedition ui 
         ArmyIsChoosed(choosedOne);
     }
-    public void ArmyIsChoosed(TheUnit choosedOne){
+    void ArmyIsChoosed(TheUnit choosedOne){
         ChoosenUnit=choosedOne;
 
         //march it.
@@ -61,6 +62,8 @@ public class TroopsExpeditionManager : MonoBehaviour
     void march(){
         // Debug.Log(ChoosenUnit.ArmyId);
         ChoosenUnit.SetTroopsTarget(position,target,SpawnPoint);
+
+        Debug.Log("i am triigered!!!! TExpma");
        
         EndStage();
 
