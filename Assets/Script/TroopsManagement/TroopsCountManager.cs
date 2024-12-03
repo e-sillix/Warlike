@@ -58,7 +58,7 @@ public class TroopsCountManager : MonoBehaviour
     {
         Debug.LogError("Unknown barrack type in countmanager: " + barrackType);
     }
-
+    Debug.Log("Message should be displayed mentioning troops detailes which were added.");
    
    }
 

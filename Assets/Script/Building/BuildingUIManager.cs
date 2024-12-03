@@ -28,6 +28,7 @@ public class BuildingUIManager : MonoBehaviour
     private int stoneCost;
     private BuildingCost buildingCost;
     private int status;   
+    [SerializeField] private GlobalUIManager globalUIManager;
     
 
     public void WoodFarmIsChosen(){//another function will be created for upgrading
@@ -58,6 +59,35 @@ public class BuildingUIManager : MonoBehaviour
        AssigningCost();
        DisplayingDataUI();
     }
+    public void ArcherIsChosen(){//another function will be created for upgrading
+        //triggered by options of buildings.
+        //this will be called for first time creation of the building with default level 1
+       buildingCost= buildingManager.BuildingChosen("ArcherBarracks");
+       AssigningCost();
+       DisplayingDataUI();
+    }
+    public void InfantryIsChosen(){//another function will be created for upgrading
+        //triggered by options of buildings.
+        //this will be called for first time creation of the building with default level 1
+       buildingCost= buildingManager.BuildingChosen("InfantryBarracks");
+       AssigningCost();
+       DisplayingDataUI();
+    }
+    public void MageIsChosen(){//another function will be created for upgrading
+        //triggered by options of buildings.
+        //this will be called for first time creation of the building with default level 1
+       buildingCost= buildingManager.BuildingChosen("MageBarracks");
+       AssigningCost();
+       DisplayingDataUI();
+    }
+    public void CavalryIsChosen(){//another function will be created for upgrading
+        //triggered by options of buildings.
+        //this will be called for first time creation of the building with default level 1
+       buildingCost= buildingManager.BuildingChosen("CavalryBarracks");
+       AssigningCost();
+       DisplayingDataUI();
+    }
+    
     public void BuildOptionClicked(){
         //triggered by ui build button
 
@@ -90,6 +120,7 @@ public class BuildingUIManager : MonoBehaviour
                 Debug.Log("success");
                 RevertingUI();
                 nullingCost();
+                globalUIManager.RefreshPermission();
             }
             else {
                 if(status==1){

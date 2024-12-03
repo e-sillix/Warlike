@@ -14,6 +14,7 @@ public class TroopsTrainingManager : MonoBehaviour
     private int[] troopsData=new int[5];
 
     public TroopsDataPayload BarrackIsClicked(BarrackCollider barrackCollider){//this is accepting script
+        //by uitroopsTraining manager
         TheBarrackGO=barrackCollider.ReturnTheBarrack();
         theBarrack=TheBarrackGO.GetComponent<TheBarrack>();//assigned script
         // Debug.Log(theBarrack.barrackType);   
