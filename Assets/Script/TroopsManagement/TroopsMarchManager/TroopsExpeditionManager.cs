@@ -62,8 +62,6 @@ public class TroopsExpeditionManager : MonoBehaviour
     void march(){
         // Debug.Log(ChoosenUnit.ArmyId);
         ChoosenUnit.SetTroopsTarget(position,target,SpawnPoint);
-
-        Debug.Log("i am triigered!!!! TExpma");
        
         EndStage();
 
