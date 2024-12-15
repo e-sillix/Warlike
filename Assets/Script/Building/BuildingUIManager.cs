@@ -9,7 +9,6 @@ public class BuildingUIManager : MonoBehaviour
     //handle all the UI interaction for resoruce spawning   and function message triggered by RSpM and control
     //by rsm   
     [SerializeField] private GameObject CheckingUpUIGameobject;
-    [SerializeField] private GameObject BottomLeftUIGameobject;
     [SerializeField] private GameObject ConfirmationUI;
     [SerializeField] private GameObject NotEnoughCreditsGameobject;
     [SerializeField] private GameObject NoSpaceGameobject;
@@ -28,66 +27,14 @@ public class BuildingUIManager : MonoBehaviour
     private int stoneCost;
     private BuildingCost buildingCost;
     private int status;   
-    [SerializeField] private GlobalUIManager globalUIManager;
+    [SerializeField] private GlobalUIManager globalUIManager;   
     
-
-    public void WoodFarmIsChosen(){//another function will be created for upgrading
-        //triggered by options of buildings.
-        //this will be called for first time creation of the building with default level 1
-       buildingCost= buildingManager.BuildingChosen("WoodFarm");
-       AssigningCost();
-       DisplayingDataUI();
+    public void BuildingCostInit(BuildingCost BuildingCost){
+        buildingCost=BuildingCost;
+        AssigningCost();
+        CheckingUpUIGameobject.SetActive(true);
+        DisplayingDataUI();
     }
-    public void GrainFarmIsChosen(){//another function will be created for upgrading
-        //triggered by options of buildings.
-        //this will be called for first time creation of the building with default level 1
-       buildingCost= buildingManager.BuildingChosen("GrainFarm");
-       AssigningCost();
-       DisplayingDataUI();
-    }
-    public void StoneFarmIsChosen(){//another function will be created for upgrading
-        //triggered by options of buildings.
-        //this will be called for first time creation of the building with default level 1
-       buildingCost= buildingManager.BuildingChosen("StoneFarm");
-       AssigningCost();
-       DisplayingDataUI();
-    }
-    public void BarrackIsChosen(){//another function will be created for upgrading
-        //triggered by options of buildings.
-        //this will be called for first time creation of the building with default level 1
-       buildingCost= buildingManager.BuildingChosen("Barracks");
-       AssigningCost();
-       DisplayingDataUI();
-    }
-    public void ArcherIsChosen(){//another function will be created for upgrading
-        //triggered by options of buildings.
-        //this will be called for first time creation of the building with default level 1
-       buildingCost= buildingManager.BuildingChosen("ArcherBarracks");
-       AssigningCost();
-       DisplayingDataUI();
-    }
-    public void InfantryIsChosen(){//another function will be created for upgrading
-        //triggered by options of buildings.
-        //this will be called for first time creation of the building with default level 1
-       buildingCost= buildingManager.BuildingChosen("InfantryBarracks");
-       AssigningCost();
-       DisplayingDataUI();
-    }
-    public void MageIsChosen(){//another function will be created for upgrading
-        //triggered by options of buildings.
-        //this will be called for first time creation of the building with default level 1
-       buildingCost= buildingManager.BuildingChosen("MageBarracks");
-       AssigningCost();
-       DisplayingDataUI();
-    }
-    public void CavalryIsChosen(){//another function will be created for upgrading
-        //triggered by options of buildings.
-        //this will be called for first time creation of the building with default level 1
-       buildingCost= buildingManager.BuildingChosen("CavalryBarracks");
-       AssigningCost();
-       DisplayingDataUI();
-    }
-    
     public void BuildOptionClicked(){
         //triggered by ui build button
 
@@ -169,7 +116,6 @@ public class BuildingUIManager : MonoBehaviour
     public void RevertingUI(){
         ConfirmationUI.SetActive(false);
         CheckingUpUIGameobject.SetActive(false);
-        BottomLeftUIGameobject.SetActive(true);
     }
 
 
