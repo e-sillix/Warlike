@@ -7,6 +7,8 @@ using UnityEngine.Video;
 public class Farm : MonoBehaviour
 {
     public ResourceType resourceType; //for choosing the resources to produce
+    public int level=1;
+    // public string BuildingType="Farm";
     [SerializeField] private CurrencyManager currencyManager;
 
     [SerializeField] private int leastAmountForConsuming;
@@ -16,7 +18,7 @@ public class Farm : MonoBehaviour
     private float timer = 0f;
     public float interval = 1f;
 
-    private void Start(){
+    void Start(){
         if (currencyManager == null)
         {
             GameObject currencyManagerObject = GameObject.Find("CurrencyManager"); //parent based search
@@ -93,10 +95,11 @@ public class Farm : MonoBehaviour
    
     }
 
-public bool returnIsEnough(){
+    public bool returnIsEnough(){
         //triggers animations of icon back
         return isEnough;
     }
+    
 
 }
 

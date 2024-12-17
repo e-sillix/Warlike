@@ -35,6 +35,9 @@ public class GlobalUIManager : MonoBehaviour
             Debug.Log("Barrack is clicked");
             uITroopsTrainingManager.BarrackIsClicked(ClickedObject.GetComponent<BarrackCollider>());
         }
+        else if(ClickedObject.GetComponentInParent<BuildingInstance>()){
+            ClickedObject.GetComponentInParent<BuildingInstance>().BuildingClicked();
+        }
         else if(ClickedObject.GetComponentInParent<TheUnit>()){
             Debug.Log("Troops Clicked.");
             TheUnit theUnit= ClickedObject.GetComponentInParent<TheUnit>();

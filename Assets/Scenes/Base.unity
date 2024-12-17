@@ -6451,6 +6451,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 405064587}
   m_CullTransparentMesh: 1
+--- !u!1 &406462747
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 406462748}
+  - component: {fileID: 406462749}
+  m_Layer: 0
+  m_Name: BuildingUpgradeManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &406462748
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 406462747}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 627841137}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &406462749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 406462747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80b95c8f7cf2b67429b5d32142e45ee1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &411135597
 GameObject:
   m_ObjectHideFlags: 0
@@ -8734,7 +8778,7 @@ GameObject:
   - component: {fileID: 536403204}
   - component: {fileID: 536403205}
   m_Layer: 0
-  m_Name: BuilidingUIManager
+  m_Name: BuildingUIManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8768,7 +8812,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CheckingUpUIGameobject: {fileID: 440431208}
-  BottomLeftUIGameobject: {fileID: 0}
+  BuildingUIPanel: {fileID: 376507851}
   ConfirmationUI: {fileID: 1258393783}
   NotEnoughCreditsGameobject: {fileID: 1957760667}
   NoSpaceGameobject: {fileID: 1162391400}
@@ -12871,6 +12915,7 @@ Transform:
   - {fileID: 1817804699}
   - {fileID: 416393050}
   - {fileID: 536403203}
+  - {fileID: 406462748}
   m_Father: {fileID: 391697916}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &630187026
@@ -30602,18 +30647,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1649024438}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &1649024441
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33802,6 +33835,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   statsManager: {fileID: 416393051}
   tradingManager: {fileID: 2061975415}
+  buildingUpgrade: {fileID: 406462749}
 --- !u!114 &1817804701
 MonoBehaviour:
   m_ObjectHideFlags: 0

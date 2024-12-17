@@ -8,7 +8,7 @@ public class BuildingUIManager : MonoBehaviour
 {
     //handle all the UI interaction for resoruce spawning   and function message triggered by RSpM and control
     //by rsm   
-    [SerializeField] private GameObject CheckingUpUIGameobject;
+    [SerializeField] private GameObject CheckingUpUIGameobject,BuildingUIPanel;
     [SerializeField] private GameObject ConfirmationUI;
     [SerializeField] private GameObject NotEnoughCreditsGameobject;
     [SerializeField] private GameObject NoSpaceGameobject;
@@ -33,6 +33,7 @@ public class BuildingUIManager : MonoBehaviour
         buildingCost=BuildingCost;
         AssigningCost();
         CheckingUpUIGameobject.SetActive(true);
+        BuildingUIPanel.SetActive(false);
         DisplayingDataUI();
     }
     public void BuildOptionClicked(){

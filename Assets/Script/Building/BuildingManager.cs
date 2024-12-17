@@ -7,9 +7,10 @@ public class BuildingManager : MonoBehaviour
 {
     [SerializeField] private BuildingStatsManager statsManager;
     [SerializeField] private TradingManager tradingManager;
+    [SerializeField] private BuildingUpgrade buildingUpgrade;
     private ConditionalManager conditionManager;
 
-
+    private GameObject SpawnedBuilding;
     private BuildingCost buildingCost;
     private int status,woodCost,grainCost,stoneCost;
     private GameObject buildingPrefab,buildingBlueprint;
@@ -67,8 +68,13 @@ public class BuildingManager : MonoBehaviour
         tradingManager.SpendingResources(woodCost, grainCost, stoneCost);
     }
     private void SpawnBuilding(){
-        Instantiate(buildingPrefab,conditionManager.GetTheBlueprintPosition(), Quaternion.identity);
+        SpawnedBuilding=Instantiate(buildingPrefab,conditionManager.GetTheBlueprintPosition(), 
+        Quaternion.identity);
+        ProvidingManager();
         conditionManager.DestroyTheBlueprint();
+    }
+    void ProvidingManager(){
+        SpawnedBuilding.GetComponent<BuildingInstance>().assigningBuildingUpgrade(buildingUpgrade);
     }
     private void NullingData(){
         buildingCost=null;
