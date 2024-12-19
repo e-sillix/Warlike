@@ -60,8 +60,6 @@ public class BuildingUIManager : MonoBehaviour
 
     public void ConfirmationClicked(){
         //this will be triggered by tick 
-       
-
             status=buildingManager.ConfirmingBuilding();
 
             if(status==0){
@@ -84,11 +82,7 @@ public class BuildingUIManager : MonoBehaviour
                 MessageForNotEnoughSpace();
             }
             }
-        
-
         //check the status and display a message depends on status
-        
-       
     }
     public void CancelIsClicked(){
         //when clicked cancellation in confirmation

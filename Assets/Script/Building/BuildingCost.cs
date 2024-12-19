@@ -3,12 +3,8 @@ using UnityEngine;
 [System.Serializable]
 public class BuildingCost
 {
-    public int woodCost;
-    public int grainCost;
-    public int stoneCost;
-    public int timeCost;
-    public GameObject TheBlueprint;
-    public GameObject TheOriginal;
+    public int woodCost,grainCost, stoneCost, timeCost;
+    public GameObject TheBlueprint,TheOriginal;
 
     public BuildingCost(int wood, int grain, int stone,int time, GameObject Blueprint,GameObject Original)
     {

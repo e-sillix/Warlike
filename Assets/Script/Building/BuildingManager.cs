@@ -21,10 +21,10 @@ public class BuildingManager : MonoBehaviour
     public BuildingCost BuildingChosen(string buildingName, int level=1){
         //this will be called by uimanager 
         buildingCost=statsManager.GetBuildingStats(buildingName,level);
-        AssigningCost();
+        AssigningCostBM();
         return buildingCost;
     }
-    private void AssigningCost(){
+    private void AssigningCostBM(){
         if(buildingCost==null){
             Debug.Log("null buildingcost");
             return;
