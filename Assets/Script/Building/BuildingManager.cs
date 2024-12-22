@@ -8,6 +8,7 @@ public class BuildingManager : MonoBehaviour
     [SerializeField] private BuildingStatsManager statsManager;
     [SerializeField] private TradingManager tradingManager;
     [SerializeField] private BuildingUpgrade buildingUpgrade;
+    [SerializeField] private BuildingInstanceUI buildingInstanceUI;
     private ConditionalManager conditionManager;
 
     private GameObject SpawnedBuilding;
@@ -74,7 +75,7 @@ public class BuildingManager : MonoBehaviour
         conditionManager.DestroyTheBlueprint();
     }
     void ProvidingManager(){
-        SpawnedBuilding.GetComponent<BuildingInstance>().assigningBuildingUpgrade(buildingUpgrade);
+        SpawnedBuilding.GetComponent<BuildingInstance>().assigningManager(buildingInstanceUI);
     }
     private void NullingData(){
         buildingCost=null;

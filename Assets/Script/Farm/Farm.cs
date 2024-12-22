@@ -7,16 +7,15 @@ using UnityEngine.Video;
 public class Farm : MonoBehaviour
 {
     public ResourceType resourceType; //for choosing the resources to produce
-    public int level=1;
+    public int level=1,rateOfProduction=1,capacity=20;
     // public string BuildingType="Farm";
     [SerializeField] private CurrencyManager currencyManager;
 
     [SerializeField] private int leastAmountForConsuming;
     private bool isEnough=false;
     public bool triggerConsumingAnimation=false;
-    private int resourceAmount=0;
-    private float timer = 0f;
-    public float interval = 1f;
+    public int resourceAmount=0;
+    private float timer = 0f,interval = 1f;
 
     void Start(){
         if (currencyManager == null)
@@ -44,10 +43,10 @@ public class Farm : MonoBehaviour
          timer += Time.deltaTime;
 
         // Check if the timer has reached the interval
-        if (timer >= interval)
+        if (timer >= interval && capacity>resourceAmount)
         {
             // Increment currency by 1
-            UpdateresourceAmount(1);
+            UpdateresourceAmount(rateOfProduction);
 
             // Reset the timer
             timer = 0f;
