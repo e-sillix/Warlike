@@ -1,40 +1,75 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class BuildingUpgrade : MonoBehaviour
 {
-    //this is a manager for upgrading building.
-
+    //this is manager for upgrading building.
+    private UpgradeStats upgradeStats;
+    [SerializeField] private BuildingStatsManager buildingStatsManager;
+    [SerializeField] private TradingManager tradingManager;
     private GameObject Target;
+    private UpgradeCostPayload upgradeCost;
 
-    public void UpgradeTarget(GameObject target){  //(buildingGO)
-        //should be called by BuidlingInstance when upgrade button clicked.
-        //store the target
+    private String nameOfBuilding;
+    private int level,woodCost,grainCost,stoneCost;
+    void Start(){
+        upgradeStats=GetComponent<UpgradeStats>();
+    }
+     public UpgradeCostPayload GetUpgradeDetail(string nameOfBuilding,int level){
+        //called when upgrade button is clicked for info by instance.
+        upgradeCost= upgradeStats.GetBuildingUpgradeStats(nameOfBuilding,level);
+        return upgradeCost;
+    }
+    public BuildingCost GetUpgradeCost(string buildingName, int level=1){
+        return buildingStatsManager.GetBuildingStats(buildingName,level);
+    }
+    public void UpgradeClicked(GameObject target){
+        //Upgrade Confirmed is clicked.
         Target=target;
 
-        //analyse the target for the type and level
-
-        GetTheStats();        
-    }
-    void GetTheStats(){
-        //get and store stats of the next level.
-
-    }
-
-    public void ConfirmUpgrade(){
-        //called by upgrade by ui or indirectly 
-
-        //if enough credits
-        Upgrade();        
-    }
-
-    void Upgrade(){
-        //Replace all target info ,in adv replace prefab.
+        //get the level and buildingName
+        GetTargetStats();
+        //get the next building Cost
+        GetCost();        
+        //checking
+        if(tradingManager.IsEnoughResource( woodCost, grainCost, stoneCost)){
+        //if enough replace the stats
+            //Upgrade
+            UpgradeTheBuilding();
+            //cut the cost
+            tradingManager.SpendingResources( woodCost,grainCost, stoneCost);
+        }
+        else{
+            Debug.Log("not enough!!!!! resources");
+        //if not ,display some message or debug.
+        }
 
     }
-    public void Refresh(){
-        //refresh after using or cancelling
-
+    void GetTargetStats(){
+         if(Target.GetComponent<Farm>()){
+            Farm farm=Target.GetComponent<Farm>();
+            nameOfBuilding=farm.resourceType.ToString();           
+            level=farm.level;
+        }
+        else{
+            Debug.Log("Need to add more condition about the chosen building in BuildingUpgrade");
+      }
+    }
+    void GetCost(){
+        BuildingCost upgradeCost= buildingStatsManager.GetBuildingStats(nameOfBuilding,level+1);
+        woodCost = upgradeCost.woodCost ;
+        grainCost = upgradeCost.grainCost ;
+        stoneCost =upgradeCost.stoneCost ;
+    }
+    void UpgradeTheBuilding(){
+         if(Target.GetComponent<Farm>()){
+            Farm farm=Target.GetComponent<Farm>();                     
+            farm.UpgradeStats(level+1,upgradeCost.capacity,upgradeCost.rate);
+        }
+        else{
+            Debug.Log("Need to add more condition about the chosen building in BuildingUpgrade");
+      }
     }
 }

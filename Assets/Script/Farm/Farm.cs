@@ -99,6 +99,10 @@ public class Farm : MonoBehaviour
         return isEnough;
     }
     
-
+    public void UpgradeStats(int Level,int Capacity,int rate){
+        level=Level;
+        rateOfProduction=rate;
+        capacity=Capacity;
+    }
 }
 

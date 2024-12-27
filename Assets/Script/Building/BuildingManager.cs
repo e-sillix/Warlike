@@ -4,7 +4,7 @@ using UnityEditor.PackageManager;
 using UnityEngine;
 
 public class BuildingManager : MonoBehaviour
-{
+{//responsible for spawning
     [SerializeField] private BuildingStatsManager statsManager;
     [SerializeField] private TradingManager tradingManager;
     [SerializeField] private BuildingUpgrade buildingUpgrade;

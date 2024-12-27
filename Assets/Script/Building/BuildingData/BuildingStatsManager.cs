@@ -20,15 +20,15 @@ public class BuildingStatsManager : MonoBehaviour
     BuildingData buildingData = null;
 
     // Find the correct building based on its name
-    if (buildingName == "WoodFarm")
+    if (buildingName == "WoodFarm" || buildingName=="Wood")
     {
         buildingData = woodFarmData; // Reference to the ScriptableObject containing Wood Farm data
     }
-    else if (buildingName == "GrainFarm")
+    else if (buildingName == "GrainFarm"|| buildingName=="Grain")
     {
         buildingData = grainFarmData; // Reference to the ScriptableObject containing Barracks data
     }
-    else if (buildingName == "StoneFarm")
+    else if (buildingName == "StoneFarm"|| buildingName=="Stone")
     {
         buildingData = stoneFarmData; // Reference to the ScriptableObject containing Barracks data
     }
