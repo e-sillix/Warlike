@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEditor.VersionControl;
 
 public class BuildingInstanceUI : MonoBehaviour
 {//this is a manager attached to BuildingUIManager ,for showing data
@@ -15,6 +16,7 @@ public class BuildingInstanceUI : MonoBehaviour
 
     private BuildingCost upgradeBuildingData;
     [SerializeField] private BuildingUpgrade buildingUpgrade;
+    [SerializeField]private MessageManager messageManager;
 
     //Info related ui
     public void InfoIsClicked(GameObject target){
@@ -49,18 +51,26 @@ public class BuildingInstanceUI : MonoBehaviour
     public void UpgradeIsClicked(GameObject target){
         //indirectly by buildingInstance
         Target=target;
-        BuildingUpgradeUIPanel.SetActive(true);
 
         GetAllTheStats();//getting current info
-        GetAllUpgradeStats();
+        if(GetAllUpgradeStats()==0){
+            messageManager.TriggerMaxBuildingUpgrade();
+            return;
+        }
+        BuildingUpgradeUIPanel.SetActive(true);
         DisplayBuildingUpgradeInfo();
-
         GetUpgradeCost();
+        
+
     } 
-    void GetAllUpgradeStats(){
+    int GetAllUpgradeStats(){
         UpgradeCostPayload upgradeDetails=buildingUpgrade.GetUpgradeDetail(nameOfBuilding,level);
+        if(upgradeDetails==null){
+            return 0;
+        }
         newCapacity=upgradeDetails.capacity;
         newRate=upgradeDetails.rate;
+        return 1;
     }
     void DisplayBuildingUpgradeInfo(){
         UpgradeBuildingName.text= nameOfBuilding ;

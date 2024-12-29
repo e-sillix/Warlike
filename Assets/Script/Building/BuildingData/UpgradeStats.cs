@@ -8,9 +8,10 @@ public class UpgradeStats : MonoBehaviour
     [SerializeField] private BuildingStatSO grainFarmData; // Drag the BuildingData ScriptableObject here
 
     public UpgradeCostPayload GetBuildingUpgradeStats(string buildingName, int levelNumber){
+        //level number will be 5 for level up to 6.
         Debug.Log("details of upgrading"+buildingName+levelNumber);
          // Ensure the levelNumber is valid (between 1 and 30)
-    if (levelNumber < 1 || levelNumber > 30)
+    if (levelNumber < 1 || levelNumber > 30-1)
     {
         Debug.LogError("Level must be between 1 and 30");
         return null;

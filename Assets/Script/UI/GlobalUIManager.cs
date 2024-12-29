@@ -11,6 +11,7 @@ public class GlobalUIManager : MonoBehaviour
     [SerializeField] private UITroopsTrainingManager uITroopsTrainingManager;
     [SerializeField] private TroopsExpeditionManager troopsExpeditionManager;
     [SerializeField] private TroopsUI troopsUI;
+    private GameObject lastClicked,currentClicked;
     void Update(){
         if(permissionForUI){        
         if (Input.GetMouseButtonDown(0)){ // Detect left mouse button click
@@ -19,11 +20,16 @@ public class GlobalUIManager : MonoBehaviour
             if (Physics.Raycast(ray, out hit))//this will move
                 {
                     clickedObject=hit.collider.gameObject;
+                    currentClicked=clickedObject;
                     ClickAnalysis(clickedObject,hit);
                 }
             else{
                 Debug.Log("Hitted nothing");
             }
+            if( lastClicked!=currentClicked){
+                permissionForUI=true;
+            }
+            lastClicked=currentClicked;
         }
     }}
 
@@ -36,6 +42,7 @@ public class GlobalUIManager : MonoBehaviour
             uITroopsTrainingManager.BarrackIsClicked(ClickedObject.GetComponent<BarrackCollider>());
         }
         else if(ClickedObject.GetComponentInParent<BuildingInstance>()){
+            Debug.Log("building clicked.");
             ClickedObject.GetComponentInParent<BuildingInstance>().BuildingClicked();
         }
         else if(ClickedObject.GetComponentInParent<TheUnit>()){

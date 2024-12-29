@@ -10,11 +10,6 @@ public class BuildingUIManager : MonoBehaviour
     //by rsm   
     [SerializeField] private GameObject CheckingUpUIGameobject,BuildingUIPanel;
     [SerializeField] private GameObject ConfirmationUI;
-    [SerializeField] private GameObject NotEnoughCreditsGameobject;
-    [SerializeField] private GameObject NoSpaceGameobject;
-    [SerializeField] private GameObject NotInsideKingdom;
-    [SerializeField] private GameObject Success;
-    [SerializeField] private float messageDisappearingTime=0.5f;
     // [SerializeField] private ResourceSpawnManager SpawnManager;
     [SerializeField] private TradingManager tradingManagerCS;
     [SerializeField] BuildingManager buildingManager;
@@ -28,6 +23,7 @@ public class BuildingUIManager : MonoBehaviour
     private BuildingCost buildingCost;
     private int status;   
     [SerializeField] private GlobalUIManager globalUIManager;   
+    [SerializeField] private MessageManager messageManager;
     
     public void BuildingCostInit(BuildingCost BuildingCost){
         buildingCost=BuildingCost;
@@ -41,7 +37,7 @@ public class BuildingUIManager : MonoBehaviour
 
         //check isenough
         if(!buildingManager.IsEnoughCredit()){
-            MessageForNotEnoughCredit();
+            messageManager.MessageForNotEnoughCredit();
             status=3;
             RevertingUI();
         }        
@@ -79,7 +75,7 @@ public class BuildingUIManager : MonoBehaviour
 
                 // no refreshing ui here.
                 Debug.Log("Not Enough space");
-                MessageForNotEnoughSpace();
+                messageManager.MessageForNotEnoughSpace();
             }
             }
         //check the status and display a message depends on status
@@ -111,49 +107,8 @@ public class BuildingUIManager : MonoBehaviour
     public void RevertingUI(){
         ConfirmationUI.SetActive(false);
         CheckingUpUIGameobject.SetActive(false);
-    }
-
-
-//messages
-    void MessageForNotEnoughCredit(){
-        NotEnoughCreditsGameobject.SetActive(true);
-        //create a function to turn it false after 1 sec.
-        Invoke("HideNotEnoughCreditsMessage", messageDisappearingTime);
-    }
-
-// This method will deactivate the GameObject
-    void HideNotEnoughCreditsMessage()
-        {
-            //this is getting invoked by messageFornotenoughcredit.
-            NotEnoughCreditsGameobject.SetActive(false);
-        }   
-    public void MessageForNotEnoughSpace(){
-        //this will be called by RSM
-        NoSpaceGameobject.SetActive(true);
-        Invoke("HideNotEnoughSpaceMessage", messageDisappearingTime);
-    }
-    void HideNotEnoughSpaceMessage()
-        {
-            NoSpaceGameobject.SetActive(false);
-        } 
-    public void MessageForNotInsideKingdom(){
-        //this will be called by RSM
-        NotInsideKingdom.SetActive(true);
-        Invoke("HideMessageForNotInsideKingdom", messageDisappearingTime);
-    }
-    void HideMessageForNotInsideKingdom()
-        {
-            NotInsideKingdom.SetActive(false);
-        } 
-    public void MessageForSuccess(){
-        //this will be called by RSM
-        Success.SetActive(true);
-        Invoke("HideMessageForSuccess", messageDisappearingTime);
-    }
-    void HideMessageForSuccess()
-        {
-           Success.SetActive(false);
-        } 
+    }  
+   
 }
 
     
