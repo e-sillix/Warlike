@@ -48,14 +48,20 @@ public class TheBarrack : MonoBehaviour
         //for now add troops directly
         troopsCountManager.UpdateTroopsCount(barrackType.ToString(),troopsDataLocal);
 
+    }
+    public void UpgradeStats(int Level,int Capacity,int rate){
+        level=Level;
+        rateOfTraining=rate;
+        TrainingCappacity=Capacity;
 
     }
-    public void UpgradeBarrackLevel(int Level){
-        level=Level;
-        TriggerPrefabChange();
-    }
-    private void TriggerPrefabChange(){
-        //change the look of barrack
-    }
+    // public void UpgradeBarrackLevel(int Level){
+    //     level=Level;
+    //     TriggerPrefabChange();
+    // }
+
+    // private void TriggerPrefabChange(){
+    //     //change the look of barrack
+    // }
     
 }

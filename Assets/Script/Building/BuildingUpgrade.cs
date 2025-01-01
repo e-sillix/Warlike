@@ -53,6 +53,11 @@ public class BuildingUpgrade : MonoBehaviour
             nameOfBuilding=farm.resourceType.ToString();           
             level=farm.level;
         }
+        else if(Target.GetComponent<TheBarrack>()){
+            TheBarrack barrack=Target.GetComponent<TheBarrack>();
+            nameOfBuilding=barrack.barrackType.ToString();  
+            level=barrack.level;
+        }
         else{
             Debug.Log("Need to add more condition about the chosen building in BuildingUpgrade");
       }
@@ -67,6 +72,10 @@ public class BuildingUpgrade : MonoBehaviour
          if(Target.GetComponent<Farm>()){
             Farm farm=Target.GetComponent<Farm>();                     
             farm.UpgradeStats(level+1,upgradeCost.capacity,upgradeCost.rate);
+        }
+         else if(Target.GetComponent<TheBarrack>()){
+            TheBarrack barrack=Target.GetComponent<TheBarrack>();
+            barrack.UpgradeStats(level+1,upgradeCost.capacity,upgradeCost.rate);
         }
         else{
             Debug.Log("Need to add more condition about the chosen building in BuildingUpgrade");

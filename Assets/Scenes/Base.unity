@@ -6988,6 +6988,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grainFarmData: {fileID: 11400000, guid: 2b99f8075254e5d4e878de372d758d75, type: 2}
+  stoneFarmData: {fileID: 11400000, guid: db3f849bd852f554f85f54f55d19f77f, type: 2}
+  woodFarmData: {fileID: 11400000, guid: de7ae4e5800120d449126cef8592136b, type: 2}
+  barrackData: {fileID: 11400000, guid: 5c93136c123ff644593c32dc9b94d95f, type: 2}
 --- !u!1 &411135597
 GameObject:
   m_ObjectHideFlags: 0
