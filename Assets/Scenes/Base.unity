@@ -6459,7 +6459,7 @@ GameObject:
   - component: {fileID: 387165256}
   - component: {fileID: 387165255}
   m_Layer: 5
-  m_Name: No
+  m_Name: Cancel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -37221,7 +37221,7 @@ GameObject:
   - component: {fileID: 1862740869}
   - component: {fileID: 1862740868}
   m_Layer: 5
-  m_Name: Yes
+  m_Name: Train
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
