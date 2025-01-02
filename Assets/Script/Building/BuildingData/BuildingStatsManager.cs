@@ -32,19 +32,19 @@ public class BuildingStatsManager : MonoBehaviour
     {
         buildingData = stoneFarmData; // Reference to the ScriptableObject containing Barracks data
     }
-    else if (buildingName == "MageBarracks")
+    else if (buildingName == "MageBarracks"||buildingName == "Mage")
     {
         buildingData = MageBarrackData; // Reference to the ScriptableObject containing Barracks data
     }
-    else if (buildingName == "CavalryBarracks")
+    else if (buildingName == "CavalryBarracks"||buildingName == "Cavalry")
     {
         buildingData = CavalryBarrackData; // Reference to the ScriptableObject containing Barracks data
     }
-    else if (buildingName == "InfantryBarracks")
+    else if (buildingName == "InfantryBarracks"||buildingName == "Infantry")
     {
         buildingData = InfantryBarrackData; // Reference to the ScriptableObject containing Barracks data
     }
-    else if (buildingName == "ArcherBarracks")
+    else if (buildingName == "ArcherBarracks"||buildingName == "Archer")
     {
         buildingData = ArcherBarrackData; // Reference to the ScriptableObject containing Barracks data
     }

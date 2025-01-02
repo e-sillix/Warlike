@@ -10,7 +10,8 @@ public class BuildingInstanceUI : MonoBehaviour
     private GameObject Target;
 
     private string nameOfBuilding;
-    int capacity,level,currentResourceAmount,rateOfProduction,newCapacity,newRate;
+    int capacity,level,currentResourceAmount,newCapacity,newRate;
+    float rateOfProduction;
     [SerializeField]private TextMeshProUGUI BuildingName,Stats; 
     [SerializeField] private TextMeshProUGUI UpgradeBuildingName,UpgradeData,UpgradeCostText;
 
@@ -36,14 +37,26 @@ public class BuildingInstanceUI : MonoBehaviour
             level=farm.level;
             rateOfProduction=farm.rateOfProduction;
         }
+        else if(Target.GetComponent<TheBarrack>()){
+            TheBarrack theBarrack=Target.GetComponent<TheBarrack>();
+            nameOfBuilding=theBarrack.barrackType.ToString();
+            capacity=theBarrack.TrainingCappacity;
+            level=theBarrack.level;
+            rateOfProduction=theBarrack.rateOfTraining;
+        }
         else{
             Debug.Log("Need to add more condition about the chosen building in BuildingInstanceUI");
       }
     }
     void DisplayBuildingInfoUI(){
         BuildingName.text = nameOfBuilding ;  
-        Stats.text= "Level: "+ level +", Capacity: "+capacity + ", Rate Of Production: "+rateOfProduction
-         +"Resource, : "+currentResourceAmount+"/"+capacity;
+        if(Target.GetComponent<Farm>())
+       { Stats.text= "Level: "+ level +", Capacity: "+capacity + ", Rate Of Production: "+rateOfProduction
+         +"Resource, : "+currentResourceAmount+"/"+capacity;}
+         else if(Target.GetComponent<TheBarrack>()){
+            Stats.text= "Level: "+ level +",Training Capacity: "+capacity + 
+            ", Rate Of Training: "+rateOfProduction;
+         }
     }
 
     
@@ -74,8 +87,13 @@ public class BuildingInstanceUI : MonoBehaviour
     }
     void DisplayBuildingUpgradeInfo(){
         UpgradeBuildingName.text= nameOfBuilding ;
+        if( Target.GetComponent<Farm>()){
         UpgradeData.text= "To Level: "+ (level+1) +", Capacity: "+capacity+ ">" + newCapacity
         +", Rate Of Production: "+rateOfProduction+ ">" + newRate;
+        }else if(Target.GetComponent<TheBarrack>()){
+             UpgradeData.text= "To Level: "+ (level+1) +", Capacity: "+capacity+ ">" + newCapacity
+        +", Rate Of Training: "+rateOfProduction+ ">" + newRate;
+        }
     }
     void GetUpgradeCost(){
         BuildingCost UpgradeCost=buildingUpgrade.GetUpgradeCost(nameOfBuilding,level+1);

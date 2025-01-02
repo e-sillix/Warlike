@@ -31,7 +31,7 @@ public class UpgradeStats : MonoBehaviour
     else if(buildingName == "Wood"){
         buildingData = woodFarmData; 
     }
-    else if(buildingName ==" Infantry" ||buildingName =="Archer"
+    else if(buildingName =="Infantry" ||buildingName =="Archer"
     ||buildingName =="Cavalry"||buildingName =="Mage"){
         buildingData = barrackData; 
     }
