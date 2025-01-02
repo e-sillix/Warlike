@@ -24,8 +24,7 @@ public class TroopsCountManager : MonoBehaviour
         {
             cavalry[i] += troopsData[i];  // Add corresponding troop data to cavalry array
         }
-        for(int i=0;i<5;i++){
-   }
+        
     }
     else if (barrackType == "Infantry")
     {
@@ -33,8 +32,7 @@ public class TroopsCountManager : MonoBehaviour
         {
             infantry[i] += troopsData[i];  // Add corresponding troop data to infantry array
         }
-         for(int i=0;i<5;i++){
-   }
+         
     }
     else if (barrackType == "Archer")
     {
@@ -42,8 +40,7 @@ public class TroopsCountManager : MonoBehaviour
         {
             archer[i] += troopsData[i];  // Add corresponding troop data to infantry array
         }
-         for(int i=0;i<5;i++){
-   }
+         
    }
     else if (barrackType == "Mage")
     {
@@ -51,8 +48,6 @@ public class TroopsCountManager : MonoBehaviour
         {
             mage[i] += troopsData[i];  // Add corresponding troop data to infantry array
         }
-         for(int i=0;i<5;i++){
-   }
    }
     else
     {

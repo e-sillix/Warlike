@@ -33,7 +33,7 @@ public class UITroopsTrainingManager : MonoBehaviour
 
         //display total troops capacity and type ++++++
         barrackType=troopsTrainingManager.troopType;
-        
+
         troopsTypeUI.text="Train "+barrackType.ToString();
         //triggering Starting training ui
         StartingTrainingUIPanel.SetActive(true);
@@ -63,21 +63,15 @@ public void TriggerUIForOngoingTraining(){
 // Stage 3
     public void TrainIsClicked(){
         // Stage 2
-        //this will be triggered by ui ,condition when barrack is not occupied.
-        
+        //this will be triggered by ui ,condition when barrack is not occupied.        
         troopsData=troopsTrainingSlider.ReturnTroopsData();
         //pass it TTM
-
         if(tradingManager.IsEnoughResource(trainingCost[0],trainingCost[1],trainingCost[2])){//w,g,s,t
             Debug.Log("starting training");
-
             //cut the cost
             tradingManager.SpendingResources(trainingCost[0],trainingCost[1],trainingCost[2]);
-
             //start
-
             troopsTrainingManager.StartTrainingProcess(troopsData,trainingCost[3]); //time
-
             //disable ui with succes message
             EndStage();
             RefreshUI();

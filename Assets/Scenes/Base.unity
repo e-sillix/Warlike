@@ -22207,6 +22207,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildingInstanceUI: {fileID: 536403206}
   troopsTrainingManager: {fileID: 1574388606}
+  troopsCountManager: {fileID: 903222388}
 --- !u!4 &1047576137
 Transform:
   m_ObjectHideFlags: 0

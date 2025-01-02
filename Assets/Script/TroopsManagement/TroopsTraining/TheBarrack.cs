@@ -27,11 +27,13 @@ public class TheBarrack : MonoBehaviour
 
     public int level=1;
 
-    void Start(){
-        troopsCountManager=FindObjectOfType<TroopsCountManager>();
-    }
-    public void InitDependency(TroopsTrainingManager TroopsTrainingManager){
+    // void Start(){
+    //     troopsCountManager=FindObjectOfType<TroopsCountManager>();
+    // }
+    public void InitDependency(TroopsTrainingManager TroopsTrainingManager,
+    TroopsCountManager TroopsCountManager){
         troopsTrainingManager=TroopsTrainingManager;
+        troopsCountManager =TroopsCountManager;
     }
     public void TrainingIsClicked(){
         //triggered by clicking UI button train.
