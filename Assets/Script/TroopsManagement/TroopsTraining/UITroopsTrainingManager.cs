@@ -16,27 +16,14 @@ public class UITroopsTrainingManager : MonoBehaviour
     [SerializeField] private TradingManager tradingManager;
     [SerializeField] private GlobalUIManager globalUIManager;
     private int[] troopsData = new int[5];
-    private TroopsDataPayload troopsStats;
+    
     [SerializeField]private TextMeshProUGUI CostUI,troopsTypeUI;   
     private int[] trainingCost=new int[4];
     private string barrackType;
     private int barrackCapacity;
 
-//stage 1
-    public void BarrackIsClicked(BarrackCollider ClickedObject){
-        clickedObject=ClickedObject;
-        //this is now being triggered by global ui
-         troopsStats=troopsTrainingManager.BarrackIsClicked(clickedObject);
-                    if(troopsTrainingManager.IsBarrackOccupied()){
-                        Debug.Log("occupied");
-                        TriggerUIForOngoingTraining();
-                    }else{
-                        TriggerUIForTraining();
-                    }
-    }
-
-    
-    private void TriggerUIForTraining(){
+//stage 1    
+    public void TriggerUIForTraining(){
         //levels, cost , barracklimits
 
         //update barrackCapacity UI
@@ -46,19 +33,13 @@ public class UITroopsTrainingManager : MonoBehaviour
 
         //display total troops capacity and type ++++++
         barrackType=troopsTrainingManager.troopType;
-        //display all that
-        // .text= barrackType;
-        // .text=barrackCapacity;
-
+        
         troopsTypeUI.text="Train "+barrackType.ToString();
-
         //triggering Starting training ui
         StartingTrainingUIPanel.SetActive(true);
-
-
     }   
 
-private void TriggerUIForOngoingTraining(){
+public void TriggerUIForOngoingTraining(){
         //cancellation,progress,boosting,troops data 
         Debug.Log("training is going on,cancel panel will be here");
     }  

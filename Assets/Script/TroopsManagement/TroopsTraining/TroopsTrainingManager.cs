@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,22 +9,21 @@ public class TroopsTrainingManager : MonoBehaviour
     private GameObject TheBarrackGO;
     private TheBarrack theBarrack;
     [SerializeField]private TroopsStatsManager troopsStatsManager;
+    [SerializeField] private UITroopsTrainingManager uITroopsTrainingManager;
     public string troopType;
-    private TroopsDataPayload troopsAllStats;
-    private int barrackCapacity;
-    private int[] troopsData=new int[5];
 
-    public TroopsDataPayload BarrackIsClicked(BarrackCollider barrackCollider){//this is accepting script
-        //by uitroopsTraining manager
-        TheBarrackGO=barrackCollider.ReturnTheBarrack();
-        theBarrack=TheBarrackGO.GetComponent<TheBarrack>();//assigned script
-        // Debug.Log(theBarrack.barrackType);   
+    public void TrainingIsChosen(TheBarrack TheBarrack){
+        theBarrack=TheBarrack;
         troopType=theBarrack.barrackType.ToString();
-        Debug.Log(troopType);
-        troopsAllStats=troopsStatsManager.GetTroopsData(troopType ,1); 
-        return troopsAllStats;
-    }   
-    public bool IsBarrackOccupied(){
+        if(IsBarrackOccupied()){
+            uITroopsTrainingManager.TriggerUIForOngoingTraining();
+        }
+        else{
+             uITroopsTrainingManager.TriggerUIForTraining();
+        }
+    }
+     
+    bool IsBarrackOccupied(){
         return theBarrack.isTrainingOngoing;
     }
     public int GetTroopsCapacity(){
@@ -31,7 +31,6 @@ public class TroopsTrainingManager : MonoBehaviour
         //this will be called by ui manager   
         Debug.Log(theBarrack.TrainingCappacity)  ;   
         return theBarrack.TrainingCappacity;
-
     }
     public void CheckCreditsForTraining(){
         //this will be call every time the input is changed by ui

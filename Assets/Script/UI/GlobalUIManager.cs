@@ -8,7 +8,7 @@ public class GlobalUIManager : MonoBehaviour
 
     private bool permissionForUI=true; //this will be falsed by other cancel managers only
     private GameObject clickedObject;
-    [SerializeField] private UITroopsTrainingManager uITroopsTrainingManager;
+    [SerializeField] private TroopsTrainingManager troopsTrainingManager;
     [SerializeField] private TroopsExpeditionManager troopsExpeditionManager;
     [SerializeField] private TroopsUI troopsUI;
     private GameObject lastClicked,currentClicked;
@@ -37,9 +37,9 @@ public class GlobalUIManager : MonoBehaviour
         if(IsGroundLayer(ClickedObject)||IsEnemyLayer(ClickedObject)||IsMineLayer(ClickedObject)){
             troopsExpeditionManager.PotentialTargetForMarchClicked(ClickedObject,hit);
         }
-        else if(ClickedObject.GetComponent<BarrackCollider>()){
+        else if(ClickedObject.GetComponentInParent<TheBarrack>()){
             Debug.Log("Barrack is clicked");
-            uITroopsTrainingManager.BarrackIsClicked(ClickedObject.GetComponent<BarrackCollider>());
+            ClickedObject.GetComponentInParent<BuildingInstance>().BuildingClicked();
         }
         else if(ClickedObject.GetComponentInParent<BuildingInstance>()){
             Debug.Log("building clicked.");

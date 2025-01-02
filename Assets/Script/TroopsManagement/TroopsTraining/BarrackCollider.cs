@@ -15,7 +15,4 @@ public class BarrackCollider : MonoBehaviour
         //useless 
         Debug.Log("Starting!!!!!");
     }
-    public GameObject ReturnTheBarrack(){
-        return TheBarrack;
-    }
 }

@@ -21,6 +21,7 @@ public class TheBarrack : MonoBehaviour
     [SerializeField] private TrainingHandler trainingHandler;
     private int[] troopsDataLocal;
     private TroopsCountManager troopsCountManager;
+    private TroopsTrainingManager troopsTrainingManager;
 
     //some buffs
 
@@ -28,6 +29,13 @@ public class TheBarrack : MonoBehaviour
 
     void Start(){
         troopsCountManager=FindObjectOfType<TroopsCountManager>();
+    }
+    public void InitDependency(TroopsTrainingManager TroopsTrainingManager){
+        troopsTrainingManager=TroopsTrainingManager;
+    }
+    public void TrainingIsClicked(){
+        //triggered by clicking UI button train.
+        troopsTrainingManager.TrainingIsChosen(gameObject.GetComponent<TheBarrack>());
     }
     public void StartTraining(int[] troopsData,int time){
         troopsDataLocal=troopsData;
@@ -54,14 +62,6 @@ public class TheBarrack : MonoBehaviour
         rateOfTraining=rate;
         TrainingCappacity=Capacity;
 
-    }
-    // public void UpgradeBarrackLevel(int Level){
-    //     level=Level;
-    //     TriggerPrefabChange();
-    // }
+    }    
 
-    // private void TriggerPrefabChange(){
-    //     //change the look of barrack
-    // }
-    
 }
