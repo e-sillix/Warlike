@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class GlobalUIManager : MonoBehaviour
 {
     [SerializeField]private LayerMask groundLayer,enemyLayer,mineLayer;
+    [SerializeField] private GameObject MarchPointer;
 
     private bool permissionForUI=true; //this will be falsed by other cancel managers only
     private GameObject clickedObject;
@@ -12,6 +14,7 @@ public class GlobalUIManager : MonoBehaviour
     [SerializeField] private TroopsExpeditionManager troopsExpeditionManager;
     [SerializeField] private TroopsUI troopsUI;
     private GameObject lastClicked,currentClicked;
+    private GameObject spawnedPointer;
     // private bool MarchTargetClicked;
     void Update(){
         if(permissionForUI){        
@@ -19,9 +22,17 @@ public class GlobalUIManager : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit))//this will move
-                {
+                {        
+                    // Prevent interaction if clicking on UI
+            if (EventSystem.current.IsPointerOverGameObject())
+            {
+                return;
+            }            
                     clickedObject=hit.collider.gameObject;
                     currentClicked=clickedObject;
+                    if(spawnedPointer){
+                        Destroy(spawnedPointer);
+                    }
                     ClickAnalysis(clickedObject,hit);
                 }
             else{
@@ -47,11 +58,15 @@ public class GlobalUIManager : MonoBehaviour
         }
     }}
 
-    void ClickAnalysis(GameObject ClickedObject,RaycastHit hit){        
+    void ClickAnalysis(GameObject ClickedObject,RaycastHit hit){
+
         if(IsGroundLayer(ClickedObject)||IsEnemyLayer(ClickedObject)||IsMineLayer(ClickedObject)){
             Debug.Log("March target clicked");
             // MarchTargetClicked=true;
-            troopsExpeditionManager.PotentialTargetForMarchClicked(ClickedObject,hit);
+            spawnedPointer=Instantiate(MarchPointer,hit.point,Quaternion.identity);
+            spawnedPointer.GetComponent<SpawnedPointer>().Dependency(troopsExpeditionManager
+            ,ClickedObject,hit);
+            // troopsExpeditionManager.PotentialTargetForMarchClicked(ClickedObject,hit);
         }
         else if(ClickedObject.GetComponentInParent<TheBarrack>()){
             Debug.Log("Barrack is clicked");

@@ -21,15 +21,13 @@ public class ExpeditionUI : MonoBehaviour
     void Start(){
         troopsExpeditionManager=GetComponent<TroopsExpeditionManager>();
         // Add listeners to each button
-        
-
         // Army1Button.onClick.AddListener(()=>ExitingIsChoosen(1));
     }
-    public void TriggerConfirmationUI(){
-        //by expedition manager 
-        // Debug.Log("Triggered");
-        InitialConfirmPanel.SetActive(true);//the one will with tick and cross panel
-    }
+    // public void TriggerConfirmationUI(){
+    //     //by expedition manager 
+    //     // Debug.Log("Triggered");
+    //     InitialConfirmPanel.SetActive(true);//the one will with tick and cross panel
+    // }
     public void Stage2ConfirmationUI(){//triggered by stage 1 confirmation ui
         //the one with exiting army or creating another army option
         ConfirmPanel2.SetActive(true);
@@ -44,7 +42,6 @@ public class ExpeditionUI : MonoBehaviour
             for (int i = 0; i < armyCount; i++) {
                 ArmyButtonGO[i].SetActive(true);              // Activate the button
                 armyId[i].text = Armys[i].ArmyId.ToString();  // Set the army ID on the button
-
                 int index = i; // Capture 'i' locally to prevent closure issue in the listener
                 ArmyButton[i].onClick.AddListener(() => ArmyIsChosen(Armys[index])); // Assign the listener
             }
@@ -52,16 +49,12 @@ public class ExpeditionUI : MonoBehaviour
             // Optionally hide extra buttons if fewer than 5 armies
             for (int i = armyCount; i < ArmyButtonGO.Length; i++) {
                 ArmyButtonGO[i].SetActive(false); // Hide buttons for unused army slots
-            }      
-
-
+            }
     }
     void ArmyIsChosen(TheUnit ChoosedOne){
         ChoosenUnit=ChoosedOne;
         // Debug.Log("clicked"+ChoosedOne.ArmyId);
-
         troopsExpeditionManager.ExistingArmyIsChoosen(ChoosenUnit);
-
         EndStageTriggered();
     }
 

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TroopsExpeditionManager : MonoBehaviour
 {
-    private GameObject target;
+    private GameObject target,pointer;
     // [SerializeField] private MarchManager marchManager;
     [SerializeField] private ActionManager actionManager;
     [SerializeField] private GlobalUIManager globalUIManager;
@@ -15,20 +15,22 @@ public class TroopsExpeditionManager : MonoBehaviour
     private ExpeditionUI expeditionUI;
     private TheUnit ChoosenUnit;
     private TheUnit[] theUnits;
+    
     void Start(){
         expeditionUI=GetComponent<ExpeditionUI>();
     }
 
-    public void PotentialTargetForMarchClicked(GameObject Target,RaycastHit hit){//clickedObject
+    public void PotentialTargetForMarchClicked(GameObject Target,RaycastHit hit,GameObject Pointer){//clickedObject
         //this will be called by global 
         target=Target;  //storing target
         position=hit.point;
+        pointer=Pointer;
         //trigger march manager stage 1 -----
 
         // marchManager.ATargetIsClick(Target,hit);---------
         // Debug.Log("RE");
 
-        expeditionUI.TriggerConfirmationUI();
+        expeditionUI.Stage2ConfirmationUI();
         
     }
 
@@ -55,16 +57,14 @@ public class TroopsExpeditionManager : MonoBehaviour
     }
     void ArmyIsChoosed(TheUnit choosedOne){
         ChoosenUnit=choosedOne;
-
         //march it.
         march();
     }
     void march(){
         // Debug.Log(ChoosenUnit.ArmyId);
-        ChoosenUnit.SetTroopsTarget(position,target,SpawnPoint);
-       
+        ChoosenUnit.SetTroopsTarget(position,target,SpawnPoint);       
         EndStage();
-
+        Destroy(pointer);
     }
 
     public void EndStage(){

@@ -20599,7 +20599,7 @@ Transform:
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
   m_LocalRotation: {x: 0.2588191, y: 0, z: 0, w: 0.9659258}
-  m_LocalPosition: {x: 0, y: 20, z: -40.9}
+  m_LocalPosition: {x: -61.32, y: 20, z: -35.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -25007,6 +25007,8 @@ MonoBehaviour:
   mineLayer:
     serializedVersion: 2
     m_Bits: 1024
+  MarchPointer: {fileID: 2806678490883319294, guid: 0418b67d617a9f34094d50c9d60b41ce,
+    type: 3}
   troopsTrainingManager: {fileID: 1574388606}
   troopsExpeditionManager: {fileID: 850240512}
   troopsUI: {fileID: 520292769}
@@ -37037,7 +37039,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.76415086, b: 0.7917179, a: 1}
+  m_Color: {r: 1, g: 0.76415086, b: 0.7917179, a: 0.5372549}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
