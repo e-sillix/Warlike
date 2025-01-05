@@ -17869,6 +17869,8 @@ MonoBehaviour:
   actionManager: {fileID: 1129043918}
   globalUIManager: {fileID: 1180219576}
   newArmyManger: {fileID: 2034049741}
+  MarchingPointer: {fileID: 2806678490883319294, guid: 92b784c8d0fd62f4da3fdb6c99ea5049,
+    type: 3}
   SpawnPoint: {fileID: 286404000}
 --- !u!114 &850240513
 MonoBehaviour:

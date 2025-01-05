@@ -23,9 +23,8 @@ public class TheUnit : MonoBehaviour
     
     public int[] troopsStats;//[lvl1,lvl2,...,lvl5] number of each troops
     public string troopsType;//store type of troops inf,arch,mage....
-    private GameObject spawnpoint;
+    private GameObject spawnpoint,Pointer;
     
-
 
 
 //mining related
@@ -53,6 +52,7 @@ public class TheUnit : MonoBehaviour
             {
                 shouldMove = false; // Stop moving
                 TargetReached();
+                Destroy(Pointer);
             }
         }
     
@@ -77,8 +77,13 @@ public class TheUnit : MonoBehaviour
         troopsStats=TroopsData;
        
      }
-    public void SetTroopsTarget(Vector3 position,GameObject Target,GameObject SpawnPoint){   
+    public void SetTroopsTarget(Vector3 position,GameObject Target,GameObject SpawnPoint
+    ,GameObject pointer){   
         spawnpoint=SpawnPoint;
+        if(Pointer){
+            Destroy(Pointer);
+        }
+        Pointer=pointer;
         StopAllAction();     
 
         target=Target;              

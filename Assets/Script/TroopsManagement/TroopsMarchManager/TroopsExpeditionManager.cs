@@ -9,6 +9,7 @@ public class TroopsExpeditionManager : MonoBehaviour
     [SerializeField] private ActionManager actionManager;
     [SerializeField] private GlobalUIManager globalUIManager;
     [SerializeField] private NewArmyManger newArmyManger;
+    [SerializeField] private GameObject MarchingPointer;
     private TheUnit[] Army;
     [SerializeField] private GameObject SpawnPoint; 
     private Vector3 position;
@@ -62,7 +63,8 @@ public class TroopsExpeditionManager : MonoBehaviour
     }
     void march(){
         // Debug.Log(ChoosenUnit.ArmyId);
-        ChoosenUnit.SetTroopsTarget(position,target,SpawnPoint);       
+        GameObject ToMarchPointer=Instantiate(MarchingPointer,position,Quaternion.identity);
+        ChoosenUnit.SetTroopsTarget(position,target,SpawnPoint,ToMarchPointer);       
         EndStage();
         Destroy(pointer);
     }
