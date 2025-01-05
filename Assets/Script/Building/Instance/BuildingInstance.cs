@@ -7,8 +7,6 @@ public class BuildingInstance : MonoBehaviour
     //this will be attached to every building ,interact with click.
     [SerializeField] private GameObject UIButtonPanel;
     private BuildingInstanceUI buildingInstanceUI;  
-    // private BuildingUpgrade buildingUpgrade; 
-
     public void assigningManager(BuildingInstanceUI BuildingInstanceUI){
         //this will be called by BuildingManager when prefab is created.
         buildingInstanceUI=BuildingInstanceUI;
@@ -30,6 +28,9 @@ public class BuildingInstance : MonoBehaviour
         //directly called by Upgrade button
         Debug.Log("Upgrade is Clicked");
         buildingInstanceUI.UpgradeIsClicked(gameObject);
+    }
+    public void DisableUI(){
+         UIButtonPanel.SetActive(false);
     }
    
 }

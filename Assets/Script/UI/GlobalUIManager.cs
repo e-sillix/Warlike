@@ -12,6 +12,7 @@ public class GlobalUIManager : MonoBehaviour
     [SerializeField] private TroopsExpeditionManager troopsExpeditionManager;
     [SerializeField] private TroopsUI troopsUI;
     private GameObject lastClicked,currentClicked;
+    // private bool MarchTargetClicked;
     void Update(){
         if(permissionForUI){        
         if (Input.GetMouseButtonDown(0)){ // Detect left mouse button click
@@ -27,7 +28,20 @@ public class GlobalUIManager : MonoBehaviour
                 Debug.Log("Hitted nothing");
             }
             if( lastClicked!=currentClicked){
-                permissionForUI=true;
+                // permissionForUI=true;
+                Debug.Log("Different building clicked");
+                if (lastClicked != null) {
+                    BuildingInstance instance = lastClicked.GetComponentInParent<BuildingInstance>();
+                    if (instance != null) {
+                        Debug.Log("previous building has BuildingInstance");
+                        instance.DisableUI();
+                    } else {
+                        Debug.Log("No BuildingInstance found on the last clicked object.");
+                    }
+                }    
+                // else if(MarchTargetClicked){
+                //     troopsExpeditionManager.CancelMarchUI();
+                // }
             }
             lastClicked=currentClicked;
         }
@@ -35,6 +49,8 @@ public class GlobalUIManager : MonoBehaviour
 
     void ClickAnalysis(GameObject ClickedObject,RaycastHit hit){        
         if(IsGroundLayer(ClickedObject)||IsEnemyLayer(ClickedObject)||IsMineLayer(ClickedObject)){
+            Debug.Log("March target clicked");
+            // MarchTargetClicked=true;
             troopsExpeditionManager.PotentialTargetForMarchClicked(ClickedObject,hit);
         }
         else if(ClickedObject.GetComponentInParent<TheBarrack>()){
@@ -52,12 +68,9 @@ public class GlobalUIManager : MonoBehaviour
             //nothing should happen visibly
             troopsInstanceUI.GetTroopsUIComponent(troopsUI,GetComponent<GlobalUIManager>());
             troopsInstanceUI.TriggerUIButtons();
-            
-            //---
-            // troopsUI.TroopsClicked(ClickedObject.GetComponentInParent<TheUnit>());
         }
         //for ui buttons too
-        permissionForUI=false;
+        // permissionForUI=false;
     }
 
 //for ground clicked for march probably
@@ -76,6 +89,4 @@ public class GlobalUIManager : MonoBehaviour
     public void RefreshPermission(){
         permissionForUI=true;
     }
-
-
 }
