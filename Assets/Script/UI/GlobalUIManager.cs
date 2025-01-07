@@ -8,7 +8,7 @@ public class GlobalUIManager : MonoBehaviour
     [SerializeField]private LayerMask groundLayer,enemyLayer,mineLayer;
     [SerializeField] private GameObject MarchPointer;
 
-    private bool permissionForUI=true; //this will be falsed by other cancel managers only
+    private bool permissionForUI=true,IsUIOpen=false; //this will be falsed by other cancel managers only
     private GameObject clickedObject;
     [SerializeField] private TroopsTrainingManager troopsTrainingManager;
     [SerializeField] private TroopsExpeditionManager troopsExpeditionManager;
@@ -16,21 +16,32 @@ public class GlobalUIManager : MonoBehaviour
     private GameObject lastClicked,currentClicked;
     private GameObject spawnedPointer;
     // private bool MarchTargetClicked;
-    void Update(){
-        if(permissionForUI){        
+    void Update(){                   
+                     
+        // if(permissionForUI){        
         if (Input.GetMouseButtonDown(0)){ // Detect left mouse button click
+         if (EventSystem.current.IsPointerOverGameObject())
+            {
+                 if(spawnedPointer){
+                        Destroy(spawnedPointer);
+                    }
+                return;
+                
+            }  
+            // if(IsUIOpen){
+            //     //this is triggered when clicking outside of the UI.
+            //     //close the UI
+
+            //     //return.
+            // }
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit))//this will move
                 {        
                     // Prevent interaction if clicking on UI
-            if (EventSystem.current.IsPointerOverGameObject())
-            {
-                return;
-            }            
                     clickedObject=hit.collider.gameObject;
                     currentClicked=clickedObject;
-                    if(spawnedPointer){
+                     if(spawnedPointer){
                         Destroy(spawnedPointer);
                     }
                     ClickAnalysis(clickedObject,hit);
@@ -56,7 +67,7 @@ public class GlobalUIManager : MonoBehaviour
             }
             lastClicked=currentClicked;
         }
-    }}
+    // }}
 
     void ClickAnalysis(GameObject ClickedObject,RaycastHit hit){
 
@@ -87,7 +98,7 @@ public class GlobalUIManager : MonoBehaviour
         //for ui buttons too
         // permissionForUI=false;
     }
-
+    }
 //for ground clicked for march probably
     private bool IsGroundLayer(GameObject obj)
     {
@@ -102,6 +113,12 @@ public class GlobalUIManager : MonoBehaviour
         return (mineLayer.value & (1 << obj.layer)) != 0;
     }
     public void RefreshPermission(){
-        permissionForUI=true;
+        // permissionForUI=true;
     }
+    // public void UIisOpened(){
+    //     IsUIOpen=true;
+    // }
+    // public void UIisClosed(){
+    //     IsUIOpen=false;
+    // }
 }
