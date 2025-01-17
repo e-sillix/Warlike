@@ -62,9 +62,7 @@ public class BuildingManager : MonoBehaviour
         }
         return status;
 
-    }
-
-    
+    }    
 
     private void CutTheBuildingCost(){
         tradingManager.SpendingResources(woodCost, grainCost, stoneCost);

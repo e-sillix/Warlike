@@ -5,13 +5,13 @@ using UnityEngine;
 public class TheBarrack : MonoBehaviour
 {
    // Define an enum for different barrack types
-    public enum BarrackType
-    {
-        Infantry,
-        Archer,
-        Cavalry,
-        Mage
-    }
+    // public enum BarrackType
+    // {
+    //     Infantry,
+    //     Archer,
+    //     Cavalry,
+    //     Mage
+    // }
 
     // Public variable to select from dropdown in the Inspector
     public BarrackType barrackType;
@@ -67,3 +67,10 @@ public class TheBarrack : MonoBehaviour
     }    
 
 }
+public enum BarrackType
+    {
+        Infantry,
+        Archer,
+        Cavalry,
+        Mage
+    }

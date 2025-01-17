@@ -5,7 +5,8 @@ using UnityEngine;
 public class MessageManager : MonoBehaviour
 {
     [SerializeField] private float messageDisappearingTime=0.5f;
-    [SerializeField] private GameObject NotEnoughCreditsGameobject,NoSpaceGameobject,MaxUpgradeGameobject;
+    [SerializeField] private GameObject NotEnoughCreditsGameobject,NoSpaceGameobject,MaxUpgradeGameobject
+    ,BuildingLimitGameobject;
    public void TriggerMaxBuildingUpgrade(){
         MaxUpgradeGameobject.SetActive(true);
         //create a function to turn it false after 1 sec.
@@ -41,5 +42,15 @@ public class MessageManager : MonoBehaviour
     void HideNotEnoughSpaceMessage()
         {
             NoSpaceGameobject.SetActive(false);
+        } 
+
+    public void MessageForBuildingLimit(){
+        //this will be called by RSM
+        BuildingLimitGameobject.SetActive(true);
+        Invoke("HideBuildingLimitMessage", messageDisappearingTime);
+    }
+    void HideBuildingLimitMessage()
+        {
+            BuildingLimitGameobject.SetActive(false);
         } 
 }
