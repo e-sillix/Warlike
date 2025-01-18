@@ -1,12 +1,36 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class MessageManager : MonoBehaviour
 {
-    [SerializeField] private float messageDisappearingTime=0.5f;
+    [SerializeField] private float messageDisappearingTime=1f;
     [SerializeField] private GameObject NotEnoughCreditsGameobject,NoSpaceGameobject,MaxUpgradeGameobject
-    ,BuildingLimitGameobject,BuildingUpgradeNotAllowed,UpgradeLaboratory;
+    ,BuildingLimitGameobject,BuildingUpgradeNotAllowed,UpgradeLaboratory,troopsAddedpanel;
+    [SerializeField]private TextMeshProUGUI TroopsAddedText;  
+
+    public void MessageForTroopsAdded(string barrackType, int[] troopsData)
+    {
+        string message="Troops added to " + barrackType + " are: ";
+        for (int i = 0; i < troopsData.Length; i++)
+        {
+            if(troopsData[i]>0){
+                message += ",Level " + (i + 1) + ": " + troopsData[i] + " ";
+            }
+        }
+        troopsAddedpanel.SetActive(true);
+        //this will be called by TroopsCountManager        
+        TroopsAddedText.text=message;
+        // Debug.Log(message);
+        Invoke("HideTroopsAddedMessage", messageDisappearingTime);
+    }
+    void HideTroopsAddedMessage()
+        {
+            troopsAddedpanel.SetActive(false);
+        }
+
+
    public void TriggerMaxBuildingUpgrade(){
         MaxUpgradeGameobject.SetActive(true);
         //create a function to turn it false after 1 sec.

@@ -5,12 +5,8 @@ using UnityEngine;
 public class TroopsCountManager : MonoBehaviour
 {//this will store troop count for all types and manage it.
    [SerializeField]private int[] cavalry=new int[5],infantry=new int[5],archer=new int[5],mage=new int[5];
-    // void Start(){
-    //     cavalry = new int[] { 0,0,0,0,0 };
-    //     infantry = new int[] { 1, 2, 3, 4, 5 };  // Similarly for other arrays
-    //     archer = new int[] { 3,4,2, 62 ,2 };
-    //     mage = new int[] { 0,0,0,0,0};
-    // }
+   [SerializeField] private MessageManager messageManager;
+    
     
    public void UpdateTroopsCount(string barrackType,int[] troopsData){
       //this will be called by barrack for now.
@@ -53,7 +49,8 @@ public class TroopsCountManager : MonoBehaviour
     {
         Debug.LogError("Unknown barrack type in countmanager: " + barrackType);
     }
-    Debug.Log("Message should be displayed mentioning troops detailes which were added.");
+    messageManager.MessageForTroopsAdded(barrackType, troopsData);
+    // Debug.Log("Message should be displayed mentioning troops detailes which were added.");
    
    }
 
