@@ -79,10 +79,6 @@ public class GlobalUIManager : MonoBehaviour
             ,ClickedObject,hit);
             // troopsExpeditionManager.PotentialTargetForMarchClicked(ClickedObject,hit);
         }
-        else if(ClickedObject.GetComponentInParent<TheBarrack>()){
-            Debug.Log("Barrack is clicked");
-            ClickedObject.GetComponentInParent<BuildingInstance>().BuildingClicked();
-        }
         else if(ClickedObject.GetComponentInParent<BuildingInstance>()){
             Debug.Log("building clicked.");
             ClickedObject.GetComponentInParent<BuildingInstance>().BuildingClicked();

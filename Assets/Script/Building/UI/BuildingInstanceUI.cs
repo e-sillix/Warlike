@@ -12,6 +12,7 @@ public class BuildingInstanceUI : MonoBehaviour
     private string nameOfBuilding;
     int capacity,level,currentResourceAmount,newCapacity,newRate;
     float rateOfProduction;
+
     [SerializeField]private TextMeshProUGUI BuildingName,Stats; 
     [SerializeField] private TextMeshProUGUI UpgradeBuildingName,UpgradeData,UpgradeCostText;
 
@@ -44,6 +45,19 @@ public class BuildingInstanceUI : MonoBehaviour
             level=theBarrack.level;
             rateOfProduction=theBarrack.rateOfTraining;
         }
+        else if(Target.GetComponent<Base>()){
+            Base baseBuilding=Target.GetComponent<Base>();
+            Debug.Log("Base building is clicked");
+            nameOfBuilding=baseBuilding.buildingName;
+            level=baseBuilding.level;
+        }
+        else if(Target.GetComponent<Laboratory>()){
+            Laboratory laboratory=Target.GetComponent<Laboratory>();
+            Debug.Log("Laboratory building is clicked");
+            nameOfBuilding=laboratory.buildingName;
+            level=laboratory.level;
+            rateOfProduction=laboratory.researchRate;
+        }
         else{
             Debug.Log("Need to add more condition about the chosen building in BuildingInstanceUI");
       }
@@ -56,6 +70,12 @@ public class BuildingInstanceUI : MonoBehaviour
          else if(Target.GetComponent<TheBarrack>()){
             Stats.text= "Level: "+ level +",Training Capacity: "+capacity + 
             ", Rate Of Training: "+rateOfProduction;
+         }
+         else if(Target.GetComponent<Base>()){
+             Stats.text= "Level: "+ level ;
+         }
+         else if(Target.GetComponent<Laboratory>()){
+             Stats.text= "Level: "+ level +", Research Rate: "+rateOfProduction;
          }
     }
 
@@ -94,6 +114,12 @@ public class BuildingInstanceUI : MonoBehaviour
              UpgradeData.text= "To Level: "+ (level+1) +", Capacity: "+capacity+ ">" + newCapacity
         +", Rate Of Training: "+rateOfProduction+ ">" + newRate;
         }
+        else if(Target.GetComponent<Base>()){
+            UpgradeData.text= "To Level: "+ (level+1);
+        }
+        else if(Target.GetComponent<Laboratory>()){
+            UpgradeData.text= "To Level: "+ (level+1) +", Research Rate: "+rateOfProduction+ ">" + newRate;
+        }       
     }
     void GetUpgradeCost(){
         BuildingCost UpgradeCost=buildingUpgrade.GetUpgradeCost(nameOfBuilding,level+1);

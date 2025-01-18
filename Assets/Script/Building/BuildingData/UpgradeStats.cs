@@ -5,8 +5,8 @@ using UnityEngine;
 public class UpgradeStats : MonoBehaviour
 {
     //this is manager responsible for returning data.
-    [SerializeField] private BuildingStatSO grainFarmData,stoneFarmData,woodFarmData,barrackData
-    ; // Drag the BuildingData ScriptableObject here
+    [SerializeField] private BuildingStatSO grainFarmData,stoneFarmData,woodFarmData,barrackData,
+    baseData,laboratoryData; // Drag the BuildingData ScriptableObject here
 
     public UpgradeCostPayload GetBuildingUpgradeStats(string buildingName, int levelNumber){
         //level number will be 5 for level up to 6.
@@ -34,6 +34,12 @@ public class UpgradeStats : MonoBehaviour
     else if(buildingName =="Infantry" ||buildingName =="Archer"
     ||buildingName =="Cavalry"||buildingName =="Mage"){
         buildingData = barrackData; 
+    }
+    else if(buildingName == "Base") {
+        buildingData = baseData;            
+    }
+        else if(buildingName == "Laboratory") {            
+            buildingData = laboratoryData;            
     }
      else
     {

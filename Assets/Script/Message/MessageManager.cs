@@ -6,7 +6,7 @@ public class MessageManager : MonoBehaviour
 {
     [SerializeField] private float messageDisappearingTime=0.5f;
     [SerializeField] private GameObject NotEnoughCreditsGameobject,NoSpaceGameobject,MaxUpgradeGameobject
-    ,BuildingLimitGameobject;
+    ,BuildingLimitGameobject,BuildingUpgradeNotAllowed,UpgradeLaboratory;
    public void TriggerMaxBuildingUpgrade(){
         MaxUpgradeGameobject.SetActive(true);
         //create a function to turn it false after 1 sec.
@@ -52,5 +52,25 @@ public class MessageManager : MonoBehaviour
     void HideBuildingLimitMessage()
         {
             BuildingLimitGameobject.SetActive(false);
+        } 
+
+    public void UpgradeNotAllowed(){
+        //this will be called by RSM
+        BuildingUpgradeNotAllowed.SetActive(true);
+        Invoke("HideUpgradeNotAllowed", messageDisappearingTime);
+    }
+    void HideUpgradeNotAllowed()
+        {
+            BuildingUpgradeNotAllowed.SetActive(false);
+        } 
+
+    public void UpgradeLaboratoryMessage(){
+        //this will be called by RSM
+        UpgradeLaboratory.SetActive(true);
+        Invoke("HideUpgradeLaboratoryMessage", messageDisappearingTime);
+    }
+    void HideUpgradeLaboratoryMessage()
+        {
+            UpgradeLaboratory.SetActive(false);
         } 
 }

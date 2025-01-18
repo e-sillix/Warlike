@@ -7,7 +7,7 @@ public class BuildingStatsManager : MonoBehaviour
     [SerializeField] private BuildingData stoneFarmData; // Drag the BuildingData ScriptableObject here
     [SerializeField] private BuildingData ArcherBarrackData,MageBarrackData,
     CavalryBarrackData,InfantryBarrackData; // Drag the BuildingData ScriptableObject here
-
+    [SerializeField] private BuildingData baseData,laboratoryData; // Drag the BuildingData ScriptableObject here
    
     public BuildingCost GetBuildingStats(string buildingName, int levelNumber){
          // Ensure the levelNumber is valid (between 1 and 30)
@@ -48,6 +48,14 @@ public class BuildingStatsManager : MonoBehaviour
     {
         buildingData = ArcherBarrackData; // Reference to the ScriptableObject containing Barracks data
     }
+    else if(buildingName == "Base")
+    {
+        buildingData = baseData; // Reference to the ScriptableObject containing Barracks data
+    }
+    else if(buildingName == "Laboratory")
+    {
+        buildingData = laboratoryData; // Reference to the ScriptableObject containing Barracks data
+    }   
     else
     {
         Debug.LogError("Building not found: " + buildingName);

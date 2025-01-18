@@ -9,6 +9,7 @@ public class BuildingUpgrade : MonoBehaviour
     private UpgradeStats upgradeStats;
     [SerializeField] private BuildingStatsManager buildingStatsManager;
     [SerializeField] private TradingManager tradingManager;
+    [SerializeField] private MessageManager messageManager;
     private GameObject Target;
     private UpgradeCostPayload upgradeCost;
 
@@ -37,9 +38,10 @@ public class BuildingUpgrade : MonoBehaviour
         if(tradingManager.IsEnoughResource( woodCost, grainCost, stoneCost)){
         //if enough replace the stats
             //Upgrade
-            UpgradeTheBuilding();
-            //cut the cost
-            tradingManager.SpendingResources( woodCost,grainCost, stoneCost);
+            if(UpgradeTheBuilding()){
+                //cut the cost
+                tradingManager.SpendingResources( woodCost,grainCost, stoneCost);
+            }
         }
         else{
             Debug.Log("not enough!!!!! resources");
@@ -58,6 +60,15 @@ public class BuildingUpgrade : MonoBehaviour
             nameOfBuilding=barrack.barrackType.ToString();  
             level=barrack.level;
         }
+        else if(Target.GetComponent<Base>()){
+            Base TheBase=Target.GetComponent<Base>();
+            nameOfBuilding=TheBase.buildingName.ToString();
+            level=TheBase.level;
+        }else if(Target.GetComponent<Laboratory>()){
+            Laboratory laboratory=Target.GetComponent<Laboratory>();
+            nameOfBuilding=laboratory.buildingName.ToString();
+            level=laboratory.level;
+        }
         else{
             Debug.Log("Need to add more condition about the chosen building in BuildingUpgrade");
       }
@@ -68,8 +79,11 @@ public class BuildingUpgrade : MonoBehaviour
         grainCost = upgradeCost.grainCost ;
         stoneCost =upgradeCost.stoneCost ;
     }
-    void UpgradeTheBuilding(){
-         if(Target.GetComponent<Farm>()){
+    bool UpgradeTheBuilding(){
+        if(!CheckBuildingUpgradeLadder()){
+            return false;
+        }
+        if(Target.GetComponent<Farm>()){
             Farm farm=Target.GetComponent<Farm>();                     
             farm.UpgradeStats(level+1,upgradeCost.capacity,upgradeCost.rate);
         }
@@ -77,8 +91,52 @@ public class BuildingUpgrade : MonoBehaviour
             TheBarrack barrack=Target.GetComponent<TheBarrack>();
             barrack.UpgradeStats(level+1,upgradeCost.capacity,upgradeCost.rate);
         }
+        else if(Target.GetComponent<Base>()){
+            Base TheBase=Target.GetComponent<Base>();
+            TheBase.UpgradeStats(level+1);
+        }
+        else if(Target.GetComponent<Laboratory>()){
+            Laboratory laboratory=Target.GetComponent<Laboratory>();
+            laboratory.UpgradeStats(level+1,upgradeCost.rate);
+        }
         else{
             Debug.Log("Need to add more condition about the chosen building in BuildingUpgrade");
       }
+      return true;
+    }
+    bool CheckBuildingUpgradeLadder(){
+        //check wat building 
+         if(Target.GetComponent<Base>()){
+            Laboratory laboratory=GameObject.FindObjectOfType<Laboratory>();
+            if(laboratory.level==level){
+                Debug.Log("Base Upgrade Is Allowed.");
+                return true;
+            }
+            else{
+                Debug.Log("Upgrade Laboratory first.");
+                messageManager.UpgradeLaboratoryMessage();
+                return false;
+            }
+         }
+        //if target is not base,compare it to base level 
+        else{
+            //get base level
+        Base TheBase = GameObject.FindObjectOfType<Base>();
+        int baselevel=TheBase.level;
+            if(level<baselevel){
+                Debug.Log("Upgrade is Allowed.");
+                                return true;
+            }else{
+                    Debug.Log("Upgrade is not Allowed.");
+                    messageManager.UpgradeNotAllowed();
+                    return false;
+                }
+            
+        }
+        //return true if target level is less than base.
+
+        //if target is base ,check lab if it is same level as base ,return true 
+
+        
     }
 }

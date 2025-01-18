@@ -6,7 +6,8 @@ public class BuildingInstance : MonoBehaviour
 {
     //this will be attached to every building ,interact with click.
     [SerializeField] private GameObject UIButtonPanel;
-    private BuildingInstanceUI buildingInstanceUI;  
+    [SerializeField] private BuildingInstanceUI buildingInstanceUI;
+    // private BuildingInstanceUI buildingInstanceUI;  
     public void assigningManager(BuildingInstanceUI BuildingInstanceUI){
         //this will be called by BuildingManager when prefab is created.
         buildingInstanceUI=BuildingInstanceUI;
