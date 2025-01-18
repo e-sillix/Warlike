@@ -6,7 +6,7 @@ public class BuildingOptionFunctions : MonoBehaviour
 {
     private BuildingUIManager buildingUIManager;
     public MessageManager messageManager;
-    public int farmlimit=4,barracklimit=1;
+    public int farmlimit=4,barracklimit=1,laboratorylimit=1;
     [SerializeField]private BuildingManager buildingManager; 
     void Start(){
         buildingUIManager=GetComponent<BuildingUIManager>();
@@ -93,6 +93,30 @@ return false;
             }
         }
         if(count>=barracklimit){
+    messageManager.MessageForBuildingLimit();
+return true;
+}
+return false;
+}
+
+//other building functions
+
+public void LaboratoryIsChosen(){
+        if(CountLaboratory()){
+            return;
+        }
+        buildingUIManager.BuildingCostInit(buildingManager.BuildingChosen("Laboratory"));
+    }
+bool CountLaboratory()
+{                       
+        Laboratory[] allLaboratories = GameObject.FindObjectsOfType<Laboratory>();
+        int count = 0;
+
+        foreach (Laboratory laboratory in allLaboratories)
+        {
+            count++;
+        }
+        if(count>=laboratorylimit){
     messageManager.MessageForBuildingLimit();
 return true;
 }
