@@ -100,6 +100,7 @@ public class TheCreep : MonoBehaviour
     void StopChasing()
     {
         isFighting = false;
+        attacker=null;
     }
 
     void UpdateHealth()
