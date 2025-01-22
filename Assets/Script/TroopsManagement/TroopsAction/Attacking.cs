@@ -9,7 +9,7 @@ public class Attacking : MonoBehaviour
     [SerializeField]private float RateOfAttack = 1f;
     private TheCreep theCreep;
 
-    private int health,Damage=2,totalHealth=100,armor=1;
+    private int health,Damage=1,totalHealth=100,armor=1;
 
 
     public Image healthFill; // Reference to the HealthFill image.
@@ -58,12 +58,13 @@ public class Attacking : MonoBehaviour
     }
     public void TakeDamage(int Damage){
         health-=Damage;
-        Debug.Log("damage took:"+Damage);
+        // Debug.Log("damage took:"+Damage);
         //visual change
         UpdateHealthVisual();
 
         if(health<=0){
             Debug.Log("You Lost!!!!!");
+            GetComponent<TheUnit>().TroopsDefeated();
         }
     }
 
@@ -73,7 +74,7 @@ public class Attacking : MonoBehaviour
         //change it's name to update stats++++++
         //and update other stats too like damage
         float fillPercent=(float)health / (float)totalHealth;
-        Debug.Log("health:"+fillPercent);
+        // Debug.Log("health:"+fillPercent);
         healthFill.fillAmount = fillPercent;
     }
     public void RefreshTarget(){

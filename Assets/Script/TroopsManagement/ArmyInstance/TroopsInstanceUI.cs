@@ -28,5 +28,7 @@ public class TroopsInstanceUI : MonoBehaviour
         //called by button directly
         troopsUIManager.ShowTroopsInfo(gameObject.GetComponent<TheUnit>());
     }
-
+    public GameObject ReturnUIButton(){
+        return UIButtonPanel;
+    }
 }

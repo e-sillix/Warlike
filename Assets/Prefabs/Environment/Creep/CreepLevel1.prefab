@@ -221,7 +221,9 @@ MonoBehaviour:
   healthFill: {fileID: 6190423185260967766}
   health: 100
   totalHealth: 100
-  moveSpeed: 1
+  moveSpeed: 5
+  attackRange: 10
+  chasingRange: 15
   Damage: 2
   level: 0
   RateOfAttack: 1

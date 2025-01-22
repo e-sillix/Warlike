@@ -20,7 +20,7 @@ public class TheCreep : MonoBehaviour
     [SerializeField] private int health, totalHealth = 6, moveSpeed = 4, attackRange = 10, chasingRange = 15;
     public int Damage = 2, level = 1;
 
-    private bool isFighting = false;
+    private bool attackerAlive=false;
     private float timer = 0f;
     [SerializeField] private float RateOfAttack = 1f;
 
@@ -39,10 +39,14 @@ public class TheCreep : MonoBehaviour
 
     public void TakeDamage(int Damage, Attacking attacking)
     {
-        attacker = attacking;
-        attackerTransform = attacking.transform;  // Capture the attacker's transform
+        if(attacker==null || !attackerAlive){
+            //this is reselecting target after a target goes beyond range
+            attacker = attacking;
+            Debug.Log("New Target Acquired.");
+        }
+        attackerTransform = attacker.transform;  // Capture the attacker's transform
         health -= Damage;
-        isFighting = true;
+        attackerAlive = true;
 
         if (health <= 0)
         {
@@ -65,7 +69,7 @@ public class TheCreep : MonoBehaviour
             else if (distanceToAttacker <= attackRange)
             {
                 // Engage in attack
-                if (isFighting && attacker.ReturnHealth() > 0)
+                if (attackerAlive && attacker.ReturnHealth() > 0)
                 {
                     timer += Time.deltaTime;
 
@@ -76,7 +80,7 @@ public class TheCreep : MonoBehaviour
 
                         if (attacker.ReturnHealth() <= 0)
                         {
-                            isFighting = false;
+                            attackerAlive = false;
                         }
 
                         timer = 0f;
@@ -99,7 +103,8 @@ public class TheCreep : MonoBehaviour
 
     void StopChasing()
     {
-        isFighting = false;
+        Debug.Log("Attacker out of range");
+        attackerAlive = false;
         attacker=null;
     }
 

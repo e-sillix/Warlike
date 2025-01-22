@@ -6,9 +6,9 @@ using UnityEngine;
 public class TheUnit : MonoBehaviour
 {
     public LayerMask groundLayer; // Assign this to your ground layer in the Inspector
-    public float moveSpeed = 5f; // Speed of movement    
+    public float moveSpeed = 5f,boostSpeed=1.5f; // Speed of movement    
     private Vector3 targetPosition;
-    private bool shouldMove = false;
+    private bool shouldMove = false,isDead=false;
     public float closeDistance=0.4f;
     [SerializeField] private GameObject SelectorIcon;
     public GameObject target;
@@ -41,6 +41,7 @@ public class TheUnit : MonoBehaviour
 
     void Update()
     {
+        
         if (shouldMove)
         {
             // Move the object towards the target position smoothly
@@ -116,7 +117,14 @@ public class TheUnit : MonoBehaviour
     GetComponent<Attacking>().RefreshTarget();
     //called by ui buttons
     SetTargetPosition(spawnpoint.transform.position);
-    IsReturn=true;
-    
+    IsReturn=true;    
+    }
+    public void TroopsDefeated(){
+        //ghosted speed
+        moveSpeed*=boostSpeed;
+        //have to make troops untargetable.
+
+        Destroy(GetComponent<TroopsInstanceUI>().ReturnUIButton());
+        ReturnTroops();
     }
 }
