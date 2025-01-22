@@ -54,9 +54,7 @@ public class TheUnit : MonoBehaviour
                 TargetReached();
                 Destroy(Pointer);
             }
-        }
-    
-           
+        }           
     }
 
     // Method to set the target position and start moving
@@ -98,7 +96,6 @@ public class TheUnit : MonoBehaviour
         // Debug.Log("target reached");
         if(target==null&&IsReturn==true){
         troopsExpeditionManager.ReturnTroopsToBase(troopsType,troopsStats);
-
         }
         troopsExpeditionManager.MarchDone(gameObject);
     }
@@ -108,13 +105,15 @@ public class TheUnit : MonoBehaviour
         if(isMining){
             isMining=false;
             mining.StopMining();
-        }        
+        }    
+        GetComponent<Attacking>().RefreshTarget();    
     }
   
 
   //returning troops
   public void ReturnTroops(){
     target=null;
+    GetComponent<Attacking>().RefreshTarget();
     //called by ui buttons
     SetTargetPosition(spawnpoint.transform.position);
     IsReturn=true;

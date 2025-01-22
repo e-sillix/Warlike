@@ -60,7 +60,7 @@ public class ExpeditionUI : MonoBehaviour
 
     public void NewArmyChoosen(){//by new create option ui
         troopsExpeditionManager.NewArmyChoosenClicked();
-        InitialConfirmPanel.SetActive(false);
+        // InitialConfirmPanel.SetActive(false);
         ConfirmPanel2.SetActive(false);
     }
    
@@ -75,7 +75,7 @@ public class ExpeditionUI : MonoBehaviour
         // MarchingStage4UIPanel.SetActive(false);
         // marchManager.EndStage();
         // target=null;
-        InitialConfirmPanel.SetActive(false);
+        // InitialConfirmPanel.SetActive(false);
         ConfirmPanel2.SetActive(false);
 
         troopsExpeditionManager.EndStage();

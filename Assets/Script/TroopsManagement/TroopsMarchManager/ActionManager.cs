@@ -14,10 +14,10 @@ public class ActionManager : MonoBehaviour
         // Debug.Log("will perform on this "+TheArmy.GetComponent<TheUnit>().ArmyId);  
         // Debug.Log(target);  
         if(target){
-
         AnalyseAction();
         }
         else{
+            //called when target is reached to home
             Debug.Log("we going home analysed");
             Destroy(TheArmy);
         }

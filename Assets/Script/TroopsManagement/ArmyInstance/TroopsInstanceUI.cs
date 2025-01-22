@@ -19,6 +19,7 @@ public class TroopsInstanceUI : MonoBehaviour
     }
     public void RefreshUIB(){
         //called by global or ui buttons
+        //for refreshing
         UIButtonPanel.SetActive(false);
         globalUIManager.RefreshPermission();
     }

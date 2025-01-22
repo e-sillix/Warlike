@@ -6,9 +6,9 @@ using UnityEngine.EventSystems;
 public class GlobalUIManager : MonoBehaviour
 {
     [SerializeField]private LayerMask groundLayer,enemyLayer,mineLayer;
-    [SerializeField] private GameObject MarchPointer;
+    [SerializeField] private GameObject MarchPointer,enemyMarchPointer,mineMarchPointer;
 
-    private bool permissionForUI=true,IsUIOpen=false; //this will be falsed by other cancel managers only
+    // private bool permissionForUI=true,IsUIOpen=false; //this will be falsed by other cancel managers only
     private GameObject clickedObject;
     [SerializeField] private TroopsTrainingManager troopsTrainingManager;
     [SerializeField] private TroopsExpeditionManager troopsExpeditionManager;
@@ -22,18 +22,12 @@ public class GlobalUIManager : MonoBehaviour
         if (Input.GetMouseButtonDown(0)){ // Detect left mouse button click
          if (EventSystem.current.IsPointerOverGameObject())
             {
-                 if(spawnedPointer){
-                        Destroy(spawnedPointer);
-                    }
+                //  if(spawnedPointer){
+                //         Destroy(spawnedPointer);
+                //     }
                 return;
                 
-            }  
-            // if(IsUIOpen){
-            //     //this is triggered when clicking outside of the UI.
-            //     //close the UI
-
-            //     //return.
-            // }
+            } 
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit))//this will move
@@ -53,11 +47,19 @@ public class GlobalUIManager : MonoBehaviour
                 // permissionForUI=true;
                 Debug.Log("Different building clicked");
                 if (lastClicked != null) {
-                    BuildingInstance instance = lastClicked.GetComponentInParent<BuildingInstance>();
-                    if (instance != null) {
+                    BuildingInstance buildinstance = lastClicked.GetComponentInParent<BuildingInstance>();
+                    // TheUnit theUnit=lastClicked.GetComponentInParent<TheUnit>();
+                    TroopsInstanceUI troopsInstanceUI=lastClicked.GetComponentInParent<TroopsInstanceUI>();
+                    if (buildinstance != null) {
                         Debug.Log("previous building has BuildingInstance");
-                        instance.DisableUI();
-                    } else {
+                        //this deselects the buildings
+                        buildinstance.DisableUI();
+                    }
+                    else if(troopsInstanceUI){
+                        Debug.Log("Last Clicked Was a unit.");
+                        troopsInstanceUI.RefreshUIB();
+                    } 
+                    else {
                         Debug.Log("No BuildingInstance found on the last clicked object.");
                     }
                 }    
@@ -71,13 +73,25 @@ public class GlobalUIManager : MonoBehaviour
 
     void ClickAnalysis(GameObject ClickedObject,RaycastHit hit){
 
-        if(IsGroundLayer(ClickedObject)||IsEnemyLayer(ClickedObject)||IsMineLayer(ClickedObject)){
+        if(IsGroundLayer(ClickedObject)){
             Debug.Log("March target clicked");
             // MarchTargetClicked=true;
             spawnedPointer=Instantiate(MarchPointer,hit.point,Quaternion.identity);
             spawnedPointer.GetComponent<SpawnedPointer>().Dependency(troopsExpeditionManager
             ,ClickedObject,hit);
             // troopsExpeditionManager.PotentialTargetForMarchClicked(ClickedObject,hit);
+        }
+        else if(IsEnemyLayer(ClickedObject)){
+            Debug.Log("Enemy clicked");
+            spawnedPointer=Instantiate(enemyMarchPointer,hit.point,Quaternion.identity);
+            spawnedPointer.GetComponent<SpawnedPointer>().Dependency(troopsExpeditionManager
+            ,ClickedObject,hit);
+        }        
+        else if(IsMineLayer(ClickedObject)){
+            Debug.Log("Mine clicked");
+            spawnedPointer=Instantiate(mineMarchPointer,hit.point,Quaternion.identity);
+            spawnedPointer.GetComponent<SpawnedPointer>().Dependency(troopsExpeditionManager
+            ,ClickedObject,hit);
         }
         else if(ClickedObject.GetComponentInParent<BuildingInstance>()){
             Debug.Log("building clicked.");

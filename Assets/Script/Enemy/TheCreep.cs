@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class TheCreep : MonoBehaviour
 {
-      public enum enemyType
+    public enum enemyType
     {
         Infantry,
         Archer,
@@ -13,59 +13,98 @@ public class TheCreep : MonoBehaviour
         Mage
     }
 
-    // Public variable to select from dropdown in the Inspector
     public enemyType barrackType;
     public Image healthFill;
-    public int level;
 
-    //-----------
-    private int troopsQuantity=5; //determined by level dynamically.
-    [SerializeField]private int health,totalHealth=6;
-    public int Damage=2;
+    private int troopsQuantity = 5;
+    [SerializeField] private int health, totalHealth = 6, moveSpeed = 4, attackRange = 10, chasingRange = 15;
+    public int Damage = 2, level = 1;
 
-    private bool isFighting=false;
+    private bool isFighting = false;
     private float timer = 0f;
-    [SerializeField]private float RateOfAttack = 1f;
+    [SerializeField] private float RateOfAttack = 1f;
 
     private Attacking attacker;
+    private Transform attackerTransform;
 
-    void Start(){
-        health=totalHealth;
+    void Start()
+    {
+        health = totalHealth;
     }
 
-    public int ReturnCreepNumbers(){
+    public int ReturnCreepNumbers()
+    {
         return troopsQuantity;
     }
-    public void TakeDamage(int Damage,Attacking attacking){
-        attacker=attacking;
-        health-=Damage;
-        isFighting=true;
-        if(health<=0){
+
+    public void TakeDamage(int Damage, Attacking attacking)
+    {
+        attacker = attacking;
+        attackerTransform = attacking.transform;  // Capture the attacker's transform
+        health -= Damage;
+        isFighting = true;
+
+        if (health <= 0)
+        {
             Debug.Log("Creeps Defeated!!!!");
             Destroy(gameObject);
         }
     }
-    void Update(){
-        if(isFighting && attacker.ReturnHealth()>0){
-            timer += Time.deltaTime;
 
-        // Check if one second has passed
-        if (timer >= RateOfAttack)
-        {   
-            attacker.TakeDamage(Damage);  
-            UpdateHealth();
-            if(attacker.ReturnHealth()<=0){
-                isFighting=false;
-            }          
+    void Update()
+    {
+        if (attacker != null)
+        {
+            float distanceToAttacker = Vector3.Distance(transform.position, attackerTransform.position);
 
-            // Reset the timer
-            timer = 0f;
-        }
+            // If within chasing range and not already in attack range, move towards attacker
+            if (distanceToAttacker <= chasingRange && distanceToAttacker > attackRange)
+            {
+                ChaseAttacker();
+            }
+            else if (distanceToAttacker <= attackRange)
+            {
+                // Engage in attack
+                if (isFighting && attacker.ReturnHealth() > 0)
+                {
+                    timer += Time.deltaTime;
+
+                    if (timer >= RateOfAttack)
+                    {
+                        attacker.TakeDamage(Damage);
+                        UpdateHealth();
+
+                        if (attacker.ReturnHealth() <= 0)
+                        {
+                            isFighting = false;
+                        }
+
+                        timer = 0f;
+                    }
+                }
+            }
+            else
+            {
+                // Stop chasing and reset if out of chasing range
+                StopChasing();
+            }
         }
     }
-    void UpdateHealth(){
-        float fillPercent=(float)health / (float)totalHealth;
-        // Debug.Log("health:"+fillPercent);
+
+    void ChaseAttacker()
+    {
+        Vector3 direction = (attackerTransform.position - transform.position).normalized;
+        transform.position += direction * moveSpeed * Time.deltaTime;
+    }
+
+    void StopChasing()
+    {
+        isFighting = false;
+    }
+
+    void UpdateHealth()
+    {
+        float fillPercent = (float)health / (float)totalHealth;
         healthFill.fillAmount = fillPercent;
     }
 }

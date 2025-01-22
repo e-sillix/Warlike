@@ -9,7 +9,7 @@ public class Attacking : MonoBehaviour
     [SerializeField]private float RateOfAttack = 1f;
     private TheCreep theCreep;
 
-    private int health,Damage=2,totalHealth=10,armor=1;
+    private int health,Damage=2,totalHealth=100,armor=1;
 
 
     public Image healthFill; // Reference to the HealthFill image.
@@ -58,7 +58,7 @@ public class Attacking : MonoBehaviour
     }
     public void TakeDamage(int Damage){
         health-=Damage;
-
+        Debug.Log("damage took:"+Damage);
         //visual change
         UpdateHealthVisual();
 
@@ -75,5 +75,9 @@ public class Attacking : MonoBehaviour
         float fillPercent=(float)health / (float)totalHealth;
         Debug.Log("health:"+fillPercent);
         healthFill.fillAmount = fillPercent;
+    }
+    public void RefreshTarget(){
+        //this will be triggered when changing target or returning home.
+        theCreep=null;
     }
 }
