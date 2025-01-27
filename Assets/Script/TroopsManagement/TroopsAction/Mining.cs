@@ -13,13 +13,13 @@ public class Mining : MonoBehaviour
     private string mineType;
 
 
-    private int[] resourcesTypeLoad={0,0,0};
+    private int[] resourcesTypeLoad={0,0,0};  //{wood,grain,stone}
     
     void Start(){
         theUnit=GetComponent<TheUnit>();        
     }
     public void SetMiningStats(int trc){
-        //by tism
+        //by troopsInstanceStatsManager
         capacity=trc;
     }
 
@@ -138,6 +138,11 @@ public class Mining : MonoBehaviour
     public int[] ReturnMiningData(){
         // for ui 
         return new int[] { capacity, usedCapacity };
+    }
+    
+    public int[] ReturnResourcesMine(){
+        //by minesManager to collect after returning
+        return resourcesTypeLoad; //{wood,grain,stone}
     }
     
 }

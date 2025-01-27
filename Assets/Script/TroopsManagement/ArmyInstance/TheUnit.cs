@@ -40,8 +40,7 @@ public class TheUnit : MonoBehaviour
     }    
 
     void Update()
-    {
-        
+    {        
         if (shouldMove)
         {
             // Move the object towards the target position smoothly
@@ -96,7 +95,7 @@ public class TheUnit : MonoBehaviour
     void TargetReached(){
         // Debug.Log("target reached");
         if(target==null&&IsReturn==true){
-        troopsExpeditionManager.ReturnTroopsToBase(troopsType,troopsStats);
+        troopsExpeditionManager.ReturnTroopsToBase(gameObject,troopsType,troopsStats);
         }
         troopsExpeditionManager.MarchDone(gameObject);
     }

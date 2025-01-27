@@ -51,6 +51,14 @@ public class CurrencyManager : MonoBehaviour
                 break;
         }
     }
+    public void CollectMinedResource(int[] resource){
+        resourceCurrencies[ResourceType.Wood] += resource[0];
+        resourceCurrencies[ResourceType.Grain] += resource[1];
+        resourceCurrencies[ResourceType.Stone] += resource[2];
+        Debug.Log("Resource added to the treasure {w,g,s}: "+resource[0]+resource[1]+resource[2]);
+        UpdateUICounter();   
+
+    }
 
     public void CollectingAllresourceAmount(ResourceType resourceTypeToCollect){
         //this will be called by TriggerCollectionOfresourceAmount in farm (indirectly by ui icon)

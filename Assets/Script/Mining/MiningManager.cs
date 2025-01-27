@@ -5,6 +5,8 @@ using UnityEngine;
 public class MiningManager : MonoBehaviour
 {
     private Mining mining;
+    [SerializeField] private CurrencyManager currencyManager;
+
     public void InitiateMiningProcess(GameObject TheUnit,TheMine theMine){
         Mining mining=TheUnit.GetComponent<Mining>();
         if(!theMine.IsMineOccupied()){
@@ -22,7 +24,13 @@ public class MiningManager : MonoBehaviour
             Debug.Log("already occupied,can't mine");
         }
     }
-   
+    
+
+    public void CollectMinedResources(GameObject Army){
+        Mining mining=Army.GetComponent<Mining>();
+        currencyManager.CollectMinedResource(mining.ReturnResourcesMine());
+    }
+
     void Refresh(){
         mining=null;
     }

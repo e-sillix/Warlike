@@ -10,6 +10,7 @@ public class TroopsExpeditionManager : MonoBehaviour
     [SerializeField] private GlobalUIManager globalUIManager;
     [SerializeField] private NewArmyManger newArmyManger;
     [SerializeField] private GameObject MarchingPointer;
+    [SerializeField] private MiningManager miningManager;
     private TheUnit[] Army;
     [SerializeField] private GameObject SpawnPoint; 
     private Vector3 position;
@@ -76,9 +77,10 @@ public class TroopsExpeditionManager : MonoBehaviour
     public void MarchDone(GameObject TheArmyInst){//called by TheUnit when unit reached.
         actionManager.PerformAction(TheArmyInst);
     }   
-    public void ReturnTroopsToBase(string selectedTroopType,int [] troopsToMarch){
+    public void ReturnTroopsToBase(GameObject Army,string selectedTroopType,int [] troopsToMarch){
         //by unit when target reached with null
         newArmyManger.ReturnTroops(selectedTroopType,troopsToMarch);
+        miningManager.CollectMinedResources(Army);
     }
     public void StoreNewArmy(TheUnit TheArmy){
         //called by marchmanager when created new army
