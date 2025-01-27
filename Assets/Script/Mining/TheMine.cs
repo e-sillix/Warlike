@@ -19,8 +19,12 @@ public class TheMine : MonoBehaviour
     private int currentResource=10;
 
     private MinesStats minesStats;
-    
+    private MineSpawner mineSpawner;    
     private bool occupied;
+
+    public void MineDependency(MineSpawner MineSpawner){
+        mineSpawner=MineSpawner;
+    }
    
     public void InitializeMineStats(int Level){//this will be called by MinesManager after
     //  spawning to init the stats 
@@ -45,8 +49,8 @@ public class TheMine : MonoBehaviour
         currentResource=currentResource-Amount;
 
         if(currentResource<=0){
-           //when resources reaches zero despawn. 
-           Destroy(gameObject);
+           //when resources reaches zero despawn.
+           MineEmpty(); 
         }
         Debug.Log("Resource deducted:"+Amount);
     }
@@ -63,6 +67,10 @@ public class TheMine : MonoBehaviour
     }
     public void setMineStatus(bool status){
         occupied=status;
+    }
+    void MineEmpty(){
+        mineSpawner.AMineIsFinsihed(mineType.ToString());
+        Destroy(gameObject);
     }
 
 }

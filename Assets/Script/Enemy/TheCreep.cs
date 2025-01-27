@@ -26,10 +26,14 @@ public class TheCreep : MonoBehaviour
 
     private Attacking attacker;
     private Transform attackerTransform;
+    private CreepSpawnManager creepSpawnManager;
 
     void Start()
     {
         health = totalHealth;
+    }
+    public void Dependency(CreepSpawnManager CreepSpawnManager){
+        creepSpawnManager=CreepSpawnManager;
     }
 
     public int ReturnCreepNumbers()
@@ -51,7 +55,7 @@ public class TheCreep : MonoBehaviour
         if (health <= 0)
         {
             Debug.Log("Creeps Defeated!!!!");
-            Destroy(gameObject);
+            OnDefeat();
         }
     }
 
@@ -112,5 +116,9 @@ public class TheCreep : MonoBehaviour
     {
         float fillPercent = (float)health / (float)totalHealth;
         healthFill.fillAmount = fillPercent;
+    }
+    void OnDefeat(){
+        creepSpawnManager.CreepDefeated();
+        Destroy(gameObject);
     }
 }
