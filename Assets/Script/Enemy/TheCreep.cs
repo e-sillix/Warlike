@@ -27,6 +27,7 @@ public class TheCreep : MonoBehaviour
     private Attacking attacker;
     private Transform attackerTransform;
     private CreepSpawnManager creepSpawnManager;
+    
 
     void Start()
     {

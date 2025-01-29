@@ -6,6 +6,7 @@ using UnityEngine;
 public class CreepSpawnManager : MonoBehaviour
 {
     [SerializeField] private GameObject SpawnPoint, CreepPrefab, ParentObject;
+    [SerializeField] private TroopsExpeditionManager troopsExpeditionManager;
     // Start is called before the first frame update
     public float minRadius, maxRadius;       // Maximum radius for spawning
     public int numberOfPrefabs = 10;     // Number of prefabs to spawn

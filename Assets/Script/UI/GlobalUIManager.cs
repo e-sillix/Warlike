@@ -50,6 +50,8 @@ public class GlobalUIManager : MonoBehaviour
                     BuildingInstance buildinstance = lastClicked.GetComponentInParent<BuildingInstance>();
                     // TheUnit theUnit=lastClicked.GetComponentInParent<TheUnit>();
                     TroopsInstanceUI troopsInstanceUI=lastClicked.GetComponentInParent<TroopsInstanceUI>();
+                    CreepUI creepUI=lastClicked.GetComponentInParent<CreepUI>();
+                    MineUI mineUI=lastClicked.GetComponentInParent<MineUI>();
                     if (buildinstance != null) {
                         Debug.Log("previous building has BuildingInstance");
                         //this deselects the buildings
@@ -59,6 +61,12 @@ public class GlobalUIManager : MonoBehaviour
                         Debug.Log("Last Clicked Was a unit.");
                         troopsInstanceUI.RefreshUIB();
                     } 
+                    else if(creepUI){
+                        creepUI.DeSelectCreep();
+                    }
+                    else if(mineUI){
+                        mineUI.DeSelectMine();
+                    }
                     else {
                         Debug.Log("No BuildingInstance found on the last clicked object.");
                     }
@@ -82,16 +90,12 @@ public class GlobalUIManager : MonoBehaviour
             // troopsExpeditionManager.PotentialTargetForMarchClicked(ClickedObject,hit);
         }
         else if(IsEnemyLayer(ClickedObject)){
-            Debug.Log("Enemy clicked");
-            spawnedPointer=Instantiate(enemyMarchPointer,hit.point,Quaternion.identity);
-            spawnedPointer.GetComponent<SpawnedPointer>().Dependency(troopsExpeditionManager
-            ,ClickedObject,hit);
+            ClickedObject.GetComponentInParent<CreepUI>().CreepSelected(troopsExpeditionManager
+            );
         }        
         else if(IsMineLayer(ClickedObject)){
-            Debug.Log("Mine clicked");
-            spawnedPointer=Instantiate(mineMarchPointer,hit.point,Quaternion.identity);
-            spawnedPointer.GetComponent<SpawnedPointer>().Dependency(troopsExpeditionManager
-            ,ClickedObject,hit);
+            ClickedObject.GetComponentInParent<MineUI>().MineSelected(troopsExpeditionManager
+            );
         }
         else if(ClickedObject.GetComponentInParent<BuildingInstance>()){
             Debug.Log("building clicked.");

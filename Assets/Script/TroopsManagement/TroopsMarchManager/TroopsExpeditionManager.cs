@@ -35,7 +35,16 @@ public class TroopsExpeditionManager : MonoBehaviour
         expeditionUI.Stage2ConfirmationUI();
         
     }
-
+    public void CreepTargetClicked(GameObject Target){
+        //by creepUI when clicked march button
+        target=Target;
+        expeditionUI.Stage2ConfirmationUI();
+    }
+    public void MineTargetClicked(GameObject Target){
+        //by creepUI when clicked march button
+        target=Target;
+        expeditionUI.Stage2ConfirmationUI();
+    }
     public TheUnit[] GetAllThePresentUnits(){//this will be called by ui indirectly for showing info of 
     //current present army
         //by ui stage1 confirmation
@@ -64,6 +73,22 @@ public class TroopsExpeditionManager : MonoBehaviour
     }
     void march(){
         // Debug.Log(ChoosenUnit.ArmyId);
+        if(target.GetComponent<TheCreep>()){
+            // ChoosenUnit.SetTroopsTarget(position,target,SpawnPoint,ToMarchPointer);
+            Debug.Log("target is creep");
+            ChoosenUnit.SetTroopsTargetCreep(target,SpawnPoint);     
+            target.GetComponent<CreepUI>().DeSelectCreep();  
+            EndStage();
+            return;
+            }
+        else if(target.GetComponent<TheMine>()){
+            // ChoosenUnit.SetTroopsTarget(position,target,SpawnPoint,ToMarchPointer);
+            Debug.Log("target is Mine");
+            ChoosenUnit.SetTroopsTargetMine(target,SpawnPoint);     
+            target.GetComponent<MineUI>().DeSelectMine();  
+            EndStage();
+            return;
+        }
         GameObject ToMarchPointer=Instantiate(MarchingPointer,position,Quaternion.identity);
         ChoosenUnit.SetTroopsTarget(position,target,SpawnPoint,ToMarchPointer);       
         EndStage();

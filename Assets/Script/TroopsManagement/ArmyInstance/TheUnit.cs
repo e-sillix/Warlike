@@ -92,8 +92,32 @@ public class TheUnit : MonoBehaviour
             SetTargetPosition(target.transform.position);            
         }        
     }
+    public void SetTroopsTargetCreep(GameObject Target,GameObject SpawnPoint){
+        spawnpoint=SpawnPoint;
+        StopAllAction();     
+
+        target=Target;  
+        target.GetComponent<CreepUI>().PassiveSelected();  
+        SetTargetPosition(target.transform.position); 
+    }
+    public void SetTroopsTargetMine(GameObject Target,GameObject SpawnPoint){
+        spawnpoint=SpawnPoint;
+        StopAllAction();     
+
+        target=Target;  
+        target.GetComponent<MineUI>().PassiveSelected();  
+        SetTargetPosition(target.transform.position); 
+    }
     void TargetReached(){
         // Debug.Log("target reached");
+        if(target!=null){
+           if(target.GetComponent<TheCreep>()){
+            target.GetComponent<CreepUI>().DeSelectCreepPassive();
+        } 
+        else if(target.GetComponent<TheMine>()){
+            target.GetComponent<MineUI>().DeSelectMinePassive();
+        } 
+        }   
         if(target==null&&IsReturn==true){
         troopsExpeditionManager.ReturnTroopsToBase(gameObject,troopsType,troopsStats);
         }
@@ -105,7 +129,16 @@ public class TheUnit : MonoBehaviour
         if(isMining){
             isMining=false;
             mining.StopMining();
-        }    
+        }
+        if(target!=null){
+           if(target.GetComponent<TheCreep>()){
+            target.GetComponent<CreepUI>().DeSelectCreepPassive();
+        }  
+        else if(target.GetComponent<TheMine>()){
+            target.GetComponent<MineUI>().DeSelectMinePassive();
+        }
+        }   
+        
         GetComponent<Attacking>().RefreshTarget();    
     }
   
