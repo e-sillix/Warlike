@@ -15,6 +15,7 @@ public class TheCreep : MonoBehaviour
 
     public enemyType barrackType;
     public Image healthFill;
+    public string[] Rewards;
 
     private int troopsQuantity = 5;
     [SerializeField] private int health, totalHealth = 6, moveSpeed = 4, attackRange = 10, chasingRange = 15;

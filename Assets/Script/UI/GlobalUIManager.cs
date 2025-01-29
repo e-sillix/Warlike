@@ -6,12 +6,13 @@ using UnityEngine.EventSystems;
 public class GlobalUIManager : MonoBehaviour
 {
     [SerializeField]private LayerMask groundLayer,enemyLayer,mineLayer;
-    [SerializeField] private GameObject MarchPointer,enemyMarchPointer,mineMarchPointer;
+    [SerializeField] private GameObject MarchPointer;
 
     // private bool permissionForUI=true,IsUIOpen=false; //this will be falsed by other cancel managers only
     private GameObject clickedObject;
     [SerializeField] private TroopsTrainingManager troopsTrainingManager;
     [SerializeField] private TroopsExpeditionManager troopsExpeditionManager;
+    [SerializeField] private InfoUIManager infoUIManager;
     [SerializeField] private TroopsUI troopsUI;
     private GameObject lastClicked,currentClicked;
     private GameObject spawnedPointer;
@@ -90,12 +91,12 @@ public class GlobalUIManager : MonoBehaviour
             // troopsExpeditionManager.PotentialTargetForMarchClicked(ClickedObject,hit);
         }
         else if(IsEnemyLayer(ClickedObject)){
-            ClickedObject.GetComponentInParent<CreepUI>().CreepSelected(troopsExpeditionManager
-            );
+            ClickedObject.GetComponentInParent<CreepUI>().CreepSelected(troopsExpeditionManager,
+            infoUIManager);
         }        
         else if(IsMineLayer(ClickedObject)){
-            ClickedObject.GetComponentInParent<MineUI>().MineSelected(troopsExpeditionManager
-            );
+            ClickedObject.GetComponentInParent<MineUI>().MineSelected(troopsExpeditionManager,
+            infoUIManager);
         }
         else if(ClickedObject.GetComponentInParent<BuildingInstance>()){
             Debug.Log("building clicked.");

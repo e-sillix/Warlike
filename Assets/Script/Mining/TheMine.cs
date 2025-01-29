@@ -15,8 +15,7 @@ public class TheMine : MonoBehaviour
     public MineType mineType;
     public int level;
     
-    public int InitialAmount;
-    private int currentResource=10;
+    public int InitialAmount, currentResource=10;
 
     private MinesStats minesStats;
     private MineSpawner mineSpawner;    

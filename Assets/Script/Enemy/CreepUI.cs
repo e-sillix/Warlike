@@ -27,17 +27,19 @@ public class CreepUI : MonoBehaviour
     // }
 
     [SerializeField] private GameObject SelectedUIGO,MarchOnUIGO;
+    private InfoUIManager infoUIManager;
   
     private TroopsExpeditionManager troopsExpeditionManager;
     // public void Dependency(TroopsExpeditionManager TroopsExpeditionManager){
     //     troopsExpeditionManager=TroopsExpeditionManager;
     // }
 
-    public void CreepSelected(TroopsExpeditionManager TroopsExpeditionManager
-    ){
+    public void CreepSelected(TroopsExpeditionManager TroopsExpeditionManager,InfoUIManager 
+    InfoUIManager){
         //triggered when creep is clicked.
         Debug.Log("creep selected.");
         troopsExpeditionManager=TroopsExpeditionManager;
+        infoUIManager=InfoUIManager;
         SelectedUIGO.SetActive(true);
     }
     public void DeSelectCreep(){
@@ -57,6 +59,7 @@ public class CreepUI : MonoBehaviour
         troopsExpeditionManager.CreepTargetClicked(gameObject);
     }
     public void InfoClicked(){
-
+        TheCreep creep = GetComponent<TheCreep>();
+        infoUIManager.CreepInfoClicked(creep.level, creep.barrackType.ToString(),creep.Rewards);
     }
 }

@@ -7,13 +7,15 @@ public class MineUI : MonoBehaviour
    [SerializeField] private GameObject SelectedUIGO,MarchOnUIGO;
   
     private TroopsExpeditionManager troopsExpeditionManager;
+    private InfoUIManager infoUIManager;
     
 
-    public void MineSelected(TroopsExpeditionManager TroopsExpeditionManager
-    ){
+    public void MineSelected(TroopsExpeditionManager TroopsExpeditionManager,InfoUIManager 
+    InfoUIManager){
         //triggered when Mine is clicked.
         Debug.Log("Mine selected.");
         troopsExpeditionManager=TroopsExpeditionManager;
+        infoUIManager=InfoUIManager;
         SelectedUIGO.SetActive(true);
     }
     public void DeSelectMine(){
@@ -32,6 +34,7 @@ public class MineUI : MonoBehaviour
         troopsExpeditionManager.MineTargetClicked(gameObject);
     }
     public void InfoClicked(){
-
+        TheMine mine = gameObject.GetComponent<TheMine>();
+        infoUIManager.MineInfoClicked(mine.level,mine.mineType.ToString(),mine.currentResource);
     }
 }

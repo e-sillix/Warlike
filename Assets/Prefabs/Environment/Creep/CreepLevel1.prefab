@@ -420,6 +420,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   barrackType: 0
   healthFill: {fileID: 6190423185260967766}
+  Rewards:
+  - TimeSkip
+  - Xp
+  - ResourceToken
   health: 100
   totalHealth: 100
   moveSpeed: 5
