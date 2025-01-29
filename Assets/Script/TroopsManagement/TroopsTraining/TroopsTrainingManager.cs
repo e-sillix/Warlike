@@ -6,10 +6,11 @@ using UnityEngine;
 public class TroopsTrainingManager : MonoBehaviour
 {//controlled by ui input 
 
-    private GameObject TheBarrackGO;
+    // private GameObject TheBarrackGO;
     private TheBarrack theBarrack;
     [SerializeField]private TroopsStatsManager troopsStatsManager;
     [SerializeField] private UITroopsTrainingManager uITroopsTrainingManager;
+    [SerializeField] private MessageManager messageManager;
     public string troopType;
 
     public void TrainingIsChosen(TheBarrack TheBarrack){
@@ -39,5 +40,10 @@ public class TroopsTrainingManager : MonoBehaviour
     public void StartTrainingProcess(int[] troopsData,int time){
         //get that barrack assign it.
         theBarrack.StartTraining(troopsData,time);
+        messageManager.TrainingStartedMessage();
+    }
+    public void CancelTraining(){
+        theBarrack.CancelTraining();
+        messageManager.TrainingCancelledMessage();
     }
 }

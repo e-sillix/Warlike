@@ -45,6 +45,11 @@ public class TheBarrack : MonoBehaviour
         //call function  for training
         trainingHandler.StartTraining(time);
     }
+    public void CancelTraining(){
+        //cancel training
+        trainingHandler.CancelTraining();
+        UpdateStateOfBarrack(false);
+    }
     private void UpdateStateOfBarrack(bool status){
         isTrainingOngoing=status;
     }

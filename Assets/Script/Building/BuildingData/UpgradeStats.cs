@@ -14,7 +14,7 @@ public class UpgradeStats : MonoBehaviour
          // Ensure the levelNumber is valid (between 1 and 30)
     if (levelNumber < 1 || levelNumber > 30-1)
     {
-        Debug.LogError("Level must be between 1 and 30");
+        Debug.Log("Level must be between 1 and 30");
         return null;
     }
 

@@ -9,7 +9,7 @@ public class Attacking : MonoBehaviour
     [SerializeField]private float RateOfAttack = 1f;
     private TheCreep theCreep;
 
-    private int health,Damage=1,totalHealth=100,armor=1;
+    private int health,Damage=1,totalHealth=100,armor=1,attackRange=1;
 
 
     public Image healthFill; // Reference to the HealthFill image.
@@ -23,11 +23,12 @@ public class Attacking : MonoBehaviour
         UpdateHealthVisual();
     }
 
-    public void StatsAssigning(int h,int d,int a){
+    public void StatsAssigning(int h,int d,int a,int r){
         //by troopsinstanceStatsmanager
         health=h;
         Damage=d;
         armor=a;
+        attackRange=r;
     }
     public void StartAttacking(TheCreep TheCreep){
         theCreep=TheCreep;

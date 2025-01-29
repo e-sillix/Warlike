@@ -5,96 +5,70 @@ using TMPro;
 
 public class MessageManager : MonoBehaviour
 {
-    [SerializeField] private float messageDisappearingTime=1f;
-    [SerializeField] private GameObject NotEnoughCreditsGameobject,NoSpaceGameobject,MaxUpgradeGameobject
-    ,BuildingLimitGameobject,BuildingUpgradeNotAllowed,UpgradeLaboratory,troopsAddedpanel;
-    [SerializeField]private TextMeshProUGUI TroopsAddedText;  
+    [SerializeField] private float messageDisappearingTime=1.5f;    
+    [SerializeField] private GameObject NormalMessagePanel;
+    [SerializeField]private TextMeshProUGUI NormalMessageText;   
+    [SerializeField]private string TroopsTrainingStarted,messageForNotEnoughCredit,
+    messageForNotEnoughSpace,messageForMaxBuildingUpgrade,messageForBuildingLimit,
+    messageForUpgradeNotAllowed,messageForLaboratoryUpgrade,messageForBuildingLaboratory
+    ,trainingStartedMessage,trainingCancelledMessage;
 
+//Training related messages
     public void MessageForTroopsAdded(string barrackType, int[] troopsData)
     {
+        //troopsCountManager will call this function to display the message.
         string message="Troops added to " + barrackType + " are: ";
         for (int i = 0; i < troopsData.Length; i++)
         {
             if(troopsData[i]>0){
-                message += ",Level " + (i + 1) + ": " + troopsData[i] + " ";
+                message += "Level " + (i + 1) + ": " + troopsData[i] + " ";
             }
         }
-        troopsAddedpanel.SetActive(true);
         //this will be called by TroopsCountManager        
-        TroopsAddedText.text=message;
         // Debug.Log(message);
-        Invoke("HideTroopsAddedMessage", messageDisappearingTime);
+        displayNormalMessage(message);
     }
-    void HideTroopsAddedMessage()
-        {
-            troopsAddedpanel.SetActive(false);
-        }
-
-
+    public void TrainingStartedMessage(){
+        displayNormalMessage(trainingStartedMessage);
+    }
+    public void TrainingCancelledMessage(){
+        displayNormalMessage(trainingCancelledMessage);
+    }
+    public void MessageForTroopsTraining(){
+        displayNormalMessage(TroopsTrainingStarted);
+    }
+    
    public void TriggerMaxBuildingUpgrade(){
-        MaxUpgradeGameobject.SetActive(true);
-        //create a function to turn it false after 1 sec.
-        Invoke("HideMaxUpgradeMessage", messageDisappearingTime);
+        displayNormalMessage(messageForMaxBuildingUpgrade);
    }
-   void HideMaxUpgradeMessage()
-        {
-            //this is getting invoked by messageFornotenoughcredit.
-            MaxUpgradeGameobject.SetActive(false);
-        }   
-
-
     public void MessageForNotEnoughCredit(){
-        NotEnoughCreditsGameobject.SetActive(true);
-        //create a function to turn it false after 1 sec.
-        Invoke("HideNotEnoughCreditsMessage", messageDisappearingTime);
+        displayNormalMessage(messageForNotEnoughCredit);
     }
-
-// This method will deactivate the GameObject
-    void HideNotEnoughCreditsMessage()
-        {
-            //this is getting invoked by messageFornotenoughcredit.
-            NotEnoughCreditsGameobject.SetActive(false);
-        }   
-
-
 
     public void MessageForNotEnoughSpace(){
-        //this will be called by RSM
-        NoSpaceGameobject.SetActive(true);
-        Invoke("HideNotEnoughSpaceMessage", messageDisappearingTime);
-    }
-    void HideNotEnoughSpaceMessage()
-        {
-            NoSpaceGameobject.SetActive(false);
-        } 
+       displayNormalMessage(messageForNotEnoughSpace);
+    }   
 
-    public void MessageForBuildingLimit(){
-        //this will be called by RSM
-        BuildingLimitGameobject.SetActive(true);
-        Invoke("HideBuildingLimitMessage", messageDisappearingTime);
+   public void MessageForBuildingLimit(){
+    displayNormalMessage(messageForBuildingLimit);       
     }
-    void HideBuildingLimitMessage()
-        {
-            BuildingLimitGameobject.SetActive(false);
-        } 
-
     public void UpgradeNotAllowed(){
-        //this will be called by RSM
-        BuildingUpgradeNotAllowed.SetActive(true);
-        Invoke("HideUpgradeNotAllowed", messageDisappearingTime);
+        displayNormalMessage(messageForUpgradeNotAllowed);
     }
-    void HideUpgradeNotAllowed()
-        {
-            BuildingUpgradeNotAllowed.SetActive(false);
-        } 
-
+    public void BuildLaboratory(){
+        displayNormalMessage(messageForBuildingLaboratory);
+    }
     public void UpgradeLaboratoryMessage(){
-        //this will be called by RSM
-        UpgradeLaboratory.SetActive(true);
-        Invoke("HideUpgradeLaboratoryMessage", messageDisappearingTime);
+        displayNormalMessage(messageForLaboratoryUpgrade);
     }
-    void HideUpgradeLaboratoryMessage()
+
+    public void displayNormalMessage(string message){
+        NormalMessagePanel.SetActive(true);
+        NormalMessageText.text=message;
+        Invoke("HideNormalMessage", messageDisappearingTime);
+    }
+        void HideNormalMessage()
         {
-            UpgradeLaboratory.SetActive(false);
-        } 
+            NormalMessagePanel.SetActive(false);
+        }
 }

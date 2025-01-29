@@ -10,6 +10,7 @@ public class BuildingManager : MonoBehaviour
     // [SerializeField] private BuildingUpgrade buildingUpgrade;
     // [SerializeField] private BuildingInstanceUI buildingInstanceUI;
     [SerializeField] private DependencyManager dependencyManager;
+    [SerializeField] private GameObject ParentObject;
     private ConditionalManager conditionManager;
 
     private GameObject SpawnedBuilding;
@@ -70,6 +71,7 @@ public class BuildingManager : MonoBehaviour
     private void SpawnBuilding(){
         SpawnedBuilding=Instantiate(buildingPrefab,conditionManager.GetTheBlueprintPosition(), 
         Quaternion.identity);
+        SpawnedBuilding.transform.SetParent(ParentObject.transform);
         ProvidingManager();
         conditionManager.DestroyTheBlueprint();
     }

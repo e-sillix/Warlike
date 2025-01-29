@@ -22,7 +22,7 @@ public class TroopsData :  ScriptableObject
 // stats
 
 //non-upgradable stats
-    public int AttackRange;
+    // public int AttackRange;
 
     //upgradable stats
 
@@ -30,6 +30,7 @@ public class TroopsData :  ScriptableObject
     public int[] Health = new int[5];
     public int[] MarchSpeed = new int[5];
     public float[] Armor = new float[5];
+    public float[] AttackRange = new float[5];
     //+++++++ add load capacity and mining 
     
 

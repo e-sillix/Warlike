@@ -8,18 +8,14 @@ public class TheUnit : MonoBehaviour
     public LayerMask groundLayer; // Assign this to your ground layer in the Inspector
     public float moveSpeed = 5f,boostSpeed=1.5f; // Speed of movement    
     private Vector3 targetPosition;
-    private bool shouldMove = false,isDead=false;
+    private bool shouldMove = false;
     public float closeDistance=0.4f;
     [SerializeField] private GameObject SelectorIcon;
     public GameObject target;
-
     public bool IsReturn=false;
-
-    public int ArmyId;
-
-   
+    public int ArmyId;   
     private TroopsExpeditionManager troopsExpeditionManager;
-    private TroopsStatsManager troopsStatsManager;
+    // private TroopsStatsManager troopsStatsManager;
     
     public int[] troopsStats;//[lvl1,lvl2,...,lvl5] number of each troops
     public string troopsType;//store type of troops inf,arch,mage....
@@ -35,10 +31,14 @@ public class TheUnit : MonoBehaviour
     
     void Start(){
         troopsExpeditionManager=FindAnyObjectByType<TroopsExpeditionManager>();
-        troopsStatsManager=FindAnyObjectByType<TroopsStatsManager>();        
+        // troopsStatsManager=FindAnyObjectByType<TroopsStatsManager>();        
         mining = GetComponent<Mining>();       
     }    
+    public void SetMoveSpeed(int speed){
+        moveSpeed=speed;
+        Debug.Log("speed set to:"+speed);
 
+    }
     void Update()
     {        
         if (shouldMove)

@@ -19,18 +19,18 @@ public class TroopsDataPayload
 
     //stats
     //non-upgradable one's
-    public int attackRange;
+    public float attackRange;
 
     //upgradable one's
 
     public int damage;
     public int health;
-    public int marchSpeed;
+    public float marchSpeed;
     public float armor;
     
 
-    public TroopsDataPayload(int wood, int grain, int stone,int time, int Range,int TheDamage,int TheHealth,
-    int Speed,float TheArmor)
+    public TroopsDataPayload(int wood, int grain, int stone,int time, float Range,
+    int TheDamage,int TheHealth,float Speed,float TheArmor)
     {
         woodTrainingCost = wood;
         grainTrainingCost = grain;

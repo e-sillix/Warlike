@@ -50,7 +50,7 @@ public class TroopsStatsManager : MonoBehaviour
         troopsData.GrainCost[levelIndex], 
         troopsData.StoneCost[levelIndex],
         troopsData.TrainingTime[levelIndex],
-        troopsData.AttackRange,
+        troopsData.AttackRange[levelIndex],
         troopsData.Damage[levelIndex],
         troopsData.Health[levelIndex],     
         troopsData.MarchSpeed[levelIndex],     
@@ -115,6 +115,7 @@ public class TroopsStatsManager : MonoBehaviour
             Debug.LogError("Building not found: " + troopsType);
             return null;
         }
-        return new AttackStatPayload(troopsData.Damage,troopsData.Health,troopsData.Armor);
+        return new AttackStatPayload(troopsData.Damage,troopsData.Health,troopsData.Armor,
+        troopsData.MarchSpeed,troopsData.AttackRange);
     }
 }

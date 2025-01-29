@@ -8,7 +8,7 @@ public class TrainingHandler : MonoBehaviour
     [SerializeField] private TheBarrack theBarrack;
      
     private Coroutine trainingCoroutine;
-     public void StartTraining(int time)
+    public void StartTraining(int time)
     {
         if (trainingCoroutine != null)
         {
@@ -18,6 +18,13 @@ public class TrainingHandler : MonoBehaviour
         trainingCoroutine = StartCoroutine(TrainingRoutine(time)); // Start the coroutine with the training time
     }
 
+    public void CancelTraining()
+    {
+        if (trainingCoroutine != null)
+        {
+            StopCoroutine(trainingCoroutine); // Stop the coroutine
+        }
+    }
     // Coroutine that runs for the duration of the training process
     private IEnumerator TrainingRoutine(int time)
     {

@@ -13,7 +13,7 @@ public class TroopsInstanceStatsManager : MonoBehaviour
     private AttackStatPayload attackStatPayload;
 
     //attacking
-    private float armor,moveSpeed,totalNumberOfTroops;
+    private float armor,moveSpeed,totalNumberOfTroops,attackRange,marchSpeed;
     private int health,damage ;
     private string troopsType;
     private int[] troopsNumber,eachLvlLoad;
@@ -36,6 +36,7 @@ public class TroopsInstanceStatsManager : MonoBehaviour
         SetFightingStats(); 
 
         SetLoadData();
+        SetBasicData();
     }
 
 
@@ -51,16 +52,17 @@ public class TroopsInstanceStatsManager : MonoBehaviour
         }
     }  
 
-    eachLvlLoad = troopsStatsManager.GetTroopsLoadData(troopsType).load;    
+    eachLvlLoad = troopsStatsManager.GetTroopsLoadData(troopsType).load;
+    attackStatPayload=troopsStatsManager.GetFightData(troopsType);    
 
     SetFightingStats();
     }
 
-     void SetFightingStats(){
+    void SetFightingStats(){
               
         totalNumberOfTroops=troopsNumber[0]+troopsNumber[1]+troopsNumber[2]+troopsNumber[3]
         +troopsNumber[4];
-        attackStatPayload=troopsStatsManager.GetFightData(troopsType);
+        // attackStatPayload=troopsStatsManager.GetFightData(troopsType);
         health=attackStatPayload.health[0]*troopsNumber[0]+attackStatPayload.health[1]*troopsNumber[1]+
         attackStatPayload.health[2]*troopsNumber[2]+attackStatPayload.health[3]*troopsNumber[3]+
         attackStatPayload.health[4]*troopsNumber[4];
@@ -73,11 +75,25 @@ public class TroopsInstanceStatsManager : MonoBehaviour
         attackStatPayload.armor[2]*(float)troopsNumber[2]+attackStatPayload.armor[3]*(float)troopsNumber[3]+
         attackStatPayload.armor[4]*(float)troopsNumber[4])/totalNumberOfTroops;
 
-        Debug.Log("Heath:"+health+"Damage:"+damage+"armor:"+armor);
+        attackRange=(attackStatPayload.attackRange[0]*(float)troopsNumber[0]+attackStatPayload
+        .attackRange[1]*(float)troopsNumber[1]+attackStatPayload.attackRange[2]*(float)troopsNumber[2]+
+        attackStatPayload.attackRange[3]*(float)troopsNumber[3]+attackStatPayload.attackRange[4]
+        *(float)troopsNumber[4])/totalNumberOfTroops;
+
+        Debug.Log("Heath:"+health+"Damage:"+damage+"armor:"+armor+"attackRange:"+attackRange);
 
         //assigning
 
-        attacking.StatsAssigning(health,damage,(int)armor);
+        attacking.StatsAssigning(health,damage,(int)armor,(int)attackRange);
+    }
+    void SetBasicData(){
+        //march speed
+        // attackStatPayload=troopsStatsManager.GetFightData(troopsType);
+        marchSpeed=(attackStatPayload.moveSpeed[0]*(float)troopsNumber[0]+attackStatPayload.moveSpeed[1]*
+        (float)troopsNumber[1]+attackStatPayload.moveSpeed[2]*(float)troopsNumber[2]+
+        attackStatPayload.moveSpeed[3]*(float)troopsNumber[3]+
+        attackStatPayload.moveSpeed[4]*(float)troopsNumber[4])/totalNumberOfTroops;
+        theUnit.SetMoveSpeed((int)marchSpeed);
     }
 
     //mininig

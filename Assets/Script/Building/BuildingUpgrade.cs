@@ -108,6 +108,7 @@ public class BuildingUpgrade : MonoBehaviour
         //check wat building 
          if(Target.GetComponent<Base>()){
             Laboratory laboratory=GameObject.FindObjectOfType<Laboratory>();
+            if(laboratory){
             if(laboratory.level==level){
                 Debug.Log("Base Upgrade Is Allowed.");
                 return true;
@@ -117,6 +118,13 @@ public class BuildingUpgrade : MonoBehaviour
                 messageManager.UpgradeLaboratoryMessage();
                 return false;
             }
+            }
+            else{
+                Debug.Log("No Laboratory Found.");
+                messageManager.BuildLaboratory();
+                return false;
+            }
+           
          }
         //if target is not base,compare it to base level 
         else{

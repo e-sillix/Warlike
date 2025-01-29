@@ -8,10 +8,9 @@ public class UITroopsTrainingManager : MonoBehaviour
 {//this one will take input from user directly and pass it to TTM
 
     // private TheBarrack Barrack;
-    private BarrackCollider clickedObject;
     [SerializeField] private TroopsTrainingManager troopsTrainingManager;
     [SerializeField]private TroopsTrainingSlider troopsTrainingSlider;
-    [SerializeField] private GameObject StartingTrainingUIPanel;
+    [SerializeField] private GameObject StartingTrainingUIPanel, OngoingTrainingUIPanel;
     [SerializeField] private TrainingCostManager trainingCostManager;
     [SerializeField] private TradingManager tradingManager;
     [SerializeField] private GlobalUIManager globalUIManager;
@@ -42,6 +41,7 @@ public class UITroopsTrainingManager : MonoBehaviour
 public void TriggerUIForOngoingTraining(){
         //cancellation,progress,boosting,troops data 
         Debug.Log("training is going on,cancel panel will be here");
+        OngoingTrainingUIPanel.SetActive(true);
     }  
 //stage 2 
     //this will give dynamic cost
@@ -80,6 +80,14 @@ public void TriggerUIForOngoingTraining(){
             Debug.Log("Not Enough");
         }
     }  
+    public void TrainingCancellationIsChosen(){
+        //this will be triggered by ui
+        //cancel training
+        troopsTrainingManager.CancelTraining();
+        //disable ui with succes message
+        EndStage();
+        RefreshUI();
+    }
     
 //stage 4
     public void TrainingIsDone(){
