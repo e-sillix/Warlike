@@ -2,16 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CreepUI : MonoBehaviour
+public class ArmyUI : MonoBehaviour
 {
-   
+    //BossArmyUI
     [SerializeField] private GameObject SelectedUIGO,MarchOnUIGO;
     private InfoUIManager infoUIManager;
   
     private TroopsExpeditionManager troopsExpeditionManager;
-    // public void Dependency(TroopsExpeditionManager TroopsExpeditionManager){
-    //     troopsExpeditionManager=TroopsExpeditionManager;
-    // }
+    
 
     public void CreepSelected(TroopsExpeditionManager TroopsExpeditionManager,InfoUIManager 
     InfoUIManager){

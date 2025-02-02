@@ -831,6 +831,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   moveSpeed: 5
+  boostSpeed: 1.5
   closeDistance: 2
   SelectorIcon: {fileID: 1120540834530551616}
   target: {fileID: 0}
@@ -1078,7 +1079,7 @@ GameObject:
   - component: {fileID: 8263353171778378992}
   - component: {fileID: 833433286206016515}
   - component: {fileID: 6945055147929718588}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}

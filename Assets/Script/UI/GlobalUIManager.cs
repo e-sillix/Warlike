@@ -29,10 +29,13 @@ public class GlobalUIManager : MonoBehaviour
                 return;
                 
             } 
+            // Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            // RaycastHit hit;
+            // if (Physics.Raycast(ray, out hit))//this will move
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit))//this will move
-                {        
+            int layerMask = ~LayerMask.GetMask("IgnoreClick"); // Exclude "IgnoreClick" layer
+            if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, layerMask))
+            {        
                     // Prevent interaction if clicking on UI
                     clickedObject=hit.collider.gameObject;
                     currentClicked=clickedObject;
