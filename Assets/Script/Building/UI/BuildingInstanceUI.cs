@@ -1,8 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 using TMPro;
-using UnityEditor.VersionControl;
+
 
 public class BuildingInstanceUI : MonoBehaviour
 {//this is a manager attached to BuildingUIManager ,for showing data
