@@ -157,6 +157,7 @@ public class TheUnit : MonoBehaviour
         //have to make troops untargetable.
 
         Destroy(GetComponent<TroopsInstanceUI>().ReturnUIButton());
+        Destroy(GetComponent<Attacking>());
         ReturnTroops();
     }
 }

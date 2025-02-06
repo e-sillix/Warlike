@@ -59,7 +59,7 @@ public class Attacking : MonoBehaviour
     }
     public void TakeDamage(int Damage){
         health-=Damage;
-        // Debug.Log("damage took:"+Damage);
+        Debug.Log("damage took:"+Damage);
         //visual change
         UpdateHealthVisual();
 
