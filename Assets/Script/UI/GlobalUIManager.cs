@@ -57,6 +57,7 @@ public class GlobalUIManager : MonoBehaviour
                     CreepUI creepUI=lastClicked.GetComponentInParent<CreepUI>();
                     MineUI mineUI=lastClicked.GetComponentInParent<MineUI>();
                     BossArmyUI bossArmyUI=lastClicked.GetComponentInParent<BossArmyUI>();
+                    BossUI bossUI=lastClicked.GetComponentInParent<BossUI>();
                     if (buildinstance != null) {
                         Debug.Log("previous building has BuildingInstance");
                         //this deselects the buildings
@@ -74,6 +75,9 @@ public class GlobalUIManager : MonoBehaviour
                     }
                     else if(bossArmyUI){
                         bossArmyUI.DeSelectArmy();
+                    }
+                    else if(bossUI){
+                        bossUI.DeSelectBoss();
                     }
                     else {
                         Debug.Log("No BuildingInstance found on the last clicked object.");
@@ -122,6 +126,14 @@ public class GlobalUIManager : MonoBehaviour
             ClickedObject.GetComponentInParent<BossArmyUI>().BossArmySelected(troopsExpeditionManager,
             infoUIManager);
         }
+        else if(ClickedObject.GetComponentInParent<BossUI>()){
+            Debug.Log("Boss clicked");
+            ClickedObject.GetComponentInParent<BossUI>().BossSelected(troopsExpeditionManager,
+            infoUIManager);
+        }
+        // else{
+        //     Debug.Log("Nothing clicked");
+        // }
         //for ui buttons too
         // permissionForUI=false;
     }

@@ -122,4 +122,15 @@ public class Boss : MonoBehaviour
         bossArmies[bossArmy.ArmyID]=null;
         Destroy(bossArmy.gameObject);
     }
+    public void OnDefeat(){
+        Debug.Log("Boss Defeated,Give Rewards");
+        foreach (BossArmy bossArmy in bossArmies){
+            
+            if(bossArmy){
+
+                Destroy(bossArmy.gameObject);
+            }
+
+        Destroy(gameObject);
+    }}
 }

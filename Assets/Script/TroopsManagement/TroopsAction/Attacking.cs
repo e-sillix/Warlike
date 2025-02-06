@@ -9,6 +9,8 @@ public class Attacking : MonoBehaviour
     [SerializeField]private float RateOfAttack = 1f;
     private TheCreep theCreep;
     private BossArmy bossArmy;
+    // private Boss boss;
+    private BossAttacking bossAttacking;
 
     private int health,Damage=1,totalHealth=100,armor=1,attackRange=1;
 
@@ -40,6 +42,11 @@ public class Attacking : MonoBehaviour
             bossArmy=target.GetComponent<BossArmy>();
             Debug.Log("enemy boss army");
         }
+        else if (target.GetComponent<BossAttacking>()){
+            bossAttacking=target.GetComponent<BossAttacking>();
+            Debug.Log("enemy boss");
+        }
+        
         
         // theCreep=TheCreep;
         // Debug.Log("enemy creep numbers:"+theCreep.ReturnCreepNumbers());
@@ -74,7 +81,24 @@ public class Attacking : MonoBehaviour
                     RefreshTarget();
                 }
             }
+    }
+    else if(bossAttacking){
+        timer += Time.deltaTime;
+
+        // Check if one second has passed
+        if (timer >= RateOfAttack)
+        {   
+            bossAttacking.TakeDamage(Damage);            
+
+            // Reset the timer
+            timer = 0f;
+            if(bossAttacking.ReturnHealth()<=0){
+                Debug.Log("enemy boss nulled");
+                RefreshTarget();
+            }
+
     }}
+    }
     }
 
     //is being called by creep directly 
@@ -106,5 +130,6 @@ public class Attacking : MonoBehaviour
         //this will be triggered when changing target or returning home.
         theCreep=null;
         bossArmy=null;
+        bossAttacking=null;
     }
 }

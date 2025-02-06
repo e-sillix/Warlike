@@ -103,6 +103,10 @@ public class TheUnit : MonoBehaviour
         else if(target.GetComponent<BossArmyUI>()){
             target.GetComponent<BossArmyUI>().PassiveSelected();  
         }
+        else if(target.GetComponent<BossUI>()){
+            target.GetComponent<BossUI>().PassiveSelected();
+
+        }
         SetTargetPosition(target.transform.position); 
     }
     public void SetTroopsTargetMine(GameObject Target,GameObject SpawnPoint){
@@ -121,6 +125,9 @@ public class TheUnit : MonoBehaviour
         } 
         else if(target.GetComponent<BossArmy>()){
             target.GetComponent<BossArmyUI>().DeSelectArmyPassive();
+        }
+        else if(target.GetComponent<Boss>()){
+            target.GetComponent<BossUI>().DeSelectBossPassive();
         }
         else if(target.GetComponent<TheMine>()){
             target.GetComponent<MineUI>().DeSelectMinePassive();
@@ -144,6 +151,9 @@ public class TheUnit : MonoBehaviour
         }  
         else if(target.GetComponent<BossArmy>()){
             target.GetComponent<BossArmyUI>().DeSelectArmyPassive();
+        }
+        else if(target.GetComponent<Boss>()){
+            target.GetComponent<BossUI>().DeSelectBossPassive();
         }
         else if(target.GetComponent<TheMine>()){
             target.GetComponent<MineUI>().DeSelectMinePassive();

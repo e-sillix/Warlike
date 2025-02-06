@@ -87,6 +87,12 @@ public class TroopsExpeditionManager : MonoBehaviour
                 EndStage();
                 return;
             }
+            else if(target.GetComponent<Boss>()){
+                ChoosenUnit.SetTroopsTargetCombat(target,SpawnPoint);     
+                target.GetComponent<BossUI>().DeSelectBoss();  
+                EndStage();
+                return;
+            }
         else if(target.GetComponent<TheMine>()){
             // ChoosenUnit.SetTroopsTarget(position,target,SpawnPoint,ToMarchPointer);
             Debug.Log("target is Mine");
