@@ -12,7 +12,7 @@ public class Attacking : MonoBehaviour
     // private Boss boss;
     private BossAttacking bossAttacking;
 
-    private int health,Damage=1,totalHealth=100,armor=1,attackRange=1;
+    private int health,Damage,totalHealth,armor,attackRange;
 
 
     public Image healthFill; // Reference to the HealthFill image.
@@ -22,16 +22,18 @@ public class Attacking : MonoBehaviour
         // will used when apply adv damage mech
         // troopsInstanceStatsManager=GetComponent<TroopsInstanceStatsManager>();
         
-        health=totalHealth;
-        UpdateHealthVisual();
+        // health=totalHealth;
+        // UpdateHealthVisual();
     }
 
     public void StatsAssigning(int h,int d,int a,int r){
         //by troopsinstanceStatsmanager
-        health=h;
+        totalHealth=h;
+        health=totalHealth;
         Damage=d;
         armor=a;
         attackRange=r;
+        UpdateHealthVisual();
     }
     public void StartAttacking(GameObject target){
         if(target.GetComponent<TheCreep>()){
@@ -88,7 +90,7 @@ public class Attacking : MonoBehaviour
         // Check if one second has passed
         if (timer >= RateOfAttack)
         {   
-            bossAttacking.TakeDamage(Damage);            
+            bossAttacking.TakeDamage(Damage,this);            
 
             // Reset the timer
             timer = 0f;

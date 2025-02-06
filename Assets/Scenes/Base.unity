@@ -39703,6 +39703,7 @@ MonoBehaviour:
   totalHealth: 30
   healthFill: {fileID: 1156989497}
   Rewards: []
+  Damage: 1
 --- !u!1 &1932034018
 GameObject:
   m_ObjectHideFlags: 0
