@@ -6,10 +6,10 @@ public class AttackManager : MonoBehaviour
 {
     private Attacking attacking;
 
-    public void InitiateAttack(GameObject TheUnit,TheCreep theCreep){
+    public void InitiateAttack(GameObject TheUnit,GameObject target){
         // TheUnit theUnit=TheUnit.GetComponent<TheUnit>();
         attacking=TheUnit.GetComponent<Attacking>();
-        attacking.StartAttacking(theCreep);
+        attacking.StartAttacking(target);
         Refresh();
     }  
     void Refresh(){

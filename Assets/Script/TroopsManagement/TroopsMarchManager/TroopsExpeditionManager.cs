@@ -35,7 +35,7 @@ public class TroopsExpeditionManager : MonoBehaviour
         expeditionUI.Stage2ConfirmationUI();
         
     }
-    public void CreepTargetClicked(GameObject Target){
+    public void CombatTargetClicked(GameObject Target){
         //by creepUI when clicked march button
         target=Target;
         expeditionUI.Stage2ConfirmationUI();
@@ -76,10 +76,16 @@ public class TroopsExpeditionManager : MonoBehaviour
         if(target.GetComponent<TheCreep>()){
             // ChoosenUnit.SetTroopsTarget(position,target,SpawnPoint,ToMarchPointer);
             Debug.Log("target is creep");
-            ChoosenUnit.SetTroopsTargetCreep(target,SpawnPoint);     
+            ChoosenUnit.SetTroopsTargetCombat(target,SpawnPoint);     
             target.GetComponent<CreepUI>().DeSelectCreep();  
             EndStage();
             return;
+            }
+            else if(target.GetComponent<BossArmy>()){
+                ChoosenUnit.SetTroopsTargetCombat(target,SpawnPoint);     
+                target.GetComponent<BossArmyUI>().DeSelectArmy();  
+                EndStage();
+                return;
             }
         else if(target.GetComponent<TheMine>()){
             // ChoosenUnit.SetTroopsTarget(position,target,SpawnPoint,ToMarchPointer);

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ArmyUI : MonoBehaviour
+public class BossArmyUI : MonoBehaviour
 {
     //BossArmyUI
     [SerializeField] private GameObject SelectedUIGO,MarchOnUIGO;
@@ -11,15 +11,14 @@ public class ArmyUI : MonoBehaviour
     private TroopsExpeditionManager troopsExpeditionManager;
     
 
-    public void CreepSelected(TroopsExpeditionManager TroopsExpeditionManager,InfoUIManager 
+    public void BossArmySelected(TroopsExpeditionManager TroopsExpeditionManager,InfoUIManager 
     InfoUIManager){
         //triggered when creep is clicked.
-        Debug.Log("creep selected.");
         troopsExpeditionManager=TroopsExpeditionManager;
         infoUIManager=InfoUIManager;
         SelectedUIGO.SetActive(true);
     }
-    public void DeSelectCreep(){
+    public void DeSelectArmy(){
         //called by GlobalUI
         SelectedUIGO.SetActive(false);
     }
@@ -27,16 +26,19 @@ public class ArmyUI : MonoBehaviour
         //when creep is being marched on.
         MarchOnUIGO.SetActive(true);
     }
-    public void DeSelectCreepPassive(){
+    public void DeSelectArmyPassive(){
         //when target get march cancelled or left attack in mid 
         MarchOnUIGO.SetActive(false);
     }
     public void MarchClicked(){
         // troopsExpeditionManager.PotentialTargetForMarchClicked(gameObject);
-        troopsExpeditionManager.CreepTargetClicked(gameObject);
+        troopsExpeditionManager.CombatTargetClicked(gameObject);
     }
     public void InfoClicked(){
-        TheCreep creep = GetComponent<TheCreep>();
-        infoUIManager.CreepInfoClicked(creep.level, creep.barrackType.ToString(),creep.Rewards);
+        // TheCreep creep = GetComponent<TheCreep>();
+        // infoUIManager.CreepInfoClicked(creep.level, creep.barrackType.ToString(),creep.Rewards);
+        BossArmy bossArmy = GetComponent<BossArmy>();
+        infoUIManager.BossArmyInfoClicked(bossArmy.level, 
+        bossArmy.barrackType.ToString(),bossArmy.Rewards);
     }
 }

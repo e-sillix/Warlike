@@ -33,96 +33,51 @@ public class BossArmy : MonoBehaviour
     public int ArmyID;
     private Boss TheBoss;
     private GameObject MarchingTarget,Spawnpoint;
-    private bool IsReturnBase;
+    private bool IsReturnBase,isAlive=true;
     
-    // void Start()
-    // {
-    //     currentHealth = totalHealth;
-    // }
-   
-    
-    // public void TargetLocked(Attacking theUnit){
-    //     if(!theUnit){
-    //         MarchingTarget=Spawnpoint;
-    //         Target=null;
-    //         Debug.Log("This Army should return.");
-    //     }
-    //     else{
-    //         Target=theUnit;
-    //         MarchingTarget=theUnit.gameObject;
-    //     }
-                
-    // }
-    // void Update()
-    // {
-    //         if(MarchingTarget==null){
-    //             return;
-    //         }
-    //         // else{
-    //         //     // if()
-    //         // }
-    //         if(Target.GetComponent<TheUnit>()){
-    //             if(Target.ReturnHealth()<=0){
-    //                 Target=null;
-    //                 TheBoss.TriggerDetection();
-    //                 return;
-    //             }
-    //         }
-            
-    //         float distanceToAttacker = Vector3.Distance(transform.position, MarchingTarget
-    //         .transform.position);
-
-    //         // If Distance to attacker is greater than attack range, move towards attacker
-    //         if ( distanceToAttacker >= attackRange)
-    //         {
-    //             Vector3 direction = (MarchingTarget.transform.position - transform.position).normalized;
-    //             transform.position += direction * moveSpeed * Time.deltaTime;
-    //         }
-    //         else{
-    //             //Reached the target
-    //             if(Target==null){
-    //                Debug.Log("Home Reached.");
-    //                TheBoss.ArmyReachedBase(this);
-    //             }
-    //             else{
-    //                 // Debug.Log("Attacking the target.");
-    //                 timer += Time.deltaTime;
-
-    //                 if (timer >= RateOfAttack)
-    //                 {
-    //                     // attacker.TakeDamage(Damage);
-    //                     if(Target){
-    //                         Target.TakeDamage(Damage);
-                            
-    //                     }
-    //                     // else{
-    //                     //     // Debug.Log("Target lost attacking");      
-    //                     //     }
-    //                         timer = 0f;
-    //                 }
-    //             }
-    //         }
-            
-    // }
-    // void UpdateHealth()
-    // {
-    //     float fillPercent = (float)currentHealth / (float)totalHealth;
-    //     healthFill.fillAmount = fillPercent;
-    // }
-    // void OnDefeat(){
-    //     // creepSpawnManager.CreepDefeated();
-    //     Destroy(gameObject);
-    // }
+    void Start()
+    {
+        currentHealth = totalHealth;
+        UpdateHealth();
+    }
+    public int ReturnHealth(){
+        return currentHealth;
+    }
+    public void TakeDamage(int damage)
+    {
+        currentHealth -= damage;
+        UpdateHealth();
+        if (currentHealth <= 0)
+        {
+            OnDefeat();
+        }
+    }
+    void UpdateHealth()
+    {
+        float fillPercent = (float)currentHealth / (float)totalHealth;
+        healthFill.fillAmount = fillPercent;
+    }
+    void OnDefeat(){
+        // creepSpawnManager.CreepDefeated();
+        // Destroy(gameObject);
+        isAlive=false;
+        ReturnBase();
+        Debug.Log("Boss Army Defeated.");
+    }
 
     public void Dependency(string kingdom, int armyNumber,GameObject spawnpoint,Boss Boss){
+        // currentHealth=totalHealth;
         KingDom=kingdom;
         ArmyID=armyNumber;
         Spawnpoint=spawnpoint;
         TheBoss=Boss;
     }
     public void TargetLocked(GameObject target){
+        if(isAlive){
+
         Target=target;
         IsReturnBase=false;
+        }
     }
     public void ReturnBase(){
         //trigger by Boss when tresspasser can't be located.

@@ -25,6 +25,7 @@ public class ActionManager : MonoBehaviour
     void AnalyseAction(){
         TheMine theMine=target.GetComponentInParent<TheMine>();
         TheCreep theCreep=target.GetComponentInParent<TheCreep>();
+        BossArmy bossArmy=target.GetComponentInParent<BossArmy>();
             // Debug.Log("12");
         if(theMine!=null){
             Debug.Log("Mining analysed");
@@ -38,14 +39,18 @@ public class ActionManager : MonoBehaviour
         }
         if(theCreep!=null){
             Debug.Log("Attack analysed");
-            InitiateAttack(theCreep);
+            InitiateAttack(target);
         }
+        if(bossArmy!=null){
+            Debug.Log("Attack analysed");
+            InitiateAttack(target);
         
     }
     void InitiateMining(TheMine theMine){
         miningManager.InitiateMiningProcess(theArmy,theMine);
     }
-    void InitiateAttack(TheCreep theCreep){
-        attackManager.InitiateAttack(theArmy,theCreep);
+    void InitiateAttack(GameObject Target){
+        attackManager.InitiateAttack(theArmy,target);
+    }
     }
 }

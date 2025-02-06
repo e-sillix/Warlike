@@ -27,4 +27,15 @@ public class InfoUIManager : MonoBehaviour
         }
         creepRewardText.text=rewardText;
     }
+    public void BossArmyInfoClicked(int level,string barrackType,string[] Rewards){
+        CreepUI.SetActive(true);
+        creepLevelText.text="Level: "+level;
+        creepTypeText.text="Barrack Type: "+barrackType;
+        string rewardText="Rewards: ";
+        for (int i = 0; i < Rewards.Length; i++)
+        {
+            rewardText+=Rewards[i]+" ";
+        }
+        creepRewardText.text=rewardText;
+    }
 }

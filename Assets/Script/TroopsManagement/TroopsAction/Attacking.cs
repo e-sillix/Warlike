@@ -8,6 +8,7 @@ public class Attacking : MonoBehaviour
     private float timer = 0f;
     [SerializeField]private float RateOfAttack = 1f;
     private TheCreep theCreep;
+    private BossArmy bossArmy;
 
     private int health,Damage=1,totalHealth=100,armor=1,attackRange=1;
 
@@ -30,16 +31,23 @@ public class Attacking : MonoBehaviour
         armor=a;
         attackRange=r;
     }
-    public void StartAttacking(TheCreep TheCreep){
-        theCreep=TheCreep;
-        Debug.Log("enemy creep numbers:"+theCreep.ReturnCreepNumbers());
+    public void StartAttacking(GameObject target){
+        if(target.GetComponent<TheCreep>()){
+            theCreep=target.GetComponent<TheCreep>();
+            Debug.Log("enemy creep numbers:"+theCreep.ReturnCreepNumbers());
+        }
+        else if(target.GetComponent<BossArmy>()){
+            bossArmy=target.GetComponent<BossArmy>();
+            Debug.Log("enemy boss army");
+        }
+        
+        // theCreep=TheCreep;
+        // Debug.Log("enemy creep numbers:"+theCreep.ReturnCreepNumbers());
     }
     void Update(){
          // Increase the timer by the time passed since the last frame
-        
-        if(theCreep&&health>0){
-
-        
+        if(health>0){        
+            if(theCreep){        
         timer += Time.deltaTime;
 
         // Check if one second has passed
@@ -50,7 +58,23 @@ public class Attacking : MonoBehaviour
             // Reset the timer
             timer = 0f;
         }
-    }
+        }
+        else if(bossArmy){
+            timer += Time.deltaTime;
+
+            // Check if one second has passed
+            if (timer >= RateOfAttack)
+            {   
+                bossArmy.TakeDamage(Damage);            
+
+                // Reset the timer
+                timer = 0f;
+                if(bossArmy.ReturnHealth()<=0){
+                    Debug.Log("enemy boss army nulled");
+                    RefreshTarget();
+                }
+            }
+    }}
     }
 
     //is being called by creep directly 
@@ -81,5 +105,6 @@ public class Attacking : MonoBehaviour
     public void RefreshTarget(){
         //this will be triggered when changing target or returning home.
         theCreep=null;
+        bossArmy=null;
     }
 }

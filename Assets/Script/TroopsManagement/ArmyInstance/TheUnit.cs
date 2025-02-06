@@ -9,7 +9,7 @@ public class TheUnit : MonoBehaviour
     public float moveSpeed = 5f,boostSpeed=1.5f; // Speed of movement    
     private Vector3 targetPosition;
     private bool shouldMove = false;
-    public float closeDistance=0.4f;
+    public float closeDistance=5f;
     [SerializeField] private GameObject SelectorIcon;
     public GameObject target;
     public bool IsReturn=false;
@@ -92,12 +92,17 @@ public class TheUnit : MonoBehaviour
             SetTargetPosition(target.transform.position);            
         }        
     }
-    public void SetTroopsTargetCreep(GameObject Target,GameObject SpawnPoint){
+    public void SetTroopsTargetCombat(GameObject Target,GameObject SpawnPoint){
         spawnpoint=SpawnPoint;
         StopAllAction();     
 
         target=Target;  
-        target.GetComponent<CreepUI>().PassiveSelected();  
+        if(target.GetComponent<CreepUI>()){
+            target.GetComponent<CreepUI>().PassiveSelected();  
+        }
+        else if(target.GetComponent<BossArmyUI>()){
+            target.GetComponent<BossArmyUI>().PassiveSelected();  
+        }
         SetTargetPosition(target.transform.position); 
     }
     public void SetTroopsTargetMine(GameObject Target,GameObject SpawnPoint){
@@ -114,6 +119,9 @@ public class TheUnit : MonoBehaviour
            if(target.GetComponent<TheCreep>()){
             target.GetComponent<CreepUI>().DeSelectCreepPassive();
         } 
+        else if(target.GetComponent<BossArmy>()){
+            target.GetComponent<BossArmyUI>().DeSelectArmyPassive();
+        }
         else if(target.GetComponent<TheMine>()){
             target.GetComponent<MineUI>().DeSelectMinePassive();
         } 
@@ -134,6 +142,9 @@ public class TheUnit : MonoBehaviour
            if(target.GetComponent<TheCreep>()){
             target.GetComponent<CreepUI>().DeSelectCreepPassive();
         }  
+        else if(target.GetComponent<BossArmy>()){
+            target.GetComponent<BossArmyUI>().DeSelectArmyPassive();
+        }
         else if(target.GetComponent<TheMine>()){
             target.GetComponent<MineUI>().DeSelectMinePassive();
         }

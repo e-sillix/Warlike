@@ -35,7 +35,7 @@ public class CreepUI : MonoBehaviour
     }
     public void MarchClicked(){
         // troopsExpeditionManager.PotentialTargetForMarchClicked(gameObject);
-        troopsExpeditionManager.CreepTargetClicked(gameObject);
+        troopsExpeditionManager.CombatTargetClicked(gameObject);
     }
     public void InfoClicked(){
         TheCreep creep = GetComponent<TheCreep>();
