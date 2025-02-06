@@ -17,15 +17,6 @@ public class Attacking : MonoBehaviour
 
     public Image healthFill; // Reference to the HealthFill image.
 
-    // private TroopsInstanceStatsManager troopsInstanceStatsManager;
-    void Start(){
-        // will used when apply adv damage mech
-        // troopsInstanceStatsManager=GetComponent<TroopsInstanceStatsManager>();
-        
-        // health=totalHealth;
-        // UpdateHealthVisual();
-    }
-
     public void StatsAssigning(int h,int d,int a,int r){
         //by troopsinstanceStatsmanager
         totalHealth=h;
