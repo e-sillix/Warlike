@@ -17,12 +17,15 @@ public class Boss : MonoBehaviour
     private GameObject[] playerArmies=new GameObject[5]; // Array to store the detected units
 
     private ArmyDetector armyDetector;
-    private BossArmy[] bossArmies;//this will be used to store the spawned armies.
+    // private BossArmy[] bossArmies;//this will be used to store the spawned armies.
 
+    private List<BossArmy> SpawnedbossArmies = new List<BossArmy>();
+    // private BossArmy[] SpawnedbossArmies;
     private GameObject currentTarget;
+    private BossArmyManager bossArmyManager ;
     void Start()
     {
-        bossArmies = new BossArmy[Armies.Length];
+        // bossArmies = new BossArmy[Armies.Length];
         // Start the Coroutine when the game begins
         armyDetector=GetComponent<ArmyDetector>();
         if(armyDetector==null){
@@ -30,7 +33,12 @@ public class Boss : MonoBehaviour
         }else{
             StartCoroutine(DetectUnitsEveryInterval());
         }
-
+        bossArmyManager = GetComponent<BossArmyManager>();
+        if (bossArmyManager == null)
+        {
+            Debug.LogError("BossArmyManager not found.");
+            return;
+        }
     }
     public void TriggerDetection(){
         //triggered by bossArmy when it defeats the player army.
@@ -88,26 +96,29 @@ public class Boss : MonoBehaviour
         //first we need to find all the armies and spawn 
 
         //so we don't repeation
-                   
-        
-        for (int i = 0; i < Armies.Length; i++)
-        {
-            if (bossArmies[i] != null)
-            {
-                bossArmies[i].TargetLocked(currentTarget);
-                continue; // Skip this iteration if bossArmy is already instantiated
+       
+        //army that are already spawned. and are alive.
+        foreach(BossArmy bossArmy in SpawnedbossArmies){
+            if(bossArmy.IsAlive()){
+                bossArmy.TargetLocked(currentTarget);
             }
-            // This will spawn the boss army.
-            GameObject bossArmyObject = Instantiate(BossArmyPrefab, SpawnPoint.transform.position, 
-            Quaternion.identity);
-            BossArmy bossArmy = bossArmyObject.GetComponent<BossArmy>();
-            bossArmy.Dependency(KingDom, i,SpawnPoint,this); // this will set the kingdom and id of that army.
-            bossArmy.TargetLocked(currentTarget);
-            bossArmies[i] = bossArmy;
         }
+
+        List<BossArmyManager.BossArmies> activeArmies = bossArmyManager.GetActiveAndHomeBossArmies();
+        //this will give me all the armies that are alive and home
+        foreach (BossArmyManager.BossArmies bossArmy in activeArmies)
+        {
+            BossArmy bossArmyComponent = Instantiate(BossArmyPrefab, SpawnPoint.transform.position, 
+            Quaternion.identity).GetComponent<BossArmy>();
+            bossArmyComponent.Dependency(KingDom, bossArmy.id,bossArmyManager, SpawnPoint, this);
+            bossArmyComponent.TargetLocked(currentTarget);
+            SpawnedbossArmies.Add(bossArmyComponent);
+            bossArmy.isReturned = false;
+        }
+
         }
     void ReturnArmies(){
-        foreach (BossArmy bossArmy in bossArmies){
+        foreach (BossArmy bossArmy in SpawnedbossArmies){
             // if (bossArmy.KingDom == KingDom)
             // {
             if(bossArmy){
@@ -119,12 +130,14 @@ public class Boss : MonoBehaviour
     }
     public void ArmyReachedBase(BossArmy bossArmy){
         //this called by the boss army when it reaches the base.
-        bossArmies[bossArmy.ArmyID]=null;
+        // bossArmies[bossArmy.ArmyID]=null;
+        SpawnedbossArmies.Remove(bossArmy);
+        bossArmyManager.ArmyReturned(bossArmy.ArmyID);
         Destroy(bossArmy.gameObject);
     }
     public void OnDefeat(){
         Debug.Log("Boss Defeated,Give Rewards");
-        foreach (BossArmy bossArmy in bossArmies){
+        foreach (BossArmy bossArmy in SpawnedbossArmies){
             
             if(bossArmy){
 

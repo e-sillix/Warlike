@@ -159,8 +159,13 @@ public class TheUnit : MonoBehaviour
             target.GetComponent<MineUI>().DeSelectMinePassive();
         }
         }   
-        
-        GetComponent<Attacking>().RefreshTarget();    
+        if(GetComponent<Attacking>()){
+
+            GetComponent<Attacking>().RefreshTarget();    
+        }
+        else{
+            Debug.Log("You already lost");
+        }
     }
   
 

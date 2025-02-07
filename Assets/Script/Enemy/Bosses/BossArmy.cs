@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -33,6 +34,7 @@ public class BossArmy : MonoBehaviour
     public int ArmyID;
     private Boss TheBoss;
     private GameObject MarchingTarget,Spawnpoint;
+    private BossArmyManager bossArmyManager;
     private bool IsReturnBase,isAlive=true;
     
     void Start()
@@ -42,6 +44,9 @@ public class BossArmy : MonoBehaviour
     }
     public int ReturnHealth(){
         return currentHealth;
+    }
+    public bool IsAlive(){
+        return isAlive;
     }
     public void TakeDamage(int damage)
     {
@@ -61,16 +66,19 @@ public class BossArmy : MonoBehaviour
         // creepSpawnManager.CreepDefeated();
         // Destroy(gameObject);
         isAlive=false;
+        bossArmyManager.ArmyDefeated(ArmyID);
         ReturnBase();
         Debug.Log("Boss Army Defeated.");
     }
 
-    public void Dependency(string kingdom, int armyNumber,GameObject spawnpoint,Boss Boss){
+    public void Dependency(string kingdom, int armyNumber,BossArmyManager BossArmyManager
+    ,GameObject spawnpoint,Boss Boss){
         // currentHealth=totalHealth;
         KingDom=kingdom;
         ArmyID=armyNumber;
         Spawnpoint=spawnpoint;
         TheBoss=Boss;
+        bossArmyManager=BossArmyManager;
     }
     public void TargetLocked(GameObject target){
         if(isAlive){

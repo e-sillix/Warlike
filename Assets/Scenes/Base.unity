@@ -21314,7 +21314,7 @@ Transform:
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
   m_LocalRotation: {x: 0.38268343, y: 0, z: 0, w: 0.92387956}
-  m_LocalPosition: {x: -1219.6, y: 30, z: 683.6}
+  m_LocalPosition: {x: -964.65, y: 30, z: 683.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -39609,6 +39609,7 @@ GameObject:
   - component: {fileID: 1923990784}
   - component: {fileID: 1923990785}
   - component: {fileID: 1923990786}
+  - component: {fileID: 1923990787}
   m_Layer: 0
   m_Name: E1
   m_TagString: Untagged
@@ -39704,6 +39705,28 @@ MonoBehaviour:
   healthFill: {fileID: 1156989497}
   Rewards: []
   Damage: 1
+--- !u!114 &1923990787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1923990781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd2801635763d3e418c66ee60baa0bf6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bossArmies:
+  - id: 2
+    isDefeated: 0
+    isReturned: 1
+    numbers: 33
+  - id: 10
+    isDefeated: 0
+    isReturned: 1
+    numbers: 33
+  healTime: 10
 --- !u!1 &1932034018
 GameObject:
   m_ObjectHideFlags: 0
