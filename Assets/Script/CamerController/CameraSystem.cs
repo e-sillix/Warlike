@@ -6,8 +6,9 @@ using Cinemachine;
 public class CameraSystem : MonoBehaviour
 {
     [SerializeField]private CinemachineVirtualCamera cinemachineVirtualCamera;
+    [SerializeField]private GlobalUIManager globalUIManager;
     [SerializeField] private float followOffsetMax,followOffsetMin,zoomSpeed,zoomAmount,moveSpeed
-    ,touchSensitivity;
+    ,touchSensitivity,tapTime,tapDistance;
     private float FOV=50;
     private Vector3 followOffset;
     private bool isTouching = false;
@@ -41,14 +42,14 @@ public class CameraSystem : MonoBehaviour
             float touchDistance = (touch.position - touchStartPos).magnitude;
 
             // Check if it was a quick tap (not a swipe)
-            if (touchDuration < 0.2f && touchDistance < 10f) 
+            if (touchDuration < tapTime && touchDistance < tapDistance) 
             {
                 Debug.Log("Tap detected!");
                 // Handle tap action here
             }
 
             isTouching = false;
-        }
+            }
             }
     }
     void HandleCameraTouchMovement()

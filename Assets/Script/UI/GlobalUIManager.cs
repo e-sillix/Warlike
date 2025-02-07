@@ -22,16 +22,10 @@ public class GlobalUIManager : MonoBehaviour
         // if(permissionForUI){        
         if (Input.GetMouseButtonDown(0)){ // Detect left mouse button click
          if (EventSystem.current.IsPointerOverGameObject())
-            {
-                //  if(spawnedPointer){
-                //         Destroy(spawnedPointer);
-                //     }
-                return;
-                
+            {               
+                return;                
             } 
-            // Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            // RaycastHit hit;
-            // if (Physics.Raycast(ray, out hit))//this will move
+            
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             int layerMask = ~LayerMask.GetMask("IgnoreClick"); // Exclude "IgnoreClick" layer
             if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, layerMask))

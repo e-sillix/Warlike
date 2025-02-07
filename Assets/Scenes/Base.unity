@@ -14424,7 +14424,7 @@ Transform:
   m_GameObject: {fileID: 622944426}
   serializedVersion: 2
   m_LocalRotation: {x: 0.3736123, y: 0.19996423, z: -0.08282788, w: 0.9019799}
-  m_LocalPosition: {x: -18.520222, y: 43.82258, z: -39.716743}
+  m_LocalPosition: {x: -30.567543, y: 72.32897, z: -65.55231}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -20332,6 +20332,8 @@ MonoBehaviour:
   zoomAmount: 40
   moveSpeed: 50
   touchSensitivity: 0.1
+  tapTime: 0.4
+  tapDistance: 7
 --- !u!4 &928523307
 Transform:
   m_ObjectHideFlags: 0
@@ -21484,7 +21486,7 @@ Transform:
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
   m_LocalRotation: {x: 0.3736123, y: 0.19996426, z: -0.08282791, w: 0.90197986}
-  m_LocalPosition: {x: -18.520222, y: 43.82258, z: -39.716743}
+  m_LocalPosition: {x: -30.567543, y: 72.32897, z: -65.55231}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -29953,7 +29955,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 1
-  m_FollowOffset: {x: 0, y: 43.82258, z: -43.82258}
+  m_FollowOffset: {x: 0, y: 72.32897, z: -72.32897}
   m_XDamping: 0
   m_YDamping: 0
   m_ZDamping: 0
