@@ -47,6 +47,6 @@ public class TroopsUI : MonoBehaviour
     public void CancelClicked(){
         //when cancel is clicked in troops ui panel,directly attached to it.
         TroopsStatsPanel.SetActive(false);
-        globalUIManager.UIisClosed();
+        // globalUIManager.UIisClosed();
     }
 }

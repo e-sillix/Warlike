@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using UnityEngine.EventSystems;
 
 public class CameraSystem : MonoBehaviour
 {
@@ -32,7 +33,7 @@ public class CameraSystem : MonoBehaviour
         // HandleCameraZoom();
         // HandleCameraMovement();
         if(Input.touchCount >0){
-            istouchingAllowed=!globalUIManager.UIState();
+            istouchingAllowed=!globalUIManager.IsUIInterfering();
         }
         if(istouchingAllowed){
 
@@ -43,8 +44,13 @@ public class CameraSystem : MonoBehaviour
     }
     void TouchDetector(){
         if(Input.touchCount == 1){
+            
             Touch touch = Input.GetTouch(0);
-
+            if (EventSystem.current.IsPointerOverGameObject(touch.fingerId))
+        {
+            Debug.Log("Tapped on UI, ignoring touch.");
+            return; // Don't process game actions
+        }
         if (touch.phase == TouchPhase.Began) // Finger touches the screen
         {
             isTouching = true;

@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 public class GlobalUIManager : MonoBehaviour
 {
     [SerializeField]private LayerMask groundLayer,enemyLayer,mineLayer;
-    [SerializeField] private GameObject MarchPointer;
+    [SerializeField] private GameObject MarchPointer,UIInterference;
 
     // private bool permissionForUI=true,IsUIOpen=false; //this will be falsed by other cancel managers only
     private GameObject clickedObject;
@@ -17,16 +17,21 @@ public class GlobalUIManager : MonoBehaviour
     private GameObject lastClicked,currentClicked;
     private GameObject spawnedPointer;
 
-    private bool IsUIOpen=false;
+    // private bool IsUIOpen=false;
 
-    public void UIisOpened(){
-        IsUIOpen=true;
+   
+    public bool IsUIInterfering(){
+        // IsAnyChildActive(Transform parent)
+{
+    foreach (Transform child in UIInterference.transform)
+    {
+        if (child.gameObject.activeInHierarchy) // Checks if child is fully active in the scene
+        {
+            return true; // Found an active child
+        }
     }
-    public void UIisClosed(){
-        IsUIOpen=false;
-    }
-    public bool UIState(){
-        return IsUIOpen;
+    return false; // No active child found
+}
     }
     public void TapAction(){
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
