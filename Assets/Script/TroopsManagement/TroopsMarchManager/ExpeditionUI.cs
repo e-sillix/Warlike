@@ -23,11 +23,7 @@ public class ExpeditionUI : MonoBehaviour
         // Add listeners to each button
         // Army1Button.onClick.AddListener(()=>ExitingIsChoosen(1));
     }
-    // public void TriggerConfirmationUI(){
-    //     //by expedition manager 
-    //     // Debug.Log("Triggered");
-    //     InitialConfirmPanel.SetActive(true);//the one will with tick and cross panel
-    // }
+    
     public void Stage2ConfirmationUI(){//triggered by stage 1 confirmation ui
         //the one with exiting army or creating another army option
         ConfirmPanel2.SetActive(true);
@@ -68,14 +64,6 @@ public class ExpeditionUI : MonoBehaviour
         //this will be triggered by ui cancel buttons
         // refresh all ui;
 
-        // SetTroopType("");
-        // MarchingStage1UIPanel.SetActive(false);
-        // MarchingStage2UIPanel.SetActive(false);
-        // MarchingStage3UIPanel.SetActive(false);
-        // MarchingStage4UIPanel.SetActive(false);
-        // marchManager.EndStage();
-        // target=null;
-        // InitialConfirmPanel.SetActive(false);
         ConfirmPanel2.SetActive(false);
 
         troopsExpeditionManager.EndStage();

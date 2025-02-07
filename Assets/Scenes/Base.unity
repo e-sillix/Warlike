@@ -14424,7 +14424,7 @@ Transform:
   m_GameObject: {fileID: 622944426}
   serializedVersion: 2
   m_LocalRotation: {x: 0.3736123, y: 0.19996423, z: -0.08282788, w: 0.9019799}
-  m_LocalPosition: {x: -30.567543, y: 72.32897, z: -65.55231}
+  m_LocalPosition: {x: -14.351317, y: 33.95811, z: -30.7765}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -20326,6 +20326,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cinemachineVirtualCamera: {fileID: 622944427}
+  globalUIManager: {fileID: 1180219576}
   followOffsetMax: 160
   followOffsetMin: 20
   zoomSpeed: 15
@@ -21486,7 +21487,7 @@ Transform:
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
   m_LocalRotation: {x: 0.3736123, y: 0.19996426, z: -0.08282791, w: 0.90197986}
-  m_LocalPosition: {x: -30.567543, y: 72.32897, z: -65.55231}
+  m_LocalPosition: {x: -14.351317, y: 33.95811, z: -30.7765}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -22402,7 +22403,6 @@ RectTransform:
   - {fileID: 556064173}
   - {fileID: 552474731}
   - {fileID: 772394939}
-  - {fileID: 1829344476}
   m_Father: {fileID: 1373632347}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -26100,7 +26100,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1180219574}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -29955,7 +29955,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 1
-  m_FollowOffset: {x: 0, y: 72.32897, z: -72.32897}
+  m_FollowOffset: {x: 0, y: 33.95811, z: -33.95811}
   m_XDamping: 0
   m_YDamping: 0
   m_ZDamping: 0
@@ -37626,41 +37626,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1825002281}
   m_CullTransparentMesh: 1
---- !u!1 &1829344475
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1829344476}
-  m_Layer: 5
-  m_Name: MarchingStage4
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!224 &1829344476
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1829344475}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1007582377}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1835822512
 GameObject:
   m_ObjectHideFlags: 0
@@ -44658,9 +44623,9 @@ SceneRoots:
   m_Roots:
   - {fileID: 705507995}
   - {fileID: 963194228}
+  - {fileID: 622944428}
+  - {fileID: 928523307}
   - {fileID: 1373632347}
   - {fileID: 391697916}
   - {fileID: 1874264757}
   - {fileID: 731424376}
-  - {fileID: 622944428}
-  - {fileID: 928523307}

@@ -14,17 +14,32 @@ public class CameraSystem : MonoBehaviour
     private bool isTouching = false;
     private float touchStartTime;
     private Vector2 touchStartPos;
+
+    private bool istouchingAllowed=true;
+    
+    // public void SetTouchingAllowed(){
+    //     istouchingAllowed=true;
+    // }
+    // public void SetTouchingNotAllowed(){
+    //     istouchingAllowed=false;
+    // }
     void Awake(){
         followOffset = cinemachineVirtualCamera.GetCinemachineComponent<
         CinemachineTransposer>().m_FollowOffset;
     }
     private void Update() {
         // HandleCameraZoomFOV();
-        HandleCameraZoom();
-        HandleCameraMovement();
+        // HandleCameraZoom();
+        // HandleCameraMovement();
+        if(Input.touchCount >0){
+            istouchingAllowed=!globalUIManager.UIState();
+        }
+        if(istouchingAllowed){
+
         HandleCameraTouchMovement();
         TouchDetector();
         HandleCameraZoomTouch();
+        }
     }
     void TouchDetector(){
         if(Input.touchCount == 1){
@@ -46,6 +61,7 @@ public class CameraSystem : MonoBehaviour
             {
                 Debug.Log("Tap detected!");
                 // Handle tap action here
+                globalUIManager.TapAction();
             }
 
             isTouching = false;
@@ -104,39 +120,39 @@ void HandleCameraZoomTouch(){
             Time.deltaTime * zoomSpeed
         );
     }}
-    void HandleCameraMovement(){
-        Vector3 inputDir = new Vector3(0, 0, 0);
-        if (Input.GetKey(KeyCode.W)) inputDir.z = +1f;
-        if (Input.GetKey(KeyCode.S)) inputDir.z = -1f;
-        if (Input.GetKey(KeyCode.A)) inputDir.x = -1f;
-        if (Input.GetKey(KeyCode.D)) inputDir.x = +1f;
+    // void HandleCameraMovement(){
+    //     Vector3 inputDir = new Vector3(0, 0, 0);
+    //     if (Input.GetKey(KeyCode.W)) inputDir.z = +1f;
+    //     if (Input.GetKey(KeyCode.S)) inputDir.z = -1f;
+    //     if (Input.GetKey(KeyCode.A)) inputDir.x = -1f;
+    //     if (Input.GetKey(KeyCode.D)) inputDir.x = +1f;
 
-        Vector3 moveDir = transform. forward * inputDir.z + transform.right * inputDir.x;
+    //     Vector3 moveDir = transform. forward * inputDir.z + transform.right * inputDir.x;
 
-        // float moveSpeed = 50f;
-        transform.position += moveDir * moveSpeed * Time.deltaTime;
-    }
+    //     // float moveSpeed = 50f;
+    //     transform.position += moveDir * moveSpeed * Time.deltaTime;
+    // }
     
 
-    void HandleCameraZoom(){
-        Vector3 zoomDir = followOffset.normalized;
+    // void HandleCameraZoom(){
+    //     Vector3 zoomDir = followOffset.normalized;
 
-        if (Input.mouseScrollDelta.y > 0) {
-            followOffset -=  zoomDir * zoomAmount;}
+    //     if (Input.mouseScrollDelta.y > 0) {
+    //         followOffset -=  zoomDir * zoomAmount;}
 
-        if (Input.mouseScrollDelta.y < 0) {
-            followOffset +=  zoomDir * zoomAmount;}
+    //     if (Input.mouseScrollDelta.y < 0) {
+    //         followOffset +=  zoomDir * zoomAmount;}
 
-        if (followOffset.magnitude < followOffsetMin) {
-            followOffset = zoomDir * followOffsetMin;}
+    //     if (followOffset.magnitude < followOffsetMin) {
+    //         followOffset = zoomDir * followOffsetMin;}
 
-        if (followOffset.magnitude > followOffsetMax) {
-            followOffset = zoomDir * followOffsetMax;}
+    //     if (followOffset.magnitude > followOffsetMax) {
+    //         followOffset = zoomDir * followOffsetMax;}
 
-        // float zoomSpeed = 10f;
-        cinemachineVirtualCamera.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset =
-        Vector3.Lerp(cinemachineVirtualCamera.GetCinemachineComponent<CinemachineTransposer>()
-        .m_FollowOffset, followOffset,Time.deltaTime*zoomSpeed);
-    }
+    //     // float zoomSpeed = 10f;
+    //     cinemachineVirtualCamera.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset =
+    //     Vector3.Lerp(cinemachineVirtualCamera.GetCinemachineComponent<CinemachineTransposer>()
+    //     .m_FollowOffset, followOffset,Time.deltaTime*zoomSpeed);
+    // }
     
 }

@@ -33,17 +33,20 @@ public class TroopsExpeditionManager : MonoBehaviour
         // Debug.Log("RE");
 
         expeditionUI.Stage2ConfirmationUI();
+        globalUIManager.UIisOpened();
         
     }
     public void CombatTargetClicked(GameObject Target){
         //by creepUI when clicked march button
         target=Target;
         expeditionUI.Stage2ConfirmationUI();
+          globalUIManager.UIisOpened();
     }
     public void MineTargetClicked(GameObject Target){
         //by creepUI when clicked march button
         target=Target;
         expeditionUI.Stage2ConfirmationUI();
+          globalUIManager.UIisOpened();
     }
     public TheUnit[] GetAllThePresentUnits(){//this will be called by ui indirectly for showing info of 
     //current present army
@@ -108,7 +111,9 @@ public class TroopsExpeditionManager : MonoBehaviour
     }
 
     public void EndStage(){
-        globalUIManager.RefreshPermission();
+        // globalUIManager.RefreshPermission();
+        globalUIManager.UIisClosed();
+
     }
 
     public void MarchDone(GameObject TheArmyInst){//called by TheUnit when unit reached.
