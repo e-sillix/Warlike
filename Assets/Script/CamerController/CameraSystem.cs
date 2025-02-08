@@ -1,20 +1,25 @@
 using UnityEngine;
 using Cinemachine;
 using UnityEngine.EventSystems;
+using System.Collections;
+
 
 public class CameraSystem : MonoBehaviour
 {
     [SerializeField]private CinemachineVirtualCamera cinemachineVirtualCamera;
     [SerializeField]private GlobalUIManager globalUIManager;
     [SerializeField] private float followOffsetMax,followOffsetMin,zoomSpeed,zoomAmount,moveSpeed
-    ,touchSensitivity,tapTime,tapDistance;
+    ,touchSensitivity,tapTime,tapDistance,FocusingTimeLimit,heightMovementSpeed,normalObjectZoom
+    ,HomeZoom;
     private float FOV=50;
+    [SerializeField] private GameObject Home;
     private Vector3 followOffset;
-    private bool isTouching = false;
+    private bool isTouching = false, istouchingAllowed=true, isFocusDone;
     private float touchStartTime;
     private Vector2 touchStartPos;
 
-    private bool istouchingAllowed=true;
+    private GameObject TargetForFocus;
+    private Coroutine focusRoutine;
     
     void Awake(){
         followOffset = cinemachineVirtualCamera.GetCinemachineComponent<
@@ -32,6 +37,11 @@ public class CameraSystem : MonoBehaviour
         HandleCameraTouchMovement();
         TouchDetector();
         HandleCameraZoomTouch();
+        }
+        if(TargetForFocus){
+            FocusingOnTarget();
+            // followOffset = cinemachineVirtualCamera.GetCinemachineComponent<
+            // CinemachineTransposer>().m_FollowOffset;
         }
     }
     void TouchDetector(){
@@ -82,10 +92,63 @@ public class CameraSystem : MonoBehaviour
             Vector3 moveDir = -transform.forward * touchDelta.y - transform.right * touchDelta.x;
 
             // Apply movement
-            transform.position += moveDir * Time.deltaTime * moveSpeed*touchSensitivity
-            ; // Scale down movement
+            transform.position += moveDir * Time.deltaTime * moveSpeed*touchSensitivity*
+            (followOffset.magnitude/followOffsetMax); // Scale down movement
+            Debug.Log("movement speed ratio:"+followOffset.magnitude+"/"+followOffsetMax);
         }
 }}
+
+
+    public void SetFocusOn(GameObject target){
+        //called by global ui to focus on.
+        // TargetForFocus=target;
+        if (focusRoutine != null)
+        {
+            StopCoroutine(focusRoutine);
+        }
+        TargetForFocus = target;
+        focusRoutine = StartCoroutine(FocusingOnTarget());
+    }
+   private IEnumerator FocusingOnTarget()
+{
+    float timeElapsed = 0f;
+    Vector3 startPos = transform.position;
+    Vector3 targetPos = TargetForFocus.transform.position;
+
+    // Get the current zoom offset
+    Vector3 startZoomOffset = cinemachineVirtualCamera.GetCinemachineComponent<CinemachineTransposer>().
+    m_FollowOffset;
+    Vector3 targetZoomOffset = startZoomOffset.normalized * Mathf.Clamp(
+        normalObjectZoom, followOffsetMin, followOffsetMax);; // Adjust this factor for desired 
+    //zoom strength
+
+    while (timeElapsed < FocusingTimeLimit)
+    {
+        float t = timeElapsed / FocusingTimeLimit;
+        t = t * t * (3f - 2f * t); // SmoothStep function for smooth start and end
+
+        // Move camera toward target smoothly
+        transform.position = Vector3.Lerp(startPos, targetPos, t);
+
+        // Zoom-in smoothly
+        cinemachineVirtualCamera.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset =
+            Vector3.Lerp(startZoomOffset, targetZoomOffset, t);
+
+        timeElapsed += Time.deltaTime;
+        followOffset = cinemachineVirtualCamera.GetCinemachineComponent<
+        CinemachineTransposer>().m_FollowOffset;
+        yield return null; // Wait for next frame
+    }
+
+    // Ensure final position and zoom
+    transform.position = targetPos;
+    cinemachineVirtualCamera.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset = 
+    targetZoomOffset;
+
+    TargetForFocus = null;
+    focusRoutine = null; // Reset coroutine reference
+    Debug.Log("Focus Done.");
+}
 
 void HandleCameraZoomTouch(){
         Vector3 zoomDir = followOffset.normalized;
@@ -118,6 +181,57 @@ void HandleCameraZoomTouch(){
             Time.deltaTime * zoomSpeed
         );
     }}
+
+     public void SetFocusOnHome(){
+        //called by global ui to focus on.
+        // TargetForFocus=target;
+        if (focusRoutine != null)
+        {
+            StopCoroutine(focusRoutine);
+        }
+        TargetForFocus = Home;
+        focusRoutine = StartCoroutine(FocusOnHome());
+    }
+    IEnumerator FocusOnHome(){
+        float timeElapsed = 0f;
+    Vector3 startPos = transform.position;
+    Vector3 targetPos = TargetForFocus.transform.position;
+
+    // Get the current zoom offset
+    Vector3 startZoomOffset = cinemachineVirtualCamera.GetCinemachineComponent<CinemachineTransposer>().
+    m_FollowOffset;
+    Vector3 targetZoomOffset = startZoomOffset.normalized * Mathf.Clamp(
+        HomeZoom, followOffsetMin, followOffsetMax);; // Adjust this factor for desired 
+    //zoom strength
+
+    while (timeElapsed < FocusingTimeLimit)
+    {
+        float t = timeElapsed / FocusingTimeLimit;
+        t = t * t * (3f - 2f * t); // SmoothStep function for smooth start and end
+
+        // Move camera toward target smoothly
+        transform.position = Vector3.Lerp(startPos, targetPos, t);
+
+        // Zoom-in smoothly
+        cinemachineVirtualCamera.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset =
+            Vector3.Lerp(startZoomOffset, targetZoomOffset, t);
+
+        timeElapsed += Time.deltaTime;
+        followOffset = cinemachineVirtualCamera.GetCinemachineComponent<
+        CinemachineTransposer>().m_FollowOffset;
+        yield return null; // Wait for next frame
+    }
+
+    // Ensure final position and zoom
+    transform.position = targetPos;
+    cinemachineVirtualCamera.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset = 
+    targetZoomOffset;
+
+    TargetForFocus = null;
+    focusRoutine = null; // Reset coroutine reference
+    Debug.Log("Focus Done.");
+    }
+
     // void HandleCameraMovement(){
     //     Vector3 inputDir = new Vector3(0, 0, 0);
     //     if (Input.GetKey(KeyCode.W)) inputDir.z = +1f;

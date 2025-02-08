@@ -10,6 +10,7 @@ public class GlobalUIManager : MonoBehaviour
 
     // private bool permissionForUI=true,IsUIOpen=false; //this will be falsed by other cancel managers only
     private GameObject clickedObject;
+    [SerializeField] private CameraSystem cameraSystem;
     [SerializeField] private TroopsTrainingManager troopsTrainingManager;
     [SerializeField] private TroopsExpeditionManager troopsExpeditionManager;
     [SerializeField] private InfoUIManager infoUIManager;
@@ -165,13 +166,25 @@ public class GlobalUIManager : MonoBehaviour
             ,ClickedObject,hit);
             // troopsExpeditionManager.PotentialTargetForMarchClicked(ClickedObject,hit);
         }
-        else if(IsEnemyLayer(ClickedObject)){
-            ClickedObject.GetComponentInParent<CreepUI>().CreepSelected(troopsExpeditionManager,
+        // else if(IsEnemyLayer(ClickedObject)){
+        //     ClickedObject.GetComponentInParent<CreepUI>().CreepSelected(troopsExpeditionManager,
+        //     infoUIManager);
+        //     cameraSystem.SetFocusOn(ClickedObject);
+        // }     
+        else if(ClickedObject.GetComponentInParent<CreepUI>())  {
+             ClickedObject.GetComponentInParent<CreepUI>().CreepSelected(troopsExpeditionManager,
             infoUIManager);
-        }        
-        else if(IsMineLayer(ClickedObject)){
+            cameraSystem.SetFocusOn(ClickedObject);
+        } 
+        // else if(IsMineLayer(ClickedObject)){
+        //     ClickedObject.GetComponentInParent<MineUI>().MineSelected(troopsExpeditionManager,
+        //     infoUIManager);
+        //     cameraSystem.SetFocusOn(ClickedObject);
+        // }
+        else if(ClickedObject.GetComponentInParent<MineUI>()){
             ClickedObject.GetComponentInParent<MineUI>().MineSelected(troopsExpeditionManager,
             infoUIManager);
+            cameraSystem.SetFocusOn(ClickedObject);
         }
         else if(ClickedObject.GetComponentInParent<BuildingInstance>()){
             Debug.Log("building clicked.");
@@ -189,11 +202,13 @@ public class GlobalUIManager : MonoBehaviour
             Debug.Log("Boss army clicked");
             ClickedObject.GetComponentInParent<BossArmyUI>().BossArmySelected(troopsExpeditionManager,
             infoUIManager);
+            cameraSystem.SetFocusOn(ClickedObject);
         }
         else if(ClickedObject.GetComponentInParent<BossUI>()){
             Debug.Log("Boss clicked");
             ClickedObject.GetComponentInParent<BossUI>().BossSelected(troopsExpeditionManager,
             infoUIManager);
+            cameraSystem.SetFocusOn(ClickedObject);
         }
         
     }
@@ -202,14 +217,14 @@ public class GlobalUIManager : MonoBehaviour
     {
         return (groundLayer.value & (1 << obj.layer)) != 0;
     }
-    private bool IsEnemyLayer(GameObject obj)
-    {
-        return (enemyLayer.value & (1 << obj.layer)) != 0;
-    }
-    private bool IsMineLayer(GameObject obj)
-    {
-        return (mineLayer.value & (1 << obj.layer)) != 0;
-    }
+    // private bool IsEnemyLayer(GameObject obj)
+    // {
+    //     return (enemyLayer.value & (1 << obj.layer)) != 0;
+    // }
+    // private bool IsMineLayer(GameObject obj)
+    // {
+    //     return (mineLayer.value & (1 << obj.layer)) != 0;
+    // }
     public void RefreshPermission(){
     //     // permissionForUI=true;
     }
