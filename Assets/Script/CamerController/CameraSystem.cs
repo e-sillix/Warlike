@@ -16,12 +16,6 @@ public class CameraSystem : MonoBehaviour
 
     private bool istouchingAllowed=true;
     
-    // public void SetTouchingAllowed(){
-    //     istouchingAllowed=true;
-    // }
-    // public void SetTouchingNotAllowed(){
-    //     istouchingAllowed=false;
-    // }
     void Awake(){
         followOffset = cinemachineVirtualCamera.GetCinemachineComponent<
         CinemachineTransposer>().m_FollowOffset;
