@@ -78,25 +78,28 @@ public class CameraSystem : MonoBehaviour
     }
     void HandleCameraTouchMovement()
     {
-    // float moveSpeed = 50f; // Movement speed
-    Vector2 touchDelta;
-
-    if (Input.touchCount == 1) // Only move if one finger is touching
+    if (Input.touchCount == 1)
     {
         Touch touch = Input.GetTouch(0);
 
-        if (touch.phase == TouchPhase.Moved) // Detect swipe movement
+        if (touch.phase == TouchPhase.Moved)
         {
-            touchDelta = touch.deltaPosition;
-            // Invert movement direction to match intuitive controls
-            Vector3 moveDir = -transform.forward * touchDelta.y - transform.right * touchDelta.x;
+            Ray touchRay = Camera.main.ScreenPointToRay(touch.position);
+            Ray prevTouchRay = Camera.main.ScreenPointToRay(touch.position - touch.deltaPosition);
 
-            // Apply movement
-            transform.position += moveDir * Time.deltaTime * moveSpeed*touchSensitivity*
-            (followOffset.magnitude/followOffsetMax); // Scale down movement
-            Debug.Log("movement speed ratio:"+followOffset.magnitude+"/"+followOffsetMax);
+            Plane groundPlane = new Plane(Vector3.up, Vector3.zero); // Assuming the ground is flat at y=0
+
+            if (groundPlane.Raycast(prevTouchRay, out float enterPrev) && groundPlane.
+            Raycast(touchRay, out float enterCurr))
+            {
+                Vector3 prevPoint = prevTouchRay.GetPoint(enterPrev);
+                Vector3 currPoint = touchRay.GetPoint(enterCurr);
+                
+                Vector3 moveDir = prevPoint - currPoint; // Reverse direction for natural feel
+                transform.position += moveDir ;
+            }
         }
-}}
+    }}
 
 
     public void SetFocusOn(GameObject target){
