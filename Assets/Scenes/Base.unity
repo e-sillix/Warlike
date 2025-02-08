@@ -9457,6 +9457,7 @@ MonoBehaviour:
   woodsCostUI: {fileID: 1415652435}
   grainCostUI: {fileID: 1699708896}
   stoneCostUI: {fileID: 1689835529}
+  globalBuildingUIManager: {fileID: 1180219577}
   globalUIManager: {fileID: 1180219576}
   messageManager: {fileID: 317357924}
 --- !u!114 &536403205
@@ -25205,6 +25206,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1180219575}
   - component: {fileID: 1180219576}
+  - component: {fileID: 1180219577}
   m_Layer: 0
   m_Name: GlobalUI
   m_TagString: Untagged
@@ -25256,6 +25258,19 @@ MonoBehaviour:
   troopsExpeditionManager: {fileID: 850240512}
   infoUIManager: {fileID: 1900177691}
   troopsUI: {fileID: 520292769}
+--- !u!114 &1180219577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1180219574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c4cd112651e666439456b9a54b2e201, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraSystem: {fileID: 928523306}
 --- !u!1 &1190686216
 GameObject:
   m_ObjectHideFlags: 0
@@ -26827,7 +26842,7 @@ RectTransform:
   m_Children:
   - {fileID: 765639906}
   - {fileID: 1243978767}
-  m_Father: {fileID: 1470609510}
+  m_Father: {fileID: 1300122140}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -27018,6 +27033,42 @@ RectTransform:
   - {fileID: 1742949734}
   - {fileID: 674259707}
   m_Father: {fileID: 1470609510}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1300122139
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1300122140}
+  m_Layer: 5
+  m_Name: Exception
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1300122140
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1300122139}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1258393784}
+  m_Father: {fileID: 1373632347}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -27979,6 +28030,7 @@ RectTransform:
   m_Children:
   - {fileID: 963581593}
   - {fileID: 1470609510}
+  - {fileID: 1300122140}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -28750,7 +28802,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa7155796051b734daa718462081dc5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_BindingMode: 1
+  m_BindingMode: 2
   m_FollowOffset: {x: 0, y: 100, z: -100}
   m_XDamping: 0
   m_YDamping: 0
@@ -29741,7 +29793,6 @@ RectTransform:
   - {fileID: 2097872633}
   - {fileID: 1147447120}
   - {fileID: 440431209}
-  - {fileID: 1258393784}
   - {fileID: 376507852}
   - {fileID: 1297151617}
   - {fileID: 702664698}
@@ -42458,6 +42509,18 @@ MonoBehaviour:
       - m_Target: {fileID: 536403204}
         m_TargetAssemblyTypeName: BuildingUIManager, Assembly-CSharp
         m_MethodName: CancelIsClicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1180219577}
+        m_TargetAssemblyTypeName: GlobalBuildingUIManager, Assembly-CSharp
+        m_MethodName: BuildingUIIsClosed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

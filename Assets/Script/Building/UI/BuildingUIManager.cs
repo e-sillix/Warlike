@@ -16,6 +16,7 @@ public class BuildingUIManager : MonoBehaviour
     [SerializeField]private TextMeshProUGUI woodsCostUI;    
     [SerializeField]private TextMeshProUGUI grainCostUI;    
     [SerializeField]private TextMeshProUGUI stoneCostUI;    
+    [SerializeField] private GlobalBuildingUIManager globalBuildingUIManager;
     // private BluePrint bluePrint;
     private int woodCost;
     private int grainCost;
@@ -47,7 +48,7 @@ public class BuildingUIManager : MonoBehaviour
 
             //trigger confirmationui
             ConfirmationUI.SetActive(true);
-
+            globalBuildingUIManager.BuildingUIIsActive();
         }
 
         //there will be improvement like when click outside of kingdom++++++++++++++++++ 

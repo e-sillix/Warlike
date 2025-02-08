@@ -20,10 +20,14 @@ public class CameraSystem : MonoBehaviour
 
     private GameObject TargetForFocus;
     private Coroutine focusRoutine;
+    private bool exceptionUIActive;
     
     void Awake(){
         followOffset = cinemachineVirtualCamera.GetCinemachineComponent<
         CinemachineTransposer>().m_FollowOffset;
+    }
+    public void SetException(bool t){
+        exceptionUIActive=t;
     }
     private void Update() {
         // HandleCameraZoomFOV();
@@ -33,7 +37,10 @@ public class CameraSystem : MonoBehaviour
             istouchingAllowed=!globalUIManager.IsUIInterfering();
         }
         if(istouchingAllowed){
-
+        if(exceptionUIActive){
+            HandleCameraTouchMovement();
+        return;
+        }
         HandleCameraTouchMovement();
         TouchDetector();
         HandleCameraZoomTouch();
@@ -235,39 +242,5 @@ void HandleCameraZoomTouch(){
     Debug.Log("Focus Done.");
     }
 
-    // void HandleCameraMovement(){
-    //     Vector3 inputDir = new Vector3(0, 0, 0);
-    //     if (Input.GetKey(KeyCode.W)) inputDir.z = +1f;
-    //     if (Input.GetKey(KeyCode.S)) inputDir.z = -1f;
-    //     if (Input.GetKey(KeyCode.A)) inputDir.x = -1f;
-    //     if (Input.GetKey(KeyCode.D)) inputDir.x = +1f;
-
-    //     Vector3 moveDir = transform. forward * inputDir.z + transform.right * inputDir.x;
-
-    //     // float moveSpeed = 50f;
-    //     transform.position += moveDir * moveSpeed * Time.deltaTime;
-    // }
-    
-
-    // void HandleCameraZoom(){
-    //     Vector3 zoomDir = followOffset.normalized;
-
-    //     if (Input.mouseScrollDelta.y > 0) {
-    //         followOffset -=  zoomDir * zoomAmount;}
-
-    //     if (Input.mouseScrollDelta.y < 0) {
-    //         followOffset +=  zoomDir * zoomAmount;}
-
-    //     if (followOffset.magnitude < followOffsetMin) {
-    //         followOffset = zoomDir * followOffsetMin;}
-
-    //     if (followOffset.magnitude > followOffsetMax) {
-    //         followOffset = zoomDir * followOffsetMax;}
-
-    //     // float zoomSpeed = 10f;
-    //     cinemachineVirtualCamera.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset =
-    //     Vector3.Lerp(cinemachineVirtualCamera.GetCinemachineComponent<CinemachineTransposer>()
-    //     .m_FollowOffset, followOffset,Time.deltaTime*zoomSpeed);
-    // }
-    
+   
 }

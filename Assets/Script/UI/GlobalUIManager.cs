@@ -19,7 +19,7 @@ public class GlobalUIManager : MonoBehaviour
     private GameObject spawnedPointer;
 
     // private bool IsUIOpen=false;
-
+    
    
     public bool IsUIInterfering(){
         // IsAnyChildActive(Transform parent)
