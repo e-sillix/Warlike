@@ -48,7 +48,7 @@ public class CreepSpawnManager : MonoBehaviour
         creep.GetComponent<TheCreep>().Dependency(this);
         creep.transform.SetParent(ParentObject.transform);
         creep.transform.localRotation = Quaternion.identity;
-        Debug.Log("New Creep Instantiated!!!!");
+        // Debug.Log("New Creep Instantiated!!!!");
     }
     
 

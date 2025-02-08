@@ -11,10 +11,10 @@ public class CameraSystem : MonoBehaviour
     [SerializeField] private float followOffsetMax,followOffsetMin,zoomSpeed,zoomAmount,moveSpeed
     ,touchSensitivity,tapTime,tapDistance,FocusingTimeLimit,heightMovementSpeed,normalObjectZoom
     ,HomeZoom;
-    private float FOV=50;
+    // private float FOV=50;
     [SerializeField] private GameObject Home;
     private Vector3 followOffset;
-    private bool isTouching = false, istouchingAllowed=true, isFocusDone;
+    private bool istouchingAllowed=true;
     private float touchStartTime;
     private Vector2 touchStartPos;
 
@@ -62,7 +62,7 @@ public class CameraSystem : MonoBehaviour
         }
         if (touch.phase == TouchPhase.Began) // Finger touches the screen
         {
-            isTouching = true;
+            // isTouching = true;
             touchStartTime = Time.time;
             touchStartPos = touch.position;
         }
@@ -79,7 +79,7 @@ public class CameraSystem : MonoBehaviour
                 globalUIManager.TapAction();
             }
 
-            isTouching = false;
+            // isTouching = false;
             }
             }
     }

@@ -51,7 +51,7 @@ public class Boss : MonoBehaviour
         while (true) // Keep running the detection indefinitely
         {
             //this will reinstantiate the array 
-            Debug.Log("1");
+            // Debug.Log("1");
             playerArmies=new GameObject[5];
             //now fill it with the detected units present.
             playerArmies=armyDetector.FindNearbyUnits(); // Find the nearby units
@@ -79,8 +79,8 @@ public class Boss : MonoBehaviour
                 yield return new WaitForSeconds(detectionInterval); 
             } // Find the nearby units
             else{
-                Debug.Log("Target not found in the range.");
-                Debug.Log("Starting normal search");
+                // Debug.Log("Target not found in the range.");
+                // Debug.Log("Starting normal search");
                 currentTarget=null;
                 // NullArmiesTarget();
                 StartCoroutine(DetectUnitsEveryInterval());

@@ -8,7 +8,7 @@ public class MiningManager : MonoBehaviour
     [SerializeField] private CurrencyManager currencyManager;
 
     public void InitiateMiningProcess(GameObject TheUnit,TheMine theMine){
-        Mining mining=TheUnit.GetComponent<Mining>();
+        mining=TheUnit.GetComponent<Mining>();
         if(!theMine.IsMineOccupied()){
             if(mining.IsMiningPossible()){                
                 mining.StartMining(theMine);
@@ -21,8 +21,7 @@ public class MiningManager : MonoBehaviour
             }
         }
         else{
-            Debug.Log("already occupied,can't mine");
-        }
+            Debug.Log("already occupied,can't mine");}
     }
     
 

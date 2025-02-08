@@ -63,11 +63,14 @@ public class BuildingUIManager : MonoBehaviour
                 Debug.Log("success");
                 RevertingUI();
                 nullingCost();
-                globalUIManager.RefreshPermission();
+                messageManager.BuildingSuccessfullyBuilt();
+                // globalUIManager.RefreshPermission();
+                globalBuildingUIManager.BuildingUIIsClosed();
             }
             else {
                 if(status==1){
                 Debug.Log("Not inside kingdom");
+                messageManager.BuildingNotInside();
                 RevertingUI();
                 nullingCost();
                 //not inside kingdom

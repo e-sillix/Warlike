@@ -52,7 +52,7 @@ public class GlobalUIManager : MonoBehaviour
             }
             if( lastClicked!=currentClicked){
                 // permissionForUI=true;
-                Debug.Log("Different building clicked");
+                // Debug.Log("Different building clicked");
                 if (lastClicked != null) {
                     BuildingInstance buildinstance = lastClicked.GetComponentInParent<BuildingInstance>();
                     // TheUnit theUnit=lastClicked.GetComponentInParent<TheUnit>();
@@ -62,12 +62,12 @@ public class GlobalUIManager : MonoBehaviour
                     BossArmyUI bossArmyUI=lastClicked.GetComponentInParent<BossArmyUI>();
                     BossUI bossUI=lastClicked.GetComponentInParent<BossUI>();
                     if (buildinstance != null) {
-                        Debug.Log("previous building has BuildingInstance");
+                        // Debug.Log("previous building has BuildingInstance");
                         //this deselects the buildings
                         buildinstance.DisableUI();
                     }
                     else if(troopsInstanceUI){
-                        Debug.Log("Last Clicked Was a unit.");
+                        // Debug.Log("Last Clicked Was a unit.");
                         troopsInstanceUI.RefreshUIB();
                     } 
                     else if(creepUI){
@@ -82,9 +82,9 @@ public class GlobalUIManager : MonoBehaviour
                     else if(bossUI){
                         bossUI.DeSelectBoss();
                     }
-                    else {
-                        Debug.Log("No BuildingInstance found on the last clicked object.");
-                    }
+                    // else {
+                    //     // Debug.Log("No BuildingInstance found on the last clicked object.");
+                    // }
                 }                    
             }
             lastClicked=currentClicked;
@@ -159,7 +159,7 @@ public class GlobalUIManager : MonoBehaviour
     void ClickAnalysis(GameObject ClickedObject,RaycastHit hit){
 
         if(IsGroundLayer(ClickedObject)){
-            Debug.Log("March target clicked");
+            // Debug.Log("March target clicked");
             // MarchTargetClicked=true;
             spawnedPointer=Instantiate(MarchPointer,hit.point,Quaternion.identity);
             spawnedPointer.GetComponent<SpawnedPointer>().Dependency(troopsExpeditionManager
