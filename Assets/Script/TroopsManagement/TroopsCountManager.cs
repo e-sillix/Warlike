@@ -168,4 +168,11 @@ public class TroopsCountManager : MonoBehaviour
         Debug.LogError("Unknown barrack type in countmanager: " + barrackType);
     }
    }
+
+
+   public int[][] ReturnAllTroops(){
+    //for TroopsUI in profile
+
+    return new int[][] { cavalry, infantry, archer, mage };
+   }
 }

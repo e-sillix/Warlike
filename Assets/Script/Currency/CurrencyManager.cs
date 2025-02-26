@@ -27,12 +27,29 @@ public class CurrencyManager : MonoBehaviour
         UpdateUICounter();
     }
     
-    private void UpdateUICounter(){
-        //update counter ui
-        woodsCounter.text = "Woods: " + resourceCurrencies[ResourceType.Wood].ToString();
-        grainCounter.text = "Grains: " + resourceCurrencies[ResourceType.Grain].ToString();
-        stoneCounter.text = "Stone: " + resourceCurrencies[ResourceType.Stone].ToString();
+    private void UpdateUICounter()
+{
+    // Update counter UI with formatted numbers
+    woodsCounter.text = "W: " + NumberFormatter.FormatNumber(resourceCurrencies[ResourceType.Wood]);
+    grainCounter.text = "G: " + NumberFormatter.FormatNumber(resourceCurrencies[ResourceType.Grain]);
+    stoneCounter.text = "S: " + NumberFormatter.FormatNumber(resourceCurrencies[ResourceType.Stone]);
+}
+
+    public static class NumberFormatter
+{
+    public static string FormatNumber(float num)
+    {
+        if (num >= 1_000_000_000) // Billion
+            return (num / 1_000_000_000f).ToString("0.##") + "B";
+        else if (num >= 1_000_000) // Million
+            return (num / 1_000_000f).ToString("0.##") + "M";
+        else if (num >= 1_000) // Thousand
+            return (num / 1_000f).ToString("0.#") + "K";
+        else
+            return num.ToString("0"); // Normal number
     }
+}
+
 
 
     public void AddResource(ResourceType type, int amount)
