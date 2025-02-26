@@ -7,12 +7,11 @@ public class GlobalBuildingUIManager : MonoBehaviour
     [SerializeField]private CameraSystem cameraSystem;
 
    public void BuildingUIIsActive(){
-//indirectly by buildingUI
+//indirectly by buildingUIManager
         cameraSystem.SetException(true);
    }
    public void BuildingUIIsClosed(){
     //triggered directly by button
         cameraSystem.SetException(false);
-
    }
 }

@@ -71,6 +71,7 @@ public class BuildingUIManager : MonoBehaviour
                 if(status==1){
                 Debug.Log("Not inside kingdom");
                 messageManager.BuildingNotInside();
+                globalBuildingUIManager.BuildingUIIsClosed();
                 RevertingUI();
                 nullingCost();
                 //not inside kingdom
