@@ -67,9 +67,12 @@ public class BuildingManager : MonoBehaviour
         tradingManager.SpendingResources(woodCost, grainCost, stoneCost);
     }
     private void SpawnBuilding(){
-        SpawnedBuilding=Instantiate(buildingPrefab,conditionManager.GetTheBlueprintPosition(), 
-        Quaternion.identity);
+        GameObject blue=conditionManager.ReturnBlueprintObj();
+        SpawnedBuilding=Instantiate(buildingPrefab,blue.transform.position,Quaternion.identity );
+        // SpawnedBuilding=Instantiate(buildingPrefab,blue.transform.position,blue 
+        // .transform.rotation);
         SpawnedBuilding.transform.SetParent(ParentObject.transform);
+        SpawnedBuilding.transform.localRotation = Quaternion.identity;
         ProvidingManager();
         conditionManager.DestroyTheBlueprint();
     }

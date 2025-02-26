@@ -58,7 +58,7 @@ MonoBehaviour:
   BlueLayer:
     serializedVersion: 2
     m_Bits: 128
-  TheCollider: {fileID: 8983770906864542122}
+  TheCollider: {fileID: 6936466862485717760}
 --- !u!1 &6180443996183214300
 GameObject:
   m_ObjectHideFlags: 0
@@ -196,7 +196,7 @@ GameObject:
   - component: {fileID: 1227722758203057099}
   - component: {fileID: 2291553749715002012}
   - component: {fileID: 6869606626577124238}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: CubeBlue
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -35,8 +35,11 @@ public class ConditionalManager : MonoBehaviour
         TheChosenBlueprint=Instantiate(chosenBlueprint);
         bluePrint=TheChosenBlueprint.GetComponent<BluePrint>();
     }
-    public Vector3 GetTheBlueprintPosition(){
-        return TheChosenBlueprint.transform.position;
+    // public Vector3 GetTheBlueprintPosition(){
+    //     return TheChosenBlueprint.transform.position;
+    // }
+    public GameObject ReturnBlueprintObj(){
+        return TheChosenBlueprint;
     }
     public void DestroyTheBlueprint(){
         Destroy(TheChosenBlueprint);
