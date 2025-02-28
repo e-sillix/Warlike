@@ -32,7 +32,17 @@ public class ConditionalManager : MonoBehaviour
 
     public void SpawningBluePrint(GameObject chosenBlueprint){
         //instiate blueprint and assign them
-        TheChosenBlueprint=Instantiate(chosenBlueprint);
+        Vector3 spawnPosition = Vector3.zero; // Default position
+
+        Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+
+        if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, LayerMask.GetMask("Ground")))
+        {
+            spawnPosition = hit.point; // Place on the ground
+        }
+
+TheChosenBlueprint = Instantiate(chosenBlueprint, spawnPosition, Quaternion.identity);
+        // TheChosenBlueprint=Instantiate(chosenBluepsrint);
         bluePrint=TheChosenBlueprint.GetComponent<BluePrint>();
     }
     // public Vector3 GetTheBlueprintPosition(){
