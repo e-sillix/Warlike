@@ -21,6 +21,7 @@ public class CameraSystem : MonoBehaviour
     private GameObject TargetForFocus;
     private Coroutine focusRoutine;
     private bool exceptionUIActive;
+    private bool cameraExceptionMoveAllowed;
     
     void Awake(){
         followOffset = cinemachineVirtualCamera.GetCinemachineComponent<
@@ -38,7 +39,31 @@ public class CameraSystem : MonoBehaviour
         }
         if(istouchingAllowed){
         if(exceptionUIActive){
-            HandleCameraTouchMovement();
+            if (Input.touchCount == 1)
+            {
+                Touch touch = Input.GetTouch(0);
+                if(touch.phase==TouchPhase.Began){
+                Ray ray = Camera.main.ScreenPointToRay(touch.position);
+                int layerMask = LayerMask.GetMask("Blue", "Ground"); // Allow only "Blue" and "Ground"
+
+                if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, layerMask))
+                {
+                    BluePrint detectedBlueprint = hit.collider.GetComponentInParent<BluePrint>();
+                    if (detectedBlueprint) {
+                        cameraExceptionMoveAllowed=false;
+                    //    return;
+                    // movingAllowed=true;
+                    }
+                    else{
+                        cameraExceptionMoveAllowed=true;
+                    }
+                    }}
+                if (cameraExceptionMoveAllowed ){
+                    HandleCameraTouchMovement();
+                }
+                    }
+               
+            // HandleCameraTouchMovement();
         return;
         }
         HandleCameraTouchMovement();

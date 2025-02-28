@@ -17,6 +17,7 @@ public class BluePrint : MonoBehaviour
     private bool IsBlueColliding;
     private bool buildingUI;
     private bool IsInsideKingdom;
+    private bool movingAllowed;
     private void Start()
     {
        if (TheCollider != null)
@@ -81,16 +82,48 @@ public class BluePrint : MonoBehaviour
     //*will update position according to camera position
     void UpdateBlueprintPosition()
     {
-        // Create a ray from the center of the screen
-        Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
-        RaycastHit hit;
+        
+        if (Input.touchCount == 1)
+    {
+        Touch touch = Input.GetTouch(0);
+        if(touch.phase==TouchPhase.Began){
+            Ray ray = Camera.main.ScreenPointToRay(touch.position);
+                int layerMask = LayerMask.GetMask("Blue", "Ground"); // Allow only "Blue" and "Ground"
 
-        // Perform the raycast and check if it hits the ground
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, groundLayer))
-        {
-            transform.position = hit.point;
-
+                if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, layerMask))
+                    {
+                    BluePrint detectedBlueprint = hit.collider.GetComponentInParent<BluePrint>();
+                    if (detectedBlueprint) {
+                    //    return;
+                    movingAllowed=true;
+                    }
+                    else{
+                        movingAllowed=false;
+                    }
+                    
+                }
         }
+        if (movingAllowed && touch.phase == TouchPhase.Moved)
+        {
+            Ray touchRay = Camera.main.ScreenPointToRay(touch.position);
+            Ray prevTouchRay = Camera.main.ScreenPointToRay(touch.position - touch.deltaPosition);
+
+            Plane groundPlane = new Plane(Vector3.up, Vector3.zero); // Assuming the ground is flat at y=0
+
+            if (groundPlane.Raycast(prevTouchRay, out float enterPrev) && groundPlane.
+            Raycast(touchRay, out float enterCurr))
+            {
+                Vector3 prevPoint = prevTouchRay.GetPoint(enterPrev);
+                Vector3 currPoint = touchRay.GetPoint(enterCurr);
+                
+                Vector3 moveDir = prevPoint - currPoint; // Reverse direction for natural feel
+                transform.position -= moveDir ;
+            }
+        }
+        if(touch.phase==TouchPhase.Ended){
+            movingAllowed=false;
+        }
+    }
     }
 
 
@@ -102,6 +135,7 @@ public class BluePrint : MonoBehaviour
         // Example: Change color based on collision
         if (ReturnIsColliding())
         {
+            Debug.Log("Colliding");
             renderer.material.color = Color.red; // Collision detected
         }
         else
