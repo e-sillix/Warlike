@@ -14,6 +14,9 @@ public class BluePrint : MonoBehaviour
 
     public LayerMask BlueLayer;
     [SerializeField] private GameObject TheCollider;
+
+    [SerializeField] private GameObject BlueprintVisual;
+    
     private bool IsBlueColliding;
     private bool buildingUI;
     private bool IsInsideKingdom;
@@ -105,20 +108,24 @@ public class BluePrint : MonoBehaviour
         }
         if (movingAllowed && touch.phase == TouchPhase.Moved)
         {
-            Ray touchRay = Camera.main.ScreenPointToRay(touch.position);
-            Ray prevTouchRay = Camera.main.ScreenPointToRay(touch.position - touch.deltaPosition);
 
-            Plane groundPlane = new Plane(Vector3.up, Vector3.zero); // Assuming the ground is flat at y=0
+    Ray touchRay = Camera.main.ScreenPointToRay(touch.position);
+    Ray prevTouchRay = Camera.main.ScreenPointToRay(touch.position - touch.deltaPosition);
 
-            if (groundPlane.Raycast(prevTouchRay, out float enterPrev) && groundPlane.
-            Raycast(touchRay, out float enterCurr))
-            {
-                Vector3 prevPoint = prevTouchRay.GetPoint(enterPrev);
-                Vector3 currPoint = touchRay.GetPoint(enterCurr);
-                
-                Vector3 moveDir = prevPoint - currPoint; // Reverse direction for natural feel
-                transform.position -= moveDir ;
-            }
+    Plane groundPlane = new Plane(Vector3.up, transform.position); // Use current Y instead of y=0
+
+    if (groundPlane.Raycast(prevTouchRay, out float enterPrev) && groundPlane.Raycast(touchRay, out float enterCurr))
+    {
+        Vector3 prevPoint = prevTouchRay.GetPoint(enterPrev);
+        Vector3 currPoint = touchRay.GetPoint(enterCurr);
+
+        Vector3 moveDir = prevPoint - currPoint;
+        
+        // Preserve Y position by setting it to current Y
+        transform.position -= new Vector3(moveDir.x, 0, moveDir.z);
+    
+}
+
         }
         if(touch.phase==TouchPhase.Ended){
             movingAllowed=false;
@@ -129,11 +136,11 @@ public class BluePrint : MonoBehaviour
 
     //*updating color according to collisions
     private void UpdateColorOfBluePrint(){
-        Renderer renderer = TheCollider.GetComponent<Renderer>();
+        Renderer renderer = BlueprintVisual.GetComponent<Renderer>();
     if (renderer != null)
     {
         // Example: Change color based on collision
-        if (ReturnIsColliding())
+        if (IsBlueColliding)
         {
             Debug.Log("Colliding");
             renderer.material.color = Color.red; // Collision detected
@@ -142,6 +149,9 @@ public class BluePrint : MonoBehaviour
         {
             renderer.material.color = Color.white; // No collision
         }
+    }
+    else{
+        Debug.Log("Rendere not there");
     }
     }
 

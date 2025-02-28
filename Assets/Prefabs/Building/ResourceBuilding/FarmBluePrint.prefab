@@ -59,6 +59,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   TheCollider: {fileID: 6936466862485717760}
+  BlueprintVisual: {fileID: 8983770906864542122}
 --- !u!1 &6180443996183214300
 GameObject:
   m_ObjectHideFlags: 0
