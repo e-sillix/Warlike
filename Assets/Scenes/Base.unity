@@ -10968,7 +10968,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 200, y: 3, z: 200}
+  m_LocalScale: {x: 100, y: 3, z: 100}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1353650879}
@@ -10992,10 +10992,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5000001
+  m_Radius: 0.3
   m_Height: 2
   m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &538814702
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -20028,6 +20028,7 @@ GameObject:
   - component: {fileID: 850240511}
   - component: {fileID: 850240512}
   - component: {fileID: 850240513}
+  - component: {fileID: 850240514}
   m_Layer: 0
   m_Name: TroopsExpeditionManager
   m_TagString: Untagged
@@ -20103,6 +20104,20 @@ MonoBehaviour:
   - {fileID: 1204102225}
   - {fileID: 1900986611}
   ArmyLimit: 5
+--- !u!114 &850240514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 850240510}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f09df89ebe495fd4a9c5cf1ffa3fc482, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraSystem: {fileID: 928523306}
+  holdThreshold: 0.5
 --- !u!1 &851628310
 GameObject:
   m_ObjectHideFlags: 0

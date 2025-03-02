@@ -22,7 +22,9 @@ public class TroopsExpeditionManager : MonoBehaviour
         expeditionUI=GetComponent<ExpeditionUI>();
     }
 
-    public void PotentialTargetForMarchClicked(GameObject Target,RaycastHit hit,GameObject Pointer){//clickedObject
+    public void PotentialTargetForMarchClicked(GameObject Target,RaycastHit hit,GameObject Pointer){//
+    // clickedObject
+    //this will be called by spawnedPointer.
         //this will be called by global 
         target=Target;  //storing target
         position=hit.point;
@@ -74,6 +76,23 @@ public class TroopsExpeditionManager : MonoBehaviour
         //march it.
         march();
     }
+    public void MarchUsingDrag(TheUnit SelecedUnit,GameObject Target,RaycastHit hit){//by TouchMarching
+        if(Target.GetComponentInParent<TheCreep>()){
+            target=Target.GetComponentInParent<TheCreep>().gameObject;
+        }else if(Target.GetComponentInParent<TheMine>()){
+            target=Target.GetComponentInParent<TheMine>().gameObject;
+        }else if(Target.GetComponentInParent<BossArmy>()){
+            target=Target.GetComponentInParent<BossArmy>().gameObject;}
+        else if(Target.GetComponentInParent<Boss>()){
+            target=Target.GetComponentInParent<Boss>().gameObject;}
+            else {
+                target =Target;//for the ground
+            }
+        ChoosenUnit=SelecedUnit;
+        position=hit.point;
+        // target=Target;
+        march();
+    }
     void march(){
         // Debug.Log(ChoosenUnit.ArmyId);
         if(target.GetComponent<TheCreep>()){
@@ -104,9 +123,11 @@ public class TroopsExpeditionManager : MonoBehaviour
             EndStage();
             return;
         }
+        Debug.Log("target is ground.");
         GameObject ToMarchPointer=Instantiate(MarchingPointer,position,Quaternion.identity);
         ChoosenUnit.SetTroopsTarget(position,target,SpawnPoint,ToMarchPointer);       
         EndStage();
+        if(pointer)
         Destroy(pointer);
     }
 

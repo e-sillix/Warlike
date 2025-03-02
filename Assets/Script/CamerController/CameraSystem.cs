@@ -21,8 +21,12 @@ public class CameraSystem : MonoBehaviour
     private GameObject TargetForFocus;
     private Coroutine focusRoutine;
     private bool exceptionUIActive;
-    private bool cameraExceptionMoveAllowed;
+    private bool cameraExceptionMoveAllowed,UnitOnHold=false;
     
+
+    public void SetTheUniHold(bool t){
+        UnitOnHold=t;
+    }
     void Awake(){
         followOffset = cinemachineVirtualCamera.GetCinemachineComponent<
         CinemachineTransposer>().m_FollowOffset;
@@ -65,6 +69,9 @@ public class CameraSystem : MonoBehaviour
                
             // HandleCameraTouchMovement();
         return;
+        }
+        if(UnitOnHold){
+            return;
         }
         HandleCameraTouchMovement();
         TouchDetector();
