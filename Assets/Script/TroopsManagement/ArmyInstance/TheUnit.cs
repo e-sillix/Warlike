@@ -177,6 +177,13 @@ public class TheUnit : MonoBehaviour
     SetTargetPosition(spawnpoint.transform.position);
     IsReturn=true;    
     }
+
+    public void StopMarching(){
+        //called by ui buttons.
+        target=null;
+        GetComponent<Attacking>().RefreshTarget();
+        shouldMove=false;
+    }
     public void TroopsDefeated(){
         //ghosted speed
         moveSpeed*=boostSpeed;
