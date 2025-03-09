@@ -37,7 +37,7 @@ public class TheBarrack : MonoBehaviour
     }
     public void TrainingIsClicked(){
         //triggered by clicking UI button train.
-        troopsTrainingManager.TrainingIsChosen(gameObject.GetComponent<TheBarrack>());
+        troopsTrainingManager.TrainingIsChosen(this);
     }
     public void StartTraining(int[] troopsData,int time){
         troopsDataLocal=troopsData;

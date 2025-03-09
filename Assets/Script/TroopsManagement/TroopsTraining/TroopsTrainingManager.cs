@@ -20,7 +20,7 @@ public class TroopsTrainingManager : MonoBehaviour
             uITroopsTrainingManager.TriggerUIForOngoingTraining();
         }
         else{
-             uITroopsTrainingManager.TriggerUIForTraining();
+             uITroopsTrainingManager.TriggerUIForTraining(theBarrack.level);
         }
     }
      

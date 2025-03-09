@@ -40527,6 +40527,11 @@ MonoBehaviour:
   globalUIManager: {fileID: 1180219576}
   CostUI: {fileID: 1532555338}
   troopsTypeUI: {fileID: 427976248}
+  slider1: {fileID: 2119926896}
+  slider2: {fileID: 375243827}
+  slider3: {fileID: 483556913}
+  slider4: {fileID: 1953874960}
+  slider5: {fileID: 2138864598}
 --- !u!1 &1771511292
 GameObject:
   m_ObjectHideFlags: 0

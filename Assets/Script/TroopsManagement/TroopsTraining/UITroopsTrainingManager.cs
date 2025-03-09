@@ -19,8 +19,10 @@ public class UITroopsTrainingManager : MonoBehaviour
     private string barrackType;
     private int barrackCapacity;
 
+    [SerializeField] private GameObject slider1,slider2,slider3,slider4,slider5;
+
 //stage 1    
-    public void TriggerUIForTraining(){
+    public void TriggerUIForTraining(int level){
         //levels, cost , barracklimits
 
         //update barrackCapacity UI
@@ -34,7 +36,46 @@ public class UITroopsTrainingManager : MonoBehaviour
         troopsTypeUI.text="Train "+barrackType.ToString();
         //triggering Starting training ui
         StartingTrainingUIPanel.SetActive(true);
+        ResetAllSlider();
+
+        if (level >= 1 && level <= 5)
+        {
+            slider1.SetActive(true); // Only slider 1
+        }
+        else if (level >= 6 && level <= 10)
+        {
+            slider1.SetActive(true); // Only slider 1
+            slider2.SetActive(true); // Only slider 1
+        }
+        else if(level >= 11 && level <= 15)
+        {
+            slider1.SetActive(true); // Only slider 1
+            slider2.SetActive(true); // Only slider 1
+            slider3.SetActive(true); // Only slider 1
+        }
+        else if(level >= 16 && level <= 20)
+        {
+            slider1.SetActive(true); // Only slider 1
+            slider2.SetActive(true); // Only slider 1
+            slider3.SetActive(true); // Only slider 1
+            slider4.SetActive(true); // Only slider 1
+        }
+        else if(level >= 21 && level <= 25)
+        {
+            slider1.SetActive(true); // Only slider 1
+            slider2.SetActive(true); // Only slider 1
+            slider3.SetActive(true); // Only slider 1
+            slider4.SetActive(true); // Only slider 1
+            slider5.SetActive(true); // Only slider 1
+        }
     }   
+    void ResetAllSlider(){
+        slider1.SetActive(false); 
+        slider2.SetActive(false);
+        slider3.SetActive(false);
+        slider4.SetActive(false);
+        slider5.SetActive(false);
+    }
 
 public void TriggerUIForOngoingTraining(){
         //cancellation,progress,boosting,troops data 
@@ -101,6 +142,7 @@ public void TriggerUIForOngoingTraining(){
     }
     private void RefreshUI(){
         StartingTrainingUIPanel.SetActive(false);
+       
     }
 }
 
