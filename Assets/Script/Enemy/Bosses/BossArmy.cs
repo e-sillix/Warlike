@@ -22,13 +22,14 @@ public class BossArmy : MonoBehaviour
     // private int troopsQuantity = 5;
     [SerializeField] private int totalHealth = 6,
     moveSpeed = 4, attackRange = 10;
-    public int Damage = 2, level = 1;
+    public int level = 1;
+    public float currentHealth,Damage=2;
 
     
     [SerializeField] private float RateOfAttack = 1f;
      private float timer = 0f;
 
-    private int currentHealth;
+    // private int currentHealth;
     private GameObject Target;
     public string KingDom;
     public int ArmyID;
@@ -42,13 +43,13 @@ public class BossArmy : MonoBehaviour
         currentHealth = totalHealth;
         UpdateHealth();
     }
-    public int ReturnHealth(){
+    public float ReturnHealth(){
         return currentHealth;
     }
     public bool IsAlive(){
         return isAlive;
     }
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
         currentHealth -= damage;
         UpdateHealth();
@@ -124,7 +125,8 @@ public class BossArmy : MonoBehaviour
                     if (timer >= RateOfAttack)
                     {
                         if(Target){
-                            Target.GetComponent<Attacking>().TakeDamage(Damage);                            
+                            float ActualDamage=Damage*(currentHealth/(float)totalHealth);
+                            Target.GetComponent<Attacking>().TakeDamage(ActualDamage);                            
                         }                        
                         timer = 0f;
                     }

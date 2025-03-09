@@ -469,7 +469,7 @@ MonoBehaviour:
   moveSpeed: 5
   attackRange: 10
   chasingRange: 15
-  Damage: 2
+  Damage: 5
   level: 0
   RateOfAttack: 1
 --- !u!114 &1277755342512530588

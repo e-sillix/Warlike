@@ -6,11 +6,11 @@ using UnityEngine.UI;
 public class BossAttacking : MonoBehaviour
 {
     public int totalHealth;
-    private int currentHealth;
+    private float currentHealth;
     public Image healthFill;
     private Attacking attacking;
     public string[] Rewards;
-    [SerializeField] private int Damage;
+    [SerializeField] private float Damage;
     void Start()
     {
         currentHealth = totalHealth;
@@ -22,14 +22,14 @@ public class BossAttacking : MonoBehaviour
         healthFill.fillAmount = fillPercent;
         // Debug.Log("Boss health updated.:"+fillPercent);
     }
-    public int ReturnHealth(){
+    public float ReturnHealth(){
         return currentHealth;
     }
     void OnDefeat()
     {
         GetComponent<Boss>().OnDefeat();
     }
-    public void TakeDamage(int damage,Attacking Attacking)
+    public void TakeDamage(float damage,Attacking Attacking)
     {
         attacking = Attacking;
         currentHealth -= damage;
@@ -42,7 +42,8 @@ public class BossAttacking : MonoBehaviour
         }
     }
     void CounterDamage(){
-        Debug.Log("Boss Counter Attacking Damage:"+Damage);
-        attacking.TakeDamage(Damage);
+        // Debug.Log("Boss Counter Attacking Damage:"+Damage);
+        float ActualDamage=Damage*(currentHealth/(float)totalHealth);
+        attacking.TakeDamage(ActualDamage);
     }
 }

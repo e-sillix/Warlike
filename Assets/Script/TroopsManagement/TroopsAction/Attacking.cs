@@ -12,7 +12,8 @@ public class Attacking : MonoBehaviour
     // private Boss boss;
     private BossAttacking bossAttacking;
 
-    private int health,Damage,totalHealth,armor,attackRange;
+    private int totalHealth,armor,attackRange;
+    private float health,Damage;
 
 
     public Image healthFill; // Reference to the HealthFill image.
@@ -53,9 +54,9 @@ public class Attacking : MonoBehaviour
         // Check if one second has passed
         if (timer >= RateOfAttack)
         {   
-            float ActualDamage=(float)Damage*((float)health/(float)totalHealth);
+            float ActualDamage=Damage*(health/(float)totalHealth);
            
-            theCreep.TakeDamage((int)ActualDamage,
+            theCreep.TakeDamage(ActualDamage,
             gameObject.GetComponent<Attacking>());            
 
             // Reset the timer
@@ -98,10 +99,10 @@ public class Attacking : MonoBehaviour
     }
 
     //is being called by creep directly 
-    public int ReturnHealth(){
+    public float ReturnHealth(){
         return health;
     }
-    public void TakeDamage(int Damage){
+    public void TakeDamage(float Damage){
         health-=Damage;
         Debug.Log("damage took:"+Damage);
         //visual change

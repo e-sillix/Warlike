@@ -18,8 +18,9 @@ public class TheCreep : MonoBehaviour
     public string[] Rewards;
 
     private int troopsQuantity = 5;
-    [SerializeField] private int health, totalHealth = 6, moveSpeed = 4, attackRange = 10, chasingRange = 15;
-    public int Damage = 2, level = 1;
+    [SerializeField] private int totalHealth = 10, moveSpeed = 4, attackRange = 10, chasingRange = 15;
+    public int  level = 1;
+    public float Damage = 5f,health;
 
     private bool attackerAlive=false;
     private float timer = 0f;
@@ -43,7 +44,7 @@ public class TheCreep : MonoBehaviour
         return troopsQuantity;
     }
 
-    public void TakeDamage(int Damage, Attacking attacking)
+    public void TakeDamage(float Damage, Attacking attacking)
     {
         if(attacker==null || !attackerAlive){
             //this is reselecting target after a target goes beyond range
@@ -81,7 +82,10 @@ public class TheCreep : MonoBehaviour
 
                     if (timer >= RateOfAttack)
                     {
-                        attacker.TakeDamage(Damage);
+                        float ActualDamage = Damage * (health / (float)totalHealth);
+                        Debug.Log("Creep Damage:"+Damage+"Actual Damage:"
+                        +ActualDamage);
+                        attacker.TakeDamage(ActualDamage);
                         UpdateHealth();
 
                         if (attacker.ReturnHealth() <= 0)
