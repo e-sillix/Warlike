@@ -12,11 +12,16 @@ public class BluePrint : MonoBehaviour
     [SerializeField] private GameObject TheCollider;
 
     [SerializeField] private GameObject BlueprintVisual;
+
+    // [SerializeField]private int positionAttempts=10;
     
     private bool movingAllowed;
     private void Start()
     {
-       if (TheCollider != null)
+       AssignCollider();
+    }
+    void AssignCollider(){
+        if (TheCollider != null)
     {
         boxCollider = TheCollider.GetComponent<BoxCollider>();
 
@@ -30,6 +35,8 @@ public class BluePrint : MonoBehaviour
         Debug.LogError("TheCollider GameObject is not assigned.");
     }
     }
+    
+   
 
     private void Update()
     {
