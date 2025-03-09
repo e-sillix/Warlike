@@ -53,7 +53,10 @@ public class Attacking : MonoBehaviour
         // Check if one second has passed
         if (timer >= RateOfAttack)
         {   
-            theCreep.TakeDamage(Damage,gameObject.GetComponent<Attacking>());            
+            float ActualDamage=(float)Damage*((float)health/(float)totalHealth);
+           
+            theCreep.TakeDamage((int)ActualDamage,
+            gameObject.GetComponent<Attacking>());            
 
             // Reset the timer
             timer = 0f;
