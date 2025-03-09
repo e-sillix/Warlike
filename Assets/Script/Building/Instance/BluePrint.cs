@@ -8,18 +8,11 @@ public class BluePrint : MonoBehaviour
     //***************************
     //remember to set blueprint collider to layer blue.
     private BoxCollider boxCollider;
-    public LayerMask groundLayer;
-    public LayerMask innerKingdomLayer;
-    public LayerMask outerKingdomLayer;
 
-    public LayerMask BlueLayer;
     [SerializeField] private GameObject TheCollider;
 
     [SerializeField] private GameObject BlueprintVisual;
     
-    private bool IsBlueColliding;
-    private bool buildingUI;
-    private bool IsInsideKingdom;
     private bool movingAllowed;
     private void Start()
     {
@@ -44,44 +37,47 @@ public class BluePrint : MonoBehaviour
         
         if (boxCollider != null)
         {
-            IsBluePrintColliding();
+            // IsBluePrintColliding();
             UpdateColorOfBluePrint();
         }
         
     }
 
-    private void IsBluePrintColliding()
-    {       
-        bool groundCollision = Physics.OverlapBox(boxCollider.bounds.center, boxCollider.bounds.extents, Quaternion.identity, groundLayer).Length != 0;
-        bool blueCollision = Physics.OverlapBox(boxCollider.bounds.center, boxCollider.bounds.extents, Quaternion.identity, BlueLayer).Length != 0;
-        bool outerKingdomCollision = Physics.OverlapBox(boxCollider.bounds.center, boxCollider.bounds.extents, Quaternion.identity, outerKingdomLayer).Length != 0;
-        bool innerKingdomCollision = Physics.OverlapBox(boxCollider.bounds.center, boxCollider.bounds.extents, Quaternion.identity, innerKingdomLayer).Length != 0;
+   
 
-        LayerMask allowedLayers = groundLayer | BlueLayer | outerKingdomLayer | innerKingdomLayer;
-        LayerMask allOtherLayers = ~allowedLayers;
+    bool IsBlueprintColliding(){
+        Collider[] colliders = Physics.OverlapBox(boxCollider.bounds.center, 
+        boxCollider.bounds.extents, Quaternion.identity);
 
-        bool otherCollision = Physics.OverlapBox(boxCollider.bounds.center, boxCollider.bounds.extents, Quaternion.identity, allOtherLayers).Length != 0;
-
-        // Set IsBlueColliding to true only if all required layers are colliding and there are no other collisions
-        if (groundCollision && blueCollision && outerKingdomCollision && 
-        innerKingdomCollision && !otherCollision)//false if colliding with other than it should
+        foreach (Collider col in colliders)
         {
-            IsBlueColliding = false;
+            GameObject parentObject = col.gameObject; // Get the topmost parent
+
+            if (parentObject.layer == LayerMask.NameToLayer("Building"))  // Check if it has the required layer
+                {
+                    // Debug.Log("Parent with BlueLayer is colliding: " + parentObject.name);
+                    return true;
+                }
         }
-        else
-        {
-            IsBlueColliding = true;
-        }
-        if(innerKingdomCollision){
-            // buildingUI=true; 
-            IsInsideKingdom=true;
-        }
-        else{
-            // buildingUI=false;//this will be used to turn off ui.
-            IsInsideKingdom=false;
-        }
+        return false;
     }
+    bool IsBlueprintInside(){
+        Collider[] colliders = Physics.OverlapBox(boxCollider.bounds.center, 
+        boxCollider.bounds.extents, Quaternion.identity);
 
+        foreach (Collider col in colliders)
+        {
+            GameObject Object = col.gameObject; // Get the topmost parent
+
+            if (Object.layer == LayerMask.NameToLayer("InnerKingdom"))  // Check if it has the required layer
+                {
+                    Debug.Log("Parent with InnerKingdom is colliding: " + Object.name);
+                    return true;
+                }
+        }
+        return false;
+
+    }
     //*will update position according to camera position
     void UpdateBlueprintPosition()
     {
@@ -140,13 +136,14 @@ public class BluePrint : MonoBehaviour
     if (renderer != null)
     {
         // Example: Change color based on collision
-        if (IsBlueColliding)
+        if (IsBlueprintColliding()|| !IsBlueprintInside())
         {
             Debug.Log("Colliding");
             renderer.material.color = Color.red; // Collision detected
         }
         else
         {
+            Debug.Log("Not Colliding");
             renderer.material.color = Color.white; // No collision
         }
     }
@@ -157,12 +154,12 @@ public class BluePrint : MonoBehaviour
 
     //*return to RSM for check for placing farm
     public bool ReturnIsColliding(){        
-        return IsBlueColliding;
+        return IsBlueprintColliding();
     }
     // public bool ReturnBuildingUI(){        
     //     return buildingUI;
     // }
     public bool ReturnIsInsideKingdom(){
-        return IsInsideKingdom;
+        return IsBlueprintInside();
     }
 }

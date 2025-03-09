@@ -181,6 +181,9 @@ MonoBehaviour:
   outerKingdomLayer:
     serializedVersion: 2
     m_Bits: 512
+  Building:
+    serializedVersion: 2
+    m_Bits: 16384
   BlueLayer:
     serializedVersion: 2
     m_Bits: 128

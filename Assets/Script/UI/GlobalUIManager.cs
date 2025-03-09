@@ -40,6 +40,7 @@ public class GlobalUIManager : MonoBehaviour
             if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, layerMask))
             {        
                     // Prevent interaction if clicking on UI
+                    Debug.Log(hit.collider.gameObject.name);
                     clickedObject=hit.collider.gameObject;
                     currentClicked=clickedObject;
                      if(spawnedPointer){
