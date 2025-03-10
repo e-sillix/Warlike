@@ -199,6 +199,7 @@ public class GlobalUIManager : MonoBehaviour
             //nothing should happen visibly
             troopsInstanceUI.GetTroopsUIComponent(troopsUI,GetComponent<GlobalUIManager>());
             troopsInstanceUI.TriggerUIButtons();
+            cameraSystem.FollowTheTarget(ClickedObject);
         }
         else if(ClickedObject.GetComponentInParent<BossArmyUI>()){
             Debug.Log("Boss army clicked");

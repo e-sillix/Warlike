@@ -22,6 +22,9 @@ public class CameraSystem : MonoBehaviour
     private Coroutine focusRoutine;
     private bool exceptionUIActive;
     private bool cameraExceptionMoveAllowed,UnitOnHold=false;
+
+    private GameObject targetToFollow;
+    private bool shouldFollow=false;
     
 
     public void SetTheUniHold(bool t){
@@ -35,6 +38,16 @@ public class CameraSystem : MonoBehaviour
         exceptionUIActive=t;
     }
     private void Update() {
+        if(shouldFollow){
+            if(targetToFollow!=null){
+                transform.position=targetToFollow.transform.position;
+            }
+            else{
+                shouldFollow=false;
+            }
+        }else if(targetToFollow!=null){    
+            targetToFollow=null;
+        }
         // HandleCameraZoomFOV();
         // HandleCameraZoom();
         // HandleCameraMovement();
@@ -42,6 +55,7 @@ public class CameraSystem : MonoBehaviour
             istouchingAllowed=!globalUIManager.IsUIInterfering();
         }
         if(istouchingAllowed){
+            // ResetFollow();
         if(exceptionUIActive){
             if (Input.touchCount == 1)
             {
@@ -73,6 +87,7 @@ public class CameraSystem : MonoBehaviour
         if(UnitOnHold){
             return;
         }
+        RefreshingTouch();
         HandleCameraTouchMovement();
         TouchDetector();
         HandleCameraZoomTouch();
@@ -81,6 +96,18 @@ public class CameraSystem : MonoBehaviour
             FocusingOnTarget();
             // followOffset = cinemachineVirtualCamera.GetCinemachineComponent<
             // CinemachineTransposer>().m_FollowOffset;
+        }
+    }
+    void RefreshingTouch(){
+        if(Input.touchCount>0){
+            if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
+        {
+            return;
+        }
+        else{
+            ResetFollow();
+            Debug.Log("Reset Follow by RefreshingTouch");
+        }
         }
     }
     void TouchDetector(){
@@ -237,6 +264,15 @@ public class CameraSystem : MonoBehaviour
     Debug.Log("Focus Done.");
 }
 
+public void FollowTheTarget(GameObject target){
+    //called when click any unit to follow.
+    targetToFollow=target;
+    shouldFollow=true;
+}
+void ResetFollow(){
+    targetToFollow=null;
+    shouldFollow=false;
+}
 void HandleCameraZoomTouch(){
         Vector3 zoomDir = followOffset.normalized;
     
