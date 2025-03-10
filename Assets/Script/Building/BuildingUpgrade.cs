@@ -45,6 +45,7 @@ public class BuildingUpgrade : MonoBehaviour
         }
         else{
             Debug.Log("not enough!!!!! resources");
+            messageManager.MessageForNotEnoughCredit();
         //if not ,display some message or debug.
         }
 
@@ -107,23 +108,23 @@ public class BuildingUpgrade : MonoBehaviour
     bool CheckBuildingUpgradeLadder(){
         //check wat building 
          if(Target.GetComponent<Base>()){
-            Laboratory laboratory=GameObject.FindObjectOfType<Laboratory>();
-            if(laboratory){
-            if(laboratory.level==level){
+            // Laboratory laboratory=GameObject.FindObjectOfType<Laboratory>();
+            // if(laboratory){
+            // if(laboratory.level==level){
                 Debug.Log("Base Upgrade Is Allowed.");
                 return true;
-            }
-            else{
-                Debug.Log("Upgrade Laboratory first.");
-                messageManager.UpgradeLaboratoryMessage();
-                return false;
-            }
-            }
-            else{
-                Debug.Log("No Laboratory Found.");
-                messageManager.BuildLaboratory();
-                return false;
-            }
+            // }
+            // else{
+            //     Debug.Log("Upgrade Laboratory first.");
+            //     messageManager.UpgradeLaboratoryMessage();
+            //     return false;
+            // }
+            // }
+            // else{
+            //     Debug.Log("No Laboratory Found.");
+            //     messageManager.BuildLaboratory();
+            //     return false;
+            // }
            
          }
         //if target is not base,compare it to base level 
