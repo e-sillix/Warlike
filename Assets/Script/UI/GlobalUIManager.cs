@@ -165,6 +165,7 @@ public class GlobalUIManager : MonoBehaviour
             spawnedPointer=Instantiate(MarchPointer,hit.point,Quaternion.identity);
             spawnedPointer.GetComponent<SpawnedPointer>().Dependency(troopsExpeditionManager
             ,ClickedObject,hit);
+            cameraSystem.SetFocusOnPoint(hit.point);
             // troopsExpeditionManager.PotentialTargetForMarchClicked(ClickedObject,hit);
         }
         // else if(IsEnemyLayer(ClickedObject)){

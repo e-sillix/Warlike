@@ -140,6 +140,51 @@ public class CameraSystem : MonoBehaviour
         }
     }}
 
+    public void SetFocusOnPoint(Vector3 targetPoint){
+        //called by global ui to focus on. when we are zoomed out.and click any ground
+        // TargetForFocus=target;
+        if (focusRoutine != null)
+        {
+            StopCoroutine(focusRoutine);
+        }
+        TargetForFocus = null;
+        focusRoutine = StartCoroutine(FocusingOnPoint(targetPoint));
+    }
+    private IEnumerator FocusingOnPoint(Vector3 targetPosition)
+{
+    float timeElapsed = 0f;
+    Vector3 startPos = transform.position;
+    
+    // Get the current zoom offset
+    Vector3 startZoomOffset = cinemachineVirtualCamera.GetCinemachineComponent<CinemachineTransposer>()
+        .m_FollowOffset;
+    Vector3 targetZoomOffset = startZoomOffset.normalized * Mathf.Clamp(
+        normalObjectZoom, followOffsetMin, followOffsetMax); // Adjust this factor for zoom strength
+
+    while (timeElapsed < FocusingTimeLimit)
+    {
+        float t = timeElapsed / FocusingTimeLimit;
+        t = t * t * (3f - 2f * t); // SmoothStep function for smooth start and end
+
+        // Move camera toward target smoothly
+        transform.position = Vector3.Lerp(startPos, targetPosition, t);
+
+        // Zoom-in smoothly
+        cinemachineVirtualCamera.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset =
+            Vector3.Lerp(startZoomOffset, targetZoomOffset, t);
+
+        timeElapsed += Time.deltaTime;
+        followOffset = cinemachineVirtualCamera.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset;
+        yield return null; // Wait for next frame
+    }
+
+    // Ensure final position and zoom
+    transform.position = targetPosition;
+    cinemachineVirtualCamera.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset = targetZoomOffset;
+
+    focusRoutine = null; // Reset coroutine reference
+    Debug.Log("Focus Done.");
+}
 
     public void SetFocusOn(GameObject target){
         //called by global ui to focus on.
