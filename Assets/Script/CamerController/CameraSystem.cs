@@ -25,7 +25,12 @@ public class CameraSystem : MonoBehaviour
 
     private GameObject targetToFollow;
     private bool shouldFollow=false;
-    
+    private CameraFocus cameraFocus;
+
+    void Start()
+    {
+        cameraFocus=GetComponent<CameraFocus>();
+    }
 
     public void SetTheUniHold(bool t){
         UnitOnHold=t;
@@ -92,11 +97,11 @@ public class CameraSystem : MonoBehaviour
         TouchDetector();
         HandleCameraZoomTouch();
         }
-        if(TargetForFocus){
-            FocusingOnTarget();
-            // followOffset = cinemachineVirtualCamera.GetCinemachineComponent<
-            // CinemachineTransposer>().m_FollowOffset;
-        }
+        // if(TargetForFocus){
+        //     FocusingOnTarget();
+        //     // followOffset = cinemachineVirtualCamera.GetCinemachineComponent<
+        //     // CinemachineTransposer>().m_FollowOffset;
+        // }
     }
     void RefreshingTouch(){
         if(Input.touchCount>0){
@@ -169,101 +174,18 @@ public class CameraSystem : MonoBehaviour
 
     public void SetFocusOnPoint(Vector3 targetPoint){
         //called by global ui to focus on. when we are zoomed out.and click any ground
-        // TargetForFocus=target;
-        if (focusRoutine != null)
-        {
-            StopCoroutine(focusRoutine);
-        }
-        TargetForFocus = null;
-        focusRoutine = StartCoroutine(FocusingOnPoint(targetPoint));
-    }
-    private IEnumerator FocusingOnPoint(Vector3 targetPosition)
-{
-    float timeElapsed = 0f;
-    Vector3 startPos = transform.position;
-    
-    // Get the current zoom offset
-    Vector3 startZoomOffset = cinemachineVirtualCamera.GetCinemachineComponent<CinemachineTransposer>()
-        .m_FollowOffset;
-    Vector3 targetZoomOffset = startZoomOffset.normalized * Mathf.Clamp(
-        normalObjectZoom, followOffsetMin, followOffsetMax); // Adjust this factor for zoom strength
-
-    while (timeElapsed < FocusingTimeLimit)
-    {
-        float t = timeElapsed / FocusingTimeLimit;
-        t = t * t * (3f - 2f * t); // SmoothStep function for smooth start and end
-
-        // Move camera toward target smoothly
-        transform.position = Vector3.Lerp(startPos, targetPosition, t);
-
-        // Zoom-in smoothly
-        cinemachineVirtualCamera.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset =
-            Vector3.Lerp(startZoomOffset, targetZoomOffset, t);
-
-        timeElapsed += Time.deltaTime;
-        followOffset = cinemachineVirtualCamera.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset;
-        yield return null; // Wait for next frame
+        
+        // cameraFocus.SetFocusOnPoint(targetPoint);
+        cameraFocus.SetFocusOn(null,3,targetPoint);//code 3 for point on ground.
     }
 
-    // Ensure final position and zoom
-    transform.position = targetPosition;
-    cinemachineVirtualCamera.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset = targetZoomOffset;
-
-    focusRoutine = null; // Reset coroutine reference
-    Debug.Log("Focus Done.");
-}
 
     public void SetFocusOn(GameObject target){
         //called by global ui to focus on.
-        // TargetForFocus=target;
-        if (focusRoutine != null)
-        {
-            StopCoroutine(focusRoutine);
-        }
-        TargetForFocus = target;
-        focusRoutine = StartCoroutine(FocusingOnTarget());
+        
+        cameraFocus.SetFocusOn(target,2);//code 2 for mine and creep.
     }
-   private IEnumerator FocusingOnTarget()
-{
-    float timeElapsed = 0f;
-    Vector3 startPos = transform.position;
-    Vector3 targetPos = TargetForFocus.transform.position;
-
-    // Get the current zoom offset
-    Vector3 startZoomOffset = cinemachineVirtualCamera.GetCinemachineComponent<CinemachineTransposer>().
-    m_FollowOffset;
-    Vector3 targetZoomOffset = startZoomOffset.normalized * Mathf.Clamp(
-        normalObjectZoom, followOffsetMin, followOffsetMax);; // Adjust this factor for desired 
-    //zoom strength
-
-    while (timeElapsed < FocusingTimeLimit)
-    {
-        float t = timeElapsed / FocusingTimeLimit;
-        t = t * t * (3f - 2f * t); // SmoothStep function for smooth start and end
-
-        // Move camera toward target smoothly
-        transform.position = Vector3.Lerp(startPos, targetPos, t);
-
-        // Zoom-in smoothly
-        cinemachineVirtualCamera.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset =
-            Vector3.Lerp(startZoomOffset, targetZoomOffset, t);
-
-        timeElapsed += Time.deltaTime;
-        followOffset = cinemachineVirtualCamera.GetCinemachineComponent<
-        CinemachineTransposer>().m_FollowOffset;
-        yield return null; // Wait for next frame
-    }
-
-    // Ensure final position and zoom
-    transform.position = targetPos;
-    cinemachineVirtualCamera.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset = 
-    targetZoomOffset;
-
-    TargetForFocus = null;
-    focusRoutine = null; // Reset coroutine reference
-    Debug.Log("Focus Done.");
-}
-
+  
 public void FollowTheTarget(GameObject target){
     //called when click any unit to follow.
     targetToFollow=target;
@@ -307,53 +229,10 @@ void HandleCameraZoomTouch(){
 
      public void SetFocusOnHome(){
         //called by global ui to focus on.
-        // TargetForFocus=target;
-        if (focusRoutine != null)
-        {
-            StopCoroutine(focusRoutine);
-        }
-        TargetForFocus = Home;
-        focusRoutine = StartCoroutine(FocusOnHome());
+        // TargetForFocus = Home;
+        cameraFocus.SetFocusOn(Home,1);//code 1 for base
     }
-    IEnumerator FocusOnHome(){
-        float timeElapsed = 0f;
-    Vector3 startPos = transform.position;
-    Vector3 targetPos = TargetForFocus.transform.position;
-
-    // Get the current zoom offset
-    Vector3 startZoomOffset = cinemachineVirtualCamera.GetCinemachineComponent<CinemachineTransposer>().
-    m_FollowOffset;
-    Vector3 targetZoomOffset = startZoomOffset.normalized * Mathf.Clamp(
-        HomeZoom, followOffsetMin, followOffsetMax);; // Adjust this factor for desired 
-    //zoom strength
-
-    while (timeElapsed < FocusingTimeLimit)
-    {
-        float t = timeElapsed / FocusingTimeLimit;
-        t = t * t * (3f - 2f * t); // SmoothStep function for smooth start and end
-
-        // Move camera toward target smoothly
-        transform.position = Vector3.Lerp(startPos, targetPos, t);
-
-        // Zoom-in smoothly
-        cinemachineVirtualCamera.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset =
-            Vector3.Lerp(startZoomOffset, targetZoomOffset, t);
-
-        timeElapsed += Time.deltaTime;
-        followOffset = cinemachineVirtualCamera.GetCinemachineComponent<
-        CinemachineTransposer>().m_FollowOffset;
-        yield return null; // Wait for next frame
-    }
-
-    // Ensure final position and zoom
-    transform.position = targetPos;
-    cinemachineVirtualCamera.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset = 
-    targetZoomOffset;
-
-    TargetForFocus = null;
-    focusRoutine = null; // Reset coroutine reference
-    Debug.Log("Focus Done.");
-    }
+    
 
    
 }

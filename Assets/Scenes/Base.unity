@@ -22126,6 +22126,7 @@ GameObject:
   m_Component:
   - component: {fileID: 928523307}
   - component: {fileID: 928523306}
+  - component: {fileID: 928523308}
   m_Layer: 0
   m_Name: CameraSystem
   m_TagString: Untagged
@@ -22175,6 +22176,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &928523308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 928523305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8438b78cf92e3f24e8f5253ef818ae5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cinemachineVirtualCamera: {fileID: 622944427}
+  followOffsetMax: 240
+  followOffsetMin: 40
+  zoomSpeed: 15
+  zoomAmount: 40
+  FocusingTimeLimit: 0.7
+  heightMovementSpeed: 0
+  normalObjectZoom: 50
+  HomeZoom: 70
 --- !u!1 &934227530
 GameObject:
   m_ObjectHideFlags: 0
