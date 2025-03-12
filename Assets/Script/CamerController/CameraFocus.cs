@@ -27,32 +27,28 @@ public class CameraFocus : MonoBehaviour
     }
 
 
-    // Update is called once per frame
+    void Update()
+    {
+            if(!shouldFollow&&targetToFollow==null){
+                return;
+            }
+            else if(shouldFollow&&targetToFollow!=null){
+                transform.position=targetToFollow.transform.position;
+            }
+            else{
+                //if target dispear or refresh
+                if(targetToFollow){
+                    targetToFollow=null;
+                }else if(shouldFollow){
+                    shouldFollow=false;
+                }
 
-    // public void FollowTarget(GameObject target){
-    //     //called by CameraSystem
-    //     targetToFollow=target;
-    //     shouldFollow=true;
-    // }
-
-    // void Update()
-    // {
-    //     if(shouldFollow){
-    //         if(targetToFollow!=null){
-    //             transform.position=targetToFollow.transform.position;
-    //         }
-    //         else{
-    //             shouldFollow=false;
-    //         }
-    //     }else if(targetToFollow!=null){    
-    //         targetToFollow=null;
-    //     }
-        
-    // }
-
+            }
+            
+    }
     //focusing on home 
     public void SetFocusOn(GameObject FocusTarget,int Focusid,Vector3 TargetPoint=default){
-        //1-base,2-creep&mine
+        //1-base,2-creep&mine,3-Point on Ground.
         focusID=Focusid;
         if (focusRoutine != null)
         {
@@ -124,5 +120,20 @@ public class CameraFocus : MonoBehaviour
     }
 
 
-   
+
+    //for focusing the Unit army
+
+    public void FollowTheTarget(GameObject target){
+        //called by cameraSystem
+        //called when click any unit to follow.
+        targetToFollow=target;
+        shouldFollow=true;
+    }
+
+    public void RefreshingFollow()
+    {
+        targetToFollow=null;
+        shouldFollow=false;
+    }
+
 }

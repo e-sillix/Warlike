@@ -43,19 +43,7 @@ public class CameraSystem : MonoBehaviour
         exceptionUIActive=t;
     }
     private void Update() {
-        if(shouldFollow){
-            if(targetToFollow!=null){
-                transform.position=targetToFollow.transform.position;
-            }
-            else{
-                shouldFollow=false;
-            }
-        }else if(targetToFollow!=null){    
-            targetToFollow=null;
-        }
-        // HandleCameraZoomFOV();
-        // HandleCameraZoom();
-        // HandleCameraMovement();
+        
         if(Input.touchCount >0){
             istouchingAllowed=!globalUIManager.IsUIInterfering();
         }
@@ -105,13 +93,16 @@ public class CameraSystem : MonoBehaviour
     }
     void RefreshingTouch(){
         if(Input.touchCount>0){
-            if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
+            Touch touch = Input.GetTouch(0);
+            if (EventSystem.current.IsPointerOverGameObject(touch.fingerId))
         {
             return;
         }
         else{
+             if (touch.phase == TouchPhase.Began) // Finger touches the screen
+        {
             ResetFollow();
-            Debug.Log("Reset Follow by RefreshingTouch");
+            Debug.Log("Reset Follow by RefreshingTouch");}
         }
         }
     }
@@ -172,28 +163,10 @@ public class CameraSystem : MonoBehaviour
         }
     }}
 
-    public void SetFocusOnPoint(Vector3 targetPoint){
-        //called by global ui to focus on. when we are zoomed out.and click any ground
-        
-        // cameraFocus.SetFocusOnPoint(targetPoint);
-        cameraFocus.SetFocusOn(null,3,targetPoint);//code 3 for point on ground.
-    }
-
-
-    public void SetFocusOn(GameObject target){
-        //called by global ui to focus on.
-        
-        cameraFocus.SetFocusOn(target,2);//code 2 for mine and creep.
-    }
+   
   
-public void FollowTheTarget(GameObject target){
-    //called when click any unit to follow.
-    targetToFollow=target;
-    shouldFollow=true;
-}
 void ResetFollow(){
-    targetToFollow=null;
-    shouldFollow=false;
+    cameraFocus.RefreshingFollow();
 }
 void HandleCameraZoomTouch(){
         Vector3 zoomDir = followOffset.normalized;
@@ -229,10 +202,24 @@ void HandleCameraZoomTouch(){
 
      public void SetFocusOnHome(){
         //called by global ui to focus on.
-        // TargetForFocus = Home;
         cameraFocus.SetFocusOn(Home,1);//code 1 for base
     }
     
 
+    public void SetFocusOnPoint(Vector3 targetPoint){
+        //called by global ui to focus on. when we are zoomed out.and click any ground
+        cameraFocus.SetFocusOn(null,3,targetPoint);//code 3 for point on ground.
+    }
+
+
+    public void SetFocusOn(GameObject target){
+        //called by global ui to focus on.
+        cameraFocus.SetFocusOn(target,2);//code 2 for mine and creep.
+    }
+
+    public void FollowTheTarget(GameObject target){
+    //called when click any unit to follow.
+    cameraFocus.FollowTheTarget(target);
+    }
    
 }
