@@ -30,6 +30,7 @@ public class TouchMarching : MonoBehaviour
             
             if (touch.phase == TouchPhase.Began) // Touch started
             {
+                // isHolding=false;
                 if (Physics.Raycast(ray, out RaycastHit hit))
                 {
                     TheUnit unit = hit.collider.GetComponentInParent<TheUnit>(); // Check for TheUnit component
@@ -38,18 +39,19 @@ public class TouchMarching : MonoBehaviour
                         isHolding = true;
                         selectedUnit = unit;
                         holdTime = 0f; // Reset timer
-                        Debug.Log("Touch Started: " + selectedUnit.gameObject.name);
+                        // Debug.Log("Touch Started: " + selectedUnit.gameObject.name);
                     }
                 }
             }
 
             if (isHolding && touch.phase == TouchPhase.Stationary) // Finger is holding still
             {
+                // Debug.Log("Holding is :"+isHolding );
                 holdTime += Time.deltaTime;
 
                 if (holdTime >= holdThreshold)
                 {
-                    Debug.Log("Holding done " );
+                    // Debug.Log("Holding done " );
                     holdDone=true;
                     cameraSystem.SetTheUniHold(true);
                     // Perform any action while holding
@@ -60,8 +62,8 @@ public class TouchMarching : MonoBehaviour
             {
                 if (holdDone)
                 {
-                    Debug.Log("Released " );
-
+                    // Debug.Log("Released " );
+                    
                     // Perform action on release
                     cameraSystem.SetTheUniHold(false);
                     Ray ray1 = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -70,7 +72,11 @@ public class TouchMarching : MonoBehaviour
                     // Prevent interaction if clicking on UI
                     GameObject clickedObject=hit.collider.gameObject;
                     troopsExpeditionManager.MarchUsingDrag(selectedUnit,clickedObject,hit);
-                    }
+                    }                    
+                }
+                //this should be here ,or it won't refresh the holding status of preveious click
+                //on unit and move on random hold and release location.
+                if(isHolding){
                     isHolding = false;
                     holdDone=false;
                     selectedUnit = null;

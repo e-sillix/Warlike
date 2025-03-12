@@ -23,8 +23,8 @@ public class CameraSystem : MonoBehaviour
     private bool exceptionUIActive;
     private bool cameraExceptionMoveAllowed,UnitOnHold=false;
 
-    private GameObject targetToFollow;
-    private bool shouldFollow=false;
+    // private GameObject targetToFollow;
+    // private bool shouldFollow=false;
     private CameraFocus cameraFocus;
 
     void Start()
@@ -50,6 +50,7 @@ public class CameraSystem : MonoBehaviour
         if(istouchingAllowed){
             // ResetFollow();
         if(exceptionUIActive){
+            // ExceptionUITouchMech();
             if (Input.touchCount == 1)
             {
                 Touch touch = Input.GetTouch(0);
@@ -91,6 +92,9 @@ public class CameraSystem : MonoBehaviour
         //     // CinemachineTransposer>().m_FollowOffset;
         // }
     }
+    // void ExceptionUITouchMech(){
+
+    // }
     void RefreshingTouch(){
         if(Input.touchCount>0){
             Touch touch = Input.GetTouch(0);
@@ -102,7 +106,8 @@ public class CameraSystem : MonoBehaviour
              if (touch.phase == TouchPhase.Began) // Finger touches the screen
         {
             ResetFollow();
-            Debug.Log("Reset Follow by RefreshingTouch");}
+            // Debug.Log("Reset Follow by RefreshingTouch");
+            }
         }
         }
     }
@@ -112,7 +117,7 @@ public class CameraSystem : MonoBehaviour
             Touch touch = Input.GetTouch(0);
             if (EventSystem.current.IsPointerOverGameObject(touch.fingerId))
         {
-            Debug.Log("Tapped on UI, ignoring touch.");
+            // Debug.Log("Tapped on UI, ignoring touch.");
             return; // Don't process game actions
         }
         if (touch.phase == TouchPhase.Began) // Finger touches the screen
@@ -129,7 +134,7 @@ public class CameraSystem : MonoBehaviour
             // Check if it was a quick tap (not a swipe)
             if (touchDuration < tapTime && touchDistance < tapDistance) 
             {
-                Debug.Log("Tap detected!");
+                // Debug.Log("Tap detected!");
                 // Handle tap action here
                 globalUIManager.TapAction();
             }

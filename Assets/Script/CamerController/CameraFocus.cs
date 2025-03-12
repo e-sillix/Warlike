@@ -116,7 +116,7 @@ public class CameraFocus : MonoBehaviour
 
     TargetForFocus = null;
     focusRoutine = null; // Reset coroutine reference
-    Debug.Log("Focus Done.");
+    // Debug.Log("Focus Done.");
     }
 
 

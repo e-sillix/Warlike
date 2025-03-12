@@ -189,11 +189,11 @@ public class GlobalUIManager : MonoBehaviour
             cameraSystem.SetFocusOn(ClickedObject);
         }
         else if(ClickedObject.GetComponentInParent<BuildingInstance>()){
-            Debug.Log("building clicked.");
+            // Debug.Log("building clicked.");
             ClickedObject.GetComponentInParent<BuildingInstance>().BuildingClicked();
         }
         else if(ClickedObject.GetComponentInParent<TheUnit>()){
-            Debug.Log("Troops Clicked.");
+            // Debug.Log("Troops Clicked.");
             // TheUnit theUnit= ClickedObject.GetComponentInParent<TheUnit>();
             TroopsInstanceUI troopsInstanceUI=ClickedObject.GetComponentInParent<TroopsInstanceUI>();
             //nothing should happen visibly
@@ -202,13 +202,13 @@ public class GlobalUIManager : MonoBehaviour
             cameraSystem.FollowTheTarget(ClickedObject);
         }
         else if(ClickedObject.GetComponentInParent<BossArmyUI>()){
-            Debug.Log("Boss army clicked");
+            // Debug.Log("Boss army clicked");
             ClickedObject.GetComponentInParent<BossArmyUI>().BossArmySelected(troopsExpeditionManager,
             infoUIManager);
             cameraSystem.SetFocusOn(ClickedObject);
         }
         else if(ClickedObject.GetComponentInParent<BossUI>()){
-            Debug.Log("Boss clicked");
+            // Debug.Log("Boss clicked");
             ClickedObject.GetComponentInParent<BossUI>().BossSelected(troopsExpeditionManager,
             infoUIManager);
             cameraSystem.SetFocusOn(ClickedObject);
