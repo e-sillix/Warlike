@@ -13,7 +13,7 @@ public class CameraSystem : MonoBehaviour
     ,HomeZoom;
     // private float FOV=50;
     [SerializeField] private GameObject Home;
-    private Vector3 followOffset;
+    // private Vector3 followOffset;
     private bool istouchingAllowed=true;
     private float touchStartTime;
     private Vector2 touchStartPos;
@@ -35,10 +35,10 @@ public class CameraSystem : MonoBehaviour
     public void SetTheUniHold(bool t){
         UnitOnHold=t;
     }
-    void Awake(){
-        followOffset = cinemachineVirtualCamera.GetCinemachineComponent<
-        CinemachineTransposer>().m_FollowOffset;
-    }
+    // void Awake(){
+    //     followOffset = cinemachineVirtualCamera.GetCinemachineComponent<
+    //     CinemachineTransposer>().m_FollowOffset;
+    // }
     public void SetException(bool t){
         exceptionUIActive=t;
     }
@@ -174,6 +174,8 @@ void ResetFollow(){
     cameraFocus.RefreshingFollow();
 }
 void HandleCameraZoomTouch(){
+        Vector3 followOffset=cinemachineVirtualCamera.GetCinemachineComponent<
+        CinemachineTransposer>().m_FollowOffset;
         Vector3 zoomDir = followOffset.normalized;
     
     if (Input.touchCount == 2) // Detect two-finger touch
