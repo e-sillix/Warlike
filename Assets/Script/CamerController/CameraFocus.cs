@@ -48,7 +48,7 @@ public class CameraFocus : MonoBehaviour
     }
     //focusing on home 
     public void SetFocusOn(GameObject FocusTarget,int Focusid,Vector3 TargetPoint=default){
-        //1-base,2-creep&mine,3-Point on Ground.
+        //1-base,2-creep&mine,3-Point on Ground,4-troops.
         focusID=Focusid;
         if (focusRoutine != null)
         {
@@ -80,7 +80,7 @@ public class CameraFocus : MonoBehaviour
         HomeZoom, followOffsetMin, followOffsetMax);; // Adjust this factor for desired 
     //zoom strength
     }
-    else if(focusID==2){
+    else if(focusID==2||focusID==4){
         targetZoomOffset = startZoomOffset.normalized * Mathf.Clamp(
         normalObjectZoom, followOffsetMin, followOffsetMax);; // Adjust this factor for desired 
     // //zoom strength
@@ -97,7 +97,15 @@ public class CameraFocus : MonoBehaviour
         t = t * t * (3f - 2f * t); // SmoothStep function for smooth start and end
 
         // Move camera toward target smoothly
+        if(focusID!=4||TargetForFocus==null){//when unit destroyed in the mid.
+
         transform.position = Vector3.Lerp(startPos, targetPos, t);
+        }
+        else{
+            
+        transform.position = Vector3.Lerp(startPos, TargetForFocus.transform.position, t);
+
+        }
 
         // Zoom-in smoothly
         cinemachineVirtualCamera.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset =
@@ -110,13 +118,22 @@ public class CameraFocus : MonoBehaviour
     }
 
     // Ensure final position and zoom
+    if(focusID!=4||TargetForFocus==null)
     transform.position = targetPos;
+    else{
+        transform.position = TargetForFocus.transform.position;
+    }
     cinemachineVirtualCamera.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset = 
     targetZoomOffset;
-
+    if(focusID==4){//for troops 
+        targetToFollow=TargetForFocus;
+        shouldFollow=true;
+    }
     TargetForFocus = null;
     focusRoutine = null; // Reset coroutine reference
     // Debug.Log("Focus Done.");
+
+    
     }
 
 
@@ -126,8 +143,13 @@ public class CameraFocus : MonoBehaviour
     public void FollowTheTarget(GameObject target){
         //called by cameraSystem
         //called when click any unit to follow.
-        targetToFollow=target;
-        shouldFollow=true;
+        // targetToFollow=target;
+        // TargetForFocus=target;
+        // focusID=4;//for troops
+        // focusRoutine = StartCoroutine(FocusCoroutine());
+        SetFocusOn(target,4);
+        // shouldFollow=true;
+
     }
 
     public void RefreshingFollow()
