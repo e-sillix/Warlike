@@ -22150,8 +22150,8 @@ MonoBehaviour:
   globalUIManager: {fileID: 1180219576}
   followOffsetMax: 240
   followOffsetMin: 40
-  zoomSpeed: 15
-  zoomAmount: 40
+  zoomSpeed: 35
+  zoomAmount: 70
   moveSpeed: 20
   touchSensitivity: 1
   tapTime: 0.4

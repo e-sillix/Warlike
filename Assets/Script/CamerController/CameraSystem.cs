@@ -154,7 +154,8 @@ public class CameraSystem : MonoBehaviour
             Ray touchRay = Camera.main.ScreenPointToRay(touch.position);
             Ray prevTouchRay = Camera.main.ScreenPointToRay(touch.position - touch.deltaPosition);
 
-            Plane groundPlane = new Plane(Vector3.up, Vector3.zero); // Assuming the ground is flat at y=0
+            Plane groundPlane = new Plane(Vector3.up, Vector3.zero); // Assuming the ground is flat
+            //  at y=0
 
             if (groundPlane.Raycast(prevTouchRay, out float enterPrev) && groundPlane.
             Raycast(touchRay, out float enterCurr))
@@ -173,39 +174,39 @@ public class CameraSystem : MonoBehaviour
 void ResetFollow(){
     cameraFocus.RefreshingFollow();
 }
-void HandleCameraZoomTouch(){
-        Vector3 followOffset=cinemachineVirtualCamera.GetCinemachineComponent<
-        CinemachineTransposer>().m_FollowOffset;
-        Vector3 zoomDir = followOffset.normalized;
-    
+void HandleCameraZoomTouch()
+{
+    Vector3 followOffset = cinemachineVirtualCamera.GetCinemachineComponent<CinemachineTransposer>
+    ().m_FollowOffset;
+    Vector3 zoomDir = followOffset.normalized;
+
     if (Input.touchCount == 2) // Detect two-finger touch
     {
         Touch touch0 = Input.GetTouch(0);
         Touch touch1 = Input.GetTouch(1);
 
-        // Get current and previous distance between fingers
-        float prevDistance = (touch0.position - touch0.deltaPosition - (touch1.position - touch1.deltaPosition)).magnitude;
+        float prevDistance = (touch0.position - touch0.deltaPosition - (touch1.position - 
+        touch1.deltaPosition)).magnitude;
         float currentDistance = (touch0.position - touch1.position).magnitude;
 
         float pinchAmount = (currentDistance - prevDistance) * 0.01f; // Scale pinch sensitivity
 
-        followOffset -= zoomDir * pinchAmount * zoomAmount;
+        // **Apply Clamp Immediately to Avoid Overshooting**
+        float newMagnitude = Mathf.Clamp(followOffset.magnitude - pinchAmount * zoomAmount, 
+        followOffsetMin, followOffsetMax);
+        followOffset = zoomDir * newMagnitude;
 
-        // Clamp Zoom Limits
-        if (followOffset.magnitude < followOffsetMin)
-            followOffset = zoomDir * followOffsetMin;
-        if (followOffset.magnitude > followOffsetMax)
-            followOffset = zoomDir * followOffsetMax;
-    
+        // Apply Zoom Smoothly
+        cinemachineVirtualCamera.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset =
+            Vector3.Lerp(
+                cinemachineVirtualCamera.GetCinemachineComponent<CinemachineTransposer>().
+                m_FollowOffset,
+                followOffset,
+                Time.deltaTime * zoomSpeed
+            );
+    }
+}
 
-    // Apply Zoom Smoothly
-    cinemachineVirtualCamera.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset =
-        Vector3.Lerp(
-            cinemachineVirtualCamera.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset, 
-            followOffset, 
-            Time.deltaTime * zoomSpeed
-        );
-    }}
 
      public void SetFocusOnHome(){
         //called by global ui to focus on.
