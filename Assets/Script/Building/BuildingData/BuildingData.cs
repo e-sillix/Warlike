@@ -11,6 +11,6 @@ public class BuildingData : ScriptableObject
     public int[] stoneUpgradeCost = new int[30]; // Upgrade costs for stone
     public int[] timeCost = new int[30];
 
-    public GameObject buildingPrefab,BuildingBlueprint;
+    public GameObject buildingPrefab,BuildingBlueprint,UnderConstructionPrefab;
    
 }

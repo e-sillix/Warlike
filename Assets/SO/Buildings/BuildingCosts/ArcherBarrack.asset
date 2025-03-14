@@ -21,3 +21,5 @@ MonoBehaviour:
     type: 3}
   BuildingBlueprint: {fileID: 5066686387632205646, guid: 05c8a6d8fa6cbfc429cd0bbc2f45ecb9,
     type: 3}
+  UnderConstructionPrefab: {fileID: 5066686387632205646, guid: b61c9f2bf79736e4d9cdcb6768dd4abe,
+    type: 3}

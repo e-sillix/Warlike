@@ -15341,6 +15341,7 @@ Transform:
   - {fileID: 536403203}
   - {fileID: 406462748}
   - {fileID: 1047576137}
+  - {fileID: 1612806108}
   m_Father: {fileID: 391697916}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &630187026
@@ -26045,7 +26046,7 @@ GameObject:
   - component: {fileID: 1047576137}
   - component: {fileID: 1047576136}
   m_Layer: 0
-  m_Name: DependencyManager
+  m_Name: ConstructionManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26066,6 +26067,7 @@ MonoBehaviour:
   buildingInstanceUI: {fileID: 536403206}
   troopsTrainingManager: {fileID: 1574388606}
   troopsCountManager: {fileID: 903222388}
+  buildingDependencyManager: {fileID: 1612806109}
 --- !u!4 &1047576137
 Transform:
   m_ObjectHideFlags: 0
@@ -36945,6 +36947,54 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1611645836}
   m_CullTransparentMesh: 1
+--- !u!1 &1612806107
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1612806108}
+  - component: {fileID: 1612806109}
+  m_Layer: 0
+  m_Name: BuildingDependencyManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1612806108
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1612806107}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 627841137}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1612806109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1612806107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc3ff3380e7b68b43bc162a4b04321f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buildingInstanceUI: {fileID: 536403206}
+  troopsTrainingManager: {fileID: 1574388606}
+  troopsCountManager: {fileID: 903222388}
+  ParentObject: {fileID: 603283119}
 --- !u!1 &1621520873
 GameObject:
   m_ObjectHideFlags: 0
@@ -41521,7 +41571,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   statsManager: {fileID: 416393051}
   tradingManager: {fileID: 2061975415}
-  dependencyManager: {fileID: 1047576136}
+  constructionDependencyManager: {fileID: 1047576136}
   ParentObject: {fileID: 603283119}
 --- !u!114 &1817804701
 MonoBehaviour:

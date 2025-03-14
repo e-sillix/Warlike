@@ -7,14 +7,14 @@ public class BuildingManager : MonoBehaviour
     [SerializeField] private TradingManager tradingManager;
     // [SerializeField] private BuildingUpgrade buildingUpgrade;
     // [SerializeField] private BuildingInstanceUI buildingInstanceUI;
-    [SerializeField] private DependencyManager dependencyManager;
+    [SerializeField] private ConstructionDependencyManager constructionDependencyManager;
     [SerializeField] private GameObject ParentObject;
     private ConditionalManager conditionManager;
 
-    private GameObject SpawnedBuilding;
+    private GameObject SpawnedBuilding,ConstructionBuilding;
     private BuildingCost buildingCost;
     private int status,woodCost,grainCost,stoneCost;
-    private GameObject buildingPrefab,buildingBlueprint;
+    private GameObject buildingPrefab,buildingBlueprint,UnderConstructionBuilding;
     
     void Start(){
         conditionManager=GetComponent<ConditionalManager>();
@@ -35,6 +35,7 @@ public class BuildingManager : MonoBehaviour
         stoneCost=buildingCost.stoneCost;
         buildingPrefab=buildingCost.TheOriginal;
         buildingBlueprint=buildingCost.TheBlueprint;
+        UnderConstructionBuilding=buildingCost.UnderConstructionPrefab;
     }
 
     public bool IsEnoughCredit(){
@@ -68,17 +69,22 @@ public class BuildingManager : MonoBehaviour
     }
     private void SpawnBuilding(){
         GameObject blue=conditionManager.ReturnBlueprintObj();
-        SpawnedBuilding=Instantiate(buildingPrefab,blue.transform.position,Quaternion.identity );
+        // SpawnedBuilding=Instantiate(buildingPrefab,blue.transform.position,Quaternion.identity );
+        ConstructionBuilding=Instantiate(UnderConstructionBuilding,
+        blue.transform.position,Quaternion.identity );
+
+
         // SpawnedBuilding=Instantiate(buildingPrefab,blue.transform.position,blue 
         // .transform.rotation);
-        SpawnedBuilding.transform.SetParent(ParentObject.transform);
-        SpawnedBuilding.transform.localRotation = Quaternion.identity;
-        ProvidingManager();
+        ConstructionBuilding.transform.SetParent(ParentObject.transform);
+        ConstructionBuilding.transform.localRotation = Quaternion.identity;
+        // ProvidingManager();
+        constructionDependencyManager.ProvideDependency(ConstructionBuilding,buildingPrefab);
         conditionManager.DestroyTheBlueprint();
     }
-    void ProvidingManager(){       
-        dependencyManager.ProvideDependency(SpawnedBuilding);
-    }
+    // void ProvidingManager(){       
+    //     dependencyManager.ProvideDependency(SpawnedBuilding);
+    // }
     private void NullingData(){
         buildingCost=null;
         woodCost=0;

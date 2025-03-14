@@ -72,7 +72,8 @@ public class BuildingStatsManager : MonoBehaviour
         buildingData.stoneUpgradeCost[levelIndex],
         buildingData.timeCost[levelIndex],
         buildingData.BuildingBlueprint,
-        buildingData.buildingPrefab
+        buildingData.buildingPrefab,
+        buildingData.UnderConstructionPrefab
     );
     }
 }

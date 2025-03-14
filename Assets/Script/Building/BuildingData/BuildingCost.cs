@@ -4,9 +4,10 @@ using UnityEngine;
 public class BuildingCost
 {
     public int woodCost,grainCost, stoneCost, timeCost;
-    public GameObject TheBlueprint,TheOriginal;
+    public GameObject TheBlueprint,TheOriginal,UnderConstructionPrefab;
 
-    public BuildingCost(int wood, int grain, int stone,int time, GameObject Blueprint,GameObject Original)
+    public BuildingCost(int wood, int grain, int stone,int time, GameObject Blueprint,
+    GameObject Original,GameObject UnderConstruction)
     {
         woodCost = wood;
         grainCost = grain;
@@ -14,5 +15,6 @@ public class BuildingCost
         timeCost= time;
         TheBlueprint=Blueprint;
         TheOriginal=Original;
+        UnderConstructionPrefab=UnderConstruction;
     }
 }
