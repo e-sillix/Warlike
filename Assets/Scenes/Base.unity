@@ -22299,6 +22299,7 @@ MonoBehaviour:
   normalObjectZoom: 50
   HomeZoom: 70
   Home: {fileID: 412651537}
+  LimitRadius: 500
 --- !u!4 &928523307
 Transform:
   m_ObjectHideFlags: 0

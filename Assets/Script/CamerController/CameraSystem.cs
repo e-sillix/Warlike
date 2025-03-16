@@ -13,6 +13,8 @@ public class CameraSystem : MonoBehaviour
     ,HomeZoom;
     // private float FOV=50;
     [SerializeField] private GameObject Home;
+
+    [SerializeField]private float LimitRadius;
     // private Vector3 followOffset;
     private bool istouchingAllowed=true;
     private float touchStartTime;
@@ -144,7 +146,7 @@ public class CameraSystem : MonoBehaviour
             }
     }
     void HandleCameraTouchMovement()
-    {
+{
     if (Input.touchCount == 1)
     {
         Touch touch = Input.GetTouch(0);
@@ -154,20 +156,37 @@ public class CameraSystem : MonoBehaviour
             Ray touchRay = Camera.main.ScreenPointToRay(touch.position);
             Ray prevTouchRay = Camera.main.ScreenPointToRay(touch.position - touch.deltaPosition);
 
-            Plane groundPlane = new Plane(Vector3.up, Vector3.zero); // Assuming the ground is flat
-            //  at y=0
+            Plane groundPlane = new Plane(Vector3.up, Vector3.zero); // Assuming ground is at y = 0
 
-            if (groundPlane.Raycast(prevTouchRay, out float enterPrev) && groundPlane.
-            Raycast(touchRay, out float enterCurr))
+            if (groundPlane.Raycast(prevTouchRay, out float enterPrev) && groundPlane.Raycast(touchRay, out float enterCurr))
             {
                 Vector3 prevPoint = prevTouchRay.GetPoint(enterPrev);
                 Vector3 currPoint = touchRay.GetPoint(enterCurr);
+
+                Vector3 moveDir = prevPoint - currPoint; // Reverse direction for a natural feel
                 
-                Vector3 moveDir = prevPoint - currPoint; // Reverse direction for natural feel
-                transform.position += moveDir ;
+                // Calculate new position
+                Vector3 newPosition = transform.position + moveDir;
+
+                // Define circular boundary
+                Vector3 centerPoint = new Vector3(0f, transform.position.y, 0f); // Center of the circle (change if needed)
+                // float maxRadius = 10f; // Maximum allowed distance from the center
+
+                // Calculate distance from the center
+                Vector3 offset = newPosition - centerPoint;
+                if (offset.magnitude > LimitRadius)
+                {
+                    // Clamp position to the max radius
+                    newPosition = centerPoint + offset.normalized * LimitRadius;
+                }
+
+                // Apply the limited position
+                transform.position = newPosition;
             }
         }
-    }}
+    }
+}
+
 
    
   

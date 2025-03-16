@@ -84,7 +84,7 @@ public class BuildingInstanceUI : MonoBehaviour
         Target.GetComponent<BuildingInstance>().CancelUpgrade();
     }
     void DisplayOngoingUpgradeData(){
-        OnUpgradeBuildingName.text= nameOfBuilding+ "is being Upgraded.";
+        OnUpgradeBuildingName.text= nameOfBuilding+ " is being Upgraded.";
         OnLevel.text="Level :"+level+" TO "+(level+1);
     }
 
