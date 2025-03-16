@@ -5,7 +5,7 @@ using TMPro;
 
 public class BuildingInstanceUI : MonoBehaviour
 {//this is a manager attached to BuildingUIManager ,for showing data
-    [SerializeField] private GameObject BuildingInfoUIPanel,BuildingUpgradeUIPanel;
+    [SerializeField] private GameObject BuildingInfoUIPanel,BuildingUpgradeUIPanel,OnGoingUpgrade;
     private GameObject Target;
 
     private string nameOfBuilding;
@@ -14,6 +14,8 @@ public class BuildingInstanceUI : MonoBehaviour
 
     [SerializeField]private TextMeshProUGUI BuildingName,Stats; 
     [SerializeField] private TextMeshProUGUI UpgradeBuildingName,UpgradeData,UpgradeCostText;
+
+    [SerializeField]private TextMeshProUGUI OnUpgradeBuildingName,OnLevel;
 
     private BuildingCost upgradeBuildingData;
     [SerializeField] private BuildingUpgrade buildingUpgrade;
@@ -77,16 +79,35 @@ public class BuildingInstanceUI : MonoBehaviour
              Stats.text= "Level: "+ level +", Research Rate: "+rateOfProduction;
          }
     }
+    public void CancelingUpgradeClicked(){
+        //by instanceUI button
+        Target.GetComponent<BuildingInstance>().CancelUpgrade();
+    }
+    void DisplayOngoingUpgradeData(){
+        OnUpgradeBuildingName.text= nameOfBuilding+ "is being Upgraded.";
+        OnLevel.text="Level :"+level+" TO "+(level+1);
+    }
 
     
     //Building Upgrade related
     public void UpgradeIsClicked(GameObject target){
         //indirectly by buildingInstance
+
+        
+
         Target=target;
 
         GetAllTheStats();//getting current info
         if(GetAllUpgradeStats()==0){
             messageManager.TriggerMaxBuildingUpgrade();
+            return;
+        }
+        //need check the status of the building
+        if(target.GetComponent<BuildingInstance>().ReturnBuildingStatus()){
+            Debug.Log("Building is being upgraded");
+            
+            OnGoingUpgrade.SetActive(true);
+            DisplayOngoingUpgradeData();
             return;
         }
         BuildingUpgradeUIPanel.SetActive(true);

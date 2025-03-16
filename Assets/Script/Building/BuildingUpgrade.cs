@@ -14,7 +14,8 @@ public class BuildingUpgrade : MonoBehaviour
     private UpgradeCostPayload upgradeCost;
 
     private String nameOfBuilding;
-    private int level,woodCost,grainCost,stoneCost;
+    private int level,woodCost,grainCost,stoneCost,timeCost;
+    private int[] upgradeData;
     void Start(){
         upgradeStats=GetComponent<UpgradeStats>();
     }
@@ -79,30 +80,37 @@ public class BuildingUpgrade : MonoBehaviour
         woodCost = upgradeCost.woodCost ;
         grainCost = upgradeCost.grainCost ;
         stoneCost =upgradeCost.stoneCost ;
+        timeCost = upgradeCost.timeCost ;
     }
     bool UpgradeTheBuilding(){
         if(!CheckBuildingUpgradeLadder()){
             return false;
         }
         if(Target.GetComponent<Farm>()){
-            Farm farm=Target.GetComponent<Farm>();                     
-            farm.UpgradeStats(level+1,upgradeCost.capacity,upgradeCost.rate);
+            // Farm farm=Target.GetComponent<Farm>();                     
+            // farm.UpgradeStats(level+1,upgradeCost.capacity,upgradeCost.rate);
+            upgradeData=new int[] { level + 1, upgradeCost.capacity, upgradeCost.rate };
         }
          else if(Target.GetComponent<TheBarrack>()){
-            TheBarrack barrack=Target.GetComponent<TheBarrack>();
-            barrack.UpgradeStats(level+1,upgradeCost.capacity,upgradeCost.rate);
+            // TheBarrack barrack=Target.GetComponent<TheBarrack>();
+            // barrack.UpgradeStats(level+1,upgradeCost.capacity,upgradeCost.rate);
+            upgradeData=new int[] { level + 1, upgradeCost.capacity, upgradeCost.rate };
         }
         else if(Target.GetComponent<Base>()){
-            Base TheBase=Target.GetComponent<Base>();
-            TheBase.UpgradeStats(level+1);
+            // Base TheBase=Target.GetComponent<Base>();
+            // TheBase.UpgradeStats(level+1);
+            upgradeData=new int[] { level + 1};
         }
         else if(Target.GetComponent<Laboratory>()){
-            Laboratory laboratory=Target.GetComponent<Laboratory>();
-            laboratory.UpgradeStats(level+1,upgradeCost.rate);
+            // Laboratory laboratory=Target.GetComponent<Laboratory>();
+            // laboratory.UpgradeStats(level+1,upgradeCost.rate);
+            upgradeData=new int[] { level + 1,upgradeCost.rate };
         }
         else{
             Debug.Log("Need to add more condition about the chosen building in BuildingUpgrade");
       }
+    //   Target.GetComponent<BuildingInstance>().SetBuildingStatus(true);
+      Target.GetComponent<BuildingInstance>().UpgradeIsOrdered(upgradeData,timeCost);
       return true;
     }
     bool CheckBuildingUpgradeLadder(){

@@ -7,12 +7,72 @@ public class BuildingInstance : MonoBehaviour
     //this will be attached to every building ,interact with click.
     [SerializeField] private GameObject UIButtonPanel;
     [SerializeField] private BuildingInstanceUI buildingInstanceUI;
+    private bool BuildingIsBeingUpgraded;
+    private Coroutine UpgradeCoroutine;
+
+    
     // private BuildingInstanceUI buildingInstanceUI;  
     public void assigningManager(BuildingInstanceUI BuildingInstanceUI){
         //this will be called by BuildingManager when prefab is created.
         buildingInstanceUI=BuildingInstanceUI;
     }
-    
+
+    public bool ReturnBuildingStatus(){
+        //by BuildingInstanceUI
+        return BuildingIsBeingUpgraded;
+    }
+    // public void SetBuildingStatus(bool status){
+    //     BuildingIsBeingUpgraded=status;
+    // }
+
+    public void UpgradeIsOrdered(int[] UpgradeData,int time){//order:
+    // level + 1, upgradeCost.capacity, upgradeCost.rate;
+
+        BuildingIsBeingUpgraded=true;
+        UpgradeCoroutine=StartCoroutine(UpgradeProcess( UpgradeData,time));
+        }
+
+// Coroutine to wait and then apply the upgrade
+    private IEnumerator UpgradeProcess( int[] UpgradeData,int time)
+    {
+    // Wait for the specified upgrade time
+    yield return new WaitForSeconds(time);
+
+    if(GetComponent<Farm>()){
+            // Farm farm=GetComponent<Farm>();                     
+            GetComponent<Farm>().UpgradeStats(UpgradeData[0],UpgradeData[1],UpgradeData[2]);
+        }
+         else if(GetComponent<TheBarrack>()){
+            // TheBarrack barrack=GetComponent<TheBarrack>();
+            GetComponent<TheBarrack>().UpgradeStats(UpgradeData[0],UpgradeData[1],UpgradeData[2]);
+            // upgradeData=new int[] { level + 1, upgradeCost.capacity, upgradeCost.rate };
+        }
+        else if(GetComponent<Base>()){
+            // Base TheBase=Target.GetComponent<Base>();
+            GetComponent<Base>().UpgradeStats(UpgradeData[0]);
+        }
+        else if(GetComponent<Laboratory>()){
+            // Laboratory laboratory=Target.GetComponent<Laboratory>();
+            GetComponent<Laboratory>().UpgradeStats(UpgradeData[0],UpgradeData[1]);
+        }
+        else{
+            Debug.LogError("BuildingInstance error");
+        }
+
+    // Apply upgrade logic here (level, capacity, rate)
+    // ApplyUpgrade(upgradeData);
+    Debug.Log("Building Upgraded");
+    // Upgrade complete
+    BuildingIsBeingUpgraded = false;
+    }
+
+    public void CancelUpgrade(){
+        if(UpgradeCoroutine!=null){
+            StopCoroutine(UpgradeCoroutine);
+            BuildingIsBeingUpgraded = false;
+            Debug.Log("Cancelation done.");
+        }
+    }
     public void BuildingClicked(){
         //this will be called by global ui ,after finding this script in parent of the collider.        
         //trigger ui button 
