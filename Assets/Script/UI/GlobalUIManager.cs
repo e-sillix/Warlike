@@ -17,6 +17,7 @@ public class GlobalUIManager : MonoBehaviour
     [SerializeField] private TroopsUI troopsUI;
     private GameObject lastClicked,currentClicked;
     private GameObject spawnedPointer;
+    private bool IsRefreshed=false;
 
     // private bool IsUIOpen=false;
     
@@ -40,54 +41,34 @@ public class GlobalUIManager : MonoBehaviour
             if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, layerMask))
             {        
                     // Prevent interaction if clicking on UI
-                    Debug.Log(hit.collider.gameObject.name);
+                    // Debug.Log(hit.collider.gameObject.name);
                     clickedObject=hit.collider.gameObject;
                     currentClicked=clickedObject;
                      if(spawnedPointer){
                         Destroy(spawnedPointer);
                     }
-                    ClickAnalysis(clickedObject,hit);
+                    
+                    if(lastClicked==null){
+                        // Debug.Log("this is another start");
+                        ClickAnalysis(clickedObject,hit);
+                    }else{
+                        if(!IsGroundLayer(clickedObject)){
+                            RefreshLastClick();
+                            ClickAnalysis(clickedObject,hit);
+                        }
+                        else{//the clicked on ground current one
+                            
+                                RefreshLastClick();
+                            
+                                currentClicked=null;
+                        }
+                    }
+                    
                 }
             else{
                 Debug.Log("Hitted nothing");
             }
-            if( lastClicked!=currentClicked){
-                // permissionForUI=true;
-                // Debug.Log("Different building clicked");
-                if (lastClicked != null) {
-                    BuildingInstance buildinstance = lastClicked.GetComponentInParent<BuildingInstance>();
-                    // TheUnit theUnit=lastClicked.GetComponentInParent<TheUnit>();
-                    TroopsInstanceUI troopsInstanceUI=lastClicked.GetComponentInParent<TroopsInstanceUI>();
-                    CreepUI creepUI=lastClicked.GetComponentInParent<CreepUI>();
-                    MineUI mineUI=lastClicked.GetComponentInParent<MineUI>();
-                    BossArmyUI bossArmyUI=lastClicked.GetComponentInParent<BossArmyUI>();
-                    BossUI bossUI=lastClicked.GetComponentInParent<BossUI>();
-                    if (buildinstance != null) {
-                        // Debug.Log("previous building has BuildingInstance");
-                        //this deselects the buildings
-                        buildinstance.DisableUI();
-                    }
-                    else if(troopsInstanceUI){
-                        // Debug.Log("Last Clicked Was a unit.");
-                        troopsInstanceUI.RefreshUIB();
-                    } 
-                    else if(creepUI){
-                        creepUI.DeSelectCreep();
-                    }
-                    else if(mineUI){
-                        mineUI.DeSelectMine();
-                    }
-                    else if(bossArmyUI){
-                        bossArmyUI.DeSelectArmy();
-                    }
-                    else if(bossUI){
-                        bossUI.DeSelectBoss();
-                    }
-                    // else {
-                    //     // Debug.Log("No BuildingInstance found on the last clicked object.");
-                    // }
-                }                    
-            }
+           
             lastClicked=currentClicked;
     }
     // void Update(){                   
@@ -214,6 +195,38 @@ public class GlobalUIManager : MonoBehaviour
             cameraSystem.SetFocusOn(ClickedObject);
         }
         
+    }
+
+    void RefreshLastClick(){
+        BuildingInstance buildinstance = lastClicked.GetComponentInParent<BuildingInstance>();
+                    // TheUnit theUnit=lastClicked.GetComponentInParent<TheUnit>();
+                    TroopsInstanceUI troopsInstanceUI=lastClicked.GetComponentInParent<TroopsInstanceUI>();
+                    CreepUI creepUI=lastClicked.GetComponentInParent<CreepUI>();
+                    MineUI mineUI=lastClicked.GetComponentInParent<MineUI>();
+                    BossArmyUI bossArmyUI=lastClicked.GetComponentInParent<BossArmyUI>();
+                    BossUI bossUI=lastClicked.GetComponentInParent<BossUI>();
+                    if (buildinstance != null) {
+                        // Debug.Log("previous building has BuildingInstance");
+                        //this deselects the buildings
+                        buildinstance.DisableUI();
+                    }
+                    else if(troopsInstanceUI){
+                        // Debug.Log("Last Clicked Was a unit.");
+                        troopsInstanceUI.RefreshUIB();
+                    } 
+                    else if(creepUI){
+                        creepUI.DeSelectCreep();
+                    }
+                    else if(mineUI){
+                        mineUI.DeSelectMine();
+                    }
+                    else if(bossArmyUI){
+                        bossArmyUI.DeSelectArmy();
+                    }
+                    else if(bossUI){
+                        bossUI.DeSelectBoss();
+                    }
+                    // lastClicked=null;
     }
 //for ground clicked for march probably
     private bool IsGroundLayer(GameObject obj)
