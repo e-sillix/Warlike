@@ -4419,9 +4419,9 @@ MonoBehaviour:
     type: 3}
   spawnPointObject: {fileID: 1811292001}
   parentObject: {fileID: 2117134554}
-  minRadius: 80
-  maxRadius: 270
-  numberOfSpawnPoints: 10
+  minRadius: 70
+  maxRadius: 400
+  numberOfSpawnPoints: 20
 --- !u!1 &261544108
 GameObject:
   m_ObjectHideFlags: 0
@@ -25000,7 +25000,7 @@ Transform:
   m_GameObject: {fileID: 991551715}
   serializedVersion: 2
   m_LocalRotation: {x: 1.110223e-17, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.5, z: 0}
+  m_LocalPosition: {x: -50, y: -0.5, z: -150}
   m_LocalScale: {x: 100, y: 1, z: 100}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -30903,9 +30903,9 @@ MonoBehaviour:
     type: 3}
   ParentObject: {fileID: 516350602}
   troopsExpeditionManager: {fileID: 0}
-  minRadius: 80
-  maxRadius: 270
-  numberOfPrefabs: 20
+  minRadius: 70
+  maxRadius: 400
+  numberOfPrefabs: 40
   spawnRotation: {x: 0, y: -15, z: 0, w: 1}
 --- !u!1 &1240670868
 GameObject:
