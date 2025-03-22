@@ -8115,9 +8115,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abf6b04e9e278c84facc5ceb3985d365, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deltaWood: 330400
-  deltaGrain: 9328433
-  deltaStone: 230000
+  deltaWood: 1000
+  deltaGrain: 1000
+  deltaStone: 1000
   woodsCounter: {fileID: 1196518568}
   grainCounter: {fileID: 1568983245}
   stoneCounter: {fileID: 1690072422}
@@ -42281,6 +42281,7 @@ GameObject:
   - component: {fileID: 1817804699}
   - component: {fileID: 1817804700}
   - component: {fileID: 1817804701}
+  - component: {fileID: 1817804702}
   m_Layer: 0
   m_Name: BuildingManager
   m_TagString: Untagged
@@ -42332,6 +42333,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tradingManager: {fileID: 2061975415}
+--- !u!114 &1817804702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1817804698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e461d5a1de347043923079a44187b4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1819732305
 GameObject:
   m_ObjectHideFlags: 0
