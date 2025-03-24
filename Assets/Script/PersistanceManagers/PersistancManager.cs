@@ -11,6 +11,7 @@ public class PersistancManager : MonoBehaviour
 
     void Start()
     {
+        var timeElapsed =GetComponent<TimeElapsedManagement>().CalculateTimeElapsed();
         //load Currency data
         currencyManager.LoadPreviousData();
         
