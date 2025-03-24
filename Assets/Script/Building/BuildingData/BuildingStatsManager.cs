@@ -19,48 +19,49 @@ public class BuildingStatsManager : MonoBehaviour
 
     BuildingData buildingData = null;
 
-    // Find the correct building based on its name
-    if (buildingName == "WoodFarm" || buildingName=="Wood")
-    {
-        buildingData = woodFarmData; // Reference to the ScriptableObject containing Wood Farm data
-    }
-    else if (buildingName == "GrainFarm"|| buildingName=="Grain")
-    {
-        buildingData = grainFarmData; // Reference to the ScriptableObject containing Barracks data
-    }
-    else if (buildingName == "StoneFarm"|| buildingName=="Stone")
-    {
-        buildingData = stoneFarmData; // Reference to the ScriptableObject containing Barracks data
-    }
-    else if (buildingName == "MageBarracks"||buildingName == "Mage")
-    {
-        buildingData = MageBarrackData; // Reference to the ScriptableObject containing Barracks data
-    }
-    else if (buildingName == "CavalryBarracks"||buildingName == "Cavalry")
-    {
-        buildingData = CavalryBarrackData; // Reference to the ScriptableObject containing Barracks data
-    }
-    else if (buildingName == "InfantryBarracks"||buildingName == "Infantry")
-    {
-        buildingData = InfantryBarrackData; // Reference to the ScriptableObject containing Barracks data
-    }
-    else if (buildingName == "ArcherBarracks"||buildingName == "Archer")
-    {
-        buildingData = ArcherBarrackData; // Reference to the ScriptableObject containing Barracks data
-    }
-    else if(buildingName == "Base")
-    {
-        buildingData = baseData; // Reference to the ScriptableObject containing Barracks data
-    }
-    else if(buildingName == "Laboratory")
-    {
-        buildingData = laboratoryData; // Reference to the ScriptableObject containing Barracks data
-    }   
-    else
-    {
-        Debug.LogError("Building not found: " + buildingName);
-        return null;
-    }
+   // Normalize name to remove unnecessary suffixes like "_clone1"
+string normalizedBuildingName = buildingName.Replace("(Clone)", "").Trim(); 
+
+if (normalizedBuildingName.Contains("WoodFarm") || normalizedBuildingName.Contains("Wood"))
+{
+    buildingData = woodFarmData;
+}
+else if (normalizedBuildingName.Contains("GrainFarm") || normalizedBuildingName.Contains("Grain"))
+{
+    buildingData = grainFarmData;
+}
+else if (normalizedBuildingName.Contains("StoneFarm") || normalizedBuildingName.Contains("Stone"))
+{
+    buildingData = stoneFarmData;
+}
+else if (normalizedBuildingName.Contains("MageBarracks") || normalizedBuildingName.Contains("Mage"))
+{
+    buildingData = MageBarrackData;
+}
+else if (normalizedBuildingName.Contains("CavalryBarracks") || normalizedBuildingName.Contains("Cavalry"))
+{
+    buildingData = CavalryBarrackData;
+}
+else if (normalizedBuildingName.Contains("InfantryBarracks") || normalizedBuildingName.Contains("Infantry"))
+{
+    buildingData = InfantryBarrackData;
+}
+else if (normalizedBuildingName.Contains("ArcherBarracks") || normalizedBuildingName.Contains("Archer"))
+{
+    buildingData = ArcherBarrackData;
+}
+else if (normalizedBuildingName.Contains("Base"))
+{
+    buildingData = baseData;
+}
+else if (normalizedBuildingName.Contains("Laboratory"))
+{
+    buildingData = laboratoryData;
+}
+else
+{
+    Debug.LogWarning("No matching building data found for: " + normalizedBuildingName);
+}
 
     // Adjust level number to index (array starts at 0, levels start at 1)
     int levelIndex = levelNumber - 1;

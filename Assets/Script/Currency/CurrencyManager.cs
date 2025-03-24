@@ -21,7 +21,7 @@ public class CurrencyManager : MonoBehaviour
         { ResourceType.Stone, 0 }
     };
 
-    void Start()
+    public void LoadPreviousData()
 {
     savePath = Application.persistentDataPath + "/economyData.json";
 

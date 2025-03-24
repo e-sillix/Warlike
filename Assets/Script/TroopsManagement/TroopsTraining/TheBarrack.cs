@@ -24,7 +24,7 @@ public class TheBarrack : MonoBehaviour
     private TroopsTrainingManager troopsTrainingManager;
 
     //some buffs
-
+    public string nameOfBuilding;
     public int level=1;
 
     // void Start(){

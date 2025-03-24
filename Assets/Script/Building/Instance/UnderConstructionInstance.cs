@@ -31,6 +31,9 @@ public class UnderConstructionInstance : MonoBehaviour
     {
         SpawnedBuilding=Instantiate(RealBuilding, transform.position, Quaternion.identity);
         buildingDependencyManager.DependencyTo(SpawnedBuilding);
+        SpawnedBuilding.GetComponent<BuildingInstance>().ProvideBasicDependency(
+            buildingDependencyManager);
+        
 
         Destroy(gameObject);
     }

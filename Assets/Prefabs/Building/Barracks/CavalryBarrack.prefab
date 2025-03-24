@@ -430,6 +430,7 @@ MonoBehaviour:
   TrainingCappacity: 50
   rateOfTraining: 1
   trainingHandler: {fileID: 1055504845501318309}
+  nameOfBuilding: CavalryBarrack
   level: 1
 --- !u!114 &2031639797028422133
 MonoBehaviour:

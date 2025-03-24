@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BuildingInstance : MonoBehaviour
@@ -9,12 +10,44 @@ public class BuildingInstance : MonoBehaviour
     [SerializeField] private BuildingInstanceUI buildingInstanceUI;
     private bool BuildingIsBeingUpgraded;
     private Coroutine UpgradeCoroutine;
+    private BuildingPersistenceManager buildingPersistenceManager;
+    private BuildingDependencyManager buildingDependencyManager;
+    // private string name;
+    // private int level;
 
-    
+
+    public void ProvideBasicDependency(BuildingDependencyManager BuildingDependencyManager){
+        //called by when it is spawned after closing the game.
+        buildingDependencyManager=BuildingDependencyManager;
+
+        //buildingdepen. for all the dependencies.
+
+        buildingDependencyManager.ProvideAllConditionalDependencies(gameObject);
+    }
+
+    public void GetallBuildingDependencies(BuildingPersistenceManager BuildingPersistenceManager,
+    BuildingInstanceUI BuildingInstanceUI){
+        //this will be countercall by provideBasicDependency.
+        buildingPersistenceManager=BuildingPersistenceManager;
+        buildingInstanceUI=BuildingInstanceUI;
+
+    }
+    public void DependencyInjection(BuildingPersistenceManager BuildingPersistenceManager){
+        //this will be called when it is replaced by construction instance.
+        buildingPersistenceManager=BuildingPersistenceManager;
+        
+        buildingPersistenceManager.SaveBuildingData(gameObject);
+        }
     // private BuildingInstanceUI buildingInstanceUI;  
     public void assigningManager(BuildingInstanceUI BuildingInstanceUI){
         //this will be called by BuildingManager when prefab is created.
         buildingInstanceUI=BuildingInstanceUI;
+    }
+    public void Dependency(BuildingInstanceUI BuildingInstanceUI,BuildingPersistenceManager
+     BuildingPersistenceManager){
+        //this will be called by BuildingManager when prefab is created.
+        buildingInstanceUI=BuildingInstanceUI;
+        buildingPersistenceManager=BuildingPersistenceManager;
     }
 
     public bool ReturnBuildingStatus(){

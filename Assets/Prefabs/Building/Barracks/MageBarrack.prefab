@@ -475,6 +475,7 @@ MonoBehaviour:
   TrainingCappacity: 50
   rateOfTraining: 1
   trainingHandler: {fileID: 6254207608270015756}
+  nameOfBuilding: MageBarrack
   level: 1
 --- !u!114 &6183359265417483570
 MonoBehaviour:

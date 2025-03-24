@@ -23060,6 +23060,7 @@ GameObject:
   - component: {fileID: 955817968}
   - component: {fileID: 955817969}
   - component: {fileID: 955817970}
+  - component: {fileID: 955817971}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -23112,6 +23113,21 @@ MonoBehaviour:
   FrameText: {fileID: 1448628621}
   soundToggle: {fileID: 62315136}
   notificationToggle: {fileID: 1119735454}
+--- !u!114 &955817971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 955817967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a1ffee74e8ebf24c999c31a194d3fbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buildingPersistenceManager: {fileID: 1817804702}
+  currencyManager: {fileID: 411135600}
+  troopsCountManager: {fileID: 903222388}
 --- !u!1 &957374297
 GameObject:
   m_ObjectHideFlags: 0
@@ -37606,6 +37622,7 @@ MonoBehaviour:
   buildingInstanceUI: {fileID: 536403206}
   troopsTrainingManager: {fileID: 1574388606}
   troopsCountManager: {fileID: 903222388}
+  buildingPersistenceManager: {fileID: 1817804702}
   ParentObject: {fileID: 603283119}
 --- !u!1 &1621520873
 GameObject:
@@ -42345,6 +42362,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e461d5a1de347043923079a44187b4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buildingStatsManager: {fileID: 416393051}
+  buildingDependencyManager: {fileID: 1612806109}
+  buildingPrefabs: []
 --- !u!1 &1819732305
 GameObject:
   m_ObjectHideFlags: 0

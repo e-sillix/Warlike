@@ -569,6 +569,7 @@ MonoBehaviour:
   TrainingCappacity: 50
   rateOfTraining: 1
   trainingHandler: {fileID: 6254207608270015756}
+  nameOfBuilding: InfantryBarrack
   level: 1
 --- !u!114 &8578352266755155189
 MonoBehaviour:

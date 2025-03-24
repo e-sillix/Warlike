@@ -9,6 +9,7 @@ public class Farm : MonoBehaviour
     public ResourceType resourceType; //for choosing the resources to produce
     public int level=1,rateOfProduction=1,capacity=20;
     // public string BuildingType="Farm";
+    public string nameOfBuilding;
     [SerializeField] private CurrencyManager currencyManager;
 
     [SerializeField] private int leastAmountForConsuming;
