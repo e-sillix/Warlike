@@ -18,30 +18,38 @@ public class BuildingPersistenceManager : MonoBehaviour
         LoadBuildingData();
     }
 
-    public void SaveBuildingData(GameObject building)
+   public void SaveBuildingData(GameObject building)
+{
+    string nameOfBuilding = building.name;
+    int level = GetBuildingLevel(building);
+    Vector3 pos = building.transform.position;
+
+    // Generate a unique random ID between 100 and 1000
+    int buildingID;
+    do
     {
-        string nameOfBuilding = building.name;
-        int level = GetBuildingLevel(building);
-        string buildingID = nameOfBuilding + "_" + buildings.Count; // Unique name
-        Vector3 pos = building.transform.position;
+        buildingID = Random.Range(100, 1001); // Range is 100 to 1000 (1001 is exclusive)
+    } while (buildings.Exists(b => b.buildingId == buildingID)); // Ensure ID is unique
 
-        // Check if building already exists
-        for (int i = 0; i < buildings.Count; i++)
+    // Check if building already exists (by name)
+    for (int i = 0; i < buildings.Count; i++)
+    {
+        if (buildings[i].buildingName == nameOfBuilding)
         {
-            if (buildings[i].buildingName == buildingID)
-            {
-                buildings[i].level = level;
-                buildings[i].position = pos;
-                SaveToFile();
-                return;
-            }
+            buildings[i].level = level;
+            buildings[i].position = pos;
+            
+            SaveToFile();
+            return;
         }
-
-        // If new, add to list
-        BuildingInfo newBuilding = new BuildingInfo(buildingID, level, pos);
-        buildings.Add(newBuilding);
-        SaveToFile();
     }
+
+    // If new, add to list with unique ID
+    BuildingInfo newBuilding = new BuildingInfo(buildingID, nameOfBuilding, level, pos);
+    buildings.Add(newBuilding);
+    SaveToFile();
+}
+
 
     private int GetBuildingLevel(GameObject building)
     {
@@ -99,10 +107,31 @@ public class BuildingPersistenceManager : MonoBehaviour
 
     private void SetBuildingLevel(GameObject building, int level)
     {
-        if (building.TryGetComponent<Farm>(out Farm farm)) farm.level = level;
-        if (building.TryGetComponent<TheBarrack>(out TheBarrack barrack)) barrack.level = level;
-        if (building.TryGetComponent<Base>(out Base baseBuilding)) baseBuilding.level = level;
-        if (building.TryGetComponent<Laboratory>(out Laboratory lab)) lab.level = level;
+        if (building.GetComponent<Farm>())
+{
+    Farm farm = building.GetComponent<Farm>();
+    // farm.level = level;
+    farm.SettingPreviousData(level);
+}
+else if (building.GetComponent<TheBarrack>())
+{
+    TheBarrack barrack = building.GetComponent<TheBarrack>();
+    // barrack.level = level;
+    barrack.SettingPreviousData(level);
+}
+else if (building.GetComponent<Base>())
+{
+    Base baseBuilding = building.GetComponent<Base>();
+    // baseBuilding.level = level;
+    baseBuilding.SettingPreviousData(level);
+}
+else if (building.GetComponent<Laboratory>())
+{
+    Laboratory lab = building.GetComponent<Laboratory>();
+    // lab.level = level;
+    // lab.SettingPreviousData(int level);
+}
+
     }
 
     private void SaveToFile()
@@ -126,13 +155,14 @@ public class BuildingList
 public class BuildingInfo
 {
     public string buildingName;
-    public int level;
+    public int level,buildingId;
     public Vector3 position;
 
-    public BuildingInfo(string name, int lvl, Vector3 pos)
+    public BuildingInfo(int ID,string name, int lvl, Vector3 pos)
     {
         buildingName = name;
         level = lvl;
         position = pos;
+        buildingId=ID;
     }
 }

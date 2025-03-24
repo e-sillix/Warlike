@@ -8115,9 +8115,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abf6b04e9e278c84facc5ceb3985d365, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deltaWood: 1000
-  deltaGrain: 1000
-  deltaStone: 1000
+  deltaWood: 100000
+  deltaGrain: 100000
+  deltaStone: 100000
   woodsCounter: {fileID: 1196518568}
   grainCounter: {fileID: 1568983245}
   stoneCounter: {fileID: 1690072422}
@@ -37624,6 +37624,8 @@ MonoBehaviour:
   troopsCountManager: {fileID: 903222388}
   buildingPersistenceManager: {fileID: 1817804702}
   ParentObject: {fileID: 603283119}
+  buildingStatsManager: {fileID: 416393051}
+  upgradeStats: {fileID: 406462750}
 --- !u!1 &1621520873
 GameObject:
   m_ObjectHideFlags: 0

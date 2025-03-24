@@ -30,6 +30,11 @@ public class TheBarrack : MonoBehaviour
     // void Start(){
     //     troopsCountManager=FindObjectOfType<TroopsCountManager>();
     // }
+
+    public void SettingPreviousData(int l){
+        level =l;
+        GetComponent<BuildingInstance>().SetData();
+    }
     public void InitDependency(TroopsTrainingManager TroopsTrainingManager,
     TroopsCountManager TroopsCountManager){
         troopsTrainingManager=TroopsTrainingManager;
@@ -70,6 +75,12 @@ public class TheBarrack : MonoBehaviour
         TrainingCappacity=Capacity;
 
     }    
+    public void SetStats(int Capacity,int rate){
+        //called when app is reopen
+        rateOfTraining=rate;
+        TrainingCappacity=Capacity;
+        // GetComponent<BuildingInstance>().SetData();
+    }
 
 }
 public enum BarrackType

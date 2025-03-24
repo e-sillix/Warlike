@@ -9,6 +9,8 @@ public class BuildingDependencyManager : MonoBehaviour
      [SerializeField]private TroopsCountManager troopsCountManager;
      [SerializeField]private BuildingPersistenceManager buildingPersistenceManager;
      [SerializeField]private GameObject ParentObject;
+     [SerializeField]private BuildingStatsManager buildingStatsManager;
+     [SerializeField]private UpgradeStats upgradeStats;
     //  [SerializeField] private BuildingInstanceUI buildingInstanceUI;
     public void DependencyTo(GameObject gameObject)
     {
@@ -37,7 +39,7 @@ public class BuildingDependencyManager : MonoBehaviour
         building.transform.SetParent(ParentObject.transform);
         building.transform.localRotation = Quaternion.identity;
         building.GetComponent<BuildingInstance>().GetallBuildingDependencies
-        (buildingPersistenceManager,buildingInstanceUI);
+        (buildingPersistenceManager,buildingInstanceUI,upgradeStats);
 
         if(building.GetComponent<TheBarrack>()){
             building.GetComponent<TheBarrack>().InitDependency(troopsTrainingManager

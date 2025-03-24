@@ -1,5 +1,6 @@
 
 using UnityEngine;
+using System.IO;
 
 public class BuildingManager : MonoBehaviour
 {//responsible for spawning
@@ -15,10 +16,31 @@ public class BuildingManager : MonoBehaviour
     private BuildingCost buildingCost;
     private int status,woodCost,grainCost,stoneCost;
     private GameObject buildingPrefab,buildingBlueprint,UnderConstructionBuilding;
+    private string savePath;
+    // private List<BuildingInfo> buildings = new List<BuildingInfo>();
+    private int buildingBuilt;
+    
     
     void Start(){
         conditionManager=GetComponent<ConditionalManager>();
+        savePath = Application.persistentDataPath + "/buildingsData.json";
+        // LoadBuildingData();
     }
+    // public void LoadBuildingData()
+    // {
+    //     if (File.Exists(savePath))
+    //     {
+    //         string json = File.ReadAllText(savePath);
+    //         buildingBuilt = JsonUtility.FromJson<BuildingList>(json).buildings.Count;
+    //         Debug.Log("Building built " + buildingBuilt);
+
+    //         // SpawnBuildings();
+    //     }
+    //     else
+    //     {
+    //         Debug.Log("No saved building data found.");
+    //     }
+    // }
     public BuildingCost BuildingChosen(string buildingName, int level=1){
         //this will be called by uimanager 
         buildingCost=statsManager.GetBuildingStats(buildingName,level);

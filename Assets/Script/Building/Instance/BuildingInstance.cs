@@ -12,6 +12,8 @@ public class BuildingInstance : MonoBehaviour
     private Coroutine UpgradeCoroutine;
     private BuildingPersistenceManager buildingPersistenceManager;
     private BuildingDependencyManager buildingDependencyManager;
+    private BuildingStatsManager buildingStatsManager;
+    private UpgradeStats upgradeStats;
     // private string name;
     // private int level;
 
@@ -26,11 +28,19 @@ public class BuildingInstance : MonoBehaviour
     }
 
     public void GetallBuildingDependencies(BuildingPersistenceManager BuildingPersistenceManager,
-    BuildingInstanceUI BuildingInstanceUI){
+    BuildingInstanceUI BuildingInstanceUI,
+    UpgradeStats UpgradeStats){
         //this will be countercall by provideBasicDependency.
         buildingPersistenceManager=BuildingPersistenceManager;
         buildingInstanceUI=BuildingInstanceUI;
+        // buildingStatsManager=BuildingStatsManager;
+        upgradeStats=UpgradeStats;
+        // upgradeStats.SetData(gameObject);
 
+    }
+    public void SetData(){
+        //by barrack ,farm when they are established.
+        upgradeStats.SetData(gameObject);
     }
     public void DependencyInjection(BuildingPersistenceManager BuildingPersistenceManager){
         //this will be called when it is replaced by construction instance.
@@ -95,6 +105,7 @@ public class BuildingInstance : MonoBehaviour
     // Apply upgrade logic here (level, capacity, rate)
     // ApplyUpgrade(upgradeData);
     Debug.Log("Building Upgraded");
+    buildingPersistenceManager.SaveBuildingData(gameObject);
     // Upgrade complete
     BuildingIsBeingUpgraded = false;
     }

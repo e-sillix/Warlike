@@ -18,6 +18,10 @@ public class Farm : MonoBehaviour
     public int resourceAmount=0;
     private float timer = 0f,interval = 1f;
 
+    public void SettingPreviousData(int l){        
+        level =l;
+        GetComponent<BuildingInstance>().SetData();
+    }
     void Start(){
         if (currencyManager == null)
         {
@@ -102,6 +106,11 @@ public class Farm : MonoBehaviour
     
     public void UpgradeStats(int Level,int Capacity,int rate){
         level=Level;
+        rateOfProduction=rate;
+        capacity=Capacity;
+    }
+    public void SetStats(int Capacity,int rate){
+        //called when app is reopen
         rateOfProduction=rate;
         capacity=Capacity;
     }

@@ -56,4 +56,34 @@ public class UpgradeStats : MonoBehaviour
         buildingData.Rate[levelIndex]
     );
     }
+
+    public void SetData(GameObject building){
+        //called by building instance.
+        if(building.GetComponent<TheBarrack>()){
+            int l=building.GetComponent<TheBarrack>().level-1;
+            building.GetComponent<TheBarrack>().SetStats(barrackData.Capacity[l],
+            barrackData.Rate[l]);
+        }else if(building.GetComponent<Farm>()){
+            int l=building.GetComponent<Farm>().level-1;
+            if(building.GetComponent<Farm>().resourceType==ResourceType.Wood){
+            building.GetComponent<Farm>().SetStats(woodFarmData.Capacity[l],woodFarmData.Rate[l]);
+            }
+            else if(building.GetComponent<Farm>().resourceType==ResourceType.Grain){
+            building.GetComponent<Farm>().SetStats(grainFarmData.Capacity[l],grainFarmData.Rate[l]);
+            }
+            else if(building.GetComponent<Farm>().resourceType==ResourceType.Stone){
+            building.GetComponent<Farm>().SetStats(stoneFarmData.Capacity[l],stoneFarmData.Rate[l]);
+            }
+            }
+            else if(building.GetComponent<Laboratory>()){
+            int l=building.GetComponent<Laboratory>().level-1;
+            // building.GetComponent<Laboratory>().SetStats(
+            //     laboratoryData.Capacity[l],laboratoryData.Rate[l]);
+            Debug.Log("laboratory upgrade stats not implemented yet");
+            }
+            else if(building.GetComponent<Base>()){
+            int l=building.GetComponent<Base>().level-1;
+            building.GetComponent<Base>().SetStats(baseData.Capacity[l]);
+            }
+    }
 }
