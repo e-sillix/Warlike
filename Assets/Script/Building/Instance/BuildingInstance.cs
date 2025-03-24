@@ -14,10 +14,13 @@ public class BuildingInstance : MonoBehaviour
     private BuildingDependencyManager buildingDependencyManager;
     private BuildingStatsManager buildingStatsManager;
     private UpgradeStats upgradeStats;
+    private TimeElapsedManagement timeElapsedManagement;
     // private string name;
     // private int level;
 
-
+    public TimeElapsedManagement ReturnTimeElapsedManagement(){
+        return timeElapsedManagement;
+    }
     public void ProvideBasicDependency(BuildingDependencyManager BuildingDependencyManager){
         //called by when it is spawned after closing the game.
         buildingDependencyManager=BuildingDependencyManager;
@@ -26,18 +29,24 @@ public class BuildingInstance : MonoBehaviour
 
         buildingDependencyManager.ProvideAllConditionalDependencies(gameObject);
     }
-
+    
     public void GetallBuildingDependencies(BuildingPersistenceManager BuildingPersistenceManager,
     BuildingInstanceUI BuildingInstanceUI,
-    UpgradeStats UpgradeStats){
+    UpgradeStats UpgradeStats,TimeElapsedManagement TimeElapsedManagement){
         //this will be countercall by provideBasicDependency.
         buildingPersistenceManager=BuildingPersistenceManager;
         buildingInstanceUI=BuildingInstanceUI;
         // buildingStatsManager=BuildingStatsManager;
         upgradeStats=UpgradeStats;
+        timeElapsedManagement=TimeElapsedManagement;
         // upgradeStats.SetData(gameObject);
 
     }
+    // public void OnApplicationQuit()
+    // {
+    //     buildingPersistenceManager.SaveBuildingData(gameObject);        
+    // }
+
     public void SetData(){
         //by barrack ,farm when they are established.
         upgradeStats.SetData(gameObject);

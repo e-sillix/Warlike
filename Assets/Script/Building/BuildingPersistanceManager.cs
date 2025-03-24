@@ -10,6 +10,7 @@ public class BuildingPersistenceManager : MonoBehaviour
     [SerializeField]private BuildingDependencyManager buildingDependencyManager;
     private List<BuildingInfo> buildings = new List<BuildingInfo>();
 
+    private (int years, int months, int days, int hours, int minutes, int seconds) timeElapsed;
     [SerializeField] private List<GameObject> buildingPrefabs; // Assign prefabs in Inspector
 
     public void LoadPreviousBuildingData()
@@ -17,19 +18,44 @@ public class BuildingPersistenceManager : MonoBehaviour
         savePath = Application.persistentDataPath + "/buildingsData.json";
         LoadBuildingData();
     }
+    void OnApplicationQuit()
+    {
+        var buildingInstances = FindObjectsOfType<BuildingInstance>();
+        foreach (var instance in buildingInstances)
+        {
+            SaveBuildingData(instance.gameObject);
+        }
+    }
 
+    public void SetTimeElapsed((int years, int months, int days, int hours, int minutes, int seconds)
+     time)
+    {
+        timeElapsed = time;
+    }
+    public (int years, int months, int days, int hours, int minutes, int seconds) GetTimeElapsed()
+    {
+        //by all the building when they are established.
+        return timeElapsed;
+    }
    public void SaveBuildingData(GameObject building)
 {
     string nameOfBuilding = building.name;
     int level = GetBuildingLevel(building);
     Vector3 pos = building.transform.position;
+    int resourceAmount = 0; // Default value
+
+    // If it's a farm, get its resourceAmount
+    if (building.TryGetComponent<Farm>(out Farm farm))
+    {
+        resourceAmount = farm.resourceAmount;
+    }
 
     // Generate a unique random ID between 100 and 1000
     int buildingID;
     do
     {
-        buildingID = Random.Range(100, 1001); // Range is 100 to 1000 (1001 is exclusive)
-    } while (buildings.Exists(b => b.buildingId == buildingID)); // Ensure ID is unique
+        buildingID = Random.Range(100, 1001);
+    } while (buildings.Exists(b => b.buildingId == buildingID));
 
     // Check if building already exists (by name)
     for (int i = 0; i < buildings.Count; i++)
@@ -38,17 +64,19 @@ public class BuildingPersistenceManager : MonoBehaviour
         {
             buildings[i].level = level;
             buildings[i].position = pos;
-            
+            buildings[i].resourceAmount = resourceAmount; // Save resource progress
+
             SaveToFile();
             return;
         }
     }
 
-    // If new, add to list with unique ID
-    BuildingInfo newBuilding = new BuildingInfo(buildingID, nameOfBuilding, level, pos);
+    // If new, add to list with unique ID and resource amount
+    BuildingInfo newBuilding = new BuildingInfo(buildingID, nameOfBuilding, level, pos, resourceAmount);
     buildings.Add(newBuilding);
     SaveToFile();
 }
+
 
 
     private int GetBuildingLevel(GameObject building)
@@ -89,7 +117,7 @@ public class BuildingPersistenceManager : MonoBehaviour
                 
                 spawnedBuilding.GetComponent<BuildingInstance>().
                 ProvideBasicDependency(buildingDependencyManager);
-                SetBuildingLevel(spawnedBuilding, data.level);
+                SetBuildingLevel(spawnedBuilding, data.level,data.resourceAmount);
             }
             else
             {
@@ -105,13 +133,14 @@ public class BuildingPersistenceManager : MonoBehaviour
         // return null;
     }
 
-    private void SetBuildingLevel(GameObject building, int level)
+    private void SetBuildingLevel(GameObject building, int level,int resource)
     {
         if (building.GetComponent<Farm>())
 {
     Farm farm = building.GetComponent<Farm>();
     // farm.level = level;
     farm.SettingPreviousData(level);
+    farm.SetResourceAmount(resource);
 }
 else if (building.GetComponent<TheBarrack>())
 {
@@ -154,15 +183,18 @@ public class BuildingList
 [System.Serializable]
 public class BuildingInfo
 {
-    public string buildingName;
-    public int level,buildingId;
-    public Vector3 position;
+    public int buildingId;       // Unique building ID
+    public string buildingName;  // Name of the building
+    public int level;            // Level of the building
+    public Vector3 position;     // Position in world space
+    public int resourceAmount;   // Stores resources (for farms only)
 
-    public BuildingInfo(int ID,string name, int lvl, Vector3 pos)
+    public BuildingInfo(int id, string name, int lvl, Vector3 pos, int resource = 0)
     {
+        buildingId = id;
         buildingName = name;
         level = lvl;
         position = pos;
-        buildingId=ID;
+        resourceAmount = resource; // Default is 0, but will be assigned if it's a Farm
     }
 }

@@ -47,7 +47,7 @@ public class TimeElapsedManagement : MonoBehaviour
         }
 
         // Debug log for reference
-        Debug.Log($"Elapsed Time: {years} Years, {months} Months, {days} Days, {hours} Hours, {minutes} Minutes, {seconds} Seconds.");
+        // Debug.Log($"Elapsed Time: {years} Years, {months} Months, {days} Days, {hours} Hours, {minutes} Minutes, {seconds} Seconds.");
 
         // Return as a tuple
         return (years, months, days, hours, minutes, seconds);

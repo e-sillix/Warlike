@@ -37639,6 +37639,7 @@ MonoBehaviour:
   ParentObject: {fileID: 603283119}
   buildingStatsManager: {fileID: 416393051}
   upgradeStats: {fileID: 406462750}
+  timeElapsedManagement: {fileID: 955817972}
 --- !u!1 &1621520873
 GameObject:
   m_ObjectHideFlags: 0

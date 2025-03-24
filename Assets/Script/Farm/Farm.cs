@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Video;
 
@@ -17,10 +18,51 @@ public class Farm : MonoBehaviour
     public bool triggerConsumingAnimation=false;
     public int resourceAmount=0;
     private float timer = 0f,interval = 1f;
+    private (int years, int months, int days, int hours, int minutes, int seconds) timeElapsed;
 
     public void SettingPreviousData(int l){        
         level =l;
         GetComponent<BuildingInstance>().SetData();
+    }
+    // public void OnApplicationQuit()
+    // {
+    //     GetComponent<BuildingInstance>().StoreTheProgress(resourceAmount);
+    // }
+    public void SetResourceAmount(int amount){
+        //this will be set by buildingPersistenceManager
+        resourceAmount=amount;
+        // timeElapsed=TimeElapsed;
+
+        if(PlayerPrefs.HasKey("TimeElapsed"))
+        {
+        AddTimeElapsation();
+        }
+    }
+    void AddTimeElapsation(){
+        // int TimeElapsed=GetComponent<BuildingInstance>().();
+        TimeElapsedManagement timeElapsedManagement=GetComponent
+        <BuildingInstance>().ReturnTimeElapsedManagement();
+        timeElapsed=timeElapsedManagement.CalculateTimeElapsed();
+        if(timeElapsed.years>0||timeElapsed.months>3){
+resourceAmount=capacity;
+        }
+        else{
+            float timeElapsedInSeconds = 
+        timeElapsed.months * 2592000 + timeElapsed.days * 86400 + timeElapsed.hours 
+        * 3600 + timeElapsed.minutes * 60 + timeElapsed.seconds;
+        Debug.Log("TimeElapsedInSeconds:"+timeElapsedInSeconds);
+        int Amount = (int)(timeElapsedInSeconds * rateOfProduction);
+        if(Amount>capacity||(capacity<(Amount+resourceAmount))){
+            resourceAmount=capacity;
+        }
+        else{
+            Debug.Log("Amount added:"+Amount);
+            resourceAmount+=Amount;
+        }
+        }
+        // Debug.Log("Elapsed ResourceAmount:"+resourceAmount);
+        
+
     }
     void Start(){
         if (currencyManager == null)
