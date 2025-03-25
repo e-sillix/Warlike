@@ -27,6 +27,7 @@ public class CurrencyManager : MonoBehaviour
 
     if (File.Exists(savePath))
     {
+        
         LoadEconomy(); // Load saved data if it exists
     }
     else
@@ -130,6 +131,8 @@ public class CurrencyManager : MonoBehaviour
         if (File.Exists(savePath))
         {
             string json = File.ReadAllText(savePath);
+            if (!string.IsNullOrWhiteSpace(json))
+            {
             EconomyData data = JsonUtility.FromJson<EconomyData>(json);
 
             resourceCurrencies[ResourceType.Stone] = data.stone;
@@ -137,6 +140,11 @@ public class CurrencyManager : MonoBehaviour
             resourceCurrencies[ResourceType.Wood] = data.wood;
 
             Debug.Log($"Economy Loaded: Stone={data.stone}, Grain={data.grain}, Wood={data.wood}");
+            }
+            else
+            {
+                Debug.Log("Economy save file is empty.");
+            }
         }
         else
         {

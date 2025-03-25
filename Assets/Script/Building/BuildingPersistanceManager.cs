@@ -93,10 +93,24 @@ public class BuildingPersistenceManager : MonoBehaviour
         if (File.Exists(savePath))
         {
             string json = File.ReadAllText(savePath);
+            if (!string.IsNullOrWhiteSpace(json))
+            {
+        
+            // string json = File.ReadAllText(savePath);
+            if(JsonUtility.FromJson<BuildingList>(json).buildings == null)
+            {
+                Debug.Log("Building File is empty.");
+                return;
+            }
             buildings = JsonUtility.FromJson<BuildingList>(json).buildings;
             Debug.Log("Loaded " + buildings.Count + " buildings from file.");
 
             SpawnBuildings();
+            }
+            else{
+            Debug.Log("Building file is empty.");
+                
+            }
         }
         else
         {
