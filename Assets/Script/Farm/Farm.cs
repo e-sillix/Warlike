@@ -109,7 +109,12 @@ resourceAmount=capacity;
     }
     private void UpdateresourceAmount(int amount){
         //this continues update farm resourceAmount count.
-        resourceAmount += amount;
+        if(capacity<(resourceAmount+amount)){
+            resourceAmount=capacity;
+        }
+        else{
+            resourceAmount += amount;
+        }
     }
 
 
