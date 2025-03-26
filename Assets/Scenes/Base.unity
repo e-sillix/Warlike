@@ -36309,6 +36309,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UIButtonPanel: {fileID: 2123427587}
   buildingInstanceUI: {fileID: 536403206}
+  buildingPersistenceManager: {fileID: 1817804702}
+  upgradeStats: {fileID: 406462750}
 --- !u!1 &1564101471
 GameObject:
   m_ObjectHideFlags: 0

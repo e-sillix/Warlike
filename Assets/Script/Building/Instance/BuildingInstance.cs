@@ -10,10 +10,11 @@ public class BuildingInstance : MonoBehaviour
     [SerializeField] private BuildingInstanceUI buildingInstanceUI;
     private bool BuildingIsBeingUpgraded;
     private Coroutine UpgradeCoroutine;
-    private BuildingPersistenceManager buildingPersistenceManager;
+    [SerializeField]private BuildingPersistenceManager buildingPersistenceManager;
+    // [SerializeField]private  UpgradeStats upgradeStats;
     private BuildingDependencyManager buildingDependencyManager;
     private BuildingStatsManager buildingStatsManager;
-    private UpgradeStats upgradeStats;
+    [SerializeField]private UpgradeStats upgradeStats;
     private TimeElapsedManagement timeElapsedManagement;
     // private string name;
     // private int level;
@@ -49,7 +50,12 @@ public class BuildingInstance : MonoBehaviour
 
     public void SetData(){
         //by barrack ,farm when they are established.
+        if(upgradeStats){
+
         upgradeStats.SetData(gameObject);
+        }else{
+            Debug.LogError("UpgradeStats is not found."+gameObject.name);
+        }
     }
     public void DependencyInjection(BuildingPersistenceManager BuildingPersistenceManager){
         //this will be called when it is replaced by construction instance.

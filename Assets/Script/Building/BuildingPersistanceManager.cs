@@ -165,13 +165,16 @@ public class BuildingPersistenceManager : MonoBehaviour
                     SetPreviousBarrack(spawnedBuilding, data.level,data.isTrainingOngoing,
                     data.TrainingProgression,data.TotalTime,data.troopsData);
                 }
-                else if(spawnedBuilding.GetComponent<Base>()){
-                    SetPreviousBase(spawnedBuilding, data.level);
-                }
+                // else if(spawnedBuilding.GetComponent<Base>()){
+                //     SetPreviousBase(spawnedBuilding, data.level);
+                // }
             }
             else
             {
                 Debug.LogWarning("No prefab found for " + data.buildingName);
+            }
+            if(data.buildingName=="Base"){
+                SetPreviousBase(data.level);
             }
         }
     }
@@ -199,12 +202,15 @@ float TrainingProgression,float TotalTime,int[] troopsData)
     // barrack.level = level;
     barrack.SettingPreviousData(level,isTrainingOngoing,TrainingProgression,TotalTime,troopsData);
 }
-void SetPreviousBase(GameObject building, int level)
+void SetPreviousBase( int level)
 {
-    Base baseBuilding = building.GetComponent<Base>();
+    GameObject baseObject = GameObject.FindObjectOfType<Base>()?.gameObject;
+    if (baseObject != null)
+    {
+        Base baseBuilding = baseObject.GetComponent<Base>();
     // baseBuilding.level = level;
     baseBuilding.SettingPreviousData(level);
-}
+}}
 // else if (building.GetComponent<Laboratory>())
 // {
 //     Laboratory lab = building.GetComponent<Laboratory>();
