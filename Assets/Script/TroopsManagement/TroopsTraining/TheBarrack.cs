@@ -55,6 +55,7 @@ float TrainingProgression,float TotalTime,int[] troopsData){
         timeElapsed=timeElapsedManagement.CalculateTimeElapsed();
         if(timeElapsed.years>0||timeElapsed.months>0||timeElapsed.days>2){
 // resourceAmount=capacity;
+        troopsCountManager.LoadPreviousTroopsData();
         troopsCountManager.UpdateTroopsCount(barrackType.ToString(),troopsData);
         trainingHandler.RefreshData();
         Debug.Log("Troops added directly 1");
@@ -66,6 +67,7 @@ float TrainingProgression,float TotalTime,int[] troopsData){
             {
                 Debug.Log("Total Time:"+TotalTime+" TimeElapsedInSeconds:"+timeElapsedInSeconds+
                 " TrainingProgression:"+TrainingProgression);
+                troopsCountManager.LoadPreviousTroopsData();
                 troopsCountManager.UpdateTroopsCount(barrackType.ToString(),troopsData);
                 trainingHandler.RefreshData();
             }else{

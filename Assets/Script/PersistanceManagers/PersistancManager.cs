@@ -20,6 +20,7 @@ public class PersistancManager : MonoBehaviour
         buildingPersistenceManager.LoadPreviousBuildingData();
 
         //load troops data
+        troopsCountManager.LoadPreviousTroopsData();
 
           
     }
