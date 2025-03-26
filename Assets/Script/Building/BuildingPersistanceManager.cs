@@ -42,12 +42,28 @@ public class BuildingPersistenceManager : MonoBehaviour
     string nameOfBuilding = building.name;
     int level = GetBuildingLevel(building);
     Vector3 pos = building.transform.position;
-    int resourceAmount = 0; // Default value
+    int resourceAmount=0; // Default value
+
+    float TrainingProgression=0,TotalTime=0;
+    bool isTrainingOngoing=false;
+    int []troopsData=null;
 
     // If it's a farm, get its resourceAmount
     if (building.TryGetComponent<Farm>(out Farm farm))
     {
         resourceAmount = farm.resourceAmount;
+    }
+    else if(building.TryGetComponent<TheBarrack>(out TheBarrack theBarrack)){
+        // ProgressTime = (int)trainingHandler.GetProgressedTime();
+        Debug.Log("TrainingHandler is found.");
+        TrainingHandler trainingHandler=theBarrack.GetTrainingHandler();
+        isTrainingOngoing=trainingHandler.ReturnIsTrainingOngoing();
+        if(isTrainingOngoing){
+            Debug.Log("Training was ongoing.");
+            troopsData=theBarrack.GetTroopsData();
+            TotalTime=trainingHandler.GetTotalTime();
+            TrainingProgression=trainingHandler.GetProgressedTime();
+        }
     }
 
     // Generate a unique random ID between 100 and 1000
@@ -64,15 +80,25 @@ public class BuildingPersistenceManager : MonoBehaviour
         {
             buildings[i].level = level;
             buildings[i].position = pos;
+            if(building.GetComponent<Farm>()){
             buildings[i].resourceAmount = resourceAmount; // Save resource progress
+            }else if(building.GetComponent<TheBarrack>()){
+                // buildings[i].resourceAmount = (int)TrainingProgression;
+                buildings[i].isTrainingOngoing=isTrainingOngoing;
+                buildings[i].TrainingProgression=TrainingProgression;
+                buildings[i].TotalTime=TotalTime;
+                buildings[i].troopsData=troopsData;
+            }
 
             SaveToFile();
             return;
         }
     }
 
-    // If new, add to list with unique ID and resource amount
-    BuildingInfo newBuilding = new BuildingInfo(buildingID, nameOfBuilding, level, pos, resourceAmount);
+    // If new, add to list with unique ID and resource amount\
+    
+    BuildingInfo newBuilding = new BuildingInfo(buildingID, nameOfBuilding, level, pos, resourceAmount
+    ,isTrainingOngoing,TrainingProgression,TotalTime,troopsData);
     buildings.Add(newBuilding);
     SaveToFile();
 }
@@ -131,7 +157,17 @@ public class BuildingPersistenceManager : MonoBehaviour
                 
                 spawnedBuilding.GetComponent<BuildingInstance>().
                 ProvideBasicDependency(buildingDependencyManager);
-                SetBuildingLevel(spawnedBuilding, data.level,data.resourceAmount);
+                if(spawnedBuilding.GetComponent<Farm>()){
+
+                SetPreviousFarm(spawnedBuilding, data.level,data.resourceAmount);
+                }
+                else if(spawnedBuilding.GetComponent<TheBarrack>()){
+                    SetPreviousBarrack(spawnedBuilding, data.level,data.isTrainingOngoing,
+                    data.TrainingProgression,data.TotalTime,data.troopsData);
+                }
+                else if(spawnedBuilding.GetComponent<Base>()){
+                    SetPreviousBase(spawnedBuilding, data.level);
+                }
             }
             else
             {
@@ -147,35 +183,36 @@ public class BuildingPersistenceManager : MonoBehaviour
         // return null;
     }
 
-    private void SetBuildingLevel(GameObject building, int level,int resource)
+    private void SetPreviousFarm(GameObject building, int level,int resource)
     {
-        if (building.GetComponent<Farm>())
+        // if (building.GetComponent<Farm>())
 {
     Farm farm = building.GetComponent<Farm>();
     // farm.level = level;
     farm.SettingPreviousData(level);
     farm.SetResourceAmount(resource);
-}
-else if (building.GetComponent<TheBarrack>())
+}}
+void SetPreviousBarrack(GameObject building, int level,bool isTrainingOngoing,
+float TrainingProgression,float TotalTime,int[] troopsData)
 {
     TheBarrack barrack = building.GetComponent<TheBarrack>();
     // barrack.level = level;
-    barrack.SettingPreviousData(level);
+    barrack.SettingPreviousData(level,isTrainingOngoing,TrainingProgression,TotalTime,troopsData);
 }
-else if (building.GetComponent<Base>())
+void SetPreviousBase(GameObject building, int level)
 {
     Base baseBuilding = building.GetComponent<Base>();
     // baseBuilding.level = level;
     baseBuilding.SettingPreviousData(level);
 }
-else if (building.GetComponent<Laboratory>())
-{
-    Laboratory lab = building.GetComponent<Laboratory>();
-    // lab.level = level;
-    // lab.SettingPreviousData(int level);
-}
+// else if (building.GetComponent<Laboratory>())
+// {
+//     Laboratory lab = building.GetComponent<Laboratory>();
+//     // lab.level = level;
+//     // lab.SettingPreviousData(int level);
+// }
 
-    }
+    
 
     private void SaveToFile()
     {
@@ -202,13 +239,23 @@ public class BuildingInfo
     public int level;            // Level of the building
     public Vector3 position;     // Position in world space
     public int resourceAmount;   // Stores resources (for farms only)
-
-    public BuildingInfo(int id, string name, int lvl, Vector3 pos, int resource = 0)
+    public bool isTrainingOngoing;
+    public float TrainingProgression,TotalTime;
+    public int[] troopsData;
+    public BuildingInfo(int id, string name, int lvl, Vector3 pos, int resource = 0,
+    bool IsTrainingOngoing=false,float trainingProgression=0,float totalTime=0,int[] TroopsData=null)
     {
         buildingId = id;
         buildingName = name;
         level = lvl;
         position = pos;
         resourceAmount = resource; // Default is 0, but will be assigned if it's a Farm
+        isTrainingOngoing=IsTrainingOngoing;
+        TrainingProgression=trainingProgression;
+        TotalTime=totalTime;
+        troopsData=TroopsData;
     }
 }
+
+
+

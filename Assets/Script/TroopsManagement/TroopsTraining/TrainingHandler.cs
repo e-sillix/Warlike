@@ -11,9 +11,49 @@ public class TrainingHandler : MonoBehaviour
     [SerializeField] private TextMeshProUGUI timeRemainingText; // Assign for time display
 
     private Coroutine trainingCoroutine;
+    private float ProgressedTime;
+    private float CompletionTime;
+    private bool isTrainingOngoing;
     
+
+    public void RefreshData(){
+        ProgressedTime=0;
+        CompletionTime=0;
+        isTrainingOngoing=false;
+    }
+    public float GetProgressedTime(){
+        //by buildingPersistenceManager
+        Debug.Log("ProgressedTime is "+ProgressedTime);
+        return ProgressedTime;
+    }
+    public float GetTotalTime(){
+        //by buildingPersistenceManager
+        Debug.Log("CompletionTime is "+CompletionTime);
+        return CompletionTime;
+    }
+    public bool ReturnIsTrainingOngoing(){
+        //return true if the training is ongoing
+        return isTrainingOngoing;
+    }
+    public void ResumeTraining(int time,float TotalTime){
+         ProgressedTime=time;
+         CompletionTime=TotalTime;
+        if (trainingCoroutine != null)
+        {
+            StopCoroutine(trainingCoroutine);
+            TrainingProgressBarPanel.SetActive(false);
+        }
+
+        // trainingProgressBar.gameObject.SetActive(true); // Show UI
+        trainingProgressBar.value = ProgressedTime/CompletionTime; // Reset progress
+        UpdateTimeDisplay((int)(CompletionTime-ProgressedTime)); // Show full time
+
+        trainingCoroutine = StartCoroutine(TrainingRoutine((int)CompletionTime));
+    }
     public void StartTraining(int time)
-    {
+    {   
+        RefreshData();
+        CompletionTime=time;
         if (trainingCoroutine != null)
         {
             StopCoroutine(trainingCoroutine);
@@ -32,6 +72,8 @@ public class TrainingHandler : MonoBehaviour
         if (trainingCoroutine != null)
         {
             StopCoroutine(trainingCoroutine);
+            RefreshData();
+            // isTrainingOngoing=false;
         }
 
         TrainingProgressBarPanel.gameObject.SetActive(false); // Hide UI when canceled
@@ -40,21 +82,22 @@ public class TrainingHandler : MonoBehaviour
 
     private IEnumerator TrainingRoutine(int time)
     {
+        isTrainingOngoing=true;
         Debug.Log("Training started...");
-        float elapsedTime = 0f;
+        // ProgressedTime = 0f;
         TrainingProgressBarPanel.SetActive(true);  
-        while (elapsedTime < time)
+        while (ProgressedTime < time)
         {
-            elapsedTime += Time.deltaTime;
-            float progress = elapsedTime / time;
+            ProgressedTime += Time.deltaTime;
+            float progress = ProgressedTime / time;
             trainingProgressBar.value = progress; // Update progress bar
 
-            int remainingTime = Mathf.CeilToInt(time - elapsedTime); // Calculate remaining time
+            int remainingTime = Mathf.CeilToInt(time - ProgressedTime); // Calculate remaining time
             UpdateTimeDisplay(remainingTime); // Update UI text
 
             yield return null; // Wait for next frame
         }
-
+        isTrainingOngoing=false;
         Debug.Log("Training completed!");
         trainingProgressBar.value = 1;
         timeRemainingText.text = "00:00"; // Training is done
@@ -64,6 +107,7 @@ public class TrainingHandler : MonoBehaviour
         // timeRemainingText.gameObject.SetActive(false);
 
         UpdateStateOfBarrack();
+        RefreshData();
     }
 
     void UpdateStateOfBarrack()
