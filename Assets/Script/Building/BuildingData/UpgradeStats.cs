@@ -32,7 +32,7 @@ public class UpgradeStats : MonoBehaviour
         buildingData = woodFarmData; 
     }
     else if(buildingName =="Infantry" ||buildingName =="Archer"
-    ||buildingName =="Cavalry"||buildingName =="Mage"){
+    ||buildingName =="Cavalry"||buildingName =="Mage"||buildingName=="Barrack"){
         buildingData = barrackData; 
     }
     else if(buildingName == "Base") {

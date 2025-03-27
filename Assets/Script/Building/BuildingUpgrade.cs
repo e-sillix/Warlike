@@ -156,4 +156,51 @@ public class BuildingUpgrade : MonoBehaviour
 
         
     }
+
+
+    public int[] DirectBuildingUpgrade(GameObject building)
+{//return upgrade details
+    string buildingNameInstance = "";
+    int level = 0; // Initialize level variable
+
+    if (building.TryGetComponent<Farm>(out Farm farm))
+    {
+        buildingNameInstance = farm.resourceType.ToString(); // "Wood", "Grain", or "Stone"
+        level = farm.level;
+    }
+    else if (building.TryGetComponent<TheBarrack>(out TheBarrack barrack))
+    {
+        buildingNameInstance = "Barrack";
+        level = barrack.level;
+        Debug.Log("Barrack vurrent level: " + level);
+    }
+    else if (building.TryGetComponent<Base>(out Base baseBuilding))
+    {
+        buildingNameInstance = "Base";
+        Debug.Log("Base current level: " + baseBuilding.level);
+        level = baseBuilding.level;
+    }
+    else if (building.TryGetComponent<Laboratory>(out Laboratory lab))
+    {
+        buildingNameInstance = "Laboratory";
+        level = lab.level;
+    }
+    else
+    {
+        return new int[0]; // Return an empty array instead of null
+    }
+
+    // Fetch Upgrade Details
+    UpgradeCostPayload updata = GetUpgradeDetail(buildingNameInstance, level);
+
+    // Return upgrade details based on building type
+    if (buildingNameInstance == "Base")
+        return new int[] { level + 1 }; // Base only has level
+
+    if (buildingNameInstance == "Laboratory")
+        return new int[] { level + 1, updata.rate }; // Laboratory has rate
+
+    return new int[] { level + 1, updata.capacity, updata.rate }; // Default case
+}
+
 }

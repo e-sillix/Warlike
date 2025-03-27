@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class BuildingInstance : MonoBehaviour
 {
@@ -13,12 +15,27 @@ public class BuildingInstance : MonoBehaviour
     [SerializeField]private BuildingPersistenceManager buildingPersistenceManager;
     // [SerializeField]private  UpgradeStats upgradeStats;
     private BuildingDependencyManager buildingDependencyManager;
+    [SerializeField]private BuildingUpgrade buildingUpgrade;
     private BuildingStatsManager buildingStatsManager;
     [SerializeField]private UpgradeStats upgradeStats;
-    private TimeElapsedManagement timeElapsedManagement;
+    [SerializeField]private TimeElapsedManagement timeElapsedManagement;
+    private (int years, int months, int days, int hours, int minutes, int seconds) timeElapsed;
+    // private bool isBuildingBeingUpgraded;
+
+    private float ConstrucionProgress,ConstructionTime;
+
+     [SerializeField]private GameObject ConstructionProgressBarPanel;
+    [SerializeField] private Slider ConstructionProgressBar; // Assign in Inspector
+    [SerializeField] private TextMeshProUGUI timeRemainingText; // Assign for time display
+
+    private int[] previousUpdateData;
     // private string name;
     // private int level;
 
+    // public bool ReturnBuildingIsBeingUpgraded(){
+    //     //by building persistence manager
+    //     return BuildingIsBeingUpgraded;
+    // }
     public TimeElapsedManagement ReturnTimeElapsedManagement(){
         return timeElapsedManagement;
     }
@@ -33,13 +50,15 @@ public class BuildingInstance : MonoBehaviour
     
     public void GetallBuildingDependencies(BuildingPersistenceManager BuildingPersistenceManager,
     BuildingInstanceUI BuildingInstanceUI,
-    UpgradeStats UpgradeStats,TimeElapsedManagement TimeElapsedManagement){
+    UpgradeStats UpgradeStats,TimeElapsedManagement TimeElapsedManagement,BuildingUpgrade 
+    BuildingUpgrade){
         //this will be countercall by provideBasicDependency.
         buildingPersistenceManager=BuildingPersistenceManager;
         buildingInstanceUI=BuildingInstanceUI;
         // buildingStatsManager=BuildingStatsManager;
         upgradeStats=UpgradeStats;
         timeElapsedManagement=TimeElapsedManagement;
+        buildingUpgrade=BuildingUpgrade;
         // upgradeStats.SetData(gameObject);
 
     }
@@ -76,27 +95,137 @@ public class BuildingInstance : MonoBehaviour
     }
 
     public bool ReturnBuildingStatus(){
-        //by BuildingInstanceUI
+        //by BuildingInstanceUI and buildingPersistenceManager
         return BuildingIsBeingUpgraded;
+    }
+
+    public int[] GetUpgradeProgress(){
+        if(BuildingIsBeingUpgraded){
+
+        return new int[]{(int)ConstrucionProgress,(int)ConstructionTime};
+        }
+        else{
+            return null;
+        }
     }
     // public void SetBuildingStatus(bool status){
     //     BuildingIsBeingUpgraded=status;
     // }
-
+    
     public void UpgradeIsOrdered(int[] UpgradeData,int time){//order:
     // level + 1, upgradeCost.capacity, upgradeCost.rate;
 
         BuildingIsBeingUpgraded=true;
-        UpgradeCoroutine=StartCoroutine(UpgradeProcess( UpgradeData,time));
+        UpgradeCoroutine=StartCoroutine(UpgradeProcess( UpgradeData,0,time));
         }
 
 // Coroutine to wait and then apply the upgrade
-    private IEnumerator UpgradeProcess( int[] UpgradeData,int time)
+    private IEnumerator UpgradeProcess( int[] UpgradeData,int progressTime,int time)
     {
-    // Wait for the specified upgrade time
-    yield return new WaitForSeconds(time);
+        ConstructionProgressBarPanel.SetActive(true);
+        ConstructionTime=time;
 
-    if(GetComponent<Farm>()){
+        ConstrucionProgress =progressTime;
+
+        // ConstructionProgressBar.value = 0;  // Start from 0 progress
+
+    while (ConstrucionProgress < ConstructionTime)
+    {
+        ConstrucionProgress += Time.deltaTime;
+
+        float progress = ConstrucionProgress / ConstructionTime;
+            ConstructionProgressBar.value = progress; // Update progress bar
+
+            int remainingTime = Mathf.CeilToInt(ConstructionTime-ConstrucionProgress); // Calculate remaining time
+            UpdateTimeDisplay(remainingTime); // Update UI text
+        // ConstructionProgressBar.value = construcionProgress / constructionTime;  // Update progress bar
+        // int timeLeft = Mathf.CeilToInt(ConstructionTime - ConstrucionProgress); // Calculate remaining time
+        // timeRemainingText.text = $"Time Left: {timeLeft}s"; // Update UI text
+        yield return null;  // Wait for the next frame
+    }
+
+    // Wait for the specified upgrade time
+    // yield return new WaitForSeconds(time);
+
+    UpgradeStats(UpgradeData);
+     ConstructionProgressBarPanel.SetActive(false);
+
+    // Apply upgrade logic here (level, capacity, rate)
+    // ApplyUpgrade(upgradeData);
+    Debug.Log("Building Upgraded");
+    buildingPersistenceManager.SaveBuildingData(gameObject);
+    // Upgrade complete
+    BuildingIsBeingUpgraded = false;
+    }
+    private void UpdateTimeDisplay(int secondsLeft)
+    {
+        int minutes = secondsLeft / 60;
+        int seconds = secondsLeft % 60;
+        timeRemainingText.text = $"{minutes:D2}:{seconds:D2}"; // Format: MM:SS
+    }
+    public void BuildingStatusRestoring(bool status,int[] UpgradeTiming){
+        //by buildingPersistenceManager
+        // BuildingIsBeingUpgraded=status;
+        if(status){
+            // UpgradeStats(UpgradeData);
+            ContinueUpgrading(UpgradeTiming);
+        }
+
+    }
+    public void RecieveUpgradeData(int[] UpgradeData){
+        // UpgradeStats(UpgradeData)
+        previousUpdateData=UpgradeData;
+    }
+    void ContinueUpgrading(int [] UpgradeTiming){
+        previousUpdateData=buildingUpgrade.DirectBuildingUpgrade(gameObject);
+        timeElapsed=timeElapsedManagement.CalculateTimeElapsed();
+        if(timeElapsed.years>0||timeElapsed.months>2){
+// resourceAmount=capacity;
+        // UpgradeStats(UpgradeData);
+
+    // Apply upgrade logic here (level, capacity, rate)
+    // ApplyUpgrade(upgradeData);
+        UpgradeStats(previousUpdateData);
+        Debug.Log("Building Upgraded");
+        buildingUpgrade.DirectBuildingUpgrade(gameObject);
+        buildingPersistenceManager.SaveBuildingData(gameObject);
+    // Upgrade complete
+        BuildingIsBeingUpgraded = false;
+        }else{
+            float timeElapsedInSeconds =timeElapsed.days * 86400 + timeElapsed.hours 
+        * 3600 + timeElapsed.minutes * 60 + timeElapsed.seconds;
+            int progression=UpgradeTiming[0];
+            int totalTime=UpgradeTiming[1];
+            if(totalTime<timeElapsedInSeconds||totalTime<(timeElapsedInSeconds+progression))
+            {
+                //  UpgradeStats(UpgradeData);
+                UpgradeStats(previousUpdateData);
+                buildingUpgrade.DirectBuildingUpgrade(gameObject);
+                
+
+    // Apply upgrade logic here (level, capacity, rate)
+    // ApplyUpgrade(upgradeData);
+        Debug.Log("Building Upgraded");
+        buildingPersistenceManager.SaveBuildingData(gameObject);
+    // Upgrade complete
+        BuildingIsBeingUpgraded = false;
+            }
+            else{
+                // StartTraining(troopsData,(int)(TotalTime-(timeElapsedInSeconds+TrainingProgression)));
+                ResumeConstruction((int)(timeElapsedInSeconds+progression),totalTime,
+                previousUpdateData);               
+            }
+        }
+    }
+
+    void ResumeConstruction(int progresstime,float TotalTime,int[] UpgradeData){
+        //call function  for training
+        // UpgradeCoroutine=StartCoroutine(UpgradeProcess(UpgradeStats.GetUpgradeData(),TotalTime));
+        UpgradeCoroutine=StartCoroutine(UpgradeProcess(UpgradeData,progresstime,(int)TotalTime));
+    }
+
+    void UpgradeStats(int[] UpgradeData){
+        if(GetComponent<Farm>()){
             // Farm farm=GetComponent<Farm>();                     
             GetComponent<Farm>().UpgradeStats(UpgradeData[0],UpgradeData[1],UpgradeData[2]);
         }
@@ -116,18 +245,11 @@ public class BuildingInstance : MonoBehaviour
         else{
             Debug.LogError("BuildingInstance error");
         }
-
-    // Apply upgrade logic here (level, capacity, rate)
-    // ApplyUpgrade(upgradeData);
-    Debug.Log("Building Upgraded");
-    buildingPersistenceManager.SaveBuildingData(gameObject);
-    // Upgrade complete
-    BuildingIsBeingUpgraded = false;
     }
-
     public void CancelUpgrade(){
         if(UpgradeCoroutine!=null){
             StopCoroutine(UpgradeCoroutine);
+            ConstructionProgressBarPanel.SetActive(false);
             BuildingIsBeingUpgraded = false;
             Debug.Log("Cancelation done.");
         }

@@ -47,6 +47,9 @@ public class BuildingPersistenceManager : MonoBehaviour
     float TrainingProgression=0,TotalTime=0;
     bool isTrainingOngoing=false;
     int []troopsData=null;
+    
+    bool buildingStatus=building.GetComponent<BuildingInstance>().ReturnBuildingStatus();
+    int []upgradeData=building.GetComponent<BuildingInstance>().GetUpgradeProgress();
 
     // If it's a farm, get its resourceAmount
     if (building.TryGetComponent<Farm>(out Farm farm))
@@ -80,6 +83,9 @@ public class BuildingPersistenceManager : MonoBehaviour
         {
             buildings[i].level = level;
             buildings[i].position = pos;
+            buildings[i].buildingStatus=buildingStatus;
+            buildings[i].upgradeData=upgradeData;
+
             if(building.GetComponent<Farm>()){
             buildings[i].resourceAmount = resourceAmount; // Save resource progress
             }else if(building.GetComponent<TheBarrack>()){
@@ -157,6 +163,7 @@ public class BuildingPersistenceManager : MonoBehaviour
                 
                 spawnedBuilding.GetComponent<BuildingInstance>().
                 ProvideBasicDependency(buildingDependencyManager);
+                
                 if(spawnedBuilding.GetComponent<Farm>()){
 
                 SetPreviousFarm(spawnedBuilding, data.level,data.resourceAmount);
@@ -164,24 +171,34 @@ public class BuildingPersistenceManager : MonoBehaviour
                 else if(spawnedBuilding.GetComponent<TheBarrack>()){
                     SetPreviousBarrack(spawnedBuilding, data.level,data.isTrainingOngoing,
                     data.TrainingProgression,data.TotalTime,data.troopsData);
+                
                 }
+                // }else if(spawnedBuilding.GetComponent<Base>()){
+
+                //     SetPreviousBase(data.level);
+                // }
+                // else if(spawnedBuilding.<Laboratory>()){
+                //     Set
+                // }
+                spawnedBuilding.GetComponent<BuildingInstance>().BuildingStatusRestoring(
+                    data.buildingStatus,data.upgradeData);
                 // else if(spawnedBuilding.GetComponent<Base>()){
                 //     SetPreviousBase(spawnedBuilding, data.level);
                 // }
             }
-            else
-            {
-                Debug.LogWarning("No prefab found for " + data.buildingName);
-            }
+            // else
+            // {
+            //     Debug.LogWarning("No prefab found for " + data.buildingName);
+            // }
             if(data.buildingName=="Base"){
-                SetPreviousBase(data.level);
+                SetPreviousBase(data.level,data.buildingStatus,data.upgradeData);
             }
         }
     }
 
     private GameObject GetBuildingPrefab(string buildingName)
     {
-        Debug.Log("Searching for prefab: " + buildingName);
+        // Debug.Log("Searching for prefab: " + buildingName);
         return buildingStatsManager.GetBuildingStats(buildingName,1).TheOriginal;
         // return null;
     }
@@ -202,7 +219,7 @@ float TrainingProgression,float TotalTime,int[] troopsData)
     // barrack.level = level;
     barrack.SettingPreviousData(level,isTrainingOngoing,TrainingProgression,TotalTime,troopsData);
 }
-void SetPreviousBase( int level)
+void SetPreviousBase( int level,bool buildingStatus,int[] upgradeData)
 {
     GameObject baseObject = GameObject.FindObjectOfType<Base>()?.gameObject;
     if (baseObject != null)
@@ -210,6 +227,8 @@ void SetPreviousBase( int level)
         Base baseBuilding = baseObject.GetComponent<Base>();
     // baseBuilding.level = level;
     baseBuilding.SettingPreviousData(level);
+    baseBuilding.GetComponent<BuildingInstance>().BuildingStatusRestoring(
+                    buildingStatus,upgradeData);
 }}
 // else if (building.GetComponent<Laboratory>())
 // {
@@ -248,8 +267,12 @@ public class BuildingInfo
     public bool isTrainingOngoing;
     public float TrainingProgression,TotalTime;
     public int[] troopsData;
+
+    public bool buildingStatus;
+    public int[] upgradeData;
     public BuildingInfo(int id, string name, int lvl, Vector3 pos, int resource = 0,
-    bool IsTrainingOngoing=false,float trainingProgression=0,float totalTime=0,int[] TroopsData=null)
+    bool IsTrainingOngoing=false,float trainingProgression=0,float totalTime=0,int[] TroopsData=null
+    ,bool BuildingStatus=false,int[] UpgradeData=null)
     {
         buildingId = id;
         buildingName = name;
@@ -260,6 +283,9 @@ public class BuildingInfo
         TrainingProgression=trainingProgression;
         TotalTime=totalTime;
         troopsData=TroopsData;
+        buildingStatus=BuildingStatus;
+        upgradeData=UpgradeData;
+        
     }
 }
 
