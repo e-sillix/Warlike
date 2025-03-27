@@ -98,6 +98,7 @@ float TrainingProgression,float TotalTime,int[] troopsData){
         troopsDataLocal=troopsData;
         UpdateStateOfBarrack(true);
         //call function  for training
+        GetComponent<BuildingInstance>().TriggerSave();
         trainingHandler.StartTraining(time);
     }
     public void CancelTraining(){

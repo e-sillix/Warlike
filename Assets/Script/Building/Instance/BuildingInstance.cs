@@ -66,7 +66,9 @@ public class BuildingInstance : MonoBehaviour
     // {
     //     buildingPersistenceManager.SaveBuildingData(gameObject);        
     // }
-
+    public void TriggerSave(){
+        buildingPersistenceManager.SaveBuildingData(gameObject);
+    }
     public void SetData(){
         //by barrack ,farm when they are established.
         if(upgradeStats){
@@ -122,6 +124,7 @@ public class BuildingInstance : MonoBehaviour
 // Coroutine to wait and then apply the upgrade
     private IEnumerator UpgradeProcess( int[] UpgradeData,int progressTime,int time)
     {
+        buildingPersistenceManager.SaveAllBuildingData();
         ConstructionProgressBarPanel.SetActive(true);
         ConstructionTime=time;
 
@@ -251,6 +254,7 @@ public class BuildingInstance : MonoBehaviour
             StopCoroutine(UpgradeCoroutine);
             ConstructionProgressBarPanel.SetActive(false);
             BuildingIsBeingUpgraded = false;
+             buildingPersistenceManager.SaveAllBuildingData();
             Debug.Log("Cancelation done.");
         }
     }

@@ -26,6 +26,13 @@ public class BuildingPersistenceManager : MonoBehaviour
             SaveBuildingData(instance.gameObject);
         }
     }
+    public void SaveAllBuildingData(){
+        var buildingInstances = FindObjectsOfType<BuildingInstance>();
+        foreach (var instance in buildingInstances)
+        {
+            SaveBuildingData(instance.gameObject);
+        }
+    }
 
     public void SetTimeElapsed((int years, int months, int days, int hours, int minutes, int seconds)
      time)

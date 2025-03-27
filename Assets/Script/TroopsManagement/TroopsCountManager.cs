@@ -42,7 +42,7 @@ public class TroopsCountManager : MonoBehaviour
         }
     }
 
-    void SaveData(){
+    public void SaveData(){
         TroopData data = new TroopData(cavalry, infantry, archer, mage);
         string json = JsonUtility.ToJson(data, true);
         File.WriteAllText( Application.persistentDataPath + "/TroopsData.json", json);

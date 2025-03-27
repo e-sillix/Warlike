@@ -16,9 +16,9 @@ public class CurrencyManager : MonoBehaviour
     
     private Dictionary<ResourceType, int> resourceCurrencies = new Dictionary<ResourceType, int>()
     {
-        { ResourceType.Wood, 0 },
-        { ResourceType.Grain, 0 },
-        { ResourceType.Stone, 0 }
+        { ResourceType.Wood, 1 },
+        { ResourceType.Grain, 1 },
+        { ResourceType.Stone, 1 }
     };
 
     public void LoadPreviousData()
@@ -26,8 +26,7 @@ public class CurrencyManager : MonoBehaviour
     savePath = Application.persistentDataPath + "/economyData.json";
 
     if (File.Exists(savePath))
-    {
-        
+    {        
         LoadEconomy(); // Load saved data if it exists
     }
     else
