@@ -1,90 +1,135 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
-
+using UnityEngine.EventSystems;
 public class TouchMarching : MonoBehaviour
 {
-
-
     private bool isHolding = false;
-    private float holdTime = 0f;
     private TheUnit selectedUnit;
-    private bool holdDone,holdingCompleted;
     [SerializeField] private CameraSystem cameraSystem;
-    
-    [SerializeField] private float holdThreshold = 0.7f; // Time required to register a "hold"
-
-    private TheUnit selecetedUnit;
+    [SerializeField] private LineRenderer lineRenderer;
+    [SerializeField] private GlobalUIManager globalUIManager;
+    [SerializeField] private TroopsUI troopsUI;
     private TroopsExpeditionManager troopsExpeditionManager;
 
-    void Start()
+    private TroopsInstanceUI LastClickedTroopsInstanceUI;
+
+ 
+        void Start()
+{
+    troopsExpeditionManager = GetComponent<TroopsExpeditionManager>();
+
+    if (lineRenderer == null)
     {
-        troopsExpeditionManager=GetComponent<TroopsExpeditionManager>();
+        lineRenderer = gameObject.AddComponent<LineRenderer>();
     }
+
+    lineRenderer.positionCount = 2;
+    lineRenderer.startWidth = 0.1f;
+    lineRenderer.endWidth = 0.1f;
+    lineRenderer.enabled = false; // Hide initially
+
+    // Auto-assign material (Optional: Replace with your actual material)
+    // lineRenderer.material = new Material(Shader.Find("Unlit/Color"));
+    // lineRenderer.material.color = Color.red;
+
+
+    }
+
     void Update()
+{
+    if(Input.touchCount>0&&!EventSystem.current.IsPointerOverGameObject( Input.GetTouch(0).fingerId)){
+        if(LastClickedTroopsInstanceUI){
+            LastClickedTroopsInstanceUI.RefreshUIB();
+        }
+    }
+    if (Input.touchCount == 1)
     {
-        if (Input.touchCount == 1)
+        Touch touch = Input.GetTouch(0);
+        Ray ray = Camera.main.ScreenPointToRay(touch.position);
+
+        if (touch.phase == TouchPhase.Began) // Touch started
         {
-            Touch touch = Input.GetTouch(0);
-            Ray ray = Camera.main.ScreenPointToRay(touch.position);
-            
-            if (touch.phase == TouchPhase.Began) // Touch started
+            if (Physics.Raycast(ray, out RaycastHit hit))
             {
-                // isHolding=false;
-                if (Physics.Raycast(ray, out RaycastHit hit))
+                TheUnit unit = hit.collider.GetComponentInParent<TheUnit>();
+                if (unit != null)
                 {
-                    TheUnit unit = hit.collider.GetComponentInParent<TheUnit>(); // Check for TheUnit component
-                    if (unit != null)
-                    {
-                        isHolding = true;
-                        selectedUnit = unit;
-                        holdTime = 0f; // Reset timer
-                        // Debug.Log("Touch Started: " + selectedUnit.gameObject.name);
-                    }
-                }
-            }
-
-            if (isHolding && touch.phase == TouchPhase.Stationary) // Finger is holding still
-            {
-                // Debug.Log("Holding is :"+isHolding );
-                holdTime += Time.deltaTime;
-
-                if (holdTime >= holdThreshold)
-                {
-                    // Debug.Log("Holding done " );
-                    holdDone=true;
+                    isHolding = true;
+                    selectedUnit = unit;
+                    selectedUnit.GetComponent<TroopsInstanceUI>().TriggerSelectedRings(true);
                     cameraSystem.SetTheUniHold(true);
-                    // Perform any action while holding
-                }
-            }
 
-            if (touch.phase == TouchPhase.Ended) // Touch released
-            {
-                if (holdDone)
-                {
-                    // Debug.Log("Released " );
-                    
-                    // Perform action on release
-                    cameraSystem.SetTheUniHold(false);
-                    Ray ray1 = Camera.main.ScreenPointToRay(Input.mousePosition);
-                    if (Physics.Raycast(ray1, out RaycastHit hit, Mathf.Infinity))
-                    {        
-                    // Prevent interaction if clicking on UI
-                    GameObject clickedObject=hit.collider.gameObject;
-                    troopsExpeditionManager.MarchUsingDrag(selectedUnit,clickedObject,hit);
-                    }                    
-                }
-                //this should be here ,or it won't refresh the holding status of preveious click
-                //on unit and move on random hold and release location.
-                if(isHolding){
-                    isHolding = false;
-                    holdDone=false;
-                    selectedUnit = null;
+                    // Enable UI Line & set start point
+                    lineRenderer.enabled = true;
+                    lineRenderer.SetPosition(0, selectedUnit.transform.position);
                 }
             }
         }
+
+        if (isHolding) // While dragging
+        {
+            // ✅ Update start position to follow the unit
+            lineRenderer.SetPosition(0, selectedUnit.transform.position);
+
+            Ray dragRay = Camera.main.ScreenPointToRay(touch.position);
+            if (Physics.Raycast(dragRay, out RaycastHit dragHit))
+            {
+                lineRenderer.SetPosition(1, dragHit.point); // Update end position
+            }
+            else
+            {
+                lineRenderer.SetPosition(1, dragRay.origin + dragRay.direction * 10f); // Extend in direction
+            }
+        }
+
+        if (touch.phase == TouchPhase.Ended) // Touch released
+        {
+            if (isHolding)
+            {
+                cameraSystem.SetTheUniHold(false);
+                Ray ray1 = Camera.main.ScreenPointToRay(Input.mousePosition);
+                if (Physics.Raycast(ray1, out RaycastHit hit, Mathf.Infinity))
+                {
+                    GameObject clickedObject = hit.collider.gameObject;
+                    if(clickedObject.GetComponentInParent<TheUnit>()){
+                        TheUnit ClickedUnit=clickedObject.GetComponentInParent<TheUnit>();
+                         if (ClickedUnit.gameObject != selectedUnit.gameObject)
+                        {
+                        Debug.Log("Marching to: " + clickedObject.name);
+                        troopsExpeditionManager.MarchUsingDrag(selectedUnit, clickedObject, hit);
+                        selectedUnit.GetComponent<TroopsInstanceUI>().TriggerSelectedRings(false);
+                    }
+                    else{
+                         TroopsInstanceUI troopsInstanceUI=selectedUnit.
+                         GetComponentInParent<TroopsInstanceUI>();
+            //nothing should happen visibly
+                    troopsInstanceUI.GetTroopsUIComponent(troopsUI,globalUIManager);
+            troopsInstanceUI.TriggerUIButtons();
+            cameraSystem.FollowTheTarget(selectedUnit.gameObject);
+            LastClickedTroopsInstanceUI=troopsInstanceUI;
+                    }
+                    }
+                    else
+                    {
+                        Debug.Log("Marching to: " + clickedObject.name);
+                        troopsExpeditionManager.MarchUsingDrag(selectedUnit, clickedObject, hit);
+                        selectedUnit.GetComponent<TroopsInstanceUI>().TriggerSelectedRings(false);
+                    }
+                   
+                }
+            }
+
+            // Reset values
+            if (isHolding)
+            {
+                isHolding = false;
+                selectedUnit = null;
+                lineRenderer.enabled = false; // Hide UI Line
+            }
+        }
     }
-    public bool ReturnIsUnitHolding(){
-        return isHolding;
-    }
+}
+
 }

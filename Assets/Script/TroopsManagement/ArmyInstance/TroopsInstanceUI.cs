@@ -6,21 +6,27 @@ public class TroopsInstanceUI : MonoBehaviour
 {
    private TroopsUI troopsUIManager;
    private GlobalUIManager globalUIManager;
-   [SerializeField] private GameObject UIButtonPanel;
+   [SerializeField] private GameObject UIButtonPanel,selectedRings;
     public void GetTroopsUIComponent(TroopsUI troopsUI,GlobalUIManager GlobalUIManager){
         //by global ui manager 
         globalUIManager=GlobalUIManager;
         troopsUIManager=troopsUI;
     }
+    public void TriggerSelectedRings(bool t){
+        //by touch marching 
+        selectedRings.SetActive(t);
+    }
 
     public void TriggerUIButtons(){
         //by Global ui manager
         UIButtonPanel.SetActive(true);
+        selectedRings.SetActive(true);
     }
     public void RefreshUIB(){
         //called by global or ui buttons
         //for refreshing
         UIButtonPanel.SetActive(false);
+        selectedRings.SetActive(false);
         globalUIManager.RefreshPermission();
     }
     

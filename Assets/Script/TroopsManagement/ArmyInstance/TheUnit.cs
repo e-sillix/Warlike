@@ -11,6 +11,7 @@ public class TheUnit : MonoBehaviour
     private bool shouldMove = false;
     public float closeDistance=5f;
     [SerializeField] private GameObject SelectorIcon;
+    [SerializeField]private GameObject SelectedRings;
     public GameObject target;
     public bool IsReturn=false;
     public int ArmyId;   
@@ -69,6 +70,7 @@ public class TheUnit : MonoBehaviour
     public void Highlight(bool isSelected)
     {    
         SelectorIcon.SetActive(isSelected);
+        SelectedRings.SetActive(isSelected);
     }
     public void SetTroopsData(string TroopsType,int[] TroopsData){
         troopsType=TroopsType;
