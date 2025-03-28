@@ -15,6 +15,8 @@ public class TouchMarching : MonoBehaviour
 
     private TroopsInstanceUI LastClickedTroopsInstanceUI;
 
+    private TheCreep LastCreep;
+
  
         void Start()
 {
@@ -84,10 +86,29 @@ public class TouchMarching : MonoBehaviour
             {
                 lineRenderer.SetPosition(1, dragRay.origin + dragRay.direction * 10f); // Extend in direction
             }
+
+            if(touch.phase==TouchPhase.Moved){
+                 Ray ray1 = Camera.main.ScreenPointToRay(Input.mousePosition);
+                 if(LastCreep){
+                    LastCreep.GetComponent<CreepUI>().SetCreepRing(false);
+                 }
+                if (Physics.Raycast(ray1, out RaycastHit hit, Mathf.Infinity))
+                {
+                    GameObject clickedObject = hit.collider.gameObject;
+                    if(clickedObject.GetComponentInParent<TheCreep>()){
+                        LastCreep=clickedObject.GetComponentInParent<TheCreep>();
+                        clickedObject.GetComponentInParent<CreepUI>().SetCreepRing(true);
+                    }
+                }
+            }
         }
 
         if (touch.phase == TouchPhase.Ended) // Touch released
         {
+            if(LastCreep){
+                LastCreep.GetComponent<CreepUI>().SetCreepRing(false);
+                LastCreep=null;
+            }
             if (isHolding)
             {
                 cameraSystem.SetTheUniHold(false);
@@ -129,6 +150,7 @@ public class TouchMarching : MonoBehaviour
                 isHolding = false;
                 selectedUnit = null;
                 lineRenderer.enabled = false; // Hide UI Line
+                // LastCreep=null;
             }
         }
     }

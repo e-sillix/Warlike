@@ -5,14 +5,16 @@ using UnityEngine;
 public class CreepUI : MonoBehaviour
 {
    
-    [SerializeField] private GameObject SelectedUIGO,MarchOnUIGO;
+    [SerializeField] private GameObject SelectedUIGO,MarchOnUIGO,SelectedRing;
     private InfoUIManager infoUIManager;
   
     private TroopsExpeditionManager troopsExpeditionManager;
     // public void Dependency(TroopsExpeditionManager TroopsExpeditionManager){
     //     troopsExpeditionManager=TroopsExpeditionManager;
     // }
-
+    public void SetCreepRing(bool t){
+        SelectedRing.SetActive(t);
+    }
     public void CreepSelected(TroopsExpeditionManager TroopsExpeditionManager,InfoUIManager 
     InfoUIManager){
         //triggered when creep is clicked.

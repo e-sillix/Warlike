@@ -31,7 +31,7 @@ public class TheUnit : MonoBehaviour
     private Mining mining;
     
     public bool returnIsDefeated(){
-        Debug.Log("Return :"+isDefeated);
+        // Debug.Log("Return :"+isDefeated);
         return isDefeated;
     }
     void Start(){
@@ -41,7 +41,7 @@ public class TheUnit : MonoBehaviour
     }    
     public void SetMoveSpeed(int speed){
         moveSpeed=speed;
-        Debug.Log("speed set to:"+speed);
+        // Debug.Log("speed set to:"+speed);
 
     }
     void Update()

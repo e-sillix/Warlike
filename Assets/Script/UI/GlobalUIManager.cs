@@ -179,7 +179,7 @@ public class GlobalUIManager : MonoBehaviour
             TheUnit unit=ClickedObject.GetComponentInParent<TheUnit>();
             if(!unit.returnIsDefeated()){
 
-            
+            Debug.Log("not lost troops");
             TroopsInstanceUI troopsInstanceUI=ClickedObject.GetComponentInParent<TroopsInstanceUI>();
             //nothing should happen visibly
             troopsInstanceUI.GetTroopsUIComponent(troopsUI,GetComponent<GlobalUIManager>());
