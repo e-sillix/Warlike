@@ -10,6 +10,7 @@ public class NewArmyManger : MonoBehaviour
     [SerializeField] private GameObject Spawnpoint;
 
     [SerializeField] private TroopsCountManager troopsCountManager;
+    [SerializeField]private MessageManager messageManager;
 
     private int[] troopsNumber=new int[5];
     private int[] troopsToMarch=new int[5];
@@ -58,7 +59,13 @@ public class NewArmyManger : MonoBehaviour
 
     public void MarchIsClicked(){//this will be called by ui march button
         troopsToMarch=marchSlider.ReturnTroopsData();
+        int totalNumberOfTroops=0;
+        for(int i=0;i<troopsToMarch.Length;i++){
+            totalNumberOfTroops+=troopsToMarch[i];
+        }
+        if(totalNumberOfTroops>0){
 
+        
         newArmyGO=Instantiate(TheUnitPrefab,Spawnpoint.transform.position, Spawnpoint.transform.rotation);
      
         troopsCountManager.WithDrawTroops(selectedTroopType,troopsToMarch);
@@ -68,6 +75,11 @@ public class NewArmyManger : MonoBehaviour
         newArmy=newArmyGO.GetComponent<TheUnit>();
         newArmy.SetTroopsData(selectedTroopType,troopsToMarch);
         troopsExpeditionManager.ArmyCreationDone(newArmy);
+        }
+        else{
+            messageManager.DisplayZeroTroopsMarch();
+            // Debug.Log("March has 0 Troops!!");
+        }
         EndStageUI();
     }
     public void EndStageUI(){

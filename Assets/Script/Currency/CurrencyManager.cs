@@ -180,10 +180,10 @@ public class CurrencyManager : MonoBehaviour
         }
     }
 
-    void OnApplicationQuit()
-    {
-        SaveEconomy(); // Save data when quitting the game
-    }
+    // void OnApplicationQuit()
+    // {
+    //     SaveEconomy(); // Save data when quitting the game
+    // }
 }
 
 [System.Serializable]

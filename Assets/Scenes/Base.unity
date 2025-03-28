@@ -6637,6 +6637,7 @@ MonoBehaviour:
   trainingCancelledMessage: Troops Training Cancelled
   SuccessBuildingMessage: Building Successfully Built.
   BuildingNotInsideMessage: Building Must Be Inside Kingdom
+  zeroTroopsMarch: Your March Has 0 Troops
 --- !u!1 &318686373
 GameObject:
   m_ObjectHideFlags: 0
@@ -49107,6 +49108,7 @@ MonoBehaviour:
     type: 3}
   Spawnpoint: {fileID: 286404000}
   troopsCountManager: {fileID: 903222388}
+  messageManager: {fileID: 317357924}
   marchSlider: {fileID: 990738985}
   troopsExpeditionManager: {fileID: 850240512}
   TroopsTypeUI: {fileID: 1932034020}

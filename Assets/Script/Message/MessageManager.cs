@@ -11,7 +11,8 @@ public class MessageManager : MonoBehaviour
     [SerializeField]private string TroopsTrainingStarted,messageForNotEnoughCredit,
     messageForNotEnoughSpace,messageForMaxBuildingUpgrade,messageForBuildingLimit,
     messageForUpgradeNotAllowed,messageForLaboratoryUpgrade,messageForBuildingLaboratory
-    ,trainingStartedMessage,trainingCancelledMessage,SuccessBuildingMessage,BuildingNotInsideMessage;
+    ,trainingStartedMessage,trainingCancelledMessage,SuccessBuildingMessage,BuildingNotInsideMessage
+    ,zeroTroopsMarch;
 
 //Training related messages
     public void MessageForTroopsAdded(string barrackType, int[] troopsData)
@@ -67,6 +68,12 @@ public class MessageManager : MonoBehaviour
     public void UpgradeLaboratoryMessage(){
         displayNormalMessage(messageForLaboratoryUpgrade);
     }
+    public void DisplayZeroTroopsMarch(){
+        displayNormalMessage(zeroTroopsMarch);
+    }
+
+
+
 
     public void displayNormalMessage(string message){
         NormalMessagePanel.SetActive(true);
@@ -77,4 +84,5 @@ public class MessageManager : MonoBehaviour
         {
             NormalMessagePanel.SetActive(false);
         }
+    
 }
