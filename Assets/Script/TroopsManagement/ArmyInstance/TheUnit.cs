@@ -22,7 +22,7 @@ public class TheUnit : MonoBehaviour
     public string troopsType;//store type of troops inf,arch,mage....
     private GameObject spawnpoint,Pointer;
     
-
+    private bool isDefeated=false;
 
 //mining related
     public bool isMining;//this will be changed by 
@@ -30,6 +30,10 @@ public class TheUnit : MonoBehaviour
 
     private Mining mining;
     
+    public bool returnIsDefeated(){
+        Debug.Log("Return :"+isDefeated);
+        return isDefeated;
+    }
     void Start(){
         troopsExpeditionManager=FindAnyObjectByType<TroopsExpeditionManager>();
         // troopsStatsManager=FindAnyObjectByType<TroopsStatsManager>();        
@@ -96,6 +100,9 @@ public class TheUnit : MonoBehaviour
     }
     public void SetTroopsTargetCombat(GameObject Target,GameObject SpawnPoint){
         spawnpoint=SpawnPoint;
+        if(Pointer){
+            Destroy(Pointer);
+        }
         StopAllAction();     
 
         target=Target;  
@@ -113,6 +120,9 @@ public class TheUnit : MonoBehaviour
     }
     public void SetTroopsTargetMine(GameObject Target,GameObject SpawnPoint){
         spawnpoint=SpawnPoint;
+        if(Pointer){
+            Destroy(Pointer);
+        }
         StopAllAction();     
 
         target=Target;  
@@ -189,10 +199,14 @@ public class TheUnit : MonoBehaviour
     public void TroopsDefeated(){
         //ghosted speed
         moveSpeed*=boostSpeed;
+        isDefeated=true;
         //have to make troops untargetable.
-
+        if(GetComponent<TroopsInstanceUI>())
         Destroy(GetComponent<TroopsInstanceUI>().ReturnUIButton());
+        if(GetComponent<Attacking>())
         Destroy(GetComponent<Attacking>());
+        // Destroy(GetComponent<C)
+        Debug.Log("is Defeated:"+isDefeated);
         ReturnTroops();
     }
 }

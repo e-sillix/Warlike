@@ -464,13 +464,13 @@ MonoBehaviour:
   - TimeSkip
   - Xp
   - ResourceToken
-  health: 100
   totalHealth: 100
   moveSpeed: 5
   attackRange: 10
   chasingRange: 15
-  Damage: 5
   level: 0
+  Damage: 5
+  health: 100
   RateOfAttack: 1
 --- !u!114 &1277755342512530588
 MonoBehaviour:

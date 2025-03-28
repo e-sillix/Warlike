@@ -56,6 +56,7 @@ public class TouchMarching : MonoBehaviour
                 TheUnit unit = hit.collider.GetComponentInParent<TheUnit>();
                 if (unit != null)
                 {
+                    if(!unit.returnIsDefeated()){
                     isHolding = true;
                     selectedUnit = unit;
                     selectedUnit.GetComponent<TroopsInstanceUI>().TriggerSelectedRings(true);
@@ -64,6 +65,7 @@ public class TouchMarching : MonoBehaviour
                     // Enable UI Line & set start point
                     lineRenderer.enabled = true;
                     lineRenderer.SetPosition(0, selectedUnit.transform.position);
+                    }
                 }
             }
         }
