@@ -268,12 +268,14 @@ public class BuildingInstance : MonoBehaviour
         //directly called by info button
         Debug.Log("Info is Clicked");
         buildingInstanceUI.InfoIsClicked(gameObject);
+        UIButtonPanel.SetActive(false);
         // GetAllTheStats();
     }
     public void UpgradeClicked(){
         //directly called by Upgrade button
         Debug.Log("Upgrade is Clicked");
         buildingInstanceUI.UpgradeIsClicked(gameObject);
+        UIButtonPanel.SetActive(false);
     }
     public void DisableUI(){
          UIButtonPanel.SetActive(false);

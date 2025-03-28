@@ -13,8 +13,10 @@ public class CurrencyManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI stoneCounter;
 
     private string savePath;
+
     
-    private Dictionary<ResourceType, int> resourceCurrencies = new Dictionary<ResourceType, int>()
+    
+    private Dictionary<ResourceType, int> LocalResourcesCurrencies = new Dictionary<ResourceType, int>()
     {
         { ResourceType.Wood, 1 },
         { ResourceType.Grain, 1 },
@@ -31,23 +33,41 @@ public class CurrencyManager : MonoBehaviour
     }
     else
     {
+        int[] l={deltaWood,deltaGrain,deltaStone};
+        SaveCurrency(l);
         // If no saved data, initialize with default values from Inspector
-        resourceCurrencies[ResourceType.Wood] = deltaWood;
-        resourceCurrencies[ResourceType.Grain] = deltaGrain;
-        resourceCurrencies[ResourceType.Stone] = deltaStone;
+
+        LoadEconomy();
+
+        // LocalResourcesCurrencies[ResourceType.Wood] = deltaWood;
+        // LocalResourcesCurrencies[ResourceType.Grain] = deltaGrain;
+        // LocalResourcesCurrencies[ResourceType.Stone] = deltaStone;
         
-        SaveEconomy(); // Save initial values to prevent data loss
+        // SaveEconomy(); // Save initial values to prevent data loss
     }
 
     UpdateUICounter();
 }
 
 
+    private void SaveCurrency(int[] resources){
+         EconomyData data = new EconomyData
+        {
+            wood = resources[0],
+            grain = resources[1],
+            stone = resources[2],
+        };
+
+        string json = JsonUtility.ToJson(data);
+        File.WriteAllText(savePath, json);
+        Debug.Log("Economy Saved: " + json);
+    }
+
     private void UpdateUICounter()
     {
-        woodsCounter.text = "W: " + NumberFormatter.FormatNumber(resourceCurrencies[ResourceType.Wood]);
-        grainCounter.text = "G: " + NumberFormatter.FormatNumber(resourceCurrencies[ResourceType.Grain]);
-        stoneCounter.text = "S: " + NumberFormatter.FormatNumber(resourceCurrencies[ResourceType.Stone]);
+        woodsCounter.text = "W: " + NumberFormatter.FormatNumber(LocalResourcesCurrencies[ResourceType.Wood]);
+        grainCounter.text = "G: " + NumberFormatter.FormatNumber(LocalResourcesCurrencies[ResourceType.Grain]);
+        stoneCounter.text = "S: " + NumberFormatter.FormatNumber(LocalResourcesCurrencies[ResourceType.Stone]);
     }
 
     public static class NumberFormatter
@@ -63,16 +83,22 @@ public class CurrencyManager : MonoBehaviour
 
     public void AddResource(ResourceType type, int amount)
     {
-        resourceCurrencies[type] += amount;
-        UpdateUICounter();
+
+        // int [] wood,grain,stone;
+
+        LoadEconomy();
+
+        LocalResourcesCurrencies[type] += amount;
         SaveEconomy();
+        UpdateUICounter();
     }
 
     public void CollectMinedResource(int[] resource)
     {
-        resourceCurrencies[ResourceType.Wood] += resource[0];
-        resourceCurrencies[ResourceType.Grain] += resource[1];
-        resourceCurrencies[ResourceType.Stone] += resource[2];
+        LoadEconomy();
+        LocalResourcesCurrencies[ResourceType.Wood] += resource[0];
+        LocalResourcesCurrencies[ResourceType.Grain] += resource[1];
+        LocalResourcesCurrencies[ResourceType.Stone] += resource[2];
 
         Debug.Log($"Resources Collected: W={resource[0]}, G={resource[1]}, S={resource[2]}");
         UpdateUICounter();
@@ -94,16 +120,19 @@ public class CurrencyManager : MonoBehaviour
         SaveEconomy();
     }
 
-    public Dictionary<ResourceType, int> ReturnAllResources()
+    public int[] ReturnAllResources()
     {
-        return new Dictionary<ResourceType, int>(resourceCurrencies);
+        LoadEconomy();
+        return new int[]{LocalResourcesCurrencies[ResourceType.Wood],LocalResourcesCurrencies[ResourceType.Grain]
+        ,LocalResourcesCurrencies[ResourceType.Stone]};
     }
 
     public void SpendBuildingCost(int woodCost, int grainCost, int stoneCost)
     {
-        resourceCurrencies[ResourceType.Wood] -= woodCost;
-        resourceCurrencies[ResourceType.Grain] -= grainCost;
-        resourceCurrencies[ResourceType.Stone] -= stoneCost;
+        LoadEconomy();
+        LocalResourcesCurrencies[ResourceType.Wood] -= woodCost;
+        LocalResourcesCurrencies[ResourceType.Grain] -= grainCost;
+        LocalResourcesCurrencies[ResourceType.Stone] -= stoneCost;
 
         UpdateUICounter();
         SaveEconomy();
@@ -115,9 +144,9 @@ public class CurrencyManager : MonoBehaviour
     {
         EconomyData data = new EconomyData
         {
-            stone = resourceCurrencies[ResourceType.Stone],
-            grain = resourceCurrencies[ResourceType.Grain],
-            wood = resourceCurrencies[ResourceType.Wood]
+            stone = LocalResourcesCurrencies[ResourceType.Stone],
+            grain = LocalResourcesCurrencies[ResourceType.Grain],
+            wood = LocalResourcesCurrencies[ResourceType.Wood]
         };
 
         string json = JsonUtility.ToJson(data);
@@ -134,9 +163,9 @@ public class CurrencyManager : MonoBehaviour
             {
             EconomyData data = JsonUtility.FromJson<EconomyData>(json);
 
-            resourceCurrencies[ResourceType.Stone] = data.stone;
-            resourceCurrencies[ResourceType.Grain] = data.grain;
-            resourceCurrencies[ResourceType.Wood] = data.wood;
+            LocalResourcesCurrencies[ResourceType.Stone] = data.stone;
+            LocalResourcesCurrencies[ResourceType.Grain] = data.grain;
+            LocalResourcesCurrencies[ResourceType.Wood] = data.wood;
 
             Debug.Log($"Economy Loaded: Stone={data.stone}, Grain={data.grain}, Wood={data.wood}");
             }

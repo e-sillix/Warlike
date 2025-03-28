@@ -92,6 +92,7 @@ float TrainingProgression,float TotalTime,int[] troopsData){
     }
     public void TrainingIsClicked(){
         //triggered by clicking UI button train.
+        GetComponent<BuildingInstance>().DisableUI();
         troopsTrainingManager.TrainingIsChosen(this);
     }
     public void StartTraining(int[] troopsData,int time){
