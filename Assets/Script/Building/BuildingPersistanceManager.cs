@@ -151,6 +151,7 @@ public class BuildingPersistenceManager : MonoBehaviour
               "yyyy-MM-dd HH:mm:ss", null);
                 TimeSpan SavedTimeElapsed = DateTime.UtcNow - lastSaveTime;
             SpawnBuildings(SavedTimeElapsed);
+            SaveAllBuildingData();
             }
             else{
             Debug.Log("Building file is empty.");

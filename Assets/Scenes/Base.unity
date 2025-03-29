@@ -39021,7 +39021,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5799619841f22034993b14db327c3f5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level: 4
+  level: 1
   buildingName: Base
 --- !u!114 &1552715441
 MonoBehaviour:

@@ -125,6 +125,7 @@ public class BuildingInstance : MonoBehaviour
 
         BuildingIsBeingUpgraded=true;
         UpgradeCoroutine=StartCoroutine(UpgradeProcess( UpgradeData,0,time));
+        buildingPersistenceManager.SaveAllBuildingData();
         }
 
 // Coroutine to wait and then apply the upgrade
@@ -134,7 +135,7 @@ public class BuildingInstance : MonoBehaviour
         ConstructionTime=time;
 
         ConstrucionProgress =progressTime;
-        buildingPersistenceManager.SaveAllBuildingData();
+        // buildingPersistenceManager.SaveAllBuildingData();
         // buildingPersistenceManager.SaveBuildingData(gameObject);
 
         // ConstructionProgressBar.value = 0;  // Start from 0 progress

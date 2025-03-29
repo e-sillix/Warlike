@@ -91,7 +91,7 @@ float TrainingProgression,float TotalTime,int[] troopsData,TimeSpan SavedTimeEla
                 TotalTime);
             }
         }
-        GetComponent<BuildingInstance>().TriggerSaveAll();
+        // GetComponent<BuildingInstance>().TriggerSaveAll();
     }   
     void ResumeTraining(int[] troopsData,int time,float TotalTime){
         troopsDataLocal=troopsData;
