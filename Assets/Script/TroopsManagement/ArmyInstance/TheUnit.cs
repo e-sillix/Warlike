@@ -32,6 +32,8 @@ public class TheUnit : MonoBehaviour
     private Mining mining;
 
     private bool isTargetIsEnemy=false;
+    private bool UpdateTroopsDirection=true;
+    private TroopsVisualInstance troopsVisualInstance;
     
     public bool returnIsDefeated(){
         // Debug.Log("Return :"+isDefeated);
@@ -43,7 +45,9 @@ public class TheUnit : MonoBehaviour
     void Start(){
         troopsExpeditionManager=FindAnyObjectByType<TroopsExpeditionManager>();
         // troopsStatsManager=FindAnyObjectByType<TroopsStatsManager>();        
-        mining = GetComponent<Mining>();       
+        mining = GetComponent<Mining>();   
+        troopsVisualInstance=GetComponent<TroopsVisualInstance>();    
+
     }    
     public void SetMoveSpeed(int speed){
         moveSpeed=speed;
@@ -57,6 +61,11 @@ public class TheUnit : MonoBehaviour
             // Move the object towards the target position smoothly
             transform.position = Vector3.MoveTowards(transform.position, targetPosition, 
             moveSpeed * Time.deltaTime);
+            if(UpdateTroopsDirection){
+        
+            troopsVisualInstance.UpdateTroopsDirection(targetPosition);
+            UpdateTroopsDirection=false;
+        }   
             if(isTargetIsEnemy&& attackRange!=0){
                 interactionRange=attackRange;
             }else{
@@ -69,7 +78,8 @@ public class TheUnit : MonoBehaviour
                 TargetReached();
                 Destroy(Pointer);
             }
-        }           
+        } 
+               
     }
 
     // Method to set the target position and start moving
@@ -79,6 +89,7 @@ public class TheUnit : MonoBehaviour
         // Debug.Log("The unit 2"+targetPosition);
         
         shouldMove = true;
+        UpdateTroopsDirection=true;
     }
 
     public void Highlight(bool isSelected)

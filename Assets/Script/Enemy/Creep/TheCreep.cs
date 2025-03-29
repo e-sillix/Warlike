@@ -18,7 +18,7 @@ public class TheCreep : MonoBehaviour
     public string[] Rewards;
 
     private int troopsQuantity = 5;
-    [SerializeField] private int totalHealth = 10, moveSpeed = 4, attackRange = 10, chasingRange = 15;
+    [SerializeField] private int totalHealth = 10, moveSpeed = 4, attackRange = 1, chasingRange = 15;
     public int  level = 1;
     public float Damage = 5f,health;
 

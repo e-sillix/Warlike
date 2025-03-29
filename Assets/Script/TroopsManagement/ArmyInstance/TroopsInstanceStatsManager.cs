@@ -9,8 +9,10 @@ public class TroopsInstanceStatsManager : MonoBehaviour
     private Attacking attacking;
     private Mining mining;
 
+    private TroopsVisualInstance troopsVisualInstance;
 
     private AttackStatPayload attackStatPayload;
+    private GameObject SingleGameObject;
 
     //attacking
     private float armor,moveSpeed,totalNumberOfTroops,attackRange,marchSpeed;
@@ -27,6 +29,7 @@ public class TroopsInstanceStatsManager : MonoBehaviour
         theUnit=GetComponent<TheUnit>();
         attacking=GetComponent<Attacking>();
         mining = GetComponent<Mining>();
+        troopsVisualInstance=GetComponent<TroopsVisualInstance>();
 
         troopsType=theUnit.troopsType;   
         troopsNumber=theUnit.troopsStats;//each lvl
@@ -55,7 +58,7 @@ public class TroopsInstanceStatsManager : MonoBehaviour
     eachLvlLoad = troopsStatsManager.GetTroopsLoadData(troopsType).load;
     attackStatPayload=troopsStatsManager.GetFightData(troopsType);    
 
-    SetFightingStats();
+    // SetFightingStats();
     }
 
     void SetFightingStats(){
@@ -81,8 +84,9 @@ public class TroopsInstanceStatsManager : MonoBehaviour
         *(float)troopsNumber[4])/totalNumberOfTroops;
 
         Debug.Log("Heath:"+health+"Damage:"+damage+"armor:"+armor+"attackRange:"+attackRange);
-
+        GameObject troop=attackStatPayload.SingleTroop;
         //assigning
+        troopsVisualInstance.SetTroopsObj(troop,totalNumberOfTroops);
         theUnit.AssignAttackRange(attackRange);
         attacking.StatsAssigning(health,damage,(int)armor,(int)attackRange);
     }

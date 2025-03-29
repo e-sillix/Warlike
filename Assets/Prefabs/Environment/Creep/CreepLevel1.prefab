@@ -467,7 +467,7 @@ MonoBehaviour:
   - ResourceToken
   totalHealth: 100
   moveSpeed: 5
-  attackRange: 10
+  attackRange: 1
   chasingRange: 15
   level: 0
   Damage: 5

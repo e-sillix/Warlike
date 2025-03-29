@@ -116,6 +116,6 @@ public class TroopsStatsManager : MonoBehaviour
             return null;
         }
         return new AttackStatPayload(troopsData.Damage,troopsData.Health,troopsData.Armor,
-        troopsData.MarchSpeed,troopsData.AttackRange);
+        troopsData.MarchSpeed,troopsData.AttackRange,troopsData.SingleTroop);
     }
 }

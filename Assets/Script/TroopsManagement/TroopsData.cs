@@ -8,6 +8,8 @@ public class TroopsData :  ScriptableObject
 {
     public string troopName;
 
+    public GameObject SingleTroop;
+
 // Training cost 
     public int[] WoodCost = new int[5];  // Upgrade costs for that troop
     public int[] GrainCost = new int[5];  // Upgrade costs for that troop

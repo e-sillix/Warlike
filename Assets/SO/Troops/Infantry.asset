@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Infantry
   m_EditorClassIdentifier: 
   troopName: Infantry
+  SingleTroop: {fileID: 1450389641998332605, guid: 9ef18eeecef9b02478d807b04a9f678f,
+    type: 3}
   WoodCost: 0000000000000000000000000000000000000000
   GrainCost: 0000000000000000000000000000000000000000
   StoneCost: 0000000000000000000000000000000000000000
