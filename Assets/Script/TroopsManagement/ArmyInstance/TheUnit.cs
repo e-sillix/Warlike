@@ -27,12 +27,18 @@ public class TheUnit : MonoBehaviour
 //mining related
     public bool isMining;//this will be changed by 
 
-
+    private float interactionRange,attackRange;
+    
     private Mining mining;
+
+    private bool isTargetIsEnemy=false;
     
     public bool returnIsDefeated(){
         // Debug.Log("Return :"+isDefeated);
         return isDefeated;
+    }
+    public void AssignAttackRange(float AttackRange){
+        attackRange=AttackRange;
     }
     void Start(){
         troopsExpeditionManager=FindAnyObjectByType<TroopsExpeditionManager>();
@@ -51,9 +57,13 @@ public class TheUnit : MonoBehaviour
             // Move the object towards the target position smoothly
             transform.position = Vector3.MoveTowards(transform.position, targetPosition, 
             moveSpeed * Time.deltaTime);
-
+            if(isTargetIsEnemy&& attackRange!=0){
+                interactionRange=attackRange;
+            }else{
+                interactionRange=closeDistance;
+            }
             // Check if the object has reached the target position
-            if (Vector3.Distance(transform.position, targetPosition) < closeDistance)
+            if (Vector3.Distance(transform.position, targetPosition) < interactionRange)
             {
                 shouldMove = false; // Stop moving
                 TargetReached();
@@ -104,7 +114,7 @@ public class TheUnit : MonoBehaviour
             Destroy(Pointer);
         }
         StopAllAction();     
-
+        isTargetIsEnemy=true;
         target=Target;  
         if(target.GetComponent<CreepUI>()){
             target.GetComponent<CreepUI>().PassiveSelected();  
@@ -152,7 +162,8 @@ public class TheUnit : MonoBehaviour
     }
 
 //action 
-    void StopAllAction(){       
+    void StopAllAction(){   
+        isTargetIsEnemy=false;    
         if(isMining){
             isMining=false;
             mining.StopMining();

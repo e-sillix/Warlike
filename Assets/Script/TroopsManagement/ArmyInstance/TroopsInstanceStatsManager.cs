@@ -83,7 +83,7 @@ public class TroopsInstanceStatsManager : MonoBehaviour
         Debug.Log("Heath:"+health+"Damage:"+damage+"armor:"+armor+"attackRange:"+attackRange);
 
         //assigning
-
+        theUnit.AssignAttackRange(attackRange);
         attacking.StatsAssigning(health,damage,(int)armor,(int)attackRange);
     }
     void SetBasicData(){
