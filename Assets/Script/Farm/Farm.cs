@@ -1,4 +1,4 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Unity.VisualScripting;
@@ -20,29 +20,39 @@ public class Farm : MonoBehaviour
     private float timer = 0f,interval = 1f;
     private (int years, int months, int days, int hours, int minutes, int seconds) timeElapsed;
 
-    public void SettingPreviousData(int l){        
+    public void SettingPreviousData(int l,int Amount,TimeSpan SavedTimeElapsed){        
         level =l;
+        resourceAmount=Amount;
+        AddTimeElapsation(SavedTimeElapsed);
         GetComponent<BuildingInstance>().SetData();
+        
     }
     // public void OnApplicationQuit()
     // {
     //     GetComponent<BuildingInstance>().StoreTheProgress(resourceAmount);
     // }
-    public void SetResourceAmount(int amount){
-        //this will be set by buildingPersistenceManager
-        resourceAmount=amount;
-        // timeElapsed=TimeElapsed;
+    // public void SetResourceAmount(int amount){
+    //     //this will be set by buildingPersistenceManager
+    //     resourceAmount=amount;
+    //     // timeElapsed=TimeElapsed;
 
-        if(PlayerPrefs.HasKey("TimeElapsed"))
-        {
-        AddTimeElapsation();
-        }
-    }
-    void AddTimeElapsation(){
+    //     if(PlayerPrefs.HasKey("TimeElapsed"))
+    //     {
+    //     AddTimeElapsation();
+    //     }
+    // }
+    void AddTimeElapsation(TimeSpan SavedTimeElapsed){
         // int TimeElapsed=GetComponent<BuildingInstance>().();
-        TimeElapsedManagement timeElapsedManagement=GetComponent
-        <BuildingInstance>().ReturnTimeElapsedManagement();
-        timeElapsed=timeElapsedManagement.CalculateTimeElapsed();
+        // TimeElapsedManagement timeElapsedManagement=GetComponent
+        // <BuildingInstance>().ReturnTimeElapsedManagement();
+         timeElapsed = (
+    SavedTimeElapsed.Days / 365,                 // Approximate years
+    (SavedTimeElapsed.Days % 365) / 30,          // Approximate months
+    SavedTimeElapsed.Days % 30,                  // Remaining days
+    SavedTimeElapsed.Hours,
+    SavedTimeElapsed.Minutes,
+    SavedTimeElapsed.Seconds
+);
         if(timeElapsed.years>0||timeElapsed.months>3){
 resourceAmount=capacity;
         }
@@ -123,6 +133,7 @@ resourceAmount=capacity;
         currencyManager.CollectingAllresourceAmount(resourceType); 
         //trigger whole resourceAmount prefabs animations of consuming.
         isEnough=false;
+        GetComponent<BuildingInstance>().TriggerSaveAll();
     }
 
     public int ReturnResourceAmount(){

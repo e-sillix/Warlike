@@ -637,7 +637,7 @@ MonoBehaviour:
   resourceType: 0
   level: 1
   rateOfProduction: 1
-  capacity: 20
+  capacity: 30
   nameOfBuilding: 
   currencyManager: {fileID: 0}
   leastAmountForConsuming: 3
@@ -658,7 +658,9 @@ MonoBehaviour:
   UIButtonPanel: {fileID: 7491151870950136759}
   buildingInstanceUI: {fileID: 0}
   buildingPersistenceManager: {fileID: 0}
+  buildingUpgrade: {fileID: 0}
   upgradeStats: {fileID: 0}
+  timeElapsedManagement: {fileID: 0}
   ConstructionProgressBarPanel: {fileID: 76624209643751833}
   ConstructionProgressBar: {fileID: 2211268961836017836}
   timeRemainingText: {fileID: 5643842645711442705}
