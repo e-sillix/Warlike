@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using System;
 
 public class BuildingPersistenceManager : MonoBehaviour
 {
@@ -18,20 +19,22 @@ public class BuildingPersistenceManager : MonoBehaviour
         savePath = Application.persistentDataPath + "/buildingsData.json";
         LoadBuildingData();
     }
-    void OnApplicationQuit()
-    {
-        var buildingInstances = FindObjectsOfType<BuildingInstance>();
-        foreach (var instance in buildingInstances)
-        {
-            SaveBuildingData(instance.gameObject);
-        }
-    }
+    // void OnApplicationQuit()
+    // {
+    //     var buildingInstances = FindObjectsOfType<BuildingInstance>();
+    //     foreach (var instance in buildingInstances)
+    //     {
+    //         SaveBuildingData(instance.gameObject);
+    //     }
+    // }
     public void SaveAllBuildingData(){
+        Debug.Log("savingBuilding called.");
         var buildingInstances = FindObjectsOfType<BuildingInstance>();
         foreach (var instance in buildingInstances)
         {
             SaveBuildingData(instance.gameObject);
         }
+        
     }
 
     public void SetTimeElapsed((int years, int months, int days, int hours, int minutes, int seconds)
@@ -80,7 +83,7 @@ public class BuildingPersistenceManager : MonoBehaviour
     int buildingID;
     do
     {
-        buildingID = Random.Range(100, 1001);
+        buildingID = UnityEngine.Random.Range(100, 1001);
     } while (buildings.Exists(b => b.buildingId == buildingID));
 
     // Check if building already exists (by name)
@@ -143,8 +146,11 @@ public class BuildingPersistenceManager : MonoBehaviour
             }
             buildings = JsonUtility.FromJson<BuildingList>(json).buildings;
             Debug.Log("Loaded " + buildings.Count + " buildings from file.");
-
-            SpawnBuildings();
+             DateTime lastSaveTime = DateTime.ParseExact(JsonUtility.FromJson<BuildingList>(json)
+             .lastSavedTime,
+              "yyyy-MM-dd HH:mm:ss", null);
+                TimeSpan SavedTimeElapsed = DateTime.UtcNow - lastSaveTime;
+            SpawnBuildings(SavedTimeElapsed);
             }
             else{
             Debug.Log("Building file is empty.");
@@ -157,7 +163,7 @@ public class BuildingPersistenceManager : MonoBehaviour
         }
     }
 
-    private void SpawnBuildings()
+    private void SpawnBuildings(TimeSpan SavedTimeElapsed)
     {
         foreach (BuildingInfo data in buildings)
         {
@@ -188,7 +194,7 @@ public class BuildingPersistenceManager : MonoBehaviour
                 //     Set
                 // }
                 spawnedBuilding.GetComponent<BuildingInstance>().BuildingStatusRestoring(
-                    data.buildingStatus,data.upgradeData);
+                    data.buildingStatus,data.upgradeData,SavedTimeElapsed);
                 // else if(spawnedBuilding.GetComponent<Base>()){
                 //     SetPreviousBase(spawnedBuilding, data.level);
                 // }
@@ -198,7 +204,7 @@ public class BuildingPersistenceManager : MonoBehaviour
             //     Debug.LogWarning("No prefab found for " + data.buildingName);
             // }
             if(data.buildingName=="Base"){
-                SetPreviousBase(data.level,data.buildingStatus,data.upgradeData);
+                SetPreviousBase(data.level,data.buildingStatus,data.upgradeData,SavedTimeElapsed);
             }
         }
     }
@@ -226,7 +232,7 @@ float TrainingProgression,float TotalTime,int[] troopsData)
     // barrack.level = level;
     barrack.SettingPreviousData(level,isTrainingOngoing,TrainingProgression,TotalTime,troopsData);
 }
-void SetPreviousBase( int level,bool buildingStatus,int[] upgradeData)
+void SetPreviousBase( int level,bool buildingStatus,int[] upgradeData,TimeSpan SavedTimeElapsed)
 {
     GameObject baseObject = GameObject.FindObjectOfType<Base>()?.gameObject;
     if (baseObject != null)
@@ -235,7 +241,7 @@ void SetPreviousBase( int level,bool buildingStatus,int[] upgradeData)
     // baseBuilding.level = level;
     baseBuilding.SettingPreviousData(level);
     baseBuilding.GetComponent<BuildingInstance>().BuildingStatusRestoring(
-                    buildingStatus,upgradeData);
+                    buildingStatus,upgradeData,SavedTimeElapsed);
 }}
 // else if (building.GetComponent<Laboratory>())
 // {
@@ -247,11 +253,15 @@ void SetPreviousBase( int level,bool buildingStatus,int[] upgradeData)
     
 
     private void SaveToFile()
-    {
-        string json = JsonUtility.ToJson(new BuildingList(buildings), true);
-        File.WriteAllText(savePath, json);
-        Debug.Log("Buildings saved to: " + savePath);
-    }
+{
+    BuildingList dataToSave = new BuildingList(buildings);
+    dataToSave.lastSavedTime = System.DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss"); // Update time
+
+    string json = JsonUtility.ToJson(dataToSave, true);
+    File.WriteAllText(savePath, json);
+    Debug.Log("Buildings saved to: " + savePath);
+}
+
 }
 
 // Helper class for saving
@@ -259,8 +269,15 @@ void SetPreviousBase( int level,bool buildingStatus,int[] upgradeData)
 public class BuildingList
 {
     public List<BuildingInfo> buildings;
-    public BuildingList(List<BuildingInfo> list) { buildings = list; }
+    public string lastSavedTime; // Store the time when the file was last saved
+
+    public BuildingList(List<BuildingInfo> list)
+    {
+        buildings = list;
+        lastSavedTime = System.DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss"); // Store in UTC format
+    }
 }
+
 
 // Stores building data
 [System.Serializable]

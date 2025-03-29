@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class BuildingInstance : MonoBehaviour
 {
@@ -28,6 +29,7 @@ public class BuildingInstance : MonoBehaviour
     [SerializeField] private Slider ConstructionProgressBar; // Assign in Inspector
     [SerializeField] private TextMeshProUGUI timeRemainingText; // Assign for time display
 
+    private TimeSpan SavedTimeElapsed;
     private int[] previousUpdateData;
     // private string name;
     // private int level;
@@ -124,11 +126,12 @@ public class BuildingInstance : MonoBehaviour
 // Coroutine to wait and then apply the upgrade
     private IEnumerator UpgradeProcess( int[] UpgradeData,int progressTime,int time)
     {
-        buildingPersistenceManager.SaveAllBuildingData();
         ConstructionProgressBarPanel.SetActive(true);
         ConstructionTime=time;
 
         ConstrucionProgress =progressTime;
+        buildingPersistenceManager.SaveAllBuildingData();
+        // buildingPersistenceManager.SaveBuildingData(gameObject);
 
         // ConstructionProgressBar.value = 0;  // Start from 0 progress
 
@@ -156,7 +159,8 @@ public class BuildingInstance : MonoBehaviour
     // Apply upgrade logic here (level, capacity, rate)
     // ApplyUpgrade(upgradeData);
     Debug.Log("Building Upgraded");
-    buildingPersistenceManager.SaveBuildingData(gameObject);
+    // buildingPersistenceManager.SaveBuildingData(gameObject);
+    buildingPersistenceManager.SaveAllBuildingData();
     // Upgrade complete
     BuildingIsBeingUpgraded = false;
     }
@@ -166,11 +170,12 @@ public class BuildingInstance : MonoBehaviour
         int seconds = secondsLeft % 60;
         timeRemainingText.text = $"{minutes:D2}:{seconds:D2}"; // Format: MM:SS
     }
-    public void BuildingStatusRestoring(bool status,int[] UpgradeTiming){
+    public void BuildingStatusRestoring(bool status,int[] UpgradeTiming,TimeSpan savedTimeElapsed){
         //by buildingPersistenceManager
         // BuildingIsBeingUpgraded=status;
         if(status){
             // UpgradeStats(UpgradeData);
+            SavedTimeElapsed=savedTimeElapsed;
             ContinueUpgrading(UpgradeTiming);
         }
 
@@ -181,7 +186,18 @@ public class BuildingInstance : MonoBehaviour
     }
     void ContinueUpgrading(int [] UpgradeTiming){
         previousUpdateData=buildingUpgrade.DirectBuildingUpgrade(gameObject);
-        timeElapsed=timeElapsedManagement.CalculateTimeElapsed();
+        // timeElapsed=timeElapsedManagement.CalculateTimeElapsed();
+        // timeElapsed=(SavedTimeElapsed.days,);
+        timeElapsed = (
+    SavedTimeElapsed.Days / 365,                 // Approximate years
+    (SavedTimeElapsed.Days % 365) / 30,          // Approximate months
+    SavedTimeElapsed.Days % 30,                  // Remaining days
+    SavedTimeElapsed.Hours,
+    SavedTimeElapsed.Minutes,
+    SavedTimeElapsed.Seconds
+
+);
+
         if(timeElapsed.years>0||timeElapsed.months>2){
 // resourceAmount=capacity;
         // UpgradeStats(UpgradeData);
@@ -224,6 +240,7 @@ public class BuildingInstance : MonoBehaviour
     void ResumeConstruction(int progresstime,float TotalTime,int[] UpgradeData){
         //call function  for training
         // UpgradeCoroutine=StartCoroutine(UpgradeProcess(UpgradeStats.GetUpgradeData(),TotalTime));
+        BuildingIsBeingUpgraded=true;
         UpgradeCoroutine=StartCoroutine(UpgradeProcess(UpgradeData,progresstime,(int)TotalTime));
     }
 
