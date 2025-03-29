@@ -41,6 +41,10 @@ public class BuildingInstance : MonoBehaviour
     public TimeElapsedManagement ReturnTimeElapsedManagement(){
         return timeElapsedManagement;
     }
+    public void TriggerSaveAll(){
+        //by attached barrack,farm
+        buildingPersistenceManager.SaveAllBuildingData();
+    }
     public void ProvideBasicDependency(BuildingDependencyManager BuildingDependencyManager){
         //called by when it is spawned after closing the game.
         buildingDependencyManager=BuildingDependencyManager;

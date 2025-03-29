@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -42,22 +43,33 @@ public class TheBarrack : MonoBehaviour
         return trainingHandler;
     }
     public void SettingPreviousData(int l,bool isTrainingOngoing,
-float TrainingProgression,float TotalTime,int[] troopsData){
+float TrainingProgression,float TotalTime,int[] troopsData,TimeSpan SavedTimeElapsed){
         level =l;
         GetComponent<BuildingInstance>().SetData();
         if(isTrainingOngoing){
-            ContinueTraining(TrainingProgression,TotalTime,troopsData);
+            ContinueTraining(TrainingProgression,TotalTime,troopsData,SavedTimeElapsed);
         }
     }
-    void ContinueTraining(float TrainingProgression,float TotalTime,int[] troopsData){
-        TimeElapsedManagement timeElapsedManagement=GetComponent
-        <BuildingInstance>().ReturnTimeElapsedManagement();
-        timeElapsed=timeElapsedManagement.CalculateTimeElapsed();
+    void ContinueTraining(float TrainingProgression,float TotalTime,int[] troopsData,TimeSpan 
+    SavedTimeElapsed){
+        // TimeElapsedManagement timeElapsedManagement=GetComponent
+        // <BuildingInstance>().ReturnTimeElapsedManagement();
+        // timeElapsed=timeElapsedManagement.CalculateTimeElapsed();
+         timeElapsed = (
+    SavedTimeElapsed.Days / 365,                 // Approximate years
+    (SavedTimeElapsed.Days % 365) / 30,          // Approximate months
+    SavedTimeElapsed.Days % 30,                  // Remaining days
+    SavedTimeElapsed.Hours,
+    SavedTimeElapsed.Minutes,
+    SavedTimeElapsed.Seconds
+
+);
         if(timeElapsed.years>0||timeElapsed.months>0||timeElapsed.days>2){
 // resourceAmount=capacity;
         troopsCountManager.LoadPreviousTroopsData();
         troopsCountManager.UpdateTroopsCount(barrackType.ToString(),troopsData);
         trainingHandler.RefreshData();
+         GetComponent<BuildingInstance>().TriggerSaveAll();
         Debug.Log("Troops added directly 1");
         }
         else{
@@ -70,6 +82,7 @@ float TrainingProgression,float TotalTime,int[] troopsData){
                 troopsCountManager.LoadPreviousTroopsData();
                 troopsCountManager.UpdateTroopsCount(barrackType.ToString(),troopsData);
                 trainingHandler.RefreshData();
+                // GetComponent<BuildingInstance>().TriggerSaveAll();
             }else{
                 Debug.Log("Resumed for training"+(int)(TotalTime-
                 (timeElapsedInSeconds+TrainingProgression)));
@@ -78,12 +91,16 @@ float TrainingProgression,float TotalTime,int[] troopsData){
                 TotalTime);
             }
         }
+        GetComponent<BuildingInstance>().TriggerSaveAll();
     }   
     void ResumeTraining(int[] troopsData,int time,float TotalTime){
         troopsDataLocal=troopsData;
         UpdateStateOfBarrack(true);
+
+        //  buildingPersistenceManager.SaveAllBuildingData();
         //call function  for training
         trainingHandler.ResumeTraining(time,TotalTime);
+        
     }
     public void InitDependency(TroopsTrainingManager TroopsTrainingManager,
     TroopsCountManager TroopsCountManager){
@@ -99,13 +116,14 @@ float TrainingProgression,float TotalTime,int[] troopsData){
         troopsDataLocal=troopsData;
         UpdateStateOfBarrack(true);
         //call function  for training
-        GetComponent<BuildingInstance>().TriggerSave();
         trainingHandler.StartTraining(time);
+        GetComponent<BuildingInstance>().TriggerSave();
     }
     public void CancelTraining(){
         //cancel training
         trainingHandler.CancelTraining();
         UpdateStateOfBarrack(false);
+        GetComponent<BuildingInstance>().TriggerSave();
     }
     private void UpdateStateOfBarrack(bool status){
         isTrainingOngoing=status;

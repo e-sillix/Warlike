@@ -183,7 +183,7 @@ public class BuildingPersistenceManager : MonoBehaviour
                 }
                 else if(spawnedBuilding.GetComponent<TheBarrack>()){
                     SetPreviousBarrack(spawnedBuilding, data.level,data.isTrainingOngoing,
-                    data.TrainingProgression,data.TotalTime,data.troopsData);
+                    data.TrainingProgression,data.TotalTime,data.troopsData,SavedTimeElapsed);
                 
                 }
                 // }else if(spawnedBuilding.GetComponent<Base>()){
@@ -226,11 +226,12 @@ public class BuildingPersistenceManager : MonoBehaviour
     farm.SetResourceAmount(resource);
 }}
 void SetPreviousBarrack(GameObject building, int level,bool isTrainingOngoing,
-float TrainingProgression,float TotalTime,int[] troopsData)
+float TrainingProgression,float TotalTime,int[] troopsData,TimeSpan SavedTimeElapsed)
 {
     TheBarrack barrack = building.GetComponent<TheBarrack>();
     // barrack.level = level;
-    barrack.SettingPreviousData(level,isTrainingOngoing,TrainingProgression,TotalTime,troopsData);
+    barrack.SettingPreviousData(level,isTrainingOngoing,TrainingProgression,TotalTime,troopsData,
+    SavedTimeElapsed);
 }
 void SetPreviousBase( int level,bool buildingStatus,int[] upgradeData,TimeSpan SavedTimeElapsed)
 {
