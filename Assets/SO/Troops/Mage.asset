@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Mage
   m_EditorClassIdentifier: 
   troopName: Mage
-  SingleTroop: {fileID: 1450389641998332605, guid: 9ef18eeecef9b02478d807b04a9f678f,
+  SingleTroop: {fileID: 1450389641998332605, guid: fe787ee578be69f45bcdc8009b06d906,
     type: 3}
   WoodCost: 050000000a0000001e000000640000002c010000
   GrainCost: 050000000a0000001e00000064000000c8000000
