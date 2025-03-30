@@ -28,7 +28,7 @@ public class BuildingPersistenceManager : MonoBehaviour
     //     }
     // }
     public void SaveAllBuildingData(){
-        Debug.Log("savingBuilding called.");
+        // Debug.Log("savingBuilding called.");
         var buildingInstances = FindObjectsOfType<BuildingInstance>();
         foreach (var instance in buildingInstances)
         {
@@ -68,11 +68,11 @@ public class BuildingPersistenceManager : MonoBehaviour
     }
     else if(building.TryGetComponent<TheBarrack>(out TheBarrack theBarrack)){
         // ProgressTime = (int)trainingHandler.GetProgressedTime();
-        Debug.Log("TrainingHandler is found.");
+        // Debug.Log("TrainingHandler is found.");
         TrainingHandler trainingHandler=theBarrack.GetTrainingHandler();
         isTrainingOngoing=trainingHandler.ReturnIsTrainingOngoing();
         if(isTrainingOngoing){
-            Debug.Log("Training was ongoing.");
+            // Debug.Log("Training was ongoing.");
             troopsData=theBarrack.GetTroopsData();
             TotalTime=trainingHandler.GetTotalTime();
             TrainingProgression=trainingHandler.GetProgressedTime();
@@ -145,7 +145,7 @@ public class BuildingPersistenceManager : MonoBehaviour
                 return;
             }
             buildings = JsonUtility.FromJson<BuildingList>(json).buildings;
-            Debug.Log("Loaded " + buildings.Count + " buildings from file.");
+            // Debug.Log("Loaded " + buildings.Count + " buildings from file.");
              DateTime lastSaveTime = DateTime.ParseExact(JsonUtility.FromJson<BuildingList>(json)
              .lastSavedTime,
               "yyyy-MM-dd HH:mm:ss", null);
@@ -263,7 +263,7 @@ void SetPreviousBase( int level,bool buildingStatus,int[] upgradeData,TimeSpan S
 
     string json = JsonUtility.ToJson(dataToSave, true);
     File.WriteAllText(savePath, json);
-    Debug.Log("Buildings saved to: " + savePath);
+    // Debug.Log("Buildings saved to: " + savePath);
 }
 
 }

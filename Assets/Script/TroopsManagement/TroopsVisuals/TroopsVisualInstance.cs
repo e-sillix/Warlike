@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 
 public class TroopsVisualInstance : MonoBehaviour
@@ -57,6 +58,26 @@ public class TroopsVisualInstance : MonoBehaviour
         //             direction.x, 0, direction.z)); 
     }
 }
+public void TriggerWalking(){
+     foreach (GameObject troop in AllTroops)
+    {
+        // troop.GetComponent<Animator>().SetBool("IsWalking", true);
+        Animator animator = troop.GetComponent<Animator>();
+            if (animator != null)
+            {
+                animator.SetBool("IsWalking", true); // Stop walking animation
+            }
+            else{
+                Debug.Log("Can't find animator");
+            }
+    }}
+    public void TriggerIdle(){
+        foreach (GameObject troop in AllTroops)
+    {
+        troop.GetComponent<Animator>().SetBool("IsWalking", false);
+    }
+    }
+
 
 
 

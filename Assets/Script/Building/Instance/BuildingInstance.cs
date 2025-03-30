@@ -163,7 +163,7 @@ public class BuildingInstance : MonoBehaviour
 
     // Apply upgrade logic here (level, capacity, rate)
     // ApplyUpgrade(upgradeData);
-    Debug.Log("Building Upgraded");
+    // Debug.Log("Building Upgraded");
     // buildingPersistenceManager.SaveBuildingData(gameObject);
     buildingPersistenceManager.SaveAllBuildingData();
     // Upgrade complete
@@ -210,7 +210,7 @@ public class BuildingInstance : MonoBehaviour
     // Apply upgrade logic here (level, capacity, rate)
     // ApplyUpgrade(upgradeData);
         UpgradeStats(previousUpdateData);
-        Debug.Log("Building Upgraded");
+        // Debug.Log("Building Upgraded");
         buildingUpgrade.DirectBuildingUpgrade(gameObject);
         buildingPersistenceManager.SaveBuildingData(gameObject);
     // Upgrade complete
@@ -229,7 +229,7 @@ public class BuildingInstance : MonoBehaviour
 
     // Apply upgrade logic here (level, capacity, rate)
     // ApplyUpgrade(upgradeData);
-        Debug.Log("Building Upgraded");
+        // Debug.Log("Building Upgraded");
         buildingPersistenceManager.SaveBuildingData(gameObject);
     // Upgrade complete
         BuildingIsBeingUpgraded = false;

@@ -167,7 +167,7 @@ public class CurrencyManager : MonoBehaviour
             LocalResourcesCurrencies[ResourceType.Grain] = data.grain;
             LocalResourcesCurrencies[ResourceType.Wood] = data.wood;
 
-            Debug.Log($"Economy Loaded: Stone={data.stone}, Grain={data.grain}, Wood={data.wood}");
+            // Debug.Log($"Economy Loaded: Stone={data.stone}, Grain={data.grain}, Wood={data.wood}");
             }
             else
             {

@@ -23,12 +23,12 @@ public class TrainingHandler : MonoBehaviour
     }
     public float GetProgressedTime(){
         //by buildingPersistenceManager
-        Debug.Log("ProgressedTime is "+ProgressedTime);
+        // Debug.Log("ProgressedTime is "+ProgressedTime);
         return ProgressedTime;
     }
     public float GetTotalTime(){
         //by buildingPersistenceManager
-        Debug.Log("CompletionTime is "+CompletionTime);
+        // Debug.Log("CompletionTime is "+CompletionTime);
         return CompletionTime;
     }
     public bool ReturnIsTrainingOngoing(){
@@ -83,7 +83,7 @@ public class TrainingHandler : MonoBehaviour
     private IEnumerator TrainingRoutine(int time)
     {
         isTrainingOngoing=true;
-        Debug.Log("Training started...");
+        // Debug.Log("Training started...");
         // ProgressedTime = 0f;
         TrainingProgressBarPanel.SetActive(true);  
         while (ProgressedTime < time)
@@ -98,7 +98,7 @@ public class TrainingHandler : MonoBehaviour
             yield return null; // Wait for next frame
         }
         isTrainingOngoing=false;
-        Debug.Log("Training completed!");
+        // Debug.Log("Training completed!");
         trainingProgressBar.value = 1;
         timeRemainingText.text = "00:00"; // Training is done
         TrainingProgressBarPanel.SetActive(false);

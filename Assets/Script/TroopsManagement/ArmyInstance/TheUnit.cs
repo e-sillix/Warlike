@@ -64,6 +64,7 @@ public class TheUnit : MonoBehaviour
             if(UpdateTroopsDirection){
         
             troopsVisualInstance.UpdateTroopsDirection(targetPosition);
+            troopsVisualInstance.TriggerWalking();
             UpdateTroopsDirection=false;
         }   
             if(isTargetIsEnemy&& attackRange!=0){
@@ -90,6 +91,10 @@ public class TheUnit : MonoBehaviour
         
         shouldMove = true;
         UpdateTroopsDirection=true;
+        // if(troopsVisualInstance==null){
+        //     troopsVisualInstance=GetComponent<TroopsVisualInstance>();
+        // }
+        // troopsVisualInstance.TriggerWalking();
     }
 
     public void Highlight(bool isSelected)
@@ -152,6 +157,7 @@ public class TheUnit : MonoBehaviour
     }
     void TargetReached(){
         // Debug.Log("target reached");
+        troopsVisualInstance.TriggerIdle();
         if(target!=null){
            if(target.GetComponent<TheCreep>()){
             target.GetComponent<CreepUI>().DeSelectCreepPassive();

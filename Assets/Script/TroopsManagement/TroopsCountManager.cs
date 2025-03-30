@@ -28,7 +28,7 @@ public class TroopsCountManager : MonoBehaviour
             archer = data.archer;
             mage = data.mage;
 
-            Debug.Log("Troop data loaded!");
+            // Debug.Log("Troop data loaded!");
             }
             else{
             Debug.Log("Troops file is empty.");
