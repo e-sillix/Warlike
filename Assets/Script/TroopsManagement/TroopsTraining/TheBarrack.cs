@@ -137,6 +137,7 @@ float TrainingProgression,float TotalTime,int[] troopsData,TimeSpan SavedTimeEla
 
         //for now add troops directly
         troopsCountManager.UpdateTroopsCount(barrackType.ToString(),troopsDataLocal);
+        GetComponent<BuildingInstance>().TriggerSave();
 
     }
     public void UpgradeStats(int Level,int Capacity,int rate){
