@@ -31,7 +31,9 @@ public class TheCreep : MonoBehaviour
     private Transform attackerTransform;
     private CreepSpawnManager creepSpawnManager;
     private bool isWalking,isAttacking;
+    private RewardManager rewardManager;
     
+    public int[] resourceRewards;
 
     void Start()
     {
@@ -41,8 +43,9 @@ public class TheCreep : MonoBehaviour
         //by attacking
         return health;
     }
-    public void Dependency(CreepSpawnManager CreepSpawnManager){
+    public void Dependency(CreepSpawnManager CreepSpawnManager, RewardManager RewardManager){
         creepSpawnManager=CreepSpawnManager;
+        rewardManager=RewardManager;
     }
 
     public int ReturnCreepNumbers()
@@ -160,6 +163,7 @@ public class TheCreep : MonoBehaviour
     }
     void OnDefeat(){
         creepSpawnManager.CreepDefeated();
+        rewardManager.GiveReward(resourceRewards);
         Destroy(gameObject);
     }
 }

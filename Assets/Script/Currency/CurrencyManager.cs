@@ -104,6 +104,17 @@ public class CurrencyManager : MonoBehaviour
         UpdateUICounter();
         SaveEconomy();
     }
+    public void CollectRewardsResource(int[] resource)
+    {
+        LoadEconomy();
+        LocalResourcesCurrencies[ResourceType.Wood] += resource[0];
+        LocalResourcesCurrencies[ResourceType.Grain] += resource[1];
+        LocalResourcesCurrencies[ResourceType.Stone] += resource[2];
+
+        Debug.Log($"Reward Collected: W={resource[0]}, G={resource[1]}, S={resource[2]}");
+        UpdateUICounter();
+        SaveEconomy();
+    }
 
     public void CollectingAllresourceAmount(ResourceType resourceTypeToCollect)
     {

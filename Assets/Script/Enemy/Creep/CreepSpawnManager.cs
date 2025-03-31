@@ -7,6 +7,8 @@ public class CreepSpawnManager : MonoBehaviour
 {
     [SerializeField] private GameObject SpawnPoint, CreepPrefab, ParentObject;
     [SerializeField] private TroopsExpeditionManager troopsExpeditionManager;
+
+    [SerializeField]private RewardManager rewardManager;
     // Start is called before the first frame update
     public float minRadius, maxRadius;       // Maximum radius for spawning
     public int numberOfPrefabs = 10;     // Number of prefabs to spawn
@@ -45,7 +47,7 @@ public class CreepSpawnManager : MonoBehaviour
     void InstantiateCreep(Vector3 centerPoint){        
         Vector3 spawnPosition = GenerateSpawnPosition(centerPoint);
         GameObject creep=Instantiate(CreepPrefab, spawnPosition, Quaternion.identity);
-        creep.GetComponent<TheCreep>().Dependency(this);
+        creep.GetComponent<TheCreep>().Dependency(this,rewardManager);
         creep.transform.SetParent(ParentObject.transform);
         creep.transform.localRotation = Quaternion.identity;
         // Debug.Log("New Creep Instantiated!!!!");
