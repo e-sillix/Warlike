@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &214834322681427452
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4103086993011015537}
+  m_Layer: 0
+  m_Name: Troops
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4103086993011015537
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 214834322681427452}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 462107949236457962}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &452330353392533593
 GameObject:
   m_ObjectHideFlags: 0
@@ -150,7 +181,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3360473751590050285
 Transform:
   m_ObjectHideFlags: 0
@@ -422,6 +453,8 @@ GameObject:
   - component: {fileID: 1827387833926162195}
   - component: {fileID: 8906328131087111958}
   - component: {fileID: 1277755342512530588}
+  - component: {fileID: 7767226219950970341}
+  - component: {fileID: 1960594480375075540}
   m_Layer: 0
   m_Name: CreepLevel1
   m_TagString: Untagged
@@ -488,6 +521,43 @@ MonoBehaviour:
   SelectedUIGO: {fileID: 8851119943393996292}
   MarchOnUIGO: {fileID: 6687015141604296715}
   SelectedRing: {fileID: 8163321287701119016}
+--- !u!114 &7767226219950970341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4656835529401390440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b2589452ed2e144ea0bc70d6a8d85c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SingleTroop: {fileID: 1450389641998332605, guid: 1b29d379562504943ba62d0c7e4821ad,
+    type: 3}
+  ParentObj: {fileID: 214834322681427452}
+  TotalTroops: 10
+--- !u!95 &1960594480375075540
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4656835529401390440}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 893d9c1abc20a2849871ca314c663e19, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &5011039875055099054
 GameObject:
   m_ObjectHideFlags: 0
@@ -2939,6 +3009,7 @@ Transform:
   m_Children:
   - {fileID: 3360473751590050285}
   - {fileID: 8007379339309120746}
+  - {fileID: 4103086993011015537}
   m_Father: {fileID: 1827387833926162195}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6393946829120290972

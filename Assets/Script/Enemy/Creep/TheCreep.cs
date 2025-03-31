@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -29,6 +30,7 @@ public class TheCreep : MonoBehaviour
     private Attacking attacker;
     private Transform attackerTransform;
     private CreepSpawnManager creepSpawnManager;
+    private bool isWalking,isAttacking;
     
 
     void Start()
@@ -55,7 +57,9 @@ public class TheCreep : MonoBehaviour
             //this is reselecting target after a target goes beyond range
             attacker = attacking;
             Debug.Log("New Target Acquired.");
+            GetComponent<CreepVisuals>().FaceTheTarget(attacker.gameObject.transform.position);
         }
+        
         attackerTransform = attacker.transform;  // Capture the attacker's transform
         health -= Damage;
         attackerAlive = true;
@@ -77,12 +81,29 @@ public class TheCreep : MonoBehaviour
             if (distanceToAttacker <= chasingRange && distanceToAttacker > attackRange)
             {
                 ChaseAttacker();
+                // GetComponent<CreepVisuals>().TriggerWalk();
+                if(isWalking==false){
+                    isWalking=true;
+                    GetComponent<CreepVisuals>().TriggerWalk();
+                }
             }
-            else if (distanceToAttacker <= attackRange)
+            else{
+                if(isWalking){
+                    isWalking=false;
+                    isAttacking=false;
+                    GetComponent<CreepVisuals>().TriggerIdle();
+                }
+            
+             if (distanceToAttacker <= attackRange)
             {
                 // Engage in attack
                 if (attackerAlive && attacker.ReturnHealth() > 0)
                 {
+                    if(isAttacking==false){
+                        isWalking=false;
+                        isAttacking=true;
+                        GetComponent<CreepVisuals>().TriggerAttack();
+                    }
                     timer += Time.deltaTime;
 
                     if (timer >= RateOfAttack)
@@ -95,6 +116,9 @@ public class TheCreep : MonoBehaviour
 
                         if (attacker.ReturnHealth() <= 0)
                         {
+                            isAttacking=false;
+                            isWalking=false;
+                            GetComponent<CreepVisuals>().TriggerIdle();
                             attackerAlive = false;
                         }
 
@@ -104,10 +128,16 @@ public class TheCreep : MonoBehaviour
             }
             else
             {
+               
                 // Stop chasing and reset if out of chasing range
                 StopChasing();
+                 if(isWalking||isAttacking){
+                    isWalking=false;
+                    isAttacking=false;
+                    GetComponent<CreepVisuals>().TriggerIdle();
+                }
             }
-        }
+        }}
     }
 
     void ChaseAttacker()
