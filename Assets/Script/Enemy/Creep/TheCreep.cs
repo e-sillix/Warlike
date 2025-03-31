@@ -35,6 +35,10 @@ public class TheCreep : MonoBehaviour
     {
         health = totalHealth;
     }
+    public float ReturnHealth(){
+        //by attacking
+        return health;
+    }
     public void Dependency(CreepSpawnManager CreepSpawnManager){
         creepSpawnManager=CreepSpawnManager;
     }
@@ -46,6 +50,7 @@ public class TheCreep : MonoBehaviour
 
     public void TakeDamage(float Damage, Attacking attacking)
     {
+        
         if(attacker==null || !attackerAlive){
             //this is reselecting target after a target goes beyond range
             attacker = attacking;
@@ -54,7 +59,7 @@ public class TheCreep : MonoBehaviour
         attackerTransform = attacker.transform;  // Capture the attacker's transform
         health -= Damage;
         attackerAlive = true;
-
+        UpdateHealth();
         if (health <= 0)
         {
             Debug.Log("Creeps Defeated!!!!");

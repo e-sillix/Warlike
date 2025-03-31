@@ -16,7 +16,7 @@ public class TroopsVisualInstance : MonoBehaviour
     {
         SingleTroops = t;
         TotalTroops = (int)totalNumberOfTroops;
-        Debug.Log("TotalTroops:"+TotalTroops);
+        // Debug.Log("TotalTroops:"+TotalTroops);
         AllTroops = new GameObject[TotalTroops];
 
         int troopsPerRow = Mathf.CeilToInt(Mathf.Sqrt(TotalTroops));
@@ -24,7 +24,7 @@ public class TroopsVisualInstance : MonoBehaviour
 
         for (int i = 0; i < TotalTroops; i++)
         {
-            Debug.Log("Spawning Single Troop");
+            // Debug.Log("Spawning Single Troop");
             AllTroops[i] = Instantiate(SingleTroops, parentTroopsObj.transform);
 
             int row = i / troopsPerRow;
@@ -75,8 +75,17 @@ public void TriggerWalking(){
         foreach (GameObject troop in AllTroops)
     {
         troop.GetComponent<Animator>().SetBool("IsWalking", false);
+        troop.GetComponent<Animator>().SetBool("IsAttacking", false);
     }
     }
+
+    public void TriggerAttacking(){
+    foreach (GameObject troop in AllTroops)
+    {
+        troop.GetComponent<Animator>().SetBool("IsAttacking", true);
+    }
+    }
+    
 
 
 

@@ -15,7 +15,7 @@ public class Attacking : MonoBehaviour
     private int totalHealth,armor,attackRange;
     private float health,Damage;
 
-
+    private bool InCombact=false;
     public Image healthFill; // Reference to the HealthFill image.
 
     public void StatsAssigning(int h,int d,int a,int r){
@@ -28,6 +28,7 @@ public class Attacking : MonoBehaviour
         UpdateHealthVisual();
     }
     public void StartAttacking(GameObject target){
+        GetComponent<TroopsVisualInstance>().TriggerAttacking();
         if(target.GetComponent<TheCreep>()){
             theCreep=target.GetComponent<TheCreep>();
             Debug.Log("enemy creep numbers:"+theCreep.ReturnCreepNumbers());
@@ -40,7 +41,7 @@ public class Attacking : MonoBehaviour
             bossAttacking=target.GetComponent<BossAttacking>();
             Debug.Log("enemy boss");
         }
-        
+        InCombact=true;
         
         // theCreep=TheCreep;
         // Debug.Log("enemy creep numbers:"+theCreep.ReturnCreepNumbers());
@@ -95,6 +96,13 @@ public class Attacking : MonoBehaviour
             }
 
     }}
+    else{
+        //this will be triggered if it was previously in combat
+        if(InCombact){
+            GetComponent<TroopsVisualInstance>().TriggerIdle();
+        }
+        InCombact=false;
+    }
     }
     }
 
@@ -128,5 +136,6 @@ public class Attacking : MonoBehaviour
         theCreep=null;
         bossArmy=null;
         bossAttacking=null;
+        // GetComponent<TroopsVisualInstance>().TriggerIdle();
     }
 }

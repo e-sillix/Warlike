@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Cavalry
   m_EditorClassIdentifier: 
   troopName: Cavalry
-  SingleTroop: {fileID: 1450389641998332605, guid: 9ef18eeecef9b02478d807b04a9f678f,
+  SingleTroop: {fileID: 1450389641998332605, guid: f35774e1f2e2a6f4384612358ae78f51,
     type: 3}
   WoodCost: 050000000a0000001e000000640000002c010000
   GrainCost: 050000000a0000001e00000064000000c8000000
