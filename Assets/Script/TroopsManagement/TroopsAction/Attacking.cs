@@ -70,7 +70,9 @@ public class Attacking : MonoBehaviour
             // Check if one second has passed
             if (timer >= RateOfAttack)
             {   
-                bossArmy.TakeDamage(Damage);            
+                float ActualDamage=Damage*(health/(float)totalHealth);
+           
+                bossArmy.TakeDamage(ActualDamage);            
 
                 // Reset the timer
                 timer = 0f;
@@ -86,7 +88,9 @@ public class Attacking : MonoBehaviour
         // Check if one second has passed
         if (timer >= RateOfAttack)
         {   
-            bossAttacking.TakeDamage(Damage,this);            
+             float ActualDamage=Damage*(health/(float)totalHealth);
+           
+            bossAttacking.TakeDamage(ActualDamage,this);            
 
             // Reset the timer
             timer = 0f;
