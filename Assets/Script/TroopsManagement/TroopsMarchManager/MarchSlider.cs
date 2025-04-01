@@ -61,7 +61,8 @@ private void SetUIElement(Slider slider, TextMeshProUGUI counterText, int value)
     if (isActive)
     {
         slider.maxValue = value; // Set max value only if it's visible
-        // counterText.text = value.ToString(); // Update counter text
+        counterText.text = 0.ToString(); // Update counter text
+        slider.value=0;
     }
 }
 
@@ -76,7 +77,8 @@ private void SetUIElement(Slider slider, TextMeshProUGUI counterText, int value)
         if (totalSliderValue > TroopsCapacity)
         {
             // Identify the last changed slider
-            Slider lastChangedSlider = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject?.GetComponent<Slider>();
+            Slider lastChangedSlider = UnityEngine.EventSystems.EventSystem
+            .current.currentSelectedGameObject?.GetComponent<Slider>();
 
             if (lastChangedSlider != null)
             {
