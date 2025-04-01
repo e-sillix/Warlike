@@ -8,34 +8,38 @@ public class TroopsVisualInstance : MonoBehaviour
     private GameObject SingleTroops;
     private int TotalTroops;
     [SerializeField] private GameObject parentTroopsObj;
-
+    [SerializeField]private int lowSpawnLimit=5;
+    [SerializeField]private int TroopSpawnLimit=15;
+    [SerializeField]private int TroopsForHighestLimit=500;
     private GameObject[] AllTroops;
     private Vector3 currentDirection ; // Default direction
     private bool isAllTroopsSpawned=false;
-    public void SetTroopsObj(GameObject t, float totalNumberOfTroops)
+    // public void SetTroopsObj(GameObject t, float totalNumberOfTroops)
+    // {
+        public void SetTroopsObj(GameObject t, float totalNumberOfTroops)
+{
+    SingleTroops = t;
+    TotalTroops = (int)totalNumberOfTroops;
+    float spacing = 2.0f;
+
+    // ✅ Initialize `AllTroops` only once, outside the loop
+    int troopsToSpawn = Mathf.Clamp(TotalTroops / 10, 1, 15);
+    AllTroops = new GameObject[troopsToSpawn];
+
+    int troopsPerRow = Mathf.CeilToInt(Mathf.Sqrt(troopsToSpawn));
+
+    for (int i = 0; i < troopsToSpawn; i++)
     {
-        SingleTroops = t;
-        TotalTroops = (int)totalNumberOfTroops;
-        // Debug.Log("TotalTroops:"+TotalTroops);
-        AllTroops = new GameObject[TotalTroops];
+        AllTroops[i] = Instantiate(SingleTroops, parentTroopsObj.transform);
+        int row = i / troopsPerRow;
+        int column = i % troopsPerRow;
+        Vector3 newPos = new Vector3(column * spacing, 0, row * spacing);
+        AllTroops[i].transform.localPosition = newPos;
+    }
 
-        int troopsPerRow = Mathf.CeilToInt(Mathf.Sqrt(TotalTroops));
-        float spacing = 2.0f;
+    isAllTroopsSpawned = true;
+// }
 
-        for (int i = 0; i < TotalTroops; i++)
-        {
-            // Debug.Log("Spawning Single Troop");
-            AllTroops[i] = Instantiate(SingleTroops, parentTroopsObj.transform);
-
-            int row = i / troopsPerRow;
-            int column = i % troopsPerRow;
-            Vector3 newPos = new Vector3(column * spacing, 0, row * spacing);
-
-            AllTroops[i].transform.localPosition = newPos;
-        }
-        isAllTroopsSpawned=true;
-        // Set initial direction
-        // UpdateTroopsDirection(currentDirection);
     }
 
   public void UpdateTroopsDirection(Vector3 targetPosition)
@@ -59,18 +63,28 @@ public class TroopsVisualInstance : MonoBehaviour
     }
 }
 public void TriggerWalking(){
-     foreach (GameObject troop in AllTroops)
+    StartCoroutine(WaitForConditionWalking(isAllTroopsSpawned));
+
+     
+    }
+    private IEnumerator WaitForConditionWalking(bool condition)
+{
+    // Wait until the condition is true
+    yield return new WaitUntil(() => condition);
+    foreach (GameObject troop in AllTroops)
     {
         // troop.GetComponent<Animator>().SetBool("IsWalking", true);
-        Animator animator = troop.GetComponent<Animator>();
-            if (animator != null)
+            if (troop.GetComponent<Animator>())
             {
+        Animator animator = troop.GetComponent<Animator>();
                 animator.SetBool("IsWalking", true); // Stop walking animation
             }
             else{
                 Debug.Log("Can't find animator");
             }
-    }}
+    }
+    }
+
     public void TriggerIdle(){
          StartCoroutine(WaitForCondition(isAllTroopsSpawned));
         
@@ -83,9 +97,9 @@ public void TriggerWalking(){
     // Now trigger the idle animation
     foreach (GameObject troop in AllTroops)
     {
-        Animator anim = troop.GetComponent<Animator>();
-        if (anim)
+        if (troop.GetComponent<Animator>())
         {
+        Animator anim = troop.GetComponent<Animator>();
             anim.SetBool("IsWalking", false);
             anim.SetBool("IsAttacking", false);
         }

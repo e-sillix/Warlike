@@ -15,7 +15,7 @@ public class MarchSlider : MonoBehaviour
     // For TextMeshPro InputField   
 
     private int level1CounterLM,level2CounterLM,level3CounterLM,level4CounterLM,level5CounterLM;
-    private int TroopsCapacity =10; // This will be dynamically set in future
+    [SerializeField]private float TroopsCapacity=9999999999999; // This will be dynamically set in future
     private int level1Value,level2Value,level3Value,level4Value,level5Value; //this will store and return
     //value
     private int[] troopsData;

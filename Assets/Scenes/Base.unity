@@ -21376,7 +21376,7 @@ MonoBehaviour:
   - {fileID: 1825002283}
   - {fileID: 1204102225}
   - {fileID: 1900986611}
-  ArmyLimit: 5
+  ArmyLimit: 4
 --- !u!114 &850240514
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25093,6 +25093,7 @@ MonoBehaviour:
   level3Counter: {fileID: 1837420010}
   level4Counter: {fileID: 272802292}
   level5Counter: {fileID: 829214490}
+  TroopsCapacity: 1e+11
 --- !u!1 &991551715
 GameObject:
   m_ObjectHideFlags: 0

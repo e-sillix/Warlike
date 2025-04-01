@@ -139,7 +139,7 @@ public class GlobalUIManager : MonoBehaviour
         // }    // }}    
     // }
     void ClickAnalysis(GameObject ClickedObject,RaycastHit hit){
-
+        // Debug.Log("Click analysis");
         if(IsGroundLayer(ClickedObject)){
             // Debug.Log("March target clicked");
             // MarchTargetClicked=true;

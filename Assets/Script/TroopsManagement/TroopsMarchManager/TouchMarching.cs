@@ -45,8 +45,10 @@ public class TouchMarching : MonoBehaviour
         if(LastClickedTroopsInstanceUI){
             LastClickedTroopsInstanceUI.RefreshUIB();
         }
+        // return;
     }
-    if (Input.touchCount == 1)
+    if (Input.touchCount == 1&&!EventSystem.current.
+    IsPointerOverGameObject( Input.GetTouch(0).fingerId))
     {
         Touch touch = Input.GetTouch(0);
         Ray ray = Camera.main.ScreenPointToRay(touch.position);

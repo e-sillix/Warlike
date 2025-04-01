@@ -138,6 +138,7 @@ public class CameraSystem : MonoBehaviour
             {
                 // Debug.Log("Tap detected!");
                 // Handle tap action here
+                // Debug.Log("Tap Detector here.");
                 globalUIManager.TapAction();
             }
 
