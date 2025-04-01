@@ -7,6 +7,7 @@ public class Attacking : MonoBehaviour
 {
     private float timer = 0f;
     [SerializeField]private float RateOfAttack = 1f;
+    private GameObject Target;
     private TheCreep theCreep;
     private BossArmy bossArmy;
     // private Boss boss;
@@ -17,7 +18,7 @@ public class Attacking : MonoBehaviour
 
     private bool InCombact=false;
     public Image healthFill; // Reference to the HealthFill image.
-
+    private float DistanceBetweenTarget,AttackingRange;
     public void StatsAssigning(int h,int d,int a,int r){
         //by troopsinstanceStatsmanager
         totalHealth=h;
@@ -28,6 +29,8 @@ public class Attacking : MonoBehaviour
         UpdateHealthVisual();
     }
     public void StartAttacking(GameObject target){
+        Target=target;
+        AttackingRange=GetComponent<TheUnit>().ReturnAttackRange();
         GetComponent<TroopsVisualInstance>().TriggerAttacking();
         if(target.GetComponent<TheCreep>()){
             theCreep=target.GetComponent<TheCreep>();
@@ -48,7 +51,10 @@ public class Attacking : MonoBehaviour
     }
     void Update(){
          // Increase the timer by the time passed since the last frame
-        if(health>0){        
+        
+        if(Target&&health>0&&InCombact==true){    
+           if (Vector3.Distance(transform.position, Target.transform.position
+                ) < AttackingRange){   
             if(theCreep){        
         timer += Time.deltaTime;
 
@@ -108,6 +114,9 @@ public class Attacking : MonoBehaviour
         InCombact=false;
     }
     }
+    else{
+        GetComponent<TheUnit>().ReChaseEnemy();
+    }}
     }
 
     //is being called by creep directly 
@@ -140,6 +149,9 @@ public class Attacking : MonoBehaviour
         theCreep=null;
         bossArmy=null;
         bossAttacking=null;
+        Target=null;
+        InCombact=false;  
+
         // GetComponent<TroopsVisualInstance>().TriggerIdle();
     }
 }

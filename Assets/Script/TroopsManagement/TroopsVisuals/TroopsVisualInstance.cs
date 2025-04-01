@@ -11,7 +11,7 @@ public class TroopsVisualInstance : MonoBehaviour
 
     private GameObject[] AllTroops;
     private Vector3 currentDirection ; // Default direction
-
+    private bool isAllTroopsSpawned=false;
     public void SetTroopsObj(GameObject t, float totalNumberOfTroops)
     {
         SingleTroops = t;
@@ -33,7 +33,7 @@ public class TroopsVisualInstance : MonoBehaviour
 
             AllTroops[i].transform.localPosition = newPos;
         }
-
+        isAllTroopsSpawned=true;
         // Set initial direction
         // UpdateTroopsDirection(currentDirection);
     }
@@ -72,12 +72,25 @@ public void TriggerWalking(){
             }
     }}
     public void TriggerIdle(){
-        foreach (GameObject troop in AllTroops)
+         StartCoroutine(WaitForCondition(isAllTroopsSpawned));
+        
+    }
+    private IEnumerator WaitForCondition(bool condition)
+{
+    // Wait until the condition is true
+    yield return new WaitUntil(() => condition);
+
+    // Now trigger the idle animation
+    foreach (GameObject troop in AllTroops)
     {
-        troop.GetComponent<Animator>().SetBool("IsWalking", false);
-        troop.GetComponent<Animator>().SetBool("IsAttacking", false);
+        Animator anim = troop.GetComponent<Animator>();
+        if (anim)
+        {
+            anim.SetBool("IsWalking", false);
+            anim.SetBool("IsAttacking", false);
+        }
     }
-    }
+}
 
     public void TriggerAttacking(){
     foreach (GameObject troop in AllTroops)

@@ -43,6 +43,9 @@ public class TheUnit : MonoBehaviour
     public void AssignAttackRange(float AttackRange){
         attackRange=AttackRange;
     }
+    public float ReturnAttackRange(){
+        return attackRange;
+    }
     void Start(){
         troopsExpeditionManager=FindAnyObjectByType<TroopsExpeditionManager>();
         // troopsStatsManager=FindAnyObjectByType<TroopsStatsManager>();        
@@ -56,7 +59,11 @@ public class TheUnit : MonoBehaviour
 
     }
     void Update()
-    {        
+    {       
+        //  if(target!=null){
+        //     if(!target.gameObject.activeInHierarchy){
+        //          StopAllAction();}
+        //  } 
         if (shouldMove)
         {
             // Move the object towards the target position smoothly
@@ -64,8 +71,12 @@ public class TheUnit : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, targetPosition, 
             moveSpeed * Time.deltaTime);
             else{
+                if(target&& target.transform!=null)
                 transform.position=Vector3.MoveTowards(transform.position, target.transform.position
                 ,moveSpeed * Time.deltaTime);
+                else{
+                    StopAllAction();
+                }
             }
 
 
@@ -96,13 +107,14 @@ public class TheUnit : MonoBehaviour
                 Destroy(Pointer);
             }}
             else{
-                if (Vector3.Distance(transform.position, target.transform.position
+                if(target&& target.transform!=null)
+                {if (Vector3.Distance(transform.position, target.transform.position
                 ) < interactionRange)
             {
                 shouldMove = false; // Stop moving
                 TargetReached();
                 Destroy(Pointer);
-            }
+            }}
             // else{
             //     StopAllAction();
             //     shouldMove=true;
@@ -182,6 +194,9 @@ public class TheUnit : MonoBehaviour
         }
         SetTargetPosition(target.transform.position); 
     }
+    public void ReChaseEnemy(){
+        SetTargetPosition(target.transform.position); 
+    }
     public void SetTroopsTargetMine(GameObject Target,GameObject SpawnPoint){
         spawnpoint=SpawnPoint;
         isTargetMoveable=false;
@@ -218,8 +233,11 @@ public class TheUnit : MonoBehaviour
     }
 
 //action 
-    void StopAllAction(){   
+   public void StopAllAction(){   
         isTargetIsEnemy=false;    
+        shouldMove=false;
+
+        GetComponent<TroopsVisualInstance>().TriggerIdle();
         if(isMining){
             isMining=false;
             mining.StopMining();
