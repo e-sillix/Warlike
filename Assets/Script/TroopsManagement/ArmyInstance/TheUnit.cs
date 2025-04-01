@@ -34,6 +34,7 @@ public class TheUnit : MonoBehaviour
     private bool isTargetIsEnemy=false;
     private bool UpdateTroopsDirection=true;
     private TroopsVisualInstance troopsVisualInstance;
+    private bool isTargetMoveable;
     
     public bool returnIsDefeated(){
         // Debug.Log("Return :"+isDefeated);
@@ -59,27 +60,62 @@ public class TheUnit : MonoBehaviour
         if (shouldMove)
         {
             // Move the object towards the target position smoothly
+            if(isTargetMoveable==false)
             transform.position = Vector3.MoveTowards(transform.position, targetPosition, 
             moveSpeed * Time.deltaTime);
+            else{
+                transform.position=Vector3.MoveTowards(transform.position, target.transform.position
+                ,moveSpeed * Time.deltaTime);
+            }
+
+
+
+
             if(UpdateTroopsDirection){
         
             troopsVisualInstance.UpdateTroopsDirection(targetPosition);
             troopsVisualInstance.TriggerWalking();
             UpdateTroopsDirection=false;
         }   
+
+
             if(isTargetIsEnemy&& attackRange!=0){
                 interactionRange=attackRange;
             }else{
                 interactionRange=closeDistance;
             }
+
+
+
             // Check if the object has reached the target position
+            if(isTargetMoveable==false){
             if (Vector3.Distance(transform.position, targetPosition) < interactionRange)
             {
                 shouldMove = false; // Stop moving
                 TargetReached();
                 Destroy(Pointer);
+            }}
+            else{
+                if (Vector3.Distance(transform.position, target.transform.position
+                ) < interactionRange)
+            {
+                shouldMove = false; // Stop moving
+                TargetReached();
+                Destroy(Pointer);
+            }
+            // else{
+            //     StopAllAction();
+            //     shouldMove=true;
+            // }
             }
         } 
+        // else{
+        //     if(target!=null){
+        //         GetComponent<Attacking>().RefreshTarget();
+        //         // shouldMove=true;s
+        //         SetTroopsTargetCombat(target, spawnpoint);
+        //     }
+        // }
                
     }
 
@@ -119,6 +155,7 @@ public class TheUnit : MonoBehaviour
         target=Target;              
         if(target.layer==6){
             SetTargetPosition(position);
+            isTargetMoveable=false;
         }
         else{
             SetTargetPosition(target.transform.position);            
@@ -126,6 +163,7 @@ public class TheUnit : MonoBehaviour
     }
     public void SetTroopsTargetCombat(GameObject Target,GameObject SpawnPoint){
         spawnpoint=SpawnPoint;
+        isTargetMoveable=true;
         if(Pointer){
             Destroy(Pointer);
         }
@@ -146,6 +184,7 @@ public class TheUnit : MonoBehaviour
     }
     public void SetTroopsTargetMine(GameObject Target,GameObject SpawnPoint){
         spawnpoint=SpawnPoint;
+        isTargetMoveable=false;
         if(Pointer){
             Destroy(Pointer);
         }
@@ -215,6 +254,7 @@ public class TheUnit : MonoBehaviour
     GetComponent<Attacking>().RefreshTarget();
     //called by ui buttons
     SetTargetPosition(spawnpoint.transform.position);
+    isTargetMoveable=false;
     IsReturn=true;    
     }
 
