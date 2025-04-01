@@ -39,15 +39,33 @@ public class MarchSlider : MonoBehaviour
         }
     }
 
-    public void SetTroopsLimits(int[] TroopsData){//pass all that types of troops
-        //this will be called by ui manager
-        troopsData=TroopsData;
-        level1Slider.maxValue = troopsData[0];
-        level2Slider.maxValue = troopsData[1];
-        level3Slider.maxValue = troopsData[2];
-        level4Slider.maxValue = troopsData[3];
-        level5Slider.maxValue = troopsData[4];               
+    public void SetTroopsLimits(int[] TroopsData) 
+{
+    // This will be called by UI Manager
+    troopsData = TroopsData;
+
+    SetUIElement(level1Slider, level1Counter, troopsData[0]);
+    SetUIElement(level2Slider, level2Counter, troopsData[1]);
+    SetUIElement(level3Slider, level3Counter, troopsData[2]);
+    SetUIElement(level4Slider, level4Counter, troopsData[3]);
+    SetUIElement(level5Slider, level5Counter, troopsData[4]);
+}
+
+// Helper function to set slider and text visibility
+private void SetUIElement(Slider slider, TextMeshProUGUI counterText, int value)
+{
+    bool isActive = value > 0;
+    slider.gameObject.SetActive(isActive); // Hide if value is 0
+    counterText.gameObject.SetActive(isActive);
+
+    if (isActive)
+    {
+        slider.maxValue = value; // Set max value only if it's visible
+        // counterText.text = value.ToString(); // Update counter text
     }
+}
+
+
     
     void AValueIsChanged(Slider slider, TextMeshProUGUI counter){
         //this will be triggered by all five inputs
