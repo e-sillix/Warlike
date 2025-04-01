@@ -228,6 +228,7 @@ public class TheUnit : MonoBehaviour
         //ghosted speed
         moveSpeed*=boostSpeed;
         isDefeated=true;
+         troopsVisualInstance.TriggerIdle();
         //have to make troops untargetable.
         if(GetComponent<TroopsInstanceUI>())
         Destroy(GetComponent<TroopsInstanceUI>().ReturnUIButton());
