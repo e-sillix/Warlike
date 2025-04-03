@@ -6,7 +6,8 @@ using UnityEngine;
 public class CreepSpawnManager : MonoBehaviour
 {
     [SerializeField] private GameObject SpawnPoint, CreepPrefab, ParentObject;
-    [SerializeField] private TroopsExpeditionManager troopsExpeditionManager;
+    // [SerializeField] private TroopsExpeditionManager troopsExpeditionManager;
+    [SerializeField]private TroopsStatsManager troopsStatsManager;
 
     [SerializeField]private RewardManager rewardManager;
     // Start is called before the first frame update
@@ -55,7 +56,7 @@ public class CreepSpawnManager : MonoBehaviour
         GameObject creep=Instantiate(CreepPrefab, spawnPosition, Quaternion.identity);
         Debug.Log("Limit:"+(creepBatch*10+1)+"/"+((creepBatch+1)*10+1));
         creep.GetComponent<TheCreep>().Dependency(this,rewardManager, Random.Range(creepBatch*10+1,
-         (creepBatch+1)*10+1));
+         (creepBatch+1)*10+1),troopsStatsManager);
         // creep
         creep.transform.SetParent(ParentObject.transform);
         creep.transform.localRotation = Quaternion.identity;
@@ -90,7 +91,8 @@ public class CreepSpawnManager : MonoBehaviour
             PlayerPrefs.SetInt("creepBatch", level/10);
             PlayerPrefs.Save();
             MassDespawnTroops();
-            SpawnAroundSpawnPoint();
+            // SpawnAroundSpawnPoint();
+            MassSpawnAroundSpawnPoint();
         }
     }
 

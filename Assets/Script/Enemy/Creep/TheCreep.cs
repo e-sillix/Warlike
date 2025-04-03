@@ -13,14 +13,14 @@ public class TheCreep : MonoBehaviour
         Cavalry,
         Mage
     }
-
+    private TroopsStatsManager troopsStatsManager;
     public enemyType barrackType;
     public Image healthFill;
     public string[] Rewards;
 
     private int troopsQuantity = 5;
     [SerializeField] private int totalHealth = 10, moveSpeed = 4, attackRange = 5, chasingRange = 15;
-    public int  level = 1;
+    public int  level = 1,TroopsMultiple;
     public float Damage = 5f,health;
 
     private bool attackerAlive=false;
@@ -37,7 +37,7 @@ public class TheCreep : MonoBehaviour
 
     void Start()
     {
-        health = totalHealth;
+        // health = totalHealth;
     }
     // public void AssignLevel(int Level){
     //     //by CreepSpawnmanager when instantiated
@@ -48,11 +48,21 @@ public class TheCreep : MonoBehaviour
         return health;
     }
     public void Dependency(CreepSpawnManager CreepSpawnManager, RewardManager RewardManager,
-    int Level){
+    int Level,TroopsStatsManager TroopsStatsManager){
         creepSpawnManager=CreepSpawnManager;
         rewardManager=RewardManager;
         level=Level;
         GetComponent<CreepUI>().SetLevel(level);
+        troopsStatsManager=TroopsStatsManager;
+        TroopsDataPayload data=troopsStatsManager.GetTroopsData("Infantry",1);
+        GetTheStats(data);
+    }
+    void GetTheStats(TroopsDataPayload data){
+        // TroopsDataPayload data=troopsStatsManager.GetTroopsData("Infantry",1);
+        totalHealth=data.health*level*TroopsMultiple;
+        Damage=data.damage*level*TroopsMultiple;
+
+        health=totalHealth;
     }
 
     public int ReturnCreepNumbers()
