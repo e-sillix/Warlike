@@ -27,10 +27,12 @@ public class CreepUI : MonoBehaviour
         troopsExpeditionManager=TroopsExpeditionManager;
         infoUIManager=InfoUIManager;
         SelectedUIGO.SetActive(true);
+        SelectedRing.SetActive(true);
     }
     public void DeSelectCreep(){
         //called by GlobalUI
         SelectedUIGO.SetActive(false);
+        SelectedRing.SetActive(false);
     }
     public void PassiveSelected(){
         //when creep is being marched on.

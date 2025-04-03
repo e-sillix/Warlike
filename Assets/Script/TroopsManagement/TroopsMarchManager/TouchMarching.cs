@@ -15,7 +15,8 @@ public class TouchMarching : MonoBehaviour
 
     private TroopsInstanceUI LastClickedTroopsInstanceUI;
 
-    private TheCreep LastCreep;
+    // private TheCreep LastCreep;
+    private GameObject LastGameObj;
 
  
         void Start()
@@ -91,15 +92,27 @@ public class TouchMarching : MonoBehaviour
 
             if(touch.phase==TouchPhase.Moved){
                  Ray ray1 = Camera.main.ScreenPointToRay(Input.mousePosition);
-                 if(LastCreep){
-                    LastCreep.GetComponent<CreepUI>().SetCreepRing(false);
+                //  if(LastCreep){
+                //     LastCreep.GetComponent<CreepUI>().SetCreepRing(false);
+                //  }
+                 if(LastGameObj){
+                    if(LastGameObj.GetComponent<CreepUI>())
+                    LastGameObj.GetComponent<CreepUI>().SetCreepRing(false);
+                    else if(LastGameObj.GetComponent<BossArmyUI>()){
+                        LastGameObj.GetComponent<BossArmyUI>().SetCreepRing(false);
+                    }
                  }
                 if (Physics.Raycast(ray1, out RaycastHit hit, Mathf.Infinity))
                 {
                     GameObject clickedObject = hit.collider.gameObject;
                     if(clickedObject.GetComponentInParent<TheCreep>()){
-                        LastCreep=clickedObject.GetComponentInParent<TheCreep>();
+                        // LastCreep=clickedObject.GetComponentInParent<TheCreep>();
+                        LastGameObj=clickedObject;
                         clickedObject.GetComponentInParent<CreepUI>().SetCreepRing(true);
+                    }
+                    else if(clickedObject.GetComponentInParent<BossArmyUI>()){
+                        LastGameObj=clickedObject;
+                        clickedObject.GetComponentInParent<BossArmyUI>().SetCreepRing(true);
                     }
                 }
             }
@@ -107,9 +120,21 @@ public class TouchMarching : MonoBehaviour
 
         if (touch.phase == TouchPhase.Ended) // Touch released
         {
-            if(LastCreep){
-                LastCreep.GetComponent<CreepUI>().SetCreepRing(false);
-                LastCreep=null;
+            // if(LastCreep){
+            //     LastCreep.GetComponent<CreepUI>().SetCreepRing(false);
+            //     LastCreep=null;
+            // }
+            if(LastGameObj){
+                if(LastGameObj.GetComponentInParent<TheCreep>()){
+                        // LastCreep=clickedObject.GetComponentInParent<TheCreep>();
+                        
+                        LastGameObj.GetComponentInParent<CreepUI>().SetCreepRing(false);
+                    }
+                    else if(LastGameObj.GetComponentInParent<BossArmyUI>()){
+                        
+                        LastGameObj.GetComponentInParent<BossArmyUI>().SetCreepRing(false);
+                    }
+                    LastGameObj=null;
             }
             if (isHolding)
             {

@@ -27,7 +27,7 @@ public class BossArmy : MonoBehaviour
 
     
     [SerializeField] private float RateOfAttack = 1f;
-     private float timer = 0f;
+    private float timer = 0f;
 
     // private int currentHealth;
     private GameObject Target;
