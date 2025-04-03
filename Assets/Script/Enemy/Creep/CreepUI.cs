@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class CreepUI : MonoBehaviour
@@ -7,6 +8,7 @@ public class CreepUI : MonoBehaviour
    
     [SerializeField] private GameObject SelectedUIGO,MarchOnUIGO,SelectedRing;
     private InfoUIManager infoUIManager;
+    [SerializeField]private TextMeshProUGUI LevelIndi;
   
     private TroopsExpeditionManager troopsExpeditionManager;
     // public void Dependency(TroopsExpeditionManager TroopsExpeditionManager){
@@ -14,6 +16,9 @@ public class CreepUI : MonoBehaviour
     // }
     public void SetCreepRing(bool t){
         SelectedRing.SetActive(t);
+    }
+    public void SetLevel(int l){
+        LevelIndi.text=l.ToString();
     }
     public void CreepSelected(TroopsExpeditionManager TroopsExpeditionManager,InfoUIManager 
     InfoUIManager){

@@ -15,7 +15,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3045793425453203398
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1012,8 +1012,9 @@ MonoBehaviour:
   totalHealth: 6
   moveSpeed: 40
   attackRange: 10
-  Damage: 2
   level: 1
+  currentHealth: 0
+  Damage: 2
   RateOfAttack: 1
   KingDom: 
   ArmyID: 0

@@ -13,8 +13,14 @@ public class CreepSpawnManager : MonoBehaviour
     public float minRadius, maxRadius;       // Maximum radius for spawning
     public int numberOfPrefabs = 10;     // Number of prefabs to spawn
     public Quaternion spawnRotation = Quaternion.identity; // Desired rotation for spawned prefabs
+    
+    private int creepBatch=0;
+    
     void Start()
     {
+        // PlayerPrefs.DeleteKey("creepBatch");
+
+        creepBatch=PlayerPrefs.GetInt("creepBatch");
         // Ensure the spawn point object is assigned
         if (SpawnPoint == null)
         {
@@ -36,7 +42,7 @@ public class CreepSpawnManager : MonoBehaviour
 
         for (int i = 0; i < numberOfPrefabs; i++)
         {
-           InstantiateCreep(centerPoint);
+            InstantiateCreep(centerPoint);
         }
     }
 
@@ -47,7 +53,10 @@ public class CreepSpawnManager : MonoBehaviour
     void InstantiateCreep(Vector3 centerPoint){        
         Vector3 spawnPosition = GenerateSpawnPosition(centerPoint);
         GameObject creep=Instantiate(CreepPrefab, spawnPosition, Quaternion.identity);
-        creep.GetComponent<TheCreep>().Dependency(this,rewardManager);
+        Debug.Log("Limit:"+(creepBatch*10+1)+"/"+((creepBatch+1)*10+1));
+        creep.GetComponent<TheCreep>().Dependency(this,rewardManager, Random.Range(creepBatch*10+1,
+         (creepBatch+1)*10+1));
+        // creep
         creep.transform.SetParent(ParentObject.transform);
         creep.transform.localRotation = Quaternion.identity;
         // Debug.Log("New Creep Instantiated!!!!");
@@ -71,9 +80,28 @@ public class CreepSpawnManager : MonoBehaviour
 
         return new Vector3(x, y, z);
     }
-    public void CreepDefeated(){
+    public void CreepDefeated(int level){
         //called by a creep when defeated
         // Debug.Log("New Creeps need to be Spawned!!!!!");
         SpawnAroundSpawnPoint();
+
+        if(level%10==0){
+            creepBatch=level/10;
+            PlayerPrefs.SetInt("creepBatch", level/10);
+            PlayerPrefs.Save();
+            MassDespawnTroops();
+            SpawnAroundSpawnPoint();
+        }
     }
+
+   void MassDespawnTroops()
+{
+    TheCreep[] allCreeps = FindObjectsOfType<TheCreep>(); // Find all objects with TheCreep component
+
+    foreach (TheCreep creep in allCreeps)
+    {
+        Destroy(creep.gameObject); // Destroy each GameObject
+    }
+}
+
 }

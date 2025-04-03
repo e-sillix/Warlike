@@ -39,13 +39,20 @@ public class TheCreep : MonoBehaviour
     {
         health = totalHealth;
     }
+    // public void AssignLevel(int Level){
+    //     //by CreepSpawnmanager when instantiated
+    //     level=Level;
+    // }
     public float ReturnHealth(){
         //by attacking
         return health;
     }
-    public void Dependency(CreepSpawnManager CreepSpawnManager, RewardManager RewardManager){
+    public void Dependency(CreepSpawnManager CreepSpawnManager, RewardManager RewardManager,
+    int Level){
         creepSpawnManager=CreepSpawnManager;
         rewardManager=RewardManager;
+        level=Level;
+        GetComponent<CreepUI>().SetLevel(level);
     }
 
     public int ReturnCreepNumbers()
@@ -162,7 +169,7 @@ public class TheCreep : MonoBehaviour
         healthFill.fillAmount = fillPercent;
     }
     void OnDefeat(){
-        creepSpawnManager.CreepDefeated();
+        creepSpawnManager.CreepDefeated(level);
         rewardManager.GiveReward(resourceRewards);
         Destroy(gameObject);
     }
