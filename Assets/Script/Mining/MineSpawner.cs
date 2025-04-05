@@ -77,23 +77,48 @@ public class MineSpawner : MonoBehaviour
     }
 
 
-    Vector3 GenerateSpawnPosition(Vector3 centerPoint)
-    {
-        // Random angle in radians
-        float angle = Random.Range(0f, Mathf.PI * 2f);
+     Vector3 GenerateSpawnPosition(Vector3 centerPoint)
+{
+    int maxAttempts = 10;
+    float checkRadius = 10f;
 
-        // Random distance within the allowed range
+    // Ignore layer "Ground"
+    int groundLayer = LayerMask.NameToLayer("Ground");
+    int ignoreGroundMask = ~(1 << groundLayer); // everything except Ground
+
+    for (int i = 0; i < maxAttempts; i++)
+    {
+        float angle = Random.Range(0f, Mathf.PI * 2f);
         float distance = Random.Range(minRadius, maxRadius);
 
-        // Calculate x and z using polar coordinates
         float x = centerPoint.x + distance * Mathf.Cos(angle);
         float z = centerPoint.z + distance * Mathf.Sin(angle);
-
-        // Keep y the same as the spawn point's y-coordinate
         float y = centerPoint.y;
 
-        return new Vector3(x, y, z);
+        Vector3 candidate = new Vector3(x, y, z);
+
+        // Only check for colliders that are NOT on the Ground layer
+        Collider[] colliders = Physics.OverlapSphere(candidate, checkRadius, ignoreGroundMask);
+
+        bool isClear = true;
+        foreach (Collider col in colliders)
+        {
+            if (!col.isTrigger)
+            {
+                isClear = false;
+                break;
+            }
+        }
+
+        if (isClear)
+        {
+            return candidate;
+        }
     }
+
+    Debug.LogWarning("❌ Could not find clear spawn spot. Returning center point.");
+    return centerPoint;
+}
     public void AMineIsFinsihed(string mineType){
         Debug.Log("Mine Type "+mineType+" Is Finished.");
         if(mineType == "wood"){
