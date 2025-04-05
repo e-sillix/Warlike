@@ -17,20 +17,33 @@ public class FarmAnimator : MonoBehaviour
     animator=GetComponent<Animator>();
    }
 
-   private void Update(){
-    // animator.SetBool(IS_CONSUMING,farm.IsConsumed());
-    //this needs to be optimized........... for calling every update..
+//    private void Update(){
+//     // animator.SetBool(IS_CONSUMING,farm.IsConsumed());
+//     //this needs to be optimized........... for calling every update..
 
-    if(farm.triggerConsumingAnimation){
-    animator.SetTrigger(DO_CONSUME);
-    }
+//     if(farm.triggerConsumingAnimation){
+//     animator.SetTrigger(DO_CONSUME);
+//     }
 
   
    
-    animator.SetBool(IS_ENOUGH,farm.returnIsEnough());
+//     animator.SetBool(IS_ENOUGH,farm.returnIsEnough());
     
-    farm.triggerConsumingAnimation=false;
+//     farm.triggerConsumingAnimation=false;
+//    }
+
+   public void TriggerReadyForConsuming(){
+    animator.SetBool("IsEnough",true);
+    // Debug.Log("Ready for consuming animation triggered");
    }
+
+    public void TriggerConsuming(){
+        // animator.SetBool("IsConsuming",true);
+        animator.SetBool("IsEnough",false);
+        animator.SetTrigger("Consuming");
+        // Debug.Log("Consuming animation triggered");
+    }
+
 
     
     

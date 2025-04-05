@@ -13,9 +13,11 @@ public class Farm : MonoBehaviour
     public string nameOfBuilding;
     [SerializeField] private CurrencyManager currencyManager;
 
+    [SerializeField]private FarmAnimator farmAnimator;
+
     [SerializeField] private int leastAmountForConsuming;
     private bool isEnough=false;
-    public bool triggerConsumingAnimation=false;
+    // public bool triggerConsumingAnimation=false;
     public int resourceAmount=0;
     private float timer = 0f,interval = 1f;
     private (int years, int months, int days, int hours, int minutes, int seconds) timeElapsed;
@@ -111,11 +113,17 @@ resourceAmount=capacity;
 
         //check if resources are enough to collect .
         if(resourceAmount>=leastAmountForConsuming){
+            // isEnough=true;
+            if(!isEnough){
+
+            farmAnimator.TriggerReadyForConsuming();
             isEnough=true;
+            }
         }
-        else{
-            isEnough=false;
-        }
+        // else{
+        //     isEnough=false;
+        //     // farmAnimator.TriggerNotEnoughForConsuming();
+        // }
     }
     private void UpdateresourceAmount(int amount){
         //this continues update farm resourceAmount count.
@@ -134,6 +142,7 @@ resourceAmount=capacity;
         //trigger whole resourceAmount prefabs animations of consuming.
         isEnough=false;
         GetComponent<BuildingInstance>().TriggerSaveAll();
+        farmAnimator.TriggerConsuming();
     }
 
     public int ReturnResourceAmount(){
@@ -141,7 +150,7 @@ resourceAmount=capacity;
         resourceAmount=0;
 
         //triggers animations for consuming and it is being accessed by farmanimator update
-        triggerConsumingAnimation=true;
+        // triggerConsumingAnimation=true;
 
         return collected;
     }
@@ -151,16 +160,16 @@ resourceAmount=capacity;
     public void OnClickIcon(){
     //click on image icon will triggers this.    
     //transfer currency and reset it to zero.
-    if(isEnough){   
+    // if(isEnough){   
     TriggerCollectionOfresourceAmount();
-    }
+    // }
    
     }
 
-    public bool returnIsEnough(){
-        //triggers animations of icon back
-        return isEnough;
-    }
+    // public bool returnIsEnough(){
+    //     //triggers animations of icon back
+    //     return isEnough;
+    // }
     
     public void UpgradeStats(int Level,int Capacity,int rate){
         level=Level;
