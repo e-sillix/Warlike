@@ -13,6 +13,8 @@ public class Boss : MonoBehaviour
     //commander maybe.
     [SerializeField] private GameObject BossArmyPrefab,SpawnPoint;
 
+    [SerializeField]private float LandAdvancingRate;
+
     public float detectionInterval = 5f;
 
     private GameObject[] playerArmies=new GameObject[5]; // Array to store the detected units
@@ -46,7 +48,8 @@ public class Boss : MonoBehaviour
         StartPatrol();
     }
 
-    void StartPatrol(){
+    public void StartPatrol(){
+        Debug.Log("Patrolling started.");
          List<BossArmyManager.BossArmies> activeArmies = bossArmyManager.GetActiveAndHomeBossArmies();
         //this will give me all the armies that are alive and home
         foreach (BossArmyManager.BossArmies bossArmy in activeArmies)
@@ -135,17 +138,17 @@ public class Boss : MonoBehaviour
             }
         }
 
-        List<BossArmyManager.BossArmies> activeArmies = bossArmyManager.GetActiveAndHomeBossArmies();
-        //this will give me all the armies that are alive and home
-        foreach (BossArmyManager.BossArmies bossArmy in activeArmies)
-        {
-            BossArmy bossArmyComponent = Instantiate(BossArmyPrefab, SpawnPoint.transform.position, 
-            Quaternion.identity).GetComponent<BossArmy>();
-            bossArmyComponent.Dependency(KingDom, bossArmy.id,bossArmyManager, SpawnPoint, this);
-            bossArmyComponent.TargetLocked(currentTarget);
-            SpawnedbossArmies.Add(bossArmyComponent);
-            bossArmy.isReturned = false;
-        }
+        // List<BossArmyManager.BossArmies> activeArmies = bossArmyManager.GetActiveAndHomeBossArmies();
+        // //this will give me all the armies that are alive and home
+        // foreach (BossArmyManager.BossArmies bossArmy in activeArmies)
+        // {
+        //     BossArmy bossArmyComponent = Instantiate(BossArmyPrefab, SpawnPoint.transform.position, 
+        //     Quaternion.identity).GetComponent<BossArmy>();
+        //     bossArmyComponent.Dependency(KingDom, bossArmy.id,bossArmyManager, SpawnPoint, this);
+        //     bossArmyComponent.TargetLocked(currentTarget);
+        //     SpawnedbossArmies.Add(bossArmyComponent);
+        //     bossArmy.isReturned = false;
+        // }
 
         }
     // void ReturnArmies(){

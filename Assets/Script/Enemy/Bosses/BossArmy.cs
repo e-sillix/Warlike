@@ -54,7 +54,10 @@ public class BossArmy : MonoBehaviour
     // public bool ReturnIsInjured(){        
     //     return isInjured;
     // }
-    
+    public bool ReturnIsInjured(){
+        //boss army manager
+        return isInjured;
+    }
     public bool IsAlive(){
         return isAlive;
     }
@@ -83,6 +86,9 @@ public class BossArmy : MonoBehaviour
         bossArmyManager.ArmyDefeated(ArmyID);
         ReturnBase();
         Debug.Log("Boss Army Defeated.");
+    }
+    void OnInjured(){
+         bossArmyManager.ArmyInjured(ArmyID);
     }
     public bool ReturnIsPatrolling(){
         return isPatrolling;
@@ -123,10 +129,14 @@ public class BossArmy : MonoBehaviour
     }
     public void TargetLeft(){
         isTargetAArmy=false;
+        Target=null;
         if(isInjured){
+             OnInjured();
             ReturnBase();
         }else{
             isPatrolling=true;
+        
+
             // IsReturnBase=false;
             // isReturningBase=false;
             // Target=null;
@@ -151,7 +161,7 @@ public class BossArmy : MonoBehaviour
     void Update(){
 
         if(isTargetAArmy&&Target){
-            Debug.Log("chasing army");
+            // Debug.Log("chasing army");
             float distanceToAttacker = Vector3.Distance(transform.position, Target.transform.position);
 
             // If Distance to attacker is greater than attack range, move towards attacker
@@ -182,7 +192,7 @@ public class BossArmy : MonoBehaviour
         }
         
         if(isInjured&&isTargetAArmy==false){
-            Debug.Log("want to return home");
+            // Debug.Log("want to return home");
         if(isReturningBase==false){
             isReturningBase=true;
             ReturnBase();
@@ -190,7 +200,7 @@ public class BossArmy : MonoBehaviour
     }
 
         if(isPatrolling){
-            Debug.Log("patrolling");
+            // Debug.Log("patrolling");
             if(Target==null){
                 StartPatrolling(bossArmyManager.GetPatrolPoint());
             }
@@ -208,7 +218,7 @@ public class BossArmy : MonoBehaviour
 
 
         if(IsReturnBase){
-        Debug.Log("Returning base");
+        // Debug.Log("Returning base");
         float distanceToAttacker = Vector3.Distance(transform.position, Target.transform.position);
 
             

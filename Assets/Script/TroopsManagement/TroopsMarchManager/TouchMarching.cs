@@ -147,7 +147,7 @@ public class TouchMarching : MonoBehaviour
                         TheUnit ClickedUnit=clickedObject.GetComponentInParent<TheUnit>();
                          if (ClickedUnit.gameObject != selectedUnit.gameObject)
                         {
-                        Debug.Log("Marching to: " + clickedObject.name);
+                        // Debug.Log("Marching to: " + clickedObject.name);
                         troopsExpeditionManager.MarchUsingDrag(selectedUnit, clickedObject, hit);
                         selectedUnit.GetComponent<TroopsInstanceUI>().TriggerSelectedRings(false);
                     }
@@ -163,7 +163,7 @@ public class TouchMarching : MonoBehaviour
                     }
                     else
                     {
-                        Debug.Log("Marching to: " + clickedObject.name);
+                        // Debug.Log("Marching to: " + clickedObject.name);
                         troopsExpeditionManager.MarchUsingDrag(selectedUnit, clickedObject, hit);
                         selectedUnit.GetComponent<TroopsInstanceUI>().TriggerSelectedRings(false);
                     }

@@ -15,12 +15,13 @@ public class BossArmyManager : MonoBehaviour
         public int numbers;
 
 
-        public BossArmies(int id, bool isDefeated,bool isReturned, int numbers)
+        public BossArmies(int id, bool isDefeated,bool isReturned, int numbers,bool isInjured)
         {
             this.id = id;
             this.isDefeated = isDefeated;
             this.isReturned = isReturned;
             this.numbers = numbers;
+            this.isInjured = isInjured;
         }
     }
 
@@ -33,10 +34,13 @@ public class BossArmyManager : MonoBehaviour
         List<BossArmies> activeBossArmies = new List<BossArmies>();
         foreach (var bossArmy in bossArmies)
         {
-            if (!bossArmy.isDefeated && bossArmy.isReturned)
+            if (!bossArmy.isDefeated && bossArmy.isReturned && !bossArmy.isInjured)
             {
                 activeBossArmies.Add(bossArmy);
             }
+            // {
+            //     activeBossArmies.Add(bossArmy);
+            // }
         }
         return activeBossArmies;
     }
@@ -46,18 +50,29 @@ public class BossArmyManager : MonoBehaviour
         {
             if (bossArmy.id == id)
             {
-                bossArmy.isDefeated = true;
+                bossArmy.isInjured = true;
             }
         }
     }
-    public void ArmyReturned(int id)
+    public void ArmyInjured(int id)
     {
         foreach (var bossArmy in bossArmies)
         {
             if (bossArmy.id == id)
             {
+                bossArmy.isInjured = true;
+            }
+        }
+    }
+    public void ArmyReturned(int id)
+    {
+        Debug.Log("Army returned.");
+        foreach (var bossArmy in bossArmies)
+        {
+            if (bossArmy.id == id)
+            {
                 bossArmy.isReturned = true;
-                if(bossArmy.isDefeated){
+                if(bossArmy.isDefeated|| bossArmy.isInjured){
                     StartCoroutine(HealDefeatedArmy(id));
                 }
             }
@@ -74,7 +89,9 @@ public class BossArmyManager : MonoBehaviour
             if (bossArmy.id == id )
             {
                 bossArmy.isDefeated = false;
+                bossArmy.isInjured =false;
                 Debug.Log("Healing the defeated army completed.");
+                GetComponent<Boss>().StartPatrol();
                 break;
             }
         }
