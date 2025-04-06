@@ -36,8 +36,13 @@ public class BossArmy : MonoBehaviour
     private Boss TheBoss;
     private GameObject MarchingTarget,Spawnpoint;
     private BossArmyManager bossArmyManager;
-    private bool IsReturnBase,isAlive=true;
-    
+    private bool IsReturnBase,isAlive=true,isInjured=false,isReturningBase=false,
+    isPatrolling=true,isTargetAArmy=false;
+
+
+    // public void TargetAArmy(bool t){
+    //     isTargetAArmy=true;
+    // }
     void Start()
     {
         currentHealth = totalHealth;
@@ -46,11 +51,19 @@ public class BossArmy : MonoBehaviour
     public float ReturnHealth(){
         return currentHealth;
     }
+    // public bool ReturnIsInjured(){        
+    //     return isInjured;
+    // }
+    
     public bool IsAlive(){
         return isAlive;
     }
     public void TakeDamage(float damage)
     {
+        if(!isInjured){
+            isInjured=true;
+        }
+
         currentHealth -= damage;
         UpdateHealth();
         if (currentHealth <= 0)
@@ -71,7 +84,9 @@ public class BossArmy : MonoBehaviour
         ReturnBase();
         Debug.Log("Boss Army Defeated.");
     }
-
+    public bool ReturnIsPatrolling(){
+        return isPatrolling;
+    }
     public void Dependency(string kingdom, int armyNumber,BossArmyManager BossArmyManager
     ,GameObject spawnpoint,Boss Boss){
         // currentHealth=totalHealth;
@@ -82,19 +97,62 @@ public class BossArmy : MonoBehaviour
         bossArmyManager=BossArmyManager;
     }
     public void TargetLocked(GameObject target){
-        if(isAlive){
+        
+        if(isAlive&&target){
 
         Target=target;
         IsReturnBase=false;
+        isReturningBase=false;
+        isPatrolling=false;
+        isTargetAArmy=true;
+        }
+        // if(target==null){
+        //     if(!isInjured){
+        //         isPatrolling=true;
+        //         IsReturnBase=false;
+        //         isReturningBase=false;
+        //         isTargetAArmy=false;
+        //     }
+        //     // else{
+        //     //     isPatrolling=false;
+        //     //     IsReturnBase=true;
+        //     //     // isReturningBase=false;
+        //     //     isTargetAArmy=false;
+        //     // }
+        // }
+    }
+    public void TargetLeft(){
+        isTargetAArmy=false;
+        if(isInjured){
+            ReturnBase();
+        }else{
+            isPatrolling=true;
+            // IsReturnBase=false;
+            // isReturningBase=false;
+            // Target=null;
         }
     }
+    
     public void ReturnBase(){
         //trigger by Boss when tresspasser can't be located.
         Target=Spawnpoint;
+        isPatrolling=false;
         IsReturnBase=true;
+        isTargetAArmy=false;
+    }
+     void StartPatrolling(Transform patrolPoint){
+        //trigger by Boss when tresspasser can't be located.
+        Target=patrolPoint.gameObject;
+        isPatrolling=true;
+        IsReturnBase=false;
+        isReturningBase=false;
+
     }
     void Update(){
-        float distanceToAttacker = Vector3.Distance(transform.position, Target.transform.position);
+
+        if(isTargetAArmy&&Target){
+            Debug.Log("chasing army");
+            float distanceToAttacker = Vector3.Distance(transform.position, Target.transform.position);
 
             // If Distance to attacker is greater than attack range, move towards attacker
             if(Target.GetComponent<TheUnit>()){
@@ -103,23 +161,13 @@ public class BossArmy : MonoBehaviour
                 TheBoss.TriggerDetection();
                 return;
             }
-            }
-            
-            if ( distanceToAttacker >= attackRange)
+        }
+        if ( distanceToAttacker >= attackRange)
             {
                 Vector3 direction = (Target.transform.position - transform.position).normalized;
                 transform.position += direction * moveSpeed * Time.deltaTime;
             }
-            else{
-                //when we reach the target
-
-                //if the target is base.
-                if(IsReturnBase){
-                    TheBoss.ArmyReachedBase(this);
-                }
-
-                //if the target is enemy.
-                else{
+            else if( Target.GetComponent<Attacking>()){
                     timer += Time.deltaTime;
 
                     if (timer >= RateOfAttack)
@@ -131,6 +179,57 @@ public class BossArmy : MonoBehaviour
                         timer = 0f;
                     }
                 }
+        }
+        
+        if(isInjured&&isTargetAArmy==false){
+            Debug.Log("want to return home");
+        if(isReturningBase==false){
+            isReturningBase=true;
+            ReturnBase();
+        }
+    }
+
+        if(isPatrolling){
+            Debug.Log("patrolling");
+            if(Target==null){
+                StartPatrolling(bossArmyManager.GetPatrolPoint());
+            }
+            float distanceToAttacker = Vector3.Distance(transform.position, Target.transform.position);
+             if ( distanceToAttacker >= attackRange)
+            {
+                Vector3 direction = (Target.transform.position - transform.position).normalized;
+                transform.position += direction * moveSpeed * Time.deltaTime;
+            }
+            else{
+                // if(isPatrolling){
+                    StartPatrolling(bossArmyManager.GetPatrolPoint());
+                }
+        }        
+
+
+        if(IsReturnBase){
+        Debug.Log("Returning base");
+        float distanceToAttacker = Vector3.Distance(transform.position, Target.transform.position);
+
+            
+            
+            if ( distanceToAttacker >= attackRange)
+            {
+                Vector3 direction = (Target.transform.position - transform.position).normalized;
+                transform.position += direction * moveSpeed * Time.deltaTime;
+            }
+            else{
+               
+                    TheBoss.ArmyReachedBase(this);
+                
             }
     }
+    
+    // else{
+    //     //if target is null and not injured. ask for patrol points.
+    //     StartPatrolling(bossArmyManager.GetPatrolPoint());
+    //     Debug.Log("Boss Army got new location.");
+    // }
+    }
+    
 }

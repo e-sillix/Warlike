@@ -11,7 +11,7 @@ public class BossArmyManager : MonoBehaviour
     {
         
         public int id;
-        public bool isDefeated,isReturned;
+        public bool isDefeated,isReturned,isInjured;
         public int numbers;
 
 
@@ -26,6 +26,7 @@ public class BossArmyManager : MonoBehaviour
 
     [SerializeField] private List<BossArmies> bossArmies = new List<BossArmies>();
     [SerializeField] private int healTime;
+    [SerializeField] private List<Transform> patrolPoints;
 
     public List<BossArmies> GetActiveAndHomeBossArmies()
     {
@@ -78,7 +79,19 @@ public class BossArmyManager : MonoBehaviour
             }
         }
     }
+    // public Transform GetPatrolPoint(){
+    //     // [SerializeField] private List<Transform> patrolPoints;
 
+public Transform GetPatrolPoint()
+{
+    if (patrolPoints == null || patrolPoints.Count == 0)
+        return null;
+
+    int index = Random.Range(0, patrolPoints.Count);
+    return patrolPoints[index];
+}
+
+    
     // Example usage: StartCoroutine(HealDefeatedArmy(armyId, healTime));
 
     //store all the boss armies status.

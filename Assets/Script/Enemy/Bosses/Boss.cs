@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Boss : MonoBehaviour
@@ -23,6 +24,7 @@ public class Boss : MonoBehaviour
     // private BossArmy[] SpawnedbossArmies;
     private GameObject currentTarget;
     private BossArmyManager bossArmyManager ;
+    private bool isPatrolling=false,isChasing=false;
     void Start()
     {
         // bossArmies = new BossArmy[Armies.Length];
@@ -38,6 +40,23 @@ public class Boss : MonoBehaviour
         {
             Debug.LogError("BossArmyManager not found.");
             return;
+        }
+
+
+        StartPatrol();
+    }
+
+    void StartPatrol(){
+         List<BossArmyManager.BossArmies> activeArmies = bossArmyManager.GetActiveAndHomeBossArmies();
+        //this will give me all the armies that are alive and home
+        foreach (BossArmyManager.BossArmies bossArmy in activeArmies)
+        {
+            BossArmy bossArmyComponent = Instantiate(BossArmyPrefab, SpawnPoint.transform.position, 
+            Quaternion.identity).GetComponent<BossArmy>();
+            bossArmyComponent.Dependency(KingDom, bossArmy.id,bossArmyManager, SpawnPoint, this);
+            bossArmyComponent.TargetLocked(currentTarget);
+            SpawnedbossArmies.Add(bossArmyComponent);
+            bossArmy.isReturned = false;
         }
     }
     public void TriggerDetection(){
@@ -60,15 +79,26 @@ public class Boss : MonoBehaviour
                 currentTarget=playerArmies[0];
                 // PlayerUnitFound();
                 StartCoroutine(DetectCurrentTarget());
+                isPatrolling=false;
                 yield break; // This stops the coroutine
             }
             else{
-                ReturnArmies();
+                // ReturnArmies();
+                // ReturnInjuredArmies();
+
+                //Null all the armies target.
+                if(isPatrolling==false){
+                    isPatrolling=true;
+
+                    BackToPatrol();
+                }
+                // TargetNulledForArmies();
             }
             yield return new WaitForSeconds(detectionInterval); // Wait for the specified interval
         }
     }
 
+   
     IEnumerator DetectCurrentTarget(){
         while (true) // Keep running the detection indefinitely
         {           
@@ -101,6 +131,7 @@ public class Boss : MonoBehaviour
         foreach(BossArmy bossArmy in SpawnedbossArmies){
             if(bossArmy.IsAlive()){
                 bossArmy.TargetLocked(currentTarget);
+                // bossArmy.TargetAArmy(true);
             }
         }
 
@@ -117,16 +148,45 @@ public class Boss : MonoBehaviour
         }
 
         }
-    void ReturnArmies(){
-        foreach (BossArmy bossArmy in SpawnedbossArmies){
-            // if (bossArmy.KingDom == KingDom)
-            // {
-            if(bossArmy){
+    // void ReturnArmies(){
+    //     foreach (BossArmy bossArmy in SpawnedbossArmies){
+    //         // if (bossArmy.KingDom == KingDom)
+    //         // {
+    //         if(bossArmy){
 
-                bossArmy.ReturnBase();
+    //             bossArmy.ReturnBase();
+    //         }
+    //         // }
+    //     }    
+    // }
+    // void ReturnInjuredArmies(){
+    //      foreach (BossArmy bossArmy in SpawnedbossArmies){
+    //         // if (bossArmy.KingDom == KingDom)
+    //         // {
+    //         if(bossArmy){
+    //             if(bossArmy.ReturnIsInjured()){
+    //                 bossArmy.ReturnBase();
+    //             }
+    //             // bossArmy.ReturnBase();
+    //         }
+    //         // }
+    //     }  
+    // }
+
+    void TargetNulledForArmies(){
+         foreach(BossArmy bossArmy in SpawnedbossArmies){
+            if(bossArmy.IsAlive()){
+                bossArmy.TargetLocked(null);
             }
-            // }
-        }    
+        }
+    }
+
+    void BackToPatrol(){
+        foreach(BossArmy bossArmy in SpawnedbossArmies){
+            if(bossArmy.IsAlive()){
+                bossArmy.TargetLeft();
+            }
+        }
     }
     public void ArmyReachedBase(BossArmy bossArmy){
         //this called by the boss army when it reaches the base.

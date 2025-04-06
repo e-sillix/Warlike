@@ -1073,8 +1073,8 @@ MonoBehaviour:
   barrackType: 0
   healthFill: {fileID: 5231539986884394113}
   Rewards: []
-  totalHealth: 6
-  moveSpeed: 40
+  totalHealth: 60
+  moveSpeed: 10
   attackRange: 10
   level: 1
   currentHealth: 0
