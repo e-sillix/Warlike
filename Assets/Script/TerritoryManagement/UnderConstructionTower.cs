@@ -31,7 +31,7 @@ public class UnderConstructionTower : MonoBehaviour
         ConstructionProgressBar.value = 1f;  // Ensure it reaches 100% at the end
         // timeRemainingText.text = "Completed!"; // Show completion message
 
-        GameObject tower = Instantiate(TowerPrefab, transform.position, Quaternion.identity); 
+        // GameObject tower = Instantiate(TowerPrefab, transform.position, Quaternion.identity); 
         // instantiate the tower prefab at the current position of the under construction tower
 
 
@@ -42,6 +42,8 @@ public class UnderConstructionTower : MonoBehaviour
         // buildingDependencyManager.DependencyTo(SpawnedBuilding);
         // SpawnedBuilding.GetComponent<BuildingInstance>().ProvideBasicDependency
         // (buildingDependencyManager);
+
+        SpawnedBuilding.GetComponent<TowerInstance>().SetOwnerShip(true);
 
         Destroy(gameObject);
     }

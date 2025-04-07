@@ -2,14 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-   public class TowerPointPlacer : MonoBehaviour
+public class TowerPointPlacer : MonoBehaviour
 {
     public GameObject towerPointPrefab; // Assign an empty prefab or marker
     public int totalPoints = 30;
-    public float initialRadius = 5f;
-    public float radiusStep = 5f;
-    public float minSpacing = 2f; // spacing between points on same ring
+    public float gridSpacing = 2f; // distance between grid points
     public Vector3 center = Vector3.zero;
 
     private GameObject[] towerPoints; // Now public and will store spawned points
@@ -17,53 +14,42 @@ using UnityEngine;
     void Start()
     {
         towerPoints = new GameObject[totalPoints]; // initialize array
-        PlacePointsInCircle();
+        PlacePointsInGrid();
         ProvidePointsToEnemySpawner(); // you already had this call
     }
 
-    void PlacePointsInCircle()
+    void PlacePointsInGrid()
     {
         int spawned = 0;
-        int currentRing = 0;
 
-        while (spawned < totalPoints)
+        // Calculate grid dimensions as square (√N x √N)
+        int gridSize = Mathf.CeilToInt(Mathf.Sqrt(totalPoints));
+        float startX = center.x - (gridSize - 1) * gridSpacing * 0.5f;
+        float startZ = center.z - (gridSize - 1) * gridSpacing * 0.5f;
+
+        for (int x = 0; x < gridSize && spawned < totalPoints; x++)
         {
-            float radius = initialRadius + currentRing * radiusStep;
-            float circumference = 2 * Mathf.PI * radius;
-            int pointsInThisRing = Mathf.FloorToInt(circumference / minSpacing);
-
-            // Don't spawn more than needed
-            pointsInThisRing = Mathf.Min(pointsInThisRing, totalPoints - spawned);
-
-            float angleStep = 360f / pointsInThisRing;
-
-            for (int i = 0; i < pointsInThisRing && spawned < totalPoints; i++)
+            for (int z = 0; z < gridSize && spawned < totalPoints; z++)
             {
-                float angle = i * angleStep * Mathf.Deg2Rad;
-
-                float x = center.x + radius * Mathf.Cos(angle);
-                float z = center.z + radius * Mathf.Sin(angle);
-                Vector3 spawnPos = new Vector3(x, center.y, z);
+                Vector3 spawnPos = new Vector3(
+                    startX + x * gridSpacing,
+                    center.y,
+                    startZ + z * gridSpacing
+                );
 
                 GameObject point = Instantiate(towerPointPrefab, spawnPos, Quaternion.identity, transform);
                 towerPoints[spawned] = point; // ✅ Store the point
                 spawned++;
             }
-
-            currentRing++;
         }
     }
 
-    
-
-
-    void ProvidePointsToEnemySpawner(){
+    void ProvidePointsToEnemySpawner()
+    {
         EnemyWatchTowerSpawner[] allSpawners = FindObjectsOfType<EnemyWatchTowerSpawner>();
         foreach (EnemyWatchTowerSpawner spawner in allSpawners)
         {
             spawner.GetAllTowerPoint(towerPoints);
-        // GameObject obj = spawner.gameObject;
-        // Debug.Log("Found EnemySpawner on: " + obj.name);
         }
     }
 }

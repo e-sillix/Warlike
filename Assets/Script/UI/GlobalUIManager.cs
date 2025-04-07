@@ -200,6 +200,9 @@ public class GlobalUIManager : MonoBehaviour
             infoUIManager);
             cameraSystem.SetFocusOn(ClickedObject);
         }
+        else if(ClickedObject.GetComponentInParent<TowerInstance>()){
+            ClickedObject.GetComponentInParent<TowerInstance>().OnClickOnCollider();
+        }
         
     }
 
@@ -211,6 +214,7 @@ public class GlobalUIManager : MonoBehaviour
                     MineUI mineUI=lastClicked.GetComponentInParent<MineUI>();
                     BossArmyUI bossArmyUI=lastClicked.GetComponentInParent<BossArmyUI>();
                     BossUI bossUI=lastClicked.GetComponentInParent<BossUI>();
+                    TowerInstance towerInstance=lastClicked.GetComponentInParent<TowerInstance>();
                     if (buildinstance != null) {
                         // Debug.Log("previous building has BuildingInstance");
                         //this deselects the buildings
@@ -231,6 +235,9 @@ public class GlobalUIManager : MonoBehaviour
                     }
                     else if(bossUI){
                         bossUI.DeSelectBoss();
+                    }
+                    else if(towerInstance){
+                        towerInstance.DeSelectTower();
                     }
                     // lastClicked=null;
     }

@@ -36,5 +36,6 @@ public class PlayerTowerManagement : MonoBehaviour
     }
     void SpawnTheTower(){
         Instantiate(UnderConstructionTowerPrefab,Pointer.transform.position,Quaternion.identity);
+        Destroy(Pointer);
     }
 }

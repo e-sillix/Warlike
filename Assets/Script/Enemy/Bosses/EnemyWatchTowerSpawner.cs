@@ -5,13 +5,14 @@ using UnityEngine;
 public class EnemyWatchTowerSpawner : MonoBehaviour
 {
     public GameObject towerPrefab;                    // Tower to build
-    public float checkRadius = 1f;                    // Radius to check for existing towers
+    public float checkRadius = 1f,checkRadiusPlayer;                    // Radius to check for existing towers
     public string towerLayerName = "Tower";           // Layer name for existing towers
     public float minDistanceToCenter = 10f;           // 🟢 Don't place towers closer than this
 
     private List<Transform> towerPoints = new List<Transform>();
     private int towerLayerMask;
     private Color towerColor;
+    [SerializeField]private float TimeGapOnEachTower;
 
     void Start()
     {
@@ -35,29 +36,52 @@ public class EnemyWatchTowerSpawner : MonoBehaviour
         StartCoroutine(BuildTowersOneByOne());
     }
 
-    IEnumerator BuildTowersOneByOne()
+   IEnumerator BuildTowersOneByOne()
+{
+    foreach (Transform point in towerPoints)
     {
-        foreach (Transform point in towerPoints)
+        // 🔴 Skip if point is too close to center
+        if (Vector3.Distance(transform.position, point.position) < minDistanceToCenter)
+            continue;
+
+        // 🔴 Check for any colliders nearby that are on the Tower layer
+        Collider[] hits = Physics.OverlapSphere(point.position, checkRadius, towerLayerMask);
+        if (hits.Length > 0)
         {
-            // 🔴 Skip if point is too close to center
-            if (Vector3.Distance(transform.position, point.position) < minDistanceToCenter)
-                continue;
-
-            // 🔴 Skip if tower already nearby
-            Collider[] hits = Physics.OverlapSphere(point.position, checkRadius, towerLayerMask);
-            if (hits.Length > 0) continue;
-
-            // 🏗️ Spawn tower
-            GameObject tower = Instantiate(towerPrefab, point.position, Quaternion.identity);
-            tower.transform.SetParent(point);
-            
-            // Debug.Log(towerColor);
-            // 🎨 Set tower color based on boss
-            tower.GetComponent<TowerInstance>().AssignColor(towerColor);
-
-            yield return new WaitForSeconds(1f); // ⏱️ Delay before next spawn
+            // ✅ Something is already there (on Tower layer), skip
+            continue;
         }
 
-        Debug.Log("Finished placing towers.");
+        // 🔴 Check if any nearby tower belongs to the player
+        Collider[] playerHits = Physics.OverlapSphere(point.position, checkRadiusPlayer, towerLayerMask);
+        bool belongsToPlayer = false;
+
+        foreach (Collider coll in playerHits)
+        {
+            TowerInstance toweri = coll.gameObject.GetComponentInParent<TowerInstance>();
+            if (toweri != null && toweri.IsTowerBelongToPlayer())
+            {
+                belongsToPlayer = true;
+                break; // No need to check further
+            }
+        }
+
+        if (belongsToPlayer)
+        {
+            continue; // 🚫 Skip this point if player owns nearby tower
+        }
+
+        // 🏗️ Spawn tower
+        GameObject tower = Instantiate(towerPrefab, point.position, Quaternion.identity);
+        tower.transform.SetParent(point);
+
+        // 🎨 Assign color from the boss
+        tower.GetComponent<TowerInstance>().AssignColor(towerColor);
+
+        yield return new WaitForSeconds(TimeGapOnEachTower); // ⏱️ Delay before spawning the next one
     }
+
+    Debug.Log("✅ Finished placing towers.");
+}
+
 }
