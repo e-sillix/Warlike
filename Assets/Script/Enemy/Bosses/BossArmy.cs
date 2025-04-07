@@ -131,7 +131,7 @@ public class BossArmy : MonoBehaviour
         isTargetAArmy=false;
         Target=null;
         if(isInjured){
-             OnInjured();
+            OnInjured();
             ReturnBase();
         }else{
             isPatrolling=true;

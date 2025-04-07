@@ -54,7 +54,7 @@ public class CreepSpawnManager : MonoBehaviour
     void InstantiateCreep(Vector3 centerPoint){        
         Vector3 spawnPosition = GenerateSpawnPosition(centerPoint);
         GameObject creep=Instantiate(CreepPrefab, spawnPosition, Quaternion.identity);
-        Debug.Log("Limit:"+(creepBatch*10+1)+"/"+((creepBatch+1)*10+1));
+        // Debug.Log("Limit:"+(creepBatch*10+1)+"/"+((creepBatch+1)*10+1));
         creep.GetComponent<TheCreep>().Dependency(this,rewardManager, Random.Range(creepBatch*10+1,
          (creepBatch+1)*10+1),troopsStatsManager);
         // creep
