@@ -6660,6 +6660,7 @@ MonoBehaviour:
   troopLevel: 3
   agressiveLevel: 3
   armySize: 0
+  BossColor: {r: 0, g: 0, b: 0, a: 0}
   Armies: 
   KingDom: 
   Rewards: []
@@ -25564,6 +25565,7 @@ MonoBehaviour:
   troopLevel: 2
   agressiveLevel: 1
   armySize: 0
+  BossColor: {r: 0, g: 0, b: 0, a: 0}
   Armies: 
   KingDom: 
   Rewards: []
@@ -33046,6 +33048,7 @@ MonoBehaviour:
   troopLevel: 2
   agressiveLevel: 2
   armySize: 0
+  BossColor: {r: 0, g: 0, b: 0, a: 0}
   Armies: 
   KingDom: 
   Rewards: []
@@ -38588,6 +38591,7 @@ MonoBehaviour:
   troopLevel: 2
   agressiveLevel: 2
   armySize: 0
+  BossColor: {r: 0, g: 0, b: 0, a: 0}
   Armies: 
   KingDom: 
   Rewards: []
@@ -53062,6 +53066,7 @@ MonoBehaviour:
   troopLevel: 1
   agressiveLevel: 1
   armySize: 0
+  BossColor: {r: 1, g: 0.24008314, b: 0, a: 0}
   Armies: 0a000000
   KingDom: 
   Rewards: []
@@ -53164,6 +53169,7 @@ MonoBehaviour:
     type: 3}
   checkRadius: 1
   towerLayerName: Tower
+  minDistanceToCenter: 50
 --- !u!1 &1932034018
 GameObject:
   m_ObjectHideFlags: 0
@@ -55676,6 +55682,7 @@ MonoBehaviour:
   troopLevel: 2
   agressiveLevel: 2
   armySize: 0
+  BossColor: {r: 0, g: 0, b: 0, a: 0}
   Armies: 
   KingDom: 
   Rewards: []

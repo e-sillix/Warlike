@@ -6,6 +6,7 @@ using UnityEngine;
 public class Boss : MonoBehaviour
 {
     [SerializeField] private int troopLevel, agressiveLevel,armySize;
+    public Color BossColor;
     [SerializeField] private int [] Armies;//Armies stores number of troops 
     //of each type and also how many boss army are there.
     [SerializeField] private string KingDom;
