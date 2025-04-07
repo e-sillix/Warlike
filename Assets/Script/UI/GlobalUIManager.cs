@@ -13,6 +13,7 @@ public class GlobalUIManager : MonoBehaviour
     [SerializeField] private CameraSystem cameraSystem;
     [SerializeField] private TroopsTrainingManager troopsTrainingManager;
     [SerializeField] private TroopsExpeditionManager troopsExpeditionManager;
+    [SerializeField]private PlayerTowerManagement playerTowerManagement;
     [SerializeField] private InfoUIManager infoUIManager;
     [SerializeField] private TroopsUI troopsUI;
     private GameObject lastClicked,currentClicked;
@@ -145,7 +146,7 @@ public class GlobalUIManager : MonoBehaviour
             // MarchTargetClicked=true;
             spawnedPointer=Instantiate(MarchPointer,hit.point,Quaternion.identity);
             spawnedPointer.GetComponent<SpawnedPointer>().Dependency(troopsExpeditionManager
-            ,ClickedObject,hit);
+            ,ClickedObject,hit,playerTowerManagement);
             cameraSystem.SetFocusOnPoint(hit.point);
             // troopsExpeditionManager.PotentialTargetForMarchClicked(ClickedObject,hit);
         }

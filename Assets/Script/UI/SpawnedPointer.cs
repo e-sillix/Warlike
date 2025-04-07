@@ -5,12 +5,14 @@ using UnityEngine;
 public class SpawnedPointer : MonoBehaviour
 {
     private TroopsExpeditionManager troopsExpeditionManager;
+    private PlayerTowerManagement playerTowerManagement;
     GameObject Target;RaycastHit Hit;
     public Canvas worldCanvas;
     public void Dependency(TroopsExpeditionManager TroopsExpeditionManager
-    ,GameObject target,RaycastHit hit){
+    ,GameObject target,RaycastHit hit,PlayerTowerManagement PlayerTowerManagement){
         //called when spawned.
         troopsExpeditionManager=TroopsExpeditionManager;
+        playerTowerManagement=PlayerTowerManagement;
         Target=target;
         Hit=hit;
         worldCanvas.worldCamera = Camera.main;
@@ -25,5 +27,9 @@ public class SpawnedPointer : MonoBehaviour
 
         //destroy
         Destroy(gameObject);
+    }
+    public void BuildClick(){
+        //triggered when clicked build
+        playerTowerManagement.BuildClicked(gameObject);
     }
 }

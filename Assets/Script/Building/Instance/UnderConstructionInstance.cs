@@ -44,7 +44,7 @@ public class UnderConstructionInstance : MonoBehaviour
     }
 
     ConstructionProgressBar.value = 1f;  // Ensure it reaches 100% at the end
-    timeRemainingText.text = "Completed!"; // Show completion message
+    // timeRemainingText.text = "Completed!"; // Show completion message
 
     if (RealBuilding != null)
     {
