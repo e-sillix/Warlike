@@ -10,7 +10,9 @@ public class TowerInstance : MonoBehaviour
     [SerializeField]private GameObject UIComponent;
 
     [SerializeField]private GameObject UIButtonForAttack;
-    
+
+    [SerializeField]private float TotalHealth,RecoveringRate;
+    private float CurrentHealth;
     private String NameOfTheBoss;
 
     private bool isPlayerTheOwner=false;
