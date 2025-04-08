@@ -83,7 +83,8 @@ public class TowerBluePrint : MonoBehaviour
         Destroy(gameObject);
         }
         else{
-            Debug.Log("Tower in Vicinity");
+            messageManager.TowerIsOnEnemeyTerritory();
+            // Debug.Log("Tower in Vicinity");
         }
 
     }
