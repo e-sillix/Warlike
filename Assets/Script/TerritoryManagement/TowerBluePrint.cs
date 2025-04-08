@@ -5,7 +5,14 @@ using UnityEngine;
 public class TowerBluePrint : MonoBehaviour
 {
     private bool movingAllowed;
+    private GameObject UnderConstructionTowerPrefab;
+    private CameraSystem cameraSystem;
 
+    public void AllDependencies(GameObject towerPrefab,CameraSystem CameraSystem){
+        UnderConstructionTowerPrefab=towerPrefab;
+        cameraSystem=CameraSystem;
+        cameraSystem.SetException(true);    
+    }
    private void Update()
     {
         UpdateBlueprintPosition();
@@ -23,7 +30,9 @@ public class TowerBluePrint : MonoBehaviour
                 if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, layerMask))
                     {
                     BluePrint detectedBlueprint = hit.collider.GetComponentInParent<BluePrint>();
-                    if (detectedBlueprint) {
+                     TowerBluePrint BTower=hit.collider.GetComponentInParent<TowerBluePrint>();
+                    if (detectedBlueprint||BTower) {
+                    
                     //    return;
                     movingAllowed=true;
                     }
@@ -58,5 +67,16 @@ public class TowerBluePrint : MonoBehaviour
             movingAllowed=false;
         }
     }
+    }
+
+
+    public void PlaceTower(){
+        cameraSystem.SetException(false);
+        Instantiate(UnderConstructionTowerPrefab,transform.position,Quaternion.identity);
+        Destroy(gameObject);
+    }
+    public void CancelTower(){
+        cameraSystem.SetException(false);
+        Destroy(gameObject);
     }
 }

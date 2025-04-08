@@ -42,6 +42,7 @@ public class CameraSystem : MonoBehaviour
     //     CinemachineTransposer>().m_FollowOffset;
     // }
     public void SetException(bool t){
+        //By globalUIManager
         exceptionUIActive=t;
     }
     private void Update() {
@@ -63,13 +64,16 @@ public class CameraSystem : MonoBehaviour
                 if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, layerMask))
                 {
                     BluePrint detectedBlueprint = hit.collider.GetComponentInParent<BluePrint>();
-                    if (detectedBlueprint) {
+                    TowerBluePrint BTower=hit.collider.GetComponentInParent<TowerBluePrint>();
+                    if (detectedBlueprint||BTower) {
                         cameraExceptionMoveAllowed=false;
+                        Debug.Log("Clicked a blueprint");
                     //    return;
                     // movingAllowed=true;
                     }
                     else{
                         cameraExceptionMoveAllowed=true;
+                         Debug.Log("Not Clicked a blueprint");
                     }
                     }}
                 if (cameraExceptionMoveAllowed ){

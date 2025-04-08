@@ -12,7 +12,9 @@ public class PlayerTowerManagement : MonoBehaviour
     [SerializeField]private CurrencyManager currencyManager;
     [SerializeField]private TradingManager tradingManager;
     [SerializeField]private MessageManager messageManager;
-    [SerializeField]private GameObject UnderConstructionTowerPrefab;
+    [SerializeField]private GameObject UnderConstructionTowerPrefab,BluePrintPrefab;
+    [SerializeField]private CameraSystem cameraSystem;
+
     private GameObject Pointer;
     public void BuildClicked(GameObject g){
         
@@ -35,7 +37,10 @@ public class PlayerTowerManagement : MonoBehaviour
         TowerUI.SetActive(false);
     }
     void SpawnTheTower(){
-        Instantiate(UnderConstructionTowerPrefab,Pointer.transform.position,Quaternion.identity);
+        GameObject Blue=Instantiate(BluePrintPrefab,Pointer.transform.position,Quaternion.identity);
         Destroy(Pointer);
+        Blue.GetComponent<TowerBluePrint>().AllDependencies(UnderConstructionTowerPrefab,
+        cameraSystem);
+        // cameraSystem.SetException(true);
     }
 }
