@@ -12,7 +12,7 @@ public class MessageManager : MonoBehaviour
     messageForNotEnoughSpace,messageForMaxBuildingUpgrade,messageForBuildingLimit,
     messageForUpgradeNotAllowed,messageForLaboratoryUpgrade,messageForBuildingLaboratory
     ,trainingStartedMessage,trainingCancelledMessage,SuccessBuildingMessage,BuildingNotInsideMessage
-    ,zeroTroopsMarch;
+    ,zeroTroopsMarch,towerOnEnemyTerritory;
 
 //Training related messages
     public void MessageForTroopsAdded(string barrackType, int[] troopsData)
@@ -28,6 +28,9 @@ public class MessageManager : MonoBehaviour
         //this will be called by TroopsCountManager        
         // Debug.Log(message);
         displayNormalMessage(message);
+    }
+    public void TowerIsOnEnemeyTerritory(){
+        displayNormalMessage(towerOnEnemyTerritory);
     }
     public void BuildingSuccessfullyBuilt(){
         displayNormalMessage(SuccessBuildingMessage);

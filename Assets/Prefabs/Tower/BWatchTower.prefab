@@ -181,6 +181,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 218273d1a299f184480d440748eff428, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boxVolumeCollider: {x: 100, y: 50, z: 100}
 --- !u!1 &2467466063186413661
 GameObject:
   m_ObjectHideFlags: 0

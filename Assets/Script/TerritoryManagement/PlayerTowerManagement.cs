@@ -40,7 +40,7 @@ public class PlayerTowerManagement : MonoBehaviour
         GameObject Blue=Instantiate(BluePrintPrefab,Pointer.transform.position,Quaternion.identity);
         Destroy(Pointer);
         Blue.GetComponent<TowerBluePrint>().AllDependencies(UnderConstructionTowerPrefab,
-        cameraSystem);
+        cameraSystem,messageManager);
         // cameraSystem.SetException(true);
     }
 }

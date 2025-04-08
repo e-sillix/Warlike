@@ -6,11 +6,17 @@ public class TowerBluePrint : MonoBehaviour
 {
     private bool movingAllowed;
     private GameObject UnderConstructionTowerPrefab;
+    [SerializeField]private Vector3 boxVolumeCollider;
     private CameraSystem cameraSystem;
 
-    public void AllDependencies(GameObject towerPrefab,CameraSystem CameraSystem){
+    private MessageManager messageManager;
+    // [SerializeField]private float DistanceBetweenEnemyTower;
+
+    public void AllDependencies(GameObject towerPrefab,CameraSystem CameraSystem,
+    MessageManager MessageManager){
         UnderConstructionTowerPrefab=towerPrefab;
         cameraSystem=CameraSystem;
+        messageManager=MessageManager;
         cameraSystem.SetException(true);    
     }
    private void Update()
@@ -59,7 +65,7 @@ public class TowerBluePrint : MonoBehaviour
         
         // Preserve Y position by setting it to current Y
         transform.position -= new Vector3(moveDir.x, 0, moveDir.z);
-    
+        CheckPosition();
 }
 
         }
@@ -71,12 +77,43 @@ public class TowerBluePrint : MonoBehaviour
 
 
     public void PlaceTower(){
+        if(CheckPosition()){
         cameraSystem.SetException(false);
         Instantiate(UnderConstructionTowerPrefab,transform.position,Quaternion.identity);
         Destroy(gameObject);
+        }
+        else{
+            Debug.Log("Tower in Vicinity");
+        }
+
     }
     public void CancelTower(){
         cameraSystem.SetException(false);
         Destroy(gameObject);
     }
+    bool CheckPosition(){
+       //returns false when there is a tower .
+    Vector3 boxCenter = transform.position;
+    Vector3 boxHalfExtents = boxVolumeCollider; // Adjust size as needed
+    Quaternion boxRotation = Quaternion.identity; // No rotation
+
+    // Overlap box returns all colliders within the box area
+    Collider[] hits = Physics.OverlapBox(boxCenter, boxHalfExtents, boxRotation);
+
+    foreach (Collider hit in hits)
+    {
+        TowerInstance tower = hit.GetComponentInParent<TowerInstance>();
+
+        if (tower&&!tower.IsTowerBelongToPlayer())
+        {
+            // Debug.Log("✅ Found a tower in box area!");
+            return false; // Exit early if found
+        }
+    }
+
+    // Debug.Log("❌ No tower found in box area.");
+    return true;
+}
+
+    
 }
