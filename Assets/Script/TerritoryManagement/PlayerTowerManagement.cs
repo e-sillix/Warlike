@@ -39,10 +39,11 @@ public class PlayerTowerManagement : MonoBehaviour
         TowerUI.SetActive(false);
     }
     void SpawnTheTower(){
+        TowerPointPlacer p=GetComponent<TowerPointPlacer>();
         GameObject Blue=Instantiate(BluePrintPrefab,Pointer.transform.position,Quaternion.identity);
         Destroy(Pointer);
         Blue.GetComponent<TowerBluePrint>().AllDependencies(UnderConstructionTowerPrefab,
-        cameraSystem,messageManager,troopsExpeditionManager,GetComponent<TowerPointPlacer>());
+        cameraSystem,messageManager,troopsExpeditionManager,p);
         // cameraSystem.SetException(true);
     }
 }

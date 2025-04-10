@@ -89,7 +89,8 @@ public class TowerBluePrint : MonoBehaviour
         cameraSystem.SetException(false);
         GameObject g=Instantiate(UnderConstructionTowerPrefab,
         transform.position,Quaternion.identity);
-        g.GetComponent<TowerCombat>().Dependency(troopsExpeditionManager,towerPointPlacer);
+        g.GetComponent<UnderConstructionTower>().Dependency(troopsExpeditionManager,
+        towerPointPlacer);
         Destroy(gameObject);
         }
         else{

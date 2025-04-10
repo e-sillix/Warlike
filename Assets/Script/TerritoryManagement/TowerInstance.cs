@@ -12,11 +12,20 @@ public class TowerInstance : MonoBehaviour
     [SerializeField]private GameObject UIButtonForAttack;
 
     [SerializeField]private float TotalHealth,RecoveringRate;
+
     private float CurrentHealth;
     private String NameOfTheBoss;
+    
+    private int BossId;
+    public bool isPlayerTheOwner=true;
 
-    private bool isPlayerTheOwner=false;
-
+    public int ReturnBossId(){
+        return BossId;
+    }
+    public void EnemyTowerDependency(int bossId,Color newColor){
+        BossId=bossId;
+        AssignColor(newColor);
+    }
     public void SetOwnerShip(bool isOwner){
         isPlayerTheOwner=isOwner;
     }

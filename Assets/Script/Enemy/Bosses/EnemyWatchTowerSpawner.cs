@@ -8,7 +8,8 @@ public class EnemyWatchTowerSpawner : MonoBehaviour
     public float checkRadius = 1f,checkRadiusPlayer;                    // Radius to check for existing towers
     public string towerLayerName = "Tower";           // Layer name for existing towers
     public float minDistanceToCenter = 10f
-    ,maxDistanceAllowedForTower;           // 🟢 Don't place towers closer than this
+    ,maxDistanceAllowedForTower,TowerToTowerRange;
+               // 🟢 Don't place towers closer than this
 
     private List<Transform> towerPoints = new List<Transform>();
     private int towerLayerMask;
@@ -16,11 +17,14 @@ public class EnemyWatchTowerSpawner : MonoBehaviour
     [SerializeField]private float TimeGapOnEachTower;
     [SerializeField]private TroopsExpeditionManager troopsExpeditionManager;
     [SerializeField]private TowerPointPlacer towerPointPlacer; // Reference to the TowerPointPlacer script
+    private int BossId;
 
+    [SerializeField]private Vector3 playerTower;
     void Start()
     {
         towerLayerMask = 1 << LayerMask.NameToLayer(towerLayerName);
         towerColor = GetComponent<Boss>().BossColor;
+        BossId = GetComponent<Boss>().ReturnBossId();
     }
 
     public void GetAllTowerPoint(GameObject[] Tpoints)
@@ -44,56 +48,75 @@ public class EnemyWatchTowerSpawner : MonoBehaviour
 {
     foreach (Transform point in towerPoints)
     {
-        // 🔴 Skip if point is too close to center
-        if (Vector3.Distance(transform.position, point.position) < minDistanceToCenter||
-            Vector3.Distance(transform.position, point.position) > maxDistanceAllowedForTower)
-           {
-            Debug.Log("skip 0");
-             continue;}
-        
-        // 🔴 Check for any colliders nearby that are on the Tower layer
-        Collider[] hits = Physics.OverlapSphere(point.position, checkRadius, towerLayerMask);
-        if (hits.Length > 0)
+        float distToCenter = Vector3.Distance(transform.position, point.position);
+
+        // 🔴 Skip if point is too close to boss
+        if (distToCenter < minDistanceToCenter)
         {
-            // Debug.Log();
-            Debug.Log("1 skip");
-            // ✅ Something is already there (on Tower layer), skip
+            Debug.Log("skip 0");
             continue;
         }
 
-        // 🔴 Check if any nearby tower belongs to the player
-        Collider[] playerHits = Physics.OverlapSphere(point.position, checkRadiusPlayer, towerLayerMask);
-        bool belongsToPlayer = false;
-
-        foreach (Collider coll in playerHits)
+        // 🔐 Beyond max distance? Only allow if near same Boss's tower
+        if (distToCenter > maxDistanceAllowedForTower)
         {
-            TowerInstance toweri = coll.gameObject.GetComponentInParent<TowerInstance>();
-            if (toweri != null && toweri.IsTowerBelongToPlayer())
+            bool foundSameBossNearby = false;
+
+            Collider[] nearby = Physics.OverlapSphere(point.position, TowerToTowerRange, towerLayerMask);
+            foreach (Collider coll in nearby)
             {
-                belongsToPlayer = true;
-                Debug.Log("2 skip");
-                break; // No need to check further
+                TowerInstance t = coll.GetComponentInParent<TowerInstance>();
+                if (t != null && t.ReturnBossId() == BossId)
+                {
+                    foundSameBossNearby = true;
+                    break;
+                }
+            }
+
+            if (!foundSameBossNearby)
+            {
+                Debug.Log("skip 1 — no nearby tower of same boss");
+                continue;
             }
         }
 
-        if (belongsToPlayer)
+        // 🔴 Skip if a tower already exists at the point
+        Collider[] hits = Physics.OverlapSphere(point.position, checkRadius, towerLayerMask);
+        if (hits.Length > 0)
         {
-            Debug.Log("3 skip");
-            continue; // 🚫 Skip this point if player owns nearby tower
+            Debug.Log("skip 2 — tower already here");
+            continue;
         }
 
-        // 🏗️ Spawn tower
+        // 🔴 Skip if nearby tower belongs to player
+       Collider[] playerHits = Physics.OverlapBox(transform.position, playerTower, Quaternion.identity, towerLayerMask);
+        foreach (Collider coll in playerHits)
+        {
+            TowerInstance toweri = coll.GetComponentInParent<TowerInstance>();
+            if (toweri != null && toweri.IsTowerBelongToPlayer())
+            {
+                Debug.Log("skip 3 — nearby player tower");
+                yield return null;
+                continue;
+            }
+        }
+
+        // ✅ Place tower
         GameObject tower = Instantiate(towerPrefab, point.position, Quaternion.identity);
         tower.transform.SetParent(point);
 
-        // 🎨 Assign color from the boss
-        tower.GetComponent<TowerInstance>().AssignColor(towerColor);
-        tower.GetComponent<TowerCombat>().Dependency(troopsExpeditionManager,towerPointPlacer);
-        Debug.Log("4 skip");
-        yield return new WaitForSeconds(TimeGapOnEachTower); // ⏱️ Delay before spawning the next one
+        tower.GetComponent<TowerInstance>().EnemyTowerDependency(
+            GetComponent<Boss>().ReturnBossId(), towerColor
+        );
+
+        tower.GetComponent<TowerCombat>().Dependency(troopsExpeditionManager, towerPointPlacer);
+        Debug.Log("✅ Tower placed");
+
+        yield return new WaitForSeconds(TimeGapOnEachTower);
     }
 
-    Debug.Log("✅ Finished placing towers.");
+    Debug.Log("🏁 Finished placing towers.");
 }
+
 
 }
