@@ -10,6 +10,13 @@ public class UnderConstructionTower : MonoBehaviour
     [SerializeField]private GameObject TowerPrefab;
     [SerializeField] private Slider ConstructionProgressBar; // Assign in Inspector
     [SerializeField] private TextMeshProUGUI timeRemainingText; // Assign for time display
+    private TroopsExpeditionManager troopsExpeditionManager;
+    private TowerPointPlacer towerPointPlacer;
+    public void Dependency(TroopsExpeditionManager TroopsExpeditionManager,
+    TowerPointPlacer TowerPointPlacer){
+        troopsExpeditionManager=TroopsExpeditionManager;
+        towerPointPlacer=TowerPointPlacer;
+    }
     void Start()
     {
         StartCoroutine(BuildingCorotine());
@@ -44,7 +51,8 @@ public class UnderConstructionTower : MonoBehaviour
         // (buildingDependencyManager);
 
         SpawnedBuilding.GetComponent<TowerInstance>().SetOwnerShip(true);
-
+        SpawnedBuilding.GetComponent<TowerCombat>().Dependency(troopsExpeditionManager,
+        towerPointPlacer);
         Destroy(gameObject);
     }
     }

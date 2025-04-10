@@ -12,16 +12,20 @@ public class TowerBluePrint : MonoBehaviour
     [SerializeField]private float distanceBetweenBase;
     [SerializeField]private GameObject RendererObj;
     private CameraSystem cameraSystem;
-
+    private TroopsExpeditionManager troopsExpeditionManager;
+    private TowerPointPlacer towerPointPlacer;
     private MessageManager messageManager;
     // [SerializeField]private float DistanceBetweenEnemyTower;
 
     public void AllDependencies(GameObject towerPrefab,CameraSystem CameraSystem,
-    MessageManager MessageManager){
+    MessageManager MessageManager,TroopsExpeditionManager TroopsExpeditionManager
+    ,TowerPointPlacer TowerPointPlacer){
         UnderConstructionTowerPrefab=towerPrefab;
         cameraSystem=CameraSystem;
         messageManager=MessageManager;
         cameraSystem.SetException(true);    
+        troopsExpeditionManager=TroopsExpeditionManager;
+        towerPointPlacer=TowerPointPlacer;
     }
    private void Update()
     {
@@ -83,7 +87,9 @@ public class TowerBluePrint : MonoBehaviour
     public void PlaceTower(){
         if(CheckPosition()){
         cameraSystem.SetException(false);
-        Instantiate(UnderConstructionTowerPrefab,transform.position,Quaternion.identity);
+        GameObject g=Instantiate(UnderConstructionTowerPrefab,
+        transform.position,Quaternion.identity);
+        g.GetComponent<TowerCombat>().Dependency(troopsExpeditionManager,towerPointPlacer);
         Destroy(gameObject);
         }
         else{

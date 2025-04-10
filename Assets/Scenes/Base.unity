@@ -5057,6 +5057,7 @@ MonoBehaviour:
   BluePrintPrefab: {fileID: 883668802886426970, guid: 248187e56456f3f49821bd7d7962f2dc,
     type: 3}
   cameraSystem: {fileID: 928523306}
+  troopsExpeditionManager: {fileID: 850240512}
 --- !u!1 &261544108
 GameObject:
   m_ObjectHideFlags: 0
@@ -54020,7 +54021,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1923990782
 Transform:
   m_ObjectHideFlags: 0
@@ -54160,7 +54161,10 @@ MonoBehaviour:
   checkRadiusPlayer: 150
   towerLayerName: Tower
   minDistanceToCenter: 50
-  TimeGapOnEachTower: 0.5
+  maxDistanceAllowedForTower: 150
+  TimeGapOnEachTower: 0.1
+  troopsExpeditionManager: {fileID: 850240512}
+  towerPointPlacer: {fileID: 245837085}
 --- !u!1 &1932034018
 GameObject:
   m_ObjectHideFlags: 0

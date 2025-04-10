@@ -14,6 +14,8 @@ public class PlayerTowerManagement : MonoBehaviour
     [SerializeField]private MessageManager messageManager;
     [SerializeField]private GameObject UnderConstructionTowerPrefab,BluePrintPrefab;
     [SerializeField]private CameraSystem cameraSystem;
+    [SerializeField]private TroopsExpeditionManager troopsExpeditionManager;
+    // private TowerPointPlacer towerPointPlacer;
 
     private GameObject Pointer;
     public void BuildClicked(GameObject g){
@@ -40,7 +42,7 @@ public class PlayerTowerManagement : MonoBehaviour
         GameObject Blue=Instantiate(BluePrintPrefab,Pointer.transform.position,Quaternion.identity);
         Destroy(Pointer);
         Blue.GetComponent<TowerBluePrint>().AllDependencies(UnderConstructionTowerPrefab,
-        cameraSystem,messageManager);
+        cameraSystem,messageManager,troopsExpeditionManager,GetComponent<TowerPointPlacer>());
         // cameraSystem.SetException(true);
     }
 }

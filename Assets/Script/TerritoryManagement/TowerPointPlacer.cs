@@ -44,9 +44,27 @@ public class TowerPointPlacer : MonoBehaviour
         }
     }
 
-    void ProvidePointsToEnemySpawner()
+    public void ProvidePointsToEnemySpawner()
     {
         EnemyWatchTowerSpawner[] allSpawners = FindObjectsOfType<EnemyWatchTowerSpawner>();
+        foreach (EnemyWatchTowerSpawner spawner in allSpawners)
+        {
+            spawner.GetAllTowerPoint(towerPoints);
+        }
+    }
+    
+    public void TowerIsDestroyed(GameObject tower){
+        Destroy(tower);
+        StartCoroutine(TriggerTowerExpansion());
+        // EnemyWatchTowerSpawner[] allSpawners = FindObjectsOfType<EnemyWatchTowerSpawner>();
+        // foreach (EnemyWatchTowerSpawner spawner in allSpawners)
+        // {
+        //     spawner.GetAllTowerPoint(towerPoints);
+        // }
+    }
+    IEnumerator TriggerTowerExpansion(){
+        yield return new WaitForSeconds(3f); 
+         EnemyWatchTowerSpawner[] allSpawners = FindObjectsOfType<EnemyWatchTowerSpawner>();
         foreach (EnemyWatchTowerSpawner spawner in allSpawners)
         {
             spawner.GetAllTowerPoint(towerPoints);

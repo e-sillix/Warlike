@@ -12,6 +12,7 @@ public class Attacking : MonoBehaviour
     private BossArmy bossArmy;
     // private Boss boss;
     private BossAttacking bossAttacking;
+    private TowerCombat towerCombat;
 
     private int totalHealth,armor,attackRange;
     private float health,Damage;
@@ -43,6 +44,9 @@ public class Attacking : MonoBehaviour
         else if (target.GetComponent<BossAttacking>()){
             bossAttacking=target.GetComponent<BossAttacking>();
             Debug.Log("enemy boss");
+        }else if(target.GetComponent<TowerCombat>()){
+            towerCombat=target.GetComponent<TowerCombat>();
+            Debug.Log("enemy tower");
         }
         InCombact=true;
         
@@ -101,7 +105,25 @@ public class Attacking : MonoBehaviour
             // Reset the timer
             timer = 0f;
             if(bossAttacking.ReturnHealth()<=0){
-                Debug.Log("enemy boss nulled");
+                Debug.Log("enemy boss Destroyed");
+                RefreshTarget();
+            }
+
+    }}
+    else if(towerCombat){
+        timer += Time.deltaTime;
+
+        // Check if one second has passed
+        if (timer >= RateOfAttack)
+        {   
+             float ActualDamage=Damage*(health/(float)totalHealth);
+           
+            towerCombat.TakeDamage(ActualDamage,this);            
+
+            // Reset the timer
+            timer = 0f;
+            if(towerCombat.ReturnHealth()<=0){
+                // Debug.Log("enemy tower Destroyed");
                 RefreshTarget();
             }
 
@@ -149,6 +171,7 @@ public class Attacking : MonoBehaviour
         theCreep=null;
         bossArmy=null;
         bossAttacking=null;
+        towerCombat=null;
         Target=null;
         InCombact=false;  
 

@@ -51,7 +51,7 @@ public class TowerInstance : MonoBehaviour
         UIComponent.SetActive(false);
     }
     public void AttackClicked(){
-
+        GetComponent<TowerCombat>().AttackIsClick();;
     }
     public void InfoClicked(){
 
