@@ -10,6 +10,7 @@ public class TowerBluePrint : MonoBehaviour
     [SerializeField]private Vector3 boxVolumeCollider;
     [SerializeField]private Vector3 FBoxVolumeCollider;
     [SerializeField]private float distanceBetweenBase;
+    [SerializeField]private GameObject RendererObj;
     private CameraSystem cameraSystem;
 
     private MessageManager messageManager;
@@ -68,7 +69,7 @@ public class TowerBluePrint : MonoBehaviour
         
         // Preserve Y position by setting it to current Y
         transform.position -= new Vector3(moveDir.x, 0, moveDir.z);
-        CheckPosition();
+        UpdateColorOfRenderer(CheckPosition());
 }
 
         }
@@ -143,5 +144,22 @@ public class TowerBluePrint : MonoBehaviour
         return false;
     }
 
-    
+    void UpdateColorOfRenderer(bool l){
+        Renderer renderer = RendererObj.GetComponent<Renderer>();
+    if (renderer != null)
+    {
+        // Example: Change color based on collision
+        if (l)
+        {
+            renderer.material.color = Color.green; // Collision detected
+        }
+        else
+        {
+            renderer.material.color = Color.red; // No collision
+        }
+    }
+    else{
+        Debug.Log("Rendere not there");
+    }
+    }
 }
