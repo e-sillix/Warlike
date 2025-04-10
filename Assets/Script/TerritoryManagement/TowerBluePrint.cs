@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class TowerBluePrint : MonoBehaviour
@@ -7,6 +8,8 @@ public class TowerBluePrint : MonoBehaviour
     private bool movingAllowed;
     private GameObject UnderConstructionTowerPrefab;
     [SerializeField]private Vector3 boxVolumeCollider;
+    [SerializeField]private Vector3 FBoxVolumeCollider;
+    [SerializeField]private float distanceBetweenBase;
     private CameraSystem cameraSystem;
 
     private MessageManager messageManager;
@@ -111,10 +114,34 @@ public class TowerBluePrint : MonoBehaviour
             return false; // Exit early if found
         }
     }
-
+    int c=0;
+    Collider[] hits2 = Physics.OverlapBox(boxCenter, FBoxVolumeCollider, boxRotation);
+    foreach(Collider h in hits2){
+        TowerInstance tower = h.GetComponentInParent<TowerInstance>();
+        if(tower&&tower.IsTowerBelongToPlayer()){
+            // Debug.Log("✅ Found a tower in box area!");
+            c++;
+            return true; // Exit early if found
+        }
+    }
+    float distance = Vector3.Distance(Vector3.zero, transform.position);
+    if(distance<distanceBetweenBase){
+        Debug.Log("❌ Tower was close to the base.");
+        return true;
+    }
+    else{
+         Debug.Log("✅ Tower was far from the base.");
+    }
+    if(c==0){
+        Debug.Log("No Friendly tower nearby.");
+        return false;
+    }
     // Debug.Log("❌ No tower found in box area.");
     return true;
 }
+    bool CheckForNearbyPlayerTower(){
+        return false;
+    }
 
     
 }
