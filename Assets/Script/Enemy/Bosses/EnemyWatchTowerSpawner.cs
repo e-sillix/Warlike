@@ -69,6 +69,7 @@ public class EnemyWatchTowerSpawner : MonoBehaviour
         }
         if (!CheckBotTowerOnThatPoint(point)){
             Debug.Log("a bot tower already here");
+            continue;
         }
 
         if(!CheckForPlayerTowerOnThatPointAndRange(point)){
@@ -93,7 +94,7 @@ public class EnemyWatchTowerSpawner : MonoBehaviour
 
         towerList.Add(tower); // ✅ Add to list
 
-            Debug.Log("✅ Tower placed");
+        Debug.Log("✅ Tower placed");
         yield return new WaitForSeconds(TimeGapOnEachTower);
     }
     Towers = towerList.ToArray(); // ✅ Finalize list to array
@@ -141,11 +142,12 @@ bool CheckBotTowerOnThatPoint(Transform point){
 
         if (hits.Length > 0)
         {
-            // Debug.Log("skip 2 — a Bot tower already here");
+            Debug.Log("skip 2 — a Bot tower already here");
             return false;
         }
         else
         {
+            Debug.Log("no tower here");
             return true;
         }
 
