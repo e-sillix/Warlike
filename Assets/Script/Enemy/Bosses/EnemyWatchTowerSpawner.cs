@@ -156,7 +156,7 @@ bool CheckForPlayerTowerOnThatPointAndRange(Transform point){
     Collider[] playerHits = Physics.OverlapBox(point.position, playerTower, 
         Quaternion.identity, towerLayerMask);
         if(playerHits.Length<=0){
-            // Debug.Log("nothing");
+            Debug.Log("nothing");
             return true;
         }
         foreach (Collider coll in playerHits)

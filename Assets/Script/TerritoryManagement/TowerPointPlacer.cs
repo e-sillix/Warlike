@@ -15,7 +15,8 @@ public class TowerPointPlacer : MonoBehaviour
     {
         towerPoints = new GameObject[totalPoints]; // initialize array
         PlacePointsInGrid();
-        ProvidePointsToEnemySpawner(); // you already had this call
+        // ProvidePointsToEnemySpawner(); // you already had this call
+        StartCoroutine(TriggerTowerExpansion());
     }
 
     void PlacePointsInGrid()
@@ -44,14 +45,14 @@ public class TowerPointPlacer : MonoBehaviour
         }
     }
 
-    public void ProvidePointsToEnemySpawner()
-    {
-        EnemyWatchTowerSpawner[] allSpawners = FindObjectsOfType<EnemyWatchTowerSpawner>();
-        foreach (EnemyWatchTowerSpawner spawner in allSpawners)
-        {
-            spawner.GetAllTowerPoint(towerPoints);
-        }
-    }
+    // public void ProvidePointsToEnemySpawner()
+    // {
+    //     EnemyWatchTowerSpawner[] allSpawners = FindObjectsOfType<EnemyWatchTowerSpawner>();
+    //     foreach (EnemyWatchTowerSpawner spawner in allSpawners)
+    //     {
+    //         spawner.GetAllTowerPoint(towerPoints);
+    //     }
+    // }
     
     public void TowerIsDestroyed(GameObject tower){
         Destroy(tower);
