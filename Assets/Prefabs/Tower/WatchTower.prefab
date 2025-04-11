@@ -290,7 +290,7 @@ MonoBehaviour:
   UIButtonForAttack: {fileID: 4441344428297585004}
   TotalHealth: 0
   RecoveringRate: 0
-  isPlayerTheOwner: 1
+  isPlayerTheOwner: 0
 --- !u!114 &-4928170426028275157
 MonoBehaviour:
   m_ObjectHideFlags: 0

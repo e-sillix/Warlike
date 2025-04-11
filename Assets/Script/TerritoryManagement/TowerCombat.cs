@@ -47,6 +47,8 @@ public class TowerCombat : MonoBehaviour
     }
     void OnDefeat(){
         Debug.Log("Tower is destroyed");
+        //for enemy only
+        GetComponent<TowerInstance>().RemoveFromTheTowerList();
         towerPointPlacer.TowerIsDestroyed(this.gameObject);
         // Destroy(gameObject);
     }
