@@ -29,6 +29,8 @@ public class Boss : MonoBehaviour
     private GameObject currentTarget;
     private BossArmyManager bossArmyManager ;
     private bool isPatrolling=false,isChasing=false;
+
+    private GameObject[] Towers;
     void Start()
     {
         // bossArmies = new BossArmy[Armies.Length];

@@ -11,12 +11,13 @@ public class TowerPointPlacer : MonoBehaviour
 
     private GameObject[] towerPoints; // Now public and will store spawned points
 
+    private Coroutine TowerExpansion;
     void Start()
     {
         towerPoints = new GameObject[totalPoints]; // initialize array
         PlacePointsInGrid();
         // ProvidePointsToEnemySpawner(); // you already had this call
-        StartCoroutine(TriggerTowerExpansion());
+        TowerExpansion=StartCoroutine(TriggerTowerExpansion());
     }
 
     void PlacePointsInGrid()
@@ -56,7 +57,11 @@ public class TowerPointPlacer : MonoBehaviour
     
     public void TowerIsDestroyed(GameObject tower){
         Destroy(tower);
-        StartCoroutine(TriggerTowerExpansion());
+        if(TowerExpansion!=null){
+            StopCoroutine(TowerExpansion);
+            TowerExpansion=null;
+        }
+        TowerExpansion=StartCoroutine(TriggerTowerExpansion());
         // EnemyWatchTowerSpawner[] allSpawners = FindObjectsOfType<EnemyWatchTowerSpawner>();
         // foreach (EnemyWatchTowerSpawner spawner in allSpawners)
         // {

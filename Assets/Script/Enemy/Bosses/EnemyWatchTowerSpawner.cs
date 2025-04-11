@@ -23,6 +23,7 @@ public class EnemyWatchTowerSpawner : MonoBehaviour
     private List<GameObject> towerList = new List<GameObject>(); // 🧱 Track built towers
 
     [SerializeField]private Vector3 playerTower;
+    private Coroutine towerBuilding;
     void Start()
     {
         towerLayerMask = 1 << LayerMask.NameToLayer("Tower");
@@ -32,6 +33,7 @@ public class EnemyWatchTowerSpawner : MonoBehaviour
 
     public void GetAllTowerPoint(GameObject[] Tpoints)
     {
+        //by pointplacer
         towerPoints = new List<Transform>();
         foreach (GameObject point in Tpoints)
         {
@@ -44,7 +46,11 @@ public class EnemyWatchTowerSpawner : MonoBehaviour
             .CompareTo(Vector3.Distance(transform.position, b.position))
         );
         towerColor = GetComponent<Boss>().BossColor;
-        StartCoroutine(BuildTowersOneByOne());
+        if(towerBuilding!=null){
+            StopCoroutine(towerBuilding);
+            towerBuilding=null;
+        }
+        towerBuilding=StartCoroutine(BuildTowersOneByOne());
     }
 
    IEnumerator BuildTowersOneByOne()
@@ -195,5 +201,8 @@ public void RemoveTowerFromList(GameObject tower)
             Debug.LogWarning("⚠️ Tried to remove a tower that isn't in the list.");
         }
     }
-
+    public GameObject[] GetTowers()
+    {
+        return Towers;
+    }
 }
