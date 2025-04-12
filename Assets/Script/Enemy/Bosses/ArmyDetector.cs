@@ -80,7 +80,7 @@ GameObject[] GetAllUnitsBreaching()
 
     foreach (TheUnit unit in allUnits)
     {
-        if (unit.GetBossId() == BossId)
+        if (unit.GetBossId() == BossId&& !unit.returnIsDefeated())
         {
             matchingUnits.Add(unit.gameObject);
         }
