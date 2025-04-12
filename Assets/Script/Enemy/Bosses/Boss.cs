@@ -31,6 +31,11 @@ public class Boss : MonoBehaviour
     private bool isPatrolling=false,isChasing=false;
 
     private GameObject[] Towers;
+    private bool isTargetArmy;
+    // private GameObject[] TresspassingArmy;
+    List<GameObject> TresspassingArmy = new List<GameObject>();
+    List<GameObject> BreachingArmy = new List<GameObject>();
+    List<GameObject> PreBreachingArmy = new List<GameObject>();
     void Start()
     {
         // bossArmies = new BossArmy[Armies.Length];
@@ -217,4 +222,77 @@ public class Boss : MonoBehaviour
 
         Destroy(gameObject);
     }}
+
+    // public void ArmyTresspassing(GameObject army){
+    //     if (!TresspassingArmy.Contains(army))
+    // {
+    //     TresspassingArmy.Add(army);
+    // }
+
+    // // Check if currentTarget is still breaching this base
+    // if (currentTarget != null)
+    // {
+    //     int armyBossId = currentTarget.GetComponent<TheUnit>().GetBossId(); 
+    //     // you should have this method
+    //     if (armyBossId != BossId)
+    //     {
+    //         TresspassingArmy.Remove(currentTarget);
+    //         currentTarget = null;
+    //     }
+    // }
+
+    // // If no valid target, assign new one from list
+    // if (currentTarget == null)
+    // {
+    //    currentTarget=TresspassingArmy[0];
+    //    DirectingArmies();
+    // }
+
+    // }
+
+    // IEnumerator RefreshTresspassing(){
+    //     while(true){
+    //         yield return new WaitForSeconds(5f);
+    //         if(currentTarget!=null){
+    //             if(BossId==currentTarget.GetComponent<TheUnit>().GetBossId()){
+                    
+    //             }
+    //         }
+    //     }
+    // }
+
+    void DirectingArmies(){
+        // currentTarget=TresspassingArmy[0];
+         foreach(BossArmy bossArmy in SpawnedbossArmies){
+            if(bossArmy.IsAlive()){
+                bossArmy.TargetLocked(currentTarget);
+                // bossArmy.TargetAArmy(true);
+            }
+        }
+    }
+
+    public void ReportingArmies(GameObject[] breachingArmies)
+{
+    // If the current target is still breaching, keep targeting it
+    if (currentTarget != null && System.Array.Exists(breachingArmies, a => a == currentTarget))
+    {
+        // Target is still in the list, do nothing
+        return;
+    }
+
+    // If target is gone or null, pick a new one
+    if (breachingArmies.Length > 0)
+    {
+        currentTarget = breachingArmies[0]; // pick the first one, or use custom logic to pick
+        DirectingAllArmies(); // start attacking or pursuing new target
+    }
+    else
+    {
+        // No armies breaching anymore
+        currentTarget = null;
+        // You can call a patrol function or idle logic here
+        BackToPatrol();
+    }
+}
+
 }

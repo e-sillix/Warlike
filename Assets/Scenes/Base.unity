@@ -54305,7 +54305,7 @@ MonoBehaviour:
   minDistanceToCenter: 100
   maxDistanceAllowedForTower: 200
   TowerToTowerRange: 110
-  TimeGapOnEachTower: 1
+  TimeGapOnEachTower: 0.1
   troopsExpeditionManager: {fileID: 850240512}
   towerPointPlacer: {fileID: 245837085}
   playerTower: {x: 50, y: 30, z: 50}

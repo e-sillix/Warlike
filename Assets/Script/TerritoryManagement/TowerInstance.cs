@@ -20,7 +20,7 @@ public class TowerInstance : MonoBehaviour
     private float CurrentHealth;
     private String NameOfTheBoss;
     
-    private int BossId;
+    private int BossId=0;
     private bool isPlayerTheOwner;
     private Coroutine IndividualScanning;
 
@@ -32,7 +32,7 @@ public class TowerInstance : MonoBehaviour
         BossId=bossId;
         AssignColor(newColor);
         Boss=boss;
-        IndividualScanning=StartCoroutine(ScanningTerritory());
+        // IndividualScanning=StartCoroutine(ScanningTerritory());
     }
     public void SetOwnerShip(bool isOwner){
         Debug.Log("SetOwnerShip "+isOwner);
@@ -84,39 +84,44 @@ public class TowerInstance : MonoBehaviour
 
     }
 
-    IEnumerator ScanningTerritory()
-{
-    while (true)
-    {
-        // Debug.Log("🔍 Scanning territory...");
-        if(ReturnPlayerArmies()[0]){
-            Debug.Log("Found player armies in the area!");
-        }
-        // 🧠 Put your scanning logic here...
+    // public void TowerParameterBreached(GameObject c){
+    //     Debug.Log("TowerParameterBreached "+c.name);
+    //     Boss.GetComponent<Boss>()
+    //     .ArmyTresspassing(c.GetComponentInParent<TheUnit>().gameObject);
+    // }
+//     IEnumerator ScanningTerritory()
+// {
+//     while (true)
+//     {
+//         // Debug.Log("🔍 Scanning territory...");
+//         if(ReturnPlayerArmies()[0]){
+//             Debug.Log("Found player armies in the area!");
+//         }
+//         // 🧠 Put your scanning logic here...
 
-        yield return new WaitForSeconds(3f); // ⏱️ Wait 3 seconds before the next scan
-    }
-}
-GameObject[] ReturnPlayerArmies(){
-    GameObject[] playerArmies=new GameObject[5];
-        // Find all colliders within a 200 unit radius
-        Collider[] colliders = Physics.OverlapBox(transform.position, ScanningVolume, 
-        Quaternion.identity, unitLayer);
-        int  i=0;
-        foreach (Collider collider in colliders)
-        {
-            // Check if the object has TheUnit script attached
-            Attacking unit = collider.GetComponentInParent<Attacking>();
-            if (unit != null)
-            {
-            Debug.Log(Vector3.Distance(transform.position, collider.transform.position));
-                // Unit found within the detection range
-                // You can do something with the unit here, like targeting or attacking
-                playerArmies[i]=unit.gameObject;
-                i++;
-            }
-        }
-        return playerArmies;
-}
+//         yield return new WaitForSeconds(3f); // ⏱️ Wait 3 seconds before the next scan
+//     }
+// }
+// GameObject[] ReturnPlayerArmies(){
+//     GameObject[] playerArmies=new GameObject[5];
+//         // Find all colliders within a 200 unit radius
+//         Collider[] colliders = Physics.OverlapBox(transform.position, ScanningVolume, 
+//         Quaternion.identity, unitLayer);
+//         int  i=0;
+//         foreach (Collider collider in colliders)
+//         {
+//             // Check if the object has TheUnit script attached
+//             Attacking unit = collider.GetComponentInParent<Attacking>();
+//             if (unit != null)
+//             {
+//             Debug.Log(Vector3.Distance(transform.position, collider.transform.position));
+//                 // Unit found within the detection range
+//                 // You can do something with the unit here, like targeting or attacking
+//                 playerArmies[i]=unit.gameObject;
+//                 i++;
+//             }
+//         }
+//         return playerArmies;
+// }
 
 }

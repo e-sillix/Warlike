@@ -35,10 +35,18 @@ public class TheUnit : MonoBehaviour
     private bool UpdateTroopsDirection=true;
     private TroopsVisualInstance troopsVisualInstance;
     private bool isTargetMoveable;
+    private GameObject TerritoryCollider;
+    // private int BossId=0;
     
     public bool returnIsDefeated(){
         // Debug.Log("Return :"+isDefeated);
         return isDefeated;
+    }
+    public void SetTerritoryCollider(GameObject g){
+        TerritoryCollider=g;
+    }
+    public int GetBossId(){
+        return TerritoryCollider.GetComponent<UnitTerritoryCollider>().ReturnBreachingBossId();
     }
     public void AssignAttackRange(float AttackRange){
         attackRange=AttackRange;
