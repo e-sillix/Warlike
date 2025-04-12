@@ -181,8 +181,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 218273d1a299f184480d440748eff428, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boxVolumeCollider: {x: 100, y: 50, z: 100}
-  FBoxVolumeCollider: {x: 100, y: 50, z: 100}
+  boxVolumeCollider: {x: 50, y: 30, z: 50}
+  FBoxVolumeCollider: {x: 50, y: 30, z: 50}
   distanceBetweenBase: 100
   RendererObj: {fileID: 2635852422354002083}
 --- !u!1 &2467466063186413661

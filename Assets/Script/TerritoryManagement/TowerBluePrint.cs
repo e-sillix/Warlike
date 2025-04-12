@@ -122,6 +122,7 @@ public class TowerBluePrint : MonoBehaviour
             return false; // Exit early if found
         }
     }
+    //for near ally tower 
     int c=0;
     Collider[] hits2 = Physics.OverlapBox(boxCenter, FBoxVolumeCollider, boxRotation);
     foreach(Collider h in hits2){
