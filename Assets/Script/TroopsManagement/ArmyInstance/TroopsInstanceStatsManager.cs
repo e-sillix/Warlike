@@ -12,10 +12,10 @@ public class TroopsInstanceStatsManager : MonoBehaviour
     private TroopsVisualInstance troopsVisualInstance;
 
     private AttackStatPayload attackStatPayload;
-    private GameObject SingleGameObject;
+    // private GameObject SingleGameObject;
 
     //attacking
-    private float armor,moveSpeed,totalNumberOfTroops,attackRange,marchSpeed;
+    private float armor,totalNumberOfTroops,attackRange,marchSpeed;
     private int health,damage ;
     private string troopsType;
     private int[] troopsNumber,eachLvlLoad;

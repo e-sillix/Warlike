@@ -8,11 +8,11 @@ public class TroopsVisualInstance : MonoBehaviour
     private GameObject SingleTroops;
     private int TotalTroops;
     [SerializeField] private GameObject parentTroopsObj;
-    [SerializeField]private int lowSpawnLimit=5;
-    [SerializeField]private int TroopSpawnLimit=15;
-    [SerializeField]private int TroopsForHighestLimit=500;
+    // [SerializeField]private int lowSpawnLimit=5;
+    // [SerializeField]private int TroopSpawnLimit=15;
+    // [SerializeField]private int TroopsForHighestLimit=500;
     private GameObject[] AllTroops;
-    private Vector3 currentDirection ; // Default direction
+    // private Vector3 currentDirection ; // Default direction
     private bool isAllTroopsSpawned=false;
     // public void SetTroopsObj(GameObject t, float totalNumberOfTroops)
     // {

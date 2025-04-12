@@ -19,41 +19,22 @@ public class Boss : MonoBehaviour
 
     public float detectionInterval = 5f;
 
-    private GameObject[] playerArmies=new GameObject[5]; // Array to store the detected units
 
     private ArmyDetector armyDetector;
-    // private BossArmy[] bossArmies;//this will be used to store the spawned armies.
 
     private List<BossArmy> SpawnedbossArmies = new List<BossArmy>();
-    // private BossArmy[] SpawnedbossArmies;
     private GameObject currentTarget;
     private BossArmyManager bossArmyManager ;
-    private bool isPatrolling=false,isChasing=false;
 
-    private GameObject[] Towers;
-    private bool isTargetArmy;
-    // private GameObject[] TresspassingArmy;
-    List<GameObject> TresspassingArmy = new List<GameObject>();
-    List<GameObject> BreachingArmy = new List<GameObject>();
-    List<GameObject> PreBreachingArmy = new List<GameObject>();
+   
     void Start()
     {
-        // bossArmies = new BossArmy[Armies.Length];
+       
         // Start the Coroutine when the game begins
         armyDetector=GetComponent<ArmyDetector>();
-        if(armyDetector==null){
-            Debug.Log("ArmyDetector not found.");
-        }else{
-            StartCoroutine(DetectUnitsEveryInterval());
-        }
+       
         bossArmyManager = GetComponent<BossArmyManager>();
-        if (bossArmyManager == null)
-        {
-            Debug.LogError("BossArmyManager not found.");
-            return;
-        }
-
-
+        
         StartPatrol();
     }
 
@@ -75,66 +56,7 @@ public class Boss : MonoBehaviour
             bossArmy.isReturned = false;
         }
     }
-    public void TriggerDetection(){
-        //triggered by bossArmy when it defeats the player army.
-        StopCoroutine(DetectCurrentTarget());
-        Debug.Log("Target defeated.");
-        StartCoroutine(DetectUnitsEveryInterval());
-    }
-    IEnumerator DetectUnitsEveryInterval()
-    {
-        while (true) // Keep running the detection indefinitely
-        {
-            //this will reinstantiate the array 
-            // Debug.Log("1");
-            playerArmies=new GameObject[5];
-            //now fill it with the detected units present.
-            playerArmies=armyDetector.FindNearbyUnits(); // Find the nearby units
-            if(playerArmies[0]!=null){
-                Debug.Log("Found Tresspasser.");
-                currentTarget=playerArmies[0];
-                // PlayerUnitFound();
-                StartCoroutine(DetectCurrentTarget());
-                isPatrolling=false;
-                yield break; // This stops the coroutine
-            }
-            else{
-                // ReturnArmies();
-                // ReturnInjuredArmies();
-
-                //Null all the armies target.
-                if(isPatrolling==false){
-                    isPatrolling=true;
-
-                    BackToPatrol();
-                }
-                // TargetNulledForArmies();
-            }
-            yield return new WaitForSeconds(detectionInterval); // Wait for the specified interval
-        }
-    }
-
    
-    IEnumerator DetectCurrentTarget(){
-        while (true) // Keep running the detection indefinitely
-        {           
-            if(armyDetector.FindCurrentTarget(currentTarget)){//this will return true if target is 
-            //still in range
-                DirectingAllArmies();
-                Debug.Log("Target is Still in the range");
-                yield return new WaitForSeconds(detectionInterval); 
-            } // Find the nearby units
-            else{
-                // Debug.Log("Target not found in the range.");
-                // Debug.Log("Starting normal search");
-                currentTarget=null;
-                // NullArmiesTarget();
-                StartCoroutine(DetectUnitsEveryInterval());
-                yield break;
-            }
-            // Wait for the specified interval
-        }
-    }
 
     void DirectingAllArmies(){
        //this will be called when a player unit is found.
@@ -149,45 +71,10 @@ public class Boss : MonoBehaviour
                 bossArmy.TargetLocked(currentTarget);
                 // bossArmy.TargetAArmy(true);
             }
-        }
-
-        // List<BossArmyManager.BossArmies> activeArmies = bossArmyManager.GetActiveAndHomeBossArmies();
-        // //this will give me all the armies that are alive and home
-        // foreach (BossArmyManager.BossArmies bossArmy in activeArmies)
-        // {
-        //     BossArmy bossArmyComponent = Instantiate(BossArmyPrefab, SpawnPoint.transform.position, 
-        //     Quaternion.identity).GetComponent<BossArmy>();
-        //     bossArmyComponent.Dependency(KingDom, bossArmy.id,bossArmyManager, SpawnPoint, this);
-        //     bossArmyComponent.TargetLocked(currentTarget);
-        //     SpawnedbossArmies.Add(bossArmyComponent);
-        //     bossArmy.isReturned = false;
-        // }
+        }     
 
         }
-    // void ReturnArmies(){
-    //     foreach (BossArmy bossArmy in SpawnedbossArmies){
-    //         // if (bossArmy.KingDom == KingDom)
-    //         // {
-    //         if(bossArmy){
-
-    //             bossArmy.ReturnBase();
-    //         }
-    //         // }
-    //     }    
-    // }
-    // void ReturnInjuredArmies(){
-    //      foreach (BossArmy bossArmy in SpawnedbossArmies){
-    //         // if (bossArmy.KingDom == KingDom)
-    //         // {
-    //         if(bossArmy){
-    //             if(bossArmy.ReturnIsInjured()){
-    //                 bossArmy.ReturnBase();
-    //             }
-    //             // bossArmy.ReturnBase();
-    //         }
-    //         // }
-    //     }  
-    // }
+    
 
     void TargetNulledForArmies(){
          foreach(BossArmy bossArmy in SpawnedbossArmies){
@@ -223,52 +110,9 @@ public class Boss : MonoBehaviour
         Destroy(gameObject);
     }}
 
-    // public void ArmyTresspassing(GameObject army){
-    //     if (!TresspassingArmy.Contains(army))
-    // {
-    //     TresspassingArmy.Add(army);
-    // }
-
-    // // Check if currentTarget is still breaching this base
-    // if (currentTarget != null)
-    // {
-    //     int armyBossId = currentTarget.GetComponent<TheUnit>().GetBossId(); 
-    //     // you should have this method
-    //     if (armyBossId != BossId)
-    //     {
-    //         TresspassingArmy.Remove(currentTarget);
-    //         currentTarget = null;
-    //     }
-    // }
-
-    // // If no valid target, assign new one from list
-    // if (currentTarget == null)
-    // {
-    //    currentTarget=TresspassingArmy[0];
-    //    DirectingArmies();
-    // }
-
-    // }
-
-    // IEnumerator RefreshTresspassing(){
-    //     while(true){
-    //         yield return new WaitForSeconds(5f);
-    //         if(currentTarget!=null){
-    //             if(BossId==currentTarget.GetComponent<TheUnit>().GetBossId()){
-                    
-    //             }
-    //         }
-    //     }
-    // }
-
-    void DirectingArmies(){
-        // currentTarget=TresspassingArmy[0];
-         foreach(BossArmy bossArmy in SpawnedbossArmies){
-            if(bossArmy.IsAlive()){
-                bossArmy.TargetLocked(currentTarget);
-                // bossArmy.TargetAArmy(true);
-            }
-        }
+    public void TriggerDetection(){
+        //when player Armies get defeated.directly by TheUnit
+        armyDetector.TriggerDetectionOnce();
     }
 
     public void ReportingArmies(GameObject[] breachingArmies)

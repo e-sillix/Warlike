@@ -18,7 +18,7 @@ public class GlobalUIManager : MonoBehaviour
     [SerializeField] private TroopsUI troopsUI;
     private GameObject lastClicked,currentClicked;
     private GameObject spawnedPointer;
-    private bool IsRefreshed=false;
+    // private bool IsRefreshed=false;
 
     // private bool IsUIOpen=false;
     
