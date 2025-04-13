@@ -105,6 +105,7 @@ public class BossArmy : MonoBehaviour
     public void TargetLocked(GameObject target){
         
         if(isAlive&&target){
+        Debug.Log("Army given the target.");
 
         Target=target;
         IsReturnBase=false;
@@ -161,17 +162,17 @@ public class BossArmy : MonoBehaviour
     void Update(){
 
         if(isTargetAArmy&&Target){
-            // Debug.Log("chasing army");
+            Debug.Log("chasing army or tower");
             float distanceToAttacker = Vector3.Distance(transform.position, Target.transform.position);
 
-            // If Distance to attacker is greater than attack range, move towards attacker
+            
             if(Target.GetComponent<TheUnit>()){
                 if(!Target.GetComponent<Attacking>()){
                 //if the target lost Attacking component while combat 
                 TheBoss.TriggerDetection();
                 return;
+            }           
             }
-        }
         if ( distanceToAttacker >= attackRange)
             {
                 Vector3 direction = (Target.transform.position - transform.position).normalized;
@@ -189,7 +190,22 @@ public class BossArmy : MonoBehaviour
                         timer = 0f;
                     }
                 }
+                else if(Target.GetComponent<TowerCombat>()){
+                    timer += Time.deltaTime;
+
+                    if (timer >= RateOfAttack)
+                    {
+                        if(Target){
+                            float ActualDamage=Damage*(currentHealth/(float)totalHealth);
+                            Target.GetComponent<TowerCombat>().TakeDamage(ActualDamage);                            
+                        }                        
+                        timer = 0f;
+                    }
+                }
         }
+        // else if(isTargetAArmy&&Target==null){
+        //     BackToPatrol();
+        // }
         
         if(isInjured&&isTargetAArmy==false){
             // Debug.Log("want to return home");
@@ -200,7 +216,7 @@ public class BossArmy : MonoBehaviour
     }
 
         if(isPatrolling){
-            // Debug.Log("patrolling");
+            Debug.Log("patrolling");
             if(Target==null){
                 StartPatrolling(bossArmyManager.GetPatrolPoint());
             }

@@ -24,6 +24,8 @@ public class EnemyWatchTowerSpawner : MonoBehaviour
 
     [SerializeField]private Vector3 playerTower;
     private Coroutine towerBuilding;
+
+    // [SerializeField]private GameObject notifier;
     void Start()
     {
         towerLayerMask = 1 << LayerMask.NameToLayer("Tower");
@@ -66,20 +68,20 @@ public class EnemyWatchTowerSpawner : MonoBehaviour
         //     continue;
         // }
         if(!CheckMinimumLimitDistance(distToCenter)){
-            Debug.Log("tower too close");
+            // Debug.Log("tower too close");
             continue;
             }
         if( !MaxDistanceAndTower(distToCenter,point)){
-            Debug.Log("tower too far or not same boss tower nearby");
+            // Debug.Log("tower too far or not same boss tower nearby");
             continue;
         }
         if (!CheckBotTowerOnThatPoint(point)){
-            Debug.Log("a bot tower already here");
+            // Debug.Log("a bot tower already here");
             continue;
         }
 
         if(!CheckForPlayerTowerOnThatPointAndRange(point)){
-            Debug.Log("tower already here");
+            // Debug.Log("tower already here");
             continue;
         }
 
@@ -106,7 +108,76 @@ public class EnemyWatchTowerSpawner : MonoBehaviour
     Towers = towerList.ToArray(); // ✅ Finalize list to array
 
     Debug.Log("🏁 Finished placing towers.");
+    CheckAllTheTowerPointForExpansion();
 }
+
+void CheckAllTheTowerPointForExpansion()
+{
+    foreach (Transform point in towerPoints)
+    {
+        GameObject otherTower = CheckForOtherTowerInRange(point);
+        if (otherTower != null)
+        {
+            Debug.Log("Expansion possible.");
+            // Instantiate(notifier, otherTower.transform.position, Quaternion.identity);
+            GetComponent<Boss>().TriggerExpansionOnEnemyTower();
+            return;
+        }
+    }
+
+    Debug.Log("Expansion isn't possible.");
+}
+
+public GameObject TowerToDestroy(){
+    //called by boss to get tower to destroy
+     foreach (Transform point in towerPoints)
+    {
+        GameObject otherTower = CheckForOtherTowerInRange(point);
+        if (otherTower != null)
+        {
+            Debug.Log("Expansion possible.");
+            // Instantiate(notifier, otherTower.transform.position, Quaternion.identity);
+            
+            return otherTower;
+        }
+    }
+    return null;
+}
+GameObject CheckForOtherTowerInRange(Transform point)
+{
+    bool collidingBase = false;
+    bool collidingEnemyTower = false;
+    GameObject enemyTower = null;
+
+    // Check what's in range
+    Collider[] hits = Physics.OverlapBox(point.position, playerTower, Quaternion.identity, towerLayerMask);
+
+    foreach (Collider coll in hits)
+    {
+        TowerInstance towerInstance = coll.GetComponentInParent<TowerInstance>();
+
+        if (towerInstance == null)
+        {
+            // Likely a player base (has collider but no tower script)
+            collidingBase = true;
+        }
+        else if (towerInstance.ReturnBossId() != BossId)
+        {
+            // Found enemy tower
+            collidingEnemyTower = true;
+            enemyTower = towerInstance.gameObject;
+        }
+    }
+
+    // Only allow expansion if no base but enemy tower exists
+    if (!collidingBase && collidingEnemyTower)
+    {
+        return enemyTower;
+    }
+
+    return null;
+}
+
 
 
 bool CheckMinimumLimitDistance(float distToCenter){
@@ -148,12 +219,12 @@ bool CheckBotTowerOnThatPoint(Transform point){
 
         if (hits.Length > 0)
         {
-            Debug.Log("skip 2 — a Bot tower already here");
+            // Debug.Log("skip 2 — a Bot tower already here");
             return false;
         }
         else
         {
-            Debug.Log("no tower here");
+            // Debug.Log("no tower here");
             return true;
         }
 
@@ -162,15 +233,15 @@ bool CheckForPlayerTowerOnThatPointAndRange(Transform point){
     Collider[] playerHits = Physics.OverlapBox(point.position, playerTower, 
         Quaternion.identity, towerLayerMask);
         if(playerHits.Length<=0){
-            Debug.Log("nothing");
+            // Debug.Log("nothing");
             return true;
         }
         foreach (Collider coll in playerHits)
         {
-            Debug.Log("hmm");
+            // Debug.Log("hmm");
             TowerInstance toweri = coll.GetComponentInParent<TowerInstance>();
             if(toweri){
-                Debug.Log("Tower near");
+                // Debug.Log("Tower near");
             }
             else{
                 //for player base ,which has layer tower on bottom.
@@ -178,7 +249,7 @@ bool CheckForPlayerTowerOnThatPointAndRange(Transform point){
             }
             if (toweri != null &&toweri.IsTowerBelongToPlayer())
             {
-                Debug.Log("skip 3 — nearby player tower");
+                // Debug.Log("skip 3 — nearby player tower");
                 // yield return null;
                 return false;
             }

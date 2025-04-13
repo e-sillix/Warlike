@@ -50,9 +50,16 @@ public class BossArmyManager : MonoBehaviour
         {
             if (bossArmy.id == id)
             {
-                bossArmy.isInjured = true;
+                bossArmy.isDefeated = true;
             }
         }
+
+        foreach(var barmy in bossArmies){
+            if(barmy.isDefeated==false){
+                return;
+            }
+        }
+        GetComponent<Boss>().BackToPatrol();
     }
     public void ArmyInjured(int id)
     {

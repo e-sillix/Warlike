@@ -28,7 +28,7 @@ public class TowerCombat : MonoBehaviour
         return Health;
     }
 
-    public void TakeDamage(float damage,Attacking Attacking){
+    public void TakeDamage(float damage,Attacking Attacking=null){
         attacking = Attacking;
         Health -= damage;
         Debug.Log("Tower health"+Health);

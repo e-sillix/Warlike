@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Boss : MonoBehaviour
@@ -25,6 +26,7 @@ public class Boss : MonoBehaviour
     private List<BossArmy> SpawnedbossArmies = new List<BossArmy>();
     private GameObject currentTarget;
     private BossArmyManager bossArmyManager ;
+    private bool isTargetTower;
 
    
     void Start()
@@ -84,12 +86,14 @@ public class Boss : MonoBehaviour
         }
     }
 
-    void BackToPatrol(){
+    public void BackToPatrol(){
+        //called from both this and bossArmymangement.when all army are defeated,when building tower.
         foreach(BossArmy bossArmy in SpawnedbossArmies){
             if(bossArmy.IsAlive()){
                 bossArmy.TargetLeft();
             }
         }
+        isTargetTower=false;
     }
     public void ArmyReachedBase(BossArmy bossArmy){
         //this called by the boss army when it reaches the base.
@@ -117,6 +121,10 @@ public class Boss : MonoBehaviour
 
     public void ReportingArmies(GameObject[] breachingArmies)
 {
+    if(currentTarget==null&&isTargetTower){
+        isTargetTower=false;
+    }
+    if(!isTargetTower){
     // If the current target is still breaching, keep targeting it
     if (currentTarget != null && System.Array.Exists(breachingArmies, a => a == currentTarget))
     {
@@ -136,7 +144,24 @@ public class Boss : MonoBehaviour
         currentTarget = null;
         // You can call a patrol function or idle logic here
         BackToPatrol();
-    }
+    }}
 }
 
+public void TriggerExpansionOnEnemyTower(){
+    Debug.Log("Tower will be Marched in 3 seconds");
+    StartCoroutine(InitiatingEnemyTowerDestruction());
+}
+
+IEnumerator InitiatingEnemyTowerDestruction(){
+
+    yield return new WaitForSeconds(3f); 
+
+    GameObject TowerTarget=GetComponent<EnemyWatchTowerSpawner>().TowerToDestroy();
+    if(TowerTarget!=null){
+        currentTarget=TowerTarget;
+        isTargetTower=true;
+        Debug.Log("Tower is being marched in 3 seconds");
+        DirectingAllArmies();
+    }
+}
 }
