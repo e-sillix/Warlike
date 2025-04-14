@@ -29,8 +29,8 @@ public class TouchMarching : MonoBehaviour
     }
 
     lineRenderer.positionCount = 2;
-    lineRenderer.startWidth = 0.1f;
-    lineRenderer.endWidth = 0.1f;
+    lineRenderer.startWidth = 0.2f;
+    lineRenderer.endWidth = 0.2f;
     lineRenderer.enabled = false; // Hide initially
 
     // Auto-assign material (Optional: Replace with your actual material)
@@ -69,7 +69,10 @@ public class TouchMarching : MonoBehaviour
 
                     // Enable UI Line & set start point
                     lineRenderer.enabled = true;
-                    lineRenderer.SetPosition(0, selectedUnit.transform.position);
+                    Vector3 startPos = selectedUnit.transform.position;
+                    startPos.y = 0.3f;
+                    lineRenderer.SetPosition(0, startPos);
+                    // lineRenderer.SetPosition(0, selectedUnit.transform.position);
                     }
                 }
             }
@@ -78,17 +81,27 @@ public class TouchMarching : MonoBehaviour
         if (isHolding) // While dragging
         {
             // ✅ Update start position to follow the unit
-            lineRenderer.SetPosition(0, selectedUnit.transform.position);
+            // lineRenderer.SetPosition(0, selectedUnit.transform.position);
 
             Ray dragRay = Camera.main.ScreenPointToRay(touch.position);
-            if (Physics.Raycast(dragRay, out RaycastHit dragHit))
-            {
-                lineRenderer.SetPosition(1, dragHit.point); // Update end position
-            }
-            else
-            {
-                lineRenderer.SetPosition(1, dragRay.origin + dragRay.direction * 10f); // Extend in direction
-            }
+            // Start position with fixed Y
+Vector3 startPos = selectedUnit.transform.position;
+startPos.y = 0.3f;
+lineRenderer.SetPosition(0, startPos);
+
+// End position with fixed Y
+Vector3 endPos;
+if (Physics.Raycast(dragRay, out RaycastHit dragHit))
+{
+    endPos = dragHit.point;
+}
+else
+{
+    endPos = dragRay.origin + dragRay.direction * 10f;
+}
+endPos.y = 0.3f;
+lineRenderer.SetPosition(1, endPos);
+
 
             if(touch.phase==TouchPhase.Moved){
                  Ray ray1 = Camera.main.ScreenPointToRay(Input.mousePosition);

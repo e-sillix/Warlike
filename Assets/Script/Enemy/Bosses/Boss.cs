@@ -156,19 +156,19 @@ public class Boss : MonoBehaviour
 }
 
 public void TriggerExpansionOnEnemyTower(){
-    Debug.Log("Tower will be Marched in 3 seconds");
+    Debug.Log("Tower will be Marched in 1 seconds");
     StartCoroutine(InitiatingEnemyTowerDestruction());
 }
 
 IEnumerator InitiatingEnemyTowerDestruction(){
 
-    yield return new WaitForSeconds(3f); 
+    yield return new WaitForSeconds(1f); 
 
     GameObject TowerTarget=GetComponent<EnemyWatchTowerSpawner>().TowerToDestroy();
     if(TowerTarget!=null){
         currentTarget=TowerTarget;
         isTargetTower=true;
-        Debug.Log("Tower is being marched in 3 seconds");
+        Debug.Log("Tower is being marched in 1 seconds");
         DirectingAllArmies();
     }
 }

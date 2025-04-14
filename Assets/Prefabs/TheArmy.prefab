@@ -798,7 +798,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &8633054938723291192
 Transform:
   m_ObjectHideFlags: 0
@@ -808,7 +808,7 @@ Transform:
   m_GameObject: {fileID: 6302051357561956041}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4274,9 +4274,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentTroopsObj: {fileID: 8807375230811960969}
-  lowSpawnLimit: 5
-  TroopSpawnLimit: 15
-  TroopsForHighestLimit: 500
 --- !u!1 &7906592544192707190
 GameObject:
   m_ObjectHideFlags: 0

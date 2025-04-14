@@ -12,6 +12,8 @@ public class TowerPointPlacer : MonoBehaviour
     private GameObject[] towerPoints; // Now public and will store spawned points
 
     private Coroutine TowerExpansion;
+
+    [SerializeField]private int TowerExpansionTime;
     void Start()
     {
         towerPoints = new GameObject[totalPoints]; // initialize array
@@ -70,7 +72,7 @@ public class TowerPointPlacer : MonoBehaviour
         // }
     }
     IEnumerator TriggerTowerExpansion(){
-        yield return new WaitForSeconds(3f); 
+        yield return new WaitForSeconds(TowerExpansionTime); 
          EnemyWatchTowerSpawner[] allSpawners = FindObjectsOfType<EnemyWatchTowerSpawner>();
         foreach (EnemyWatchTowerSpawner spawner in allSpawners)
         {

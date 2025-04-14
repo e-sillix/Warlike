@@ -61,7 +61,7 @@ public class EnemyWatchTowerSpawner : MonoBehaviour
 {
     foreach (Transform point in towerPoints)
     {
-    yield return new WaitForSeconds(TimeGapOnEachTower);
+    
         float distToCenter = Vector3.Distance(transform.position, point.position);
 
         // 🔴 Skip if point is too close to boss
@@ -91,7 +91,7 @@ public class EnemyWatchTowerSpawner : MonoBehaviour
        
 
        
-
+        yield return new WaitForSeconds(TimeGapOnEachTower);
         // ✅ Place tower
         GameObject tower = Instantiate(towerPrefab, point.position, Quaternion.identity);
         tower.transform.SetParent(TowerParent.transform);

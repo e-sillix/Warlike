@@ -38,12 +38,11 @@ public class TowerPersistanceManager : MonoBehaviour
         TowerInstance instance = newTower.GetComponent<TowerInstance>();
         if (instance != null)
         {
-            if(data.bossId != 0)
-            {
+            
                 instance.PersistanceSpawning(data.bossId,data.towerId); // pass boss obj if needed
                 newTower.GetComponent<TowerCombat>().Dependency(troopsExpeditionManager,
                 towerPointPlacer);
-            }
+            
         }
     }
 
