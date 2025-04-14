@@ -43,7 +43,10 @@ public class Boss : MonoBehaviour
     public int ReturnBossId(){
         return BossId;
     }
-
+    public Color ReturnColor(){
+        //by towerinstance when persistance.
+        return BossColor;
+    }
     public void StartPatrol(){
         Debug.Log("Patrolling started.");
          List<BossArmyManager.BossArmies> activeArmies = bossArmyManager.GetActiveAndHomeBossArmies();

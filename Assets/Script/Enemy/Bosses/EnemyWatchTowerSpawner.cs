@@ -18,9 +18,11 @@ public class EnemyWatchTowerSpawner : MonoBehaviour
     [SerializeField]private float TimeGapOnEachTower;
     [SerializeField]private TroopsExpeditionManager troopsExpeditionManager;
     [SerializeField]private TowerPointPlacer towerPointPlacer; // Reference to the TowerPointPlacer script
+    
+    [SerializeField]private GameObject TowerParent;
     private int BossId;
     private GameObject[] Towers;
-    private List<GameObject> towerList = new List<GameObject>(); // 🧱 Track built towers
+    // private List<GameObject> towerList = new List<GameObject>(); // 🧱 Track built towers
 
     [SerializeField]private Vector3 playerTower;
     private Coroutine towerBuilding;
@@ -59,6 +61,7 @@ public class EnemyWatchTowerSpawner : MonoBehaviour
 {
     foreach (Transform point in towerPoints)
     {
+    yield return new WaitForSeconds(TimeGapOnEachTower);
         float distToCenter = Vector3.Distance(transform.position, point.position);
 
         // 🔴 Skip if point is too close to boss
@@ -91,7 +94,7 @@ public class EnemyWatchTowerSpawner : MonoBehaviour
 
         // ✅ Place tower
         GameObject tower = Instantiate(towerPrefab, point.position, Quaternion.identity);
-        tower.transform.SetParent(point);
+        tower.transform.SetParent(TowerParent.transform);
 
         tower.GetComponent<TowerInstance>().EnemyTowerDependency(
             GetComponent<Boss>().ReturnBossId(), towerColor,gameObject
@@ -100,12 +103,12 @@ public class EnemyWatchTowerSpawner : MonoBehaviour
         tower.GetComponent<TowerCombat>().Dependency(troopsExpeditionManager, towerPointPlacer);
         // Debug.Log("✅ Tower placed");
 
-        towerList.Add(tower); // ✅ Add to list
+        // towerList.Add(tower); // ✅ Add to list
 
         Debug.Log("✅ Tower placed");
-        yield return new WaitForSeconds(TimeGapOnEachTower);
+        
     }
-    Towers = towerList.ToArray(); // ✅ Finalize list to array
+    // Towers = towerList.ToArray(); // ✅ Finalize list to array
 
     Debug.Log("🏁 Finished placing towers.");
     CheckAllTheTowerPointForExpansion();
@@ -259,21 +262,21 @@ bool CheckForPlayerTowerOnThatPointAndRange(Transform point){
 }
 
 
-public void RemoveTowerFromList(GameObject tower)
-    {
-        if (towerList.Contains(tower))
-        {
-            towerList.Remove(tower);
-            Towers = towerList.ToArray(); // 🔁 Keep array in sync
-            Debug.Log("🚫 Tower removed from list.");
-        }
-        else
-        {
-            Debug.LogWarning("⚠️ Tried to remove a tower that isn't in the list.");
-        }
-    }
-    public GameObject[] GetTowers()
-    {
-        return Towers;
-    }
+// public void RemoveTowerFromList(GameObject tower)
+//     {
+//         if (towerList.Contains(tower))
+//         {
+//             towerList.Remove(tower);
+//             Towers = towerList.ToArray(); // 🔁 Keep array in sync
+//             Debug.Log("🚫 Tower removed from list.");
+//         }
+//         else
+//         {
+//             Debug.LogWarning("⚠️ Tried to remove a tower that isn't in the list.");
+//         }
+//     }
+    // public GameObject[] GetTowers()
+    // {
+    //     return Towers;
+    // }
 }

@@ -56,6 +56,7 @@ public class TowerPointPlacer : MonoBehaviour
     // }
     
     public void TowerIsDestroyed(GameObject tower){
+        
         Destroy(tower);
         if(TowerExpansion!=null){
             StopCoroutine(TowerExpansion);
