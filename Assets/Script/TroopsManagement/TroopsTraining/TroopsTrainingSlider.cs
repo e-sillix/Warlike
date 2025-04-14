@@ -11,7 +11,11 @@ public class TroopsTrainingSlider : MonoBehaviour
 
     // public TMP_InputField level1Field,level2Field,level3Field,level4Field,level5Field; 
     // For TextMeshPro InputField   
-
+    [SerializeField] private Button level1MinusButton, level1MaxButton;
+    [SerializeField] private Button level2MinusButton, level2MaxButton;
+    [SerializeField] private Button level3MinusButton, level3MaxButton;
+    [SerializeField] private Button level4MinusButton, level4MaxButton;
+    [SerializeField] private Button level5MinusButton, level5MaxButton;
     private int level1CounterLM,level2CounterLM,level3CounterLM,level4CounterLM,level5CounterLM;
     private int BarrackCapacity ; // Max unit capacity
     private int currentTotal;           // Sum of all slider values
@@ -32,7 +36,43 @@ public class TroopsTrainingSlider : MonoBehaviour
         level4Slider.onValueChanged.AddListener(delegate { AValueIsChanged(level4Slider, level4Counter); });
         level5Slider.onValueChanged.AddListener(delegate { AValueIsChanged(level5Slider, level5Counter); });
         }
+
+
+
+          // Add Button Listeners
+        level1MinusButton.onClick.AddListener(() => DecreaseSlider(level1Slider, level1Counter));
+        level2MinusButton.onClick.AddListener(() => DecreaseSlider(level2Slider, level2Counter));
+        level3MinusButton.onClick.AddListener(() => DecreaseSlider(level3Slider, level3Counter));
+        level4MinusButton.onClick.AddListener(() => DecreaseSlider(level4Slider, level4Counter));
+        level5MinusButton.onClick.AddListener(() => DecreaseSlider(level5Slider, level5Counter));
+
+        level1MaxButton.onClick.AddListener(() => SetSliderToMax(level1Slider, level1Counter));
+        level2MaxButton.onClick.AddListener(() => SetSliderToMax(level2Slider, level2Counter));
+        level3MaxButton.onClick.AddListener(() => SetSliderToMax(level3Slider, level3Counter));
+        level4MaxButton.onClick.AddListener(() => SetSliderToMax(level4Slider, level4Counter));
+        level5MaxButton.onClick.AddListener(() => SetSliderToMax(level5Slider, level5Counter));
+    
     }
+   private void SetSliderToMax(Slider targetSlider, TextMeshProUGUI targetCounter)
+{
+    // Set all sliders to 0 first
+    level1Slider.value = 0;
+    level2Slider.value = 0;
+    level3Slider.value = 0;
+    level4Slider.value = 0;
+    level5Slider.value = 0;
+
+    // Then set only the target one to full capacity
+    targetSlider.value = BarrackCapacity;
+
+    // Update everything
+    AValueIsChanged(level1Slider, level1Counter);
+    AValueIsChanged(level2Slider, level2Counter);
+    AValueIsChanged(level3Slider, level3Counter);
+    AValueIsChanged(level4Slider, level4Counter);
+    AValueIsChanged(level5Slider, level5Counter);
+}
+
 
     public void SetMaxBarrackCapacityForUI(int barrackCapacity){
         //this will be called by ui manager
@@ -41,9 +81,16 @@ public class TroopsTrainingSlider : MonoBehaviour
         level2Slider.maxValue = BarrackCapacity;
         level3Slider.maxValue = BarrackCapacity;
         level4Slider.maxValue = BarrackCapacity;
-        level5Slider.maxValue = BarrackCapacity;               
+        level5Slider.maxValue = BarrackCapacity;             
     }
-    
+     private void DecreaseSlider(Slider slider, TextMeshProUGUI counter)
+    {
+        if (slider.value > 0)
+        {
+            slider.value -= 1;
+            AValueIsChanged(slider, counter);
+        }
+    }
     void AValueIsChanged(Slider slider, TextMeshProUGUI counter){
         //this will be triggered by all five inputs
         // Calculate the current total sum of all slider values

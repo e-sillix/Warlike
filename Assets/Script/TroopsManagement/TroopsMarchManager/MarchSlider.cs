@@ -9,6 +9,11 @@ public class MarchSlider : MonoBehaviour
     [SerializeField] private Slider level1Slider,level2Slider,level3Slider,level4Slider,level5Slider;
     [SerializeField] private TextMeshProUGUI level1Counter,level2Counter,level3Counter
     ,level4Counter,level5Counter;
+    [SerializeField]private GameObject Level1,Level2,Level3,Level4,Level5;
+    [SerializeField] private Button level1MinusButton, level1MaxButton, level2MinusButton, 
+    level2MaxButton, level3MinusButton, level3MaxButton, level4MinusButton, level4MaxButton, 
+    level5MinusButton, level5MaxButton;
+
     // this one will be removed .
 
     // public TMP_InputField level1Field,level2Field,level3Field,level4Field,level5Field; 
@@ -37,32 +42,68 @@ public class MarchSlider : MonoBehaviour
         level4Slider.onValueChanged.AddListener(delegate { AValueIsChanged(level4Slider, level4Counter); });
         level5Slider.onValueChanged.AddListener(delegate { AValueIsChanged(level5Slider, level5Counter); });
         }
+
+
+        // Level 1 buttons
+level1MinusButton.onClick.AddListener(() => { ChangeSliderValue(level1Slider, -1); });
+level1MaxButton.onClick.AddListener(() => { SetSliderToMax(level1Slider); });
+
+// Level 2 buttons
+level2MinusButton.onClick.AddListener(() => { ChangeSliderValue(level2Slider, -1); });
+level2MaxButton.onClick.AddListener(() => { SetSliderToMax(level2Slider); });
+
+// Level 3 buttons
+level3MinusButton.onClick.AddListener(() => { ChangeSliderValue(level3Slider, -1); });
+level3MaxButton.onClick.AddListener(() => { SetSliderToMax(level3Slider); });
+
+// Level 4 buttons
+level4MinusButton.onClick.AddListener(() => { ChangeSliderValue(level4Slider, -1); });
+level4MaxButton.onClick.AddListener(() => { SetSliderToMax(level4Slider); });
+
+// Level 5 buttons
+level5MinusButton.onClick.AddListener(() => { ChangeSliderValue(level5Slider, -1); });
+level5MaxButton.onClick.AddListener(() => { SetSliderToMax(level5Slider); });
+
     }
+
+    private void ChangeSliderValue(Slider slider, int changeAmount)
+{
+    slider.value = Mathf.Clamp(slider.value + changeAmount, 0, slider.maxValue);
+    UpdateAllValues();
+}
+
+private void SetSliderToMax(Slider slider)
+{
+    slider.value = slider.maxValue;
+    UpdateAllValues();
+}
 
     public void SetTroopsLimits(int[] TroopsData) 
 {
     // This will be called by UI Manager
     troopsData = TroopsData;
 
-    SetUIElement(level1Slider, level1Counter, troopsData[0]);
-    SetUIElement(level2Slider, level2Counter, troopsData[1]);
-    SetUIElement(level3Slider, level3Counter, troopsData[2]);
-    SetUIElement(level4Slider, level4Counter, troopsData[3]);
-    SetUIElement(level5Slider, level5Counter, troopsData[4]);
+    SetUIElement(level1Slider, level1Counter, troopsData[0],Level1);
+    SetUIElement(level2Slider, level2Counter, troopsData[1],Level2);
+    SetUIElement(level3Slider, level3Counter, troopsData[2],Level3);
+    SetUIElement(level4Slider, level4Counter, troopsData[3],Level4);
+    SetUIElement(level5Slider, level5Counter, troopsData[4],Level5);
 }
 
 // Helper function to set slider and text visibility
-private void SetUIElement(Slider slider, TextMeshProUGUI counterText, int value)
+private void SetUIElement(Slider slider, TextMeshProUGUI counterText, int value,GameObject s)
 {
     bool isActive = value > 0;
-    slider.gameObject.SetActive(isActive); // Hide if value is 0
-    counterText.gameObject.SetActive(isActive);
+    s.SetActive(isActive);
+    // slider.gameObject.SetActive(isActive); // Hide if value is 0
+    // counterText.gameObject.SetActive(isActive);
 
     if (isActive)
     {
         slider.maxValue = value; // Set max value only if it's visible
         counterText.text = 0.ToString(); // Update counter text
-        slider.value=0;
+        slider.value=value;
+        UpdateAllValues();
     }
 }
 
@@ -74,27 +115,27 @@ private void SetUIElement(Slider slider, TextMeshProUGUI counterText, int value)
         totalSliderValue = GetCurrentTotal();
 
         // If the total exceeds TroopsCapacity, adjust the last changed slider
-        if (totalSliderValue > TroopsCapacity)
-        {
-            // Identify the last changed slider
-            Slider lastChangedSlider = UnityEngine.EventSystems.EventSystem
-            .current.currentSelectedGameObject?.GetComponent<Slider>();
+        // if (totalSliderValue > TroopsCapacity)
+        // {
+        //     // Identify the last changed slider
+        //     Slider lastChangedSlider = UnityEngine.EventSystems.EventSystem
+        //     .current.currentSelectedGameObject?.GetComponent<Slider>();
 
-            if (lastChangedSlider != null)
-            {
-                // Reduce the last changed slider value to stay within the limit
-                lastChangedSlider.value -= (totalSliderValue - TroopsCapacity);
-            }
-        }
-        else
-        {
+        //     if (lastChangedSlider != null)
+        //     {
+        //         // Reduce the last changed slider value to stay within the limit
+        //         lastChangedSlider.value -= (totalSliderValue - TroopsCapacity);
+        //     }
+        // }
+        // else
+        // {
             // Update local variables for each slider value
             level1CounterLM = Mathf.FloorToInt(level1Slider.value);
             level2CounterLM = Mathf.FloorToInt(level2Slider.value);
             level3CounterLM = Mathf.FloorToInt(level3Slider.value);
             level4CounterLM = Mathf.FloorToInt(level4Slider.value);
             level5CounterLM = Mathf.FloorToInt(level5Slider.value);
-        }
+        // }
 
         // Update the corresponding TextMeshProUGUI with the new slider value
         level1Counter.text = level1CounterLM.ToString();

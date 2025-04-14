@@ -71,7 +71,9 @@ public class CreepSpawnManager : MonoBehaviour
 
     // Ignore layer "Ground"
     int groundLayer = LayerMask.NameToLayer("Ground");
-    int ignoreGroundMask = ~(1 << groundLayer); // everything except Ground
+    int towerLayer = LayerMask.NameToLayer("Tower");
+
+    int ignoreGroundMask = ~( (1 << groundLayer) | (1 << towerLayer) );
 
     for (int i = 0; i < maxAttempts; i++)
     {
