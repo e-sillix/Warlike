@@ -50,7 +50,7 @@ public class CreepVisuals : MonoBehaviour
     }
 
     public void TriggerIdle(){
-         Debug.Log("Idle is triggered");
+        //  Debug.Log("Idle is triggered");
          foreach (GameObject troop in AllTroops)
     {
         troop.GetComponent<Animator>().SetBool("IsWalking", false);
@@ -58,7 +58,7 @@ public class CreepVisuals : MonoBehaviour
     }
     }
     public void TriggerAttack(){
-                Debug.Log("Attack is triggered");
+                // Debug.Log("Attack is triggered");
 
         foreach (GameObject troop in AllTroops)
     {
@@ -66,7 +66,7 @@ public class CreepVisuals : MonoBehaviour
     }
     }
     public void TriggerWalk(){
-        Debug.Log("walk is triggered");
+        // Debug.Log("walk is triggered");
         foreach (GameObject troop in AllTroops)
     {
         // troop.GetComponent<Animator>().SetBool("IsWalking", true);

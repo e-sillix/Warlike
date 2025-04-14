@@ -45,8 +45,10 @@ public class TowerCombat : MonoBehaviour
         healthFill.fillAmount = fillPercent;
         // Debug.Log("Boss health updated.:"+fillPercent);
     }
-    void OnDefeat(){
+    public void OnDefeat(){
+        //when health 0, or boss get's defeated.
         Debug.Log("Tower is destroyed");
+        
         //for enemy only
         GetComponent<TowerInstance>().RemoveFromTheTowerList();
         towerPointPlacer.TowerIsDestroyed(this.gameObject);

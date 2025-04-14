@@ -32,6 +32,8 @@ public class Attacking : MonoBehaviour
     public void StartAttacking(GameObject target){
         Target=target;
         AttackingRange=GetComponent<TheUnit>().ReturnAttackRange();
+        GetComponent<TroopsVisualInstance>().TriggerIdle();
+        Debug.Log("i called idle startAttacking");
         GetComponent<TroopsVisualInstance>().TriggerAttacking();
         if(target.GetComponent<TheCreep>()){
             theCreep=target.GetComponent<TheCreep>();
@@ -131,6 +133,7 @@ public class Attacking : MonoBehaviour
     else{
         //this will be triggered if it was previously in combat
         if(InCombact){
+            Debug.Log("i called idle incombat");
             GetComponent<TroopsVisualInstance>().TriggerIdle();
         }
         InCombact=false;

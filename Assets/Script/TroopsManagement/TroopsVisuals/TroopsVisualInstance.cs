@@ -63,6 +63,7 @@ public class TroopsVisualInstance : MonoBehaviour
     }
 }
 public void TriggerWalking(){
+    // Debug.Log("Walking animation");
     StartCoroutine(WaitForConditionWalking(isAllTroopsSpawned));
 
      
@@ -86,7 +87,8 @@ public void TriggerWalking(){
     }
 
     public void TriggerIdle(){
-         StartCoroutine(WaitForCondition(isAllTroopsSpawned));
+        // Debug.Log("idle animation");
+        StartCoroutine(WaitForCondition(isAllTroopsSpawned));
         
     }
     private IEnumerator WaitForCondition(bool condition)
@@ -107,14 +109,31 @@ public void TriggerWalking(){
 }
 
     public void TriggerAttacking(){
-    foreach (GameObject troop in AllTroops)
-    {
-        troop.GetComponent<Animator>().SetBool("IsAttacking", true);
-    }
+         StartCoroutine(WaitForConditionAttacking(isAllTroopsSpawned));
+    //     Debug.Log("A animation");
+    // foreach (GameObject troop in AllTroops)
+    // {
+    //     troop.GetComponent<Animator>().SetBool("IsAttacking", true);
+    // }
     }
     
 
+    private IEnumerator WaitForConditionAttacking(bool condition)
+{
+    // Wait until the condition is true
+    yield return new WaitUntil(() => condition);
 
+    // Now trigger the idle animation
+    foreach (GameObject troop in AllTroops)
+    {
+        if (troop.GetComponent<Animator>())
+        {
+        Animator anim = troop.GetComponent<Animator>();
+            // anim.SetBool("IsWalking", false);
+            anim.SetBool("IsAttacking", true);
+        }
+    }
+}
 
 
 

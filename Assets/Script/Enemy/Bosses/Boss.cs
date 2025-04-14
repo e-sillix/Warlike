@@ -113,7 +113,12 @@ public class Boss : MonoBehaviour
 
                 Destroy(bossArmy.gameObject);
             }
-
+           TowerInstance[] allTowers = FindObjectsOfType<TowerInstance>();
+           foreach(TowerInstance t in allTowers){
+            if(t.ReturnBossId()==BossId){
+                t.GetComponent<TowerCombat>().OnDefeat();
+            }
+           }
         Destroy(gameObject);
     }}
 

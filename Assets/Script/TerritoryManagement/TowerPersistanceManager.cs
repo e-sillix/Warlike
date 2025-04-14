@@ -47,7 +47,7 @@ public class TowerPersistanceManager : MonoBehaviour
         }
     }
 
-    Debug.Log("✅ Loaded and spawned " + dataList.towers.Count + " towers.");
+    // Debug.Log("✅ Loaded and spawned " + dataList.towers.Count + " towers.");
 }
 
 }

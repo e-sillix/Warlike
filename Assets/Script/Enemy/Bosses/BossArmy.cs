@@ -39,6 +39,9 @@ public class BossArmy : MonoBehaviour
     private bool IsReturnBase,isAlive=true,isInjured=false,isReturningBase=false,
     isPatrolling=true,isTargetAArmy=false;
 
+    private bool WalkingVar=false;
+    private bool AttackingVar=false;
+
 
     // public void TargetAArmy(bool t){
     //     isTargetAArmy=true;
@@ -85,7 +88,7 @@ public class BossArmy : MonoBehaviour
         isAlive=false;
         bossArmyManager.ArmyDefeated(ArmyID);
         ReturnBase();
-        Debug.Log("Boss Army Defeated.");
+        // Debug.Log("Boss Army Defeated.");
     }
     void OnInjured(){
          bossArmyManager.ArmyInjured(ArmyID);
@@ -105,9 +108,10 @@ public class BossArmy : MonoBehaviour
     public void TargetLocked(GameObject target){
         
         if(isAlive&&target){
-        Debug.Log("Army given the target.");
+        // Debug.Log("Army given the target.");
 
         Target=target;
+        GetComponent<BossArmyVisual>().FaceTheTarget(Target.transform.position);
         IsReturnBase=false;
         isReturningBase=false;
         isPatrolling=false;
@@ -147,6 +151,7 @@ public class BossArmy : MonoBehaviour
     public void ReturnBase(){
         //trigger by Boss when tresspasser can't be located.
         Target=Spawnpoint;
+        GetComponent<BossArmyVisual>().FaceTheTarget(Target.transform.position);
         isPatrolling=false;
         IsReturnBase=true;
         isTargetAArmy=false;
@@ -154,6 +159,7 @@ public class BossArmy : MonoBehaviour
      void StartPatrolling(Transform patrolPoint){
         //trigger by Boss when tresspasser can't be located.
         Target=patrolPoint.gameObject;
+        GetComponent<BossArmyVisual>().FaceTheTarget(Target.transform.position);
         isPatrolling=true;
         IsReturnBase=false;
         isReturningBase=false;
@@ -162,7 +168,7 @@ public class BossArmy : MonoBehaviour
     void Update(){
 
         if(isTargetAArmy&&Target){
-            Debug.Log("chasing army or tower");
+            // Debug.Log("chasing army or tower");
             float distanceToAttacker = Vector3.Distance(transform.position, Target.transform.position);
 
             
@@ -177,9 +183,21 @@ public class BossArmy : MonoBehaviour
             {
                 Vector3 direction = (Target.transform.position - transform.position).normalized;
                 transform.position += direction * moveSpeed * Time.deltaTime;
+                if(!WalkingVar){
+                    WalkingVar=true;
+                    AttackingVar=false;
+                    GetComponent<BossArmyVisual>().TriggerIdle();
+                    GetComponent<BossArmyVisual>().TriggerWalk();
+                }
             }
             else if( Target.GetComponent<Attacking>()){
                     timer += Time.deltaTime;
+                    if(!AttackingVar){
+                        AttackingVar=true;
+                        WalkingVar=false;
+                        GetComponent<BossArmyVisual>().TriggerIdle();
+                        GetComponent<BossArmyVisual>().TriggerAttack();
+                    }
 
                     if (timer >= RateOfAttack)
                     {
@@ -192,7 +210,12 @@ public class BossArmy : MonoBehaviour
                 }
                 else if(Target.GetComponent<TowerCombat>()){
                     timer += Time.deltaTime;
-
+                     if(!AttackingVar){
+                        AttackingVar=true;
+                        WalkingVar=false;
+                        GetComponent<BossArmyVisual>().TriggerIdle();
+                        GetComponent<BossArmyVisual>().TriggerAttack();
+                    }
                     if (timer >= RateOfAttack)
                     {
                         if(Target){
@@ -216,7 +239,7 @@ public class BossArmy : MonoBehaviour
     }
 
         if(isPatrolling){
-            Debug.Log("patrolling");
+            // Debug.Log("patrolling");
             if(Target==null){
                 StartPatrolling(bossArmyManager.GetPatrolPoint());
             }
@@ -225,6 +248,12 @@ public class BossArmy : MonoBehaviour
             {
                 Vector3 direction = (Target.transform.position - transform.position).normalized;
                 transform.position += direction * moveSpeed * Time.deltaTime;
+                if(!WalkingVar){
+                    WalkingVar=true;
+                    AttackingVar=false;
+                    GetComponent<BossArmyVisual>().TriggerIdle();
+                    GetComponent<BossArmyVisual>().TriggerWalk();
+                }
             }
             else{
                 // if(isPatrolling){
@@ -243,6 +272,12 @@ public class BossArmy : MonoBehaviour
             {
                 Vector3 direction = (Target.transform.position - transform.position).normalized;
                 transform.position += direction * moveSpeed * Time.deltaTime;
+                if(!WalkingVar){
+                    WalkingVar=true;
+                    AttackingVar=false;
+                    GetComponent<BossArmyVisual>().TriggerIdle();
+                    GetComponent<BossArmyVisual>().TriggerWalk();
+                }
             }
             else{
                
