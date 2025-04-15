@@ -7,7 +7,8 @@ using System.Data.Common;
 
 public class TowerInstance : MonoBehaviour
 {
-    [SerializeField]private GameObject towerRendererObj;
+    [SerializeField]private GameObject TowerBoundary1,TowerBoundary2,
+    TowerBoundary3,TowerBoundary4;
 
     [SerializeField]private GameObject UIComponent;
 
@@ -90,6 +91,7 @@ public class TowerInstance : MonoBehaviour
                 if(boss.GetComponent<Boss>().ReturnBossId()==BossId){
                     Boss=boss.gameObject;
                     AssignColor(boss.ReturnColor());
+                    Debug.Log("Color:"+boss.ReturnColor());
                     break;
                 }
             }
@@ -125,18 +127,19 @@ public class TowerInstance : MonoBehaviour
         }
         return isPlayerTheOwner;
     }
-    public void AssignColor(Color newColor){
-        Renderer renderer = towerRendererObj.GetComponent<Renderer>();
-        if (renderer != null)
-        {
-            // Use sharedMaterial if you want all using same material to change
-            renderer.material.color = newColor;
-        }
-        else
-        {
-            Debug.LogWarning("No Renderer found on this GameObject!");
-        }
-    }
+    public void AssignColor(Color newColor)
+{
+    Renderer renderer1 = TowerBoundary1.GetComponent<Renderer>();
+    Renderer renderer2 = TowerBoundary2.GetComponent<Renderer>();
+    Renderer renderer3 = TowerBoundary3.GetComponent<Renderer>();
+    Renderer renderer4 = TowerBoundary4.GetComponent<Renderer>();
+
+    if (renderer1 != null) renderer1.material.SetColor("_Color", newColor);
+    if (renderer2 != null) renderer2.material.SetColor("_Color", newColor);
+    if (renderer3 != null) renderer3.material.SetColor("_Color", newColor);
+    if (renderer4 != null) renderer4.material.SetColor("_Color", newColor);
+}
+
 
     public void RemoveFromTheTowerList(){
         //tower combat when defeated.

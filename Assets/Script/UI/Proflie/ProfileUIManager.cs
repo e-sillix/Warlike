@@ -6,7 +6,8 @@ using UnityEngine.UI;
 public class ProfileUIManager : MonoBehaviour
 {
     [SerializeField]private GameObject profileUI,profileStage1UI,
-    profileStage2UI,SettingUI,AchievementsUI,TroopsUI,StagesUI,ButtonBack;
+    profileStage2UI,SettingUI,AchievementsUI,TroopsUI,StagesUI,ButtonBack,
+    StoreUI;
     [SerializeField]private SettingsManager settingsManager;
 
     private ProflieTroopUI proflieTroopUI;
@@ -31,6 +32,13 @@ public class ProfileUIManager : MonoBehaviour
         {
             child.gameObject.SetActive(false);
         }
+    }
+
+    public void OpenStoreUI(){
+        StoreUI.SetActive(true);
+    }
+    public void CloseStoreUI(){
+        StoreUI.SetActive(false);
     }
     public void OpenSettingUI(){
         ActivateStage2UI();
