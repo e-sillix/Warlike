@@ -32432,7 +32432,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 0.95686275, g: 0.78431374, b: 0.9137255, a: 1}
-  m_Intensity: 2
+  m_Intensity: 1.6
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -104774,6 +104774,7 @@ CanvasRenderer:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 2135914870}
   - {fileID: 705507995}
   - {fileID: 963194228}
   - {fileID: 622944428}
@@ -104783,4 +104784,3 @@ SceneRoots:
   - {fileID: 1874264757}
   - {fileID: 731424376}
   - {fileID: 175061263}
-  - {fileID: 2135914870}
