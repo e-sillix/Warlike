@@ -66,7 +66,8 @@ public class NewArmyManger : MonoBehaviour
         if(totalNumberOfTroops>0){
 
         
-        newArmyGO=Instantiate(TheUnitPrefab,Spawnpoint.transform.position, Spawnpoint.transform.rotation);
+        newArmyGO=Instantiate(TheUnitPrefab,Spawnpoint.transform.position, 
+        Spawnpoint.transform.rotation);
      
         troopsCountManager.WithDrawTroops(selectedTroopType,troopsToMarch);
     //  +++++++++

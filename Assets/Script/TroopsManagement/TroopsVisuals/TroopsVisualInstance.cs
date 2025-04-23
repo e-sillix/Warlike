@@ -21,9 +21,18 @@ public class TroopsVisualInstance : MonoBehaviour
     SingleTroops = t;
     TotalTroops = (int)totalNumberOfTroops;
     float spacing = 2.0f;
+    int troopsToSpawn=0;
 
     // ✅ Initialize `AllTroops` only once, outside the loop
-    int troopsToSpawn = Mathf.Clamp(TotalTroops / 10, 1, 15);
+
+    if(TotalTroops<5){
+        troopsToSpawn=TotalTroops;
+    }
+    else{
+
+    troopsToSpawn=6;
+    troopsToSpawn += Mathf.Clamp(TotalTroops / 10, 1, 9);
+    }
     AllTroops = new GameObject[troopsToSpawn];
 
     int troopsPerRow = Mathf.CeilToInt(Mathf.Sqrt(troopsToSpawn));
@@ -36,7 +45,7 @@ public class TroopsVisualInstance : MonoBehaviour
         Vector3 newPos = new Vector3(column * spacing, 0, row * spacing);
         AllTroops[i].transform.localPosition = newPos;
     }
-
+    
     isAllTroopsSpawned = true;
 // }
 
