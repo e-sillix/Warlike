@@ -107,7 +107,7 @@ public class Boss : MonoBehaviour
         Destroy(bossArmy.gameObject);
     }
     public void OnDefeat(){
-        Debug.Log("Boss Defeated,Give Rewards");
+        // Debug.Log("Boss Defeated,Give Rewards");
         gameEnemyManager.AEnemyKingDomIsDefeated(BossId);
 
         foreach (BossArmy bossArmy in SpawnedbossArmies){

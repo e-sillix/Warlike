@@ -8,6 +8,9 @@ public class GameEnemyManager : MonoBehaviour
 
    
     private string filePath;
+    // [SerializeField]private GameObject EnemyRewardPanel;
+    [SerializeField]private int Stone,Wood,Grain;
+    [SerializeField]private RewardManager rewardManager;
     void Start()
     {
         filePath = Application.persistentDataPath + "/DEnemyKingDom.json";
@@ -34,6 +37,7 @@ public class GameEnemyManager : MonoBehaviour
     }
     }
     public void AEnemyKingDomIsDefeated(int enemyID){
+        rewardManager.GiveReward(new int[]{Wood,Grain,Stone});
         filePath = Application.persistentDataPath + "/DEnemyKingDom.json";
         DefeatedEnemyData data = new DefeatedEnemyData();
     //this to save on memory and give rewards to player.
