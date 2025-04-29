@@ -31,6 +31,8 @@ public class BuildingInstance : MonoBehaviour
 
     private TimeSpan SavedTimeElapsed;
     private int[] previousUpdateData;
+
+    private int buildingId;
     // private string name;
     // private int level;
 
@@ -38,6 +40,13 @@ public class BuildingInstance : MonoBehaviour
     //     //by building persistence manager
     //     return BuildingIsBeingUpgraded;
     // }
+
+    public void SetBuildingId(int i){
+        buildingId=i;
+    }
+    public int GetBuildingId(){
+        return buildingId;
+    }
     public TimeElapsedManagement ReturnTimeElapsedManagement(){
         return timeElapsedManagement;
     }

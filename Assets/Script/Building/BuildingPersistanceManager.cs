@@ -89,7 +89,9 @@ public class BuildingPersistenceManager : MonoBehaviour
     // Check if building already exists (by name)
     for (int i = 0; i < buildings.Count; i++)
     {
-        if (buildings[i].buildingName == nameOfBuilding)
+        // if (buildings[i].buildingName == nameOfBuilding)
+        if (buildings[i].buildingId == building.GetComponent<BuildingInstance>().
+        GetBuildingId())
         {
             buildings[i].level = level;
             buildings[i].position = pos;
@@ -116,6 +118,7 @@ public class BuildingPersistenceManager : MonoBehaviour
     BuildingInfo newBuilding = new BuildingInfo(buildingID, nameOfBuilding, level, pos, resourceAmount
     ,isTrainingOngoing,TrainingProgression,TotalTime,troopsData);
     buildings.Add(newBuilding);
+    building.GetComponent<BuildingInstance>().SetBuildingId(buildingID);
     SaveToFile();
 }
 
