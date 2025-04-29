@@ -11,6 +11,7 @@ public class BuildingPersistenceManager : MonoBehaviour
     [SerializeField]private BuildingDependencyManager buildingDependencyManager;
     private List<BuildingInfo> buildings = new List<BuildingInfo>();
 
+    [SerializeField] private GameObject TheBase;
     private (int years, int months, int days, int hours, int minutes, int seconds) timeElapsed;
     [SerializeField] private List<GameObject> buildingPrefabs; // Assign prefabs in Inspector
 
@@ -200,6 +201,7 @@ public class BuildingPersistenceManager : MonoBehaviour
                 // }
                 spawnedBuilding.GetComponent<BuildingInstance>().BuildingStatusRestoring(
                     data.buildingStatus,data.upgradeData,SavedTimeElapsed);
+                spawnedBuilding.GetComponent<BuildingInstance>().SetBuildingId(data.buildingId);
                 // else if(spawnedBuilding.GetComponent<Base>()){
                 //     SetPreviousBase(spawnedBuilding, data.level);
                 // }
@@ -210,6 +212,7 @@ public class BuildingPersistenceManager : MonoBehaviour
             // }
             if(data.buildingName=="Base"){
                 SetPreviousBase(data.level,data.buildingStatus,data.upgradeData,SavedTimeElapsed);
+                TheBase.GetComponent<BuildingInstance>().SetBuildingId(data.buildingId);
             }
         }
     }
