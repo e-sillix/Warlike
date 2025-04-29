@@ -65,9 +65,9 @@ public class CurrencyManager : MonoBehaviour
 
     private void UpdateUICounter()
     {
-        woodsCounter.text = "W: " + NumberFormatter.FormatNumber(LocalResourcesCurrencies[ResourceType.Wood]);
-        grainCounter.text = "G: " + NumberFormatter.FormatNumber(LocalResourcesCurrencies[ResourceType.Grain]);
-        stoneCounter.text = "S: " + NumberFormatter.FormatNumber(LocalResourcesCurrencies[ResourceType.Stone]);
+        woodsCounter.text =  NumberFormatter.FormatNumber(LocalResourcesCurrencies[ResourceType.Wood]);
+        grainCounter.text =  NumberFormatter.FormatNumber(LocalResourcesCurrencies[ResourceType.Grain]);
+        stoneCounter.text =  NumberFormatter.FormatNumber(LocalResourcesCurrencies[ResourceType.Stone]);
     }
 
     public static class NumberFormatter
@@ -100,7 +100,7 @@ public class CurrencyManager : MonoBehaviour
         LocalResourcesCurrencies[ResourceType.Grain] += resource[1];
         LocalResourcesCurrencies[ResourceType.Stone] += resource[2];
 
-        Debug.Log($"Resources Collected: W={resource[0]}, G={resource[1]}, S={resource[2]}");
+        // Debug.Log($"Resources Collected: W={resource[0]}, G={resource[1]}, S={resource[2]}");
         UpdateUICounter();
         SaveEconomy();
     }
@@ -111,7 +111,7 @@ public class CurrencyManager : MonoBehaviour
         LocalResourcesCurrencies[ResourceType.Grain] += resource[1];
         LocalResourcesCurrencies[ResourceType.Stone] += resource[2];
 
-        Debug.Log($"Reward Collected: W={resource[0]}, G={resource[1]}, S={resource[2]}");
+        // Debug.Log($"Reward Collected: W={resource[0]}, G={resource[1]}, S={resource[2]}");
         UpdateUICounter();
         SaveEconomy();
     }
