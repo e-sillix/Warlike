@@ -7941,7 +7941,7 @@ MonoBehaviour:
     type: 3}
   SpawnPoint: {fileID: 1255310812}
   LandAdvancingRate: 0
-  gameEnemyManager: {fileID: 0}
+  gameEnemyManager: {fileID: 955817973}
   detectionInterval: 5
 --- !u!4 &175061263
 Transform:
@@ -48631,6 +48631,7 @@ GameObject:
   - component: {fileID: 955817970}
   - component: {fileID: 955817971}
   - component: {fileID: 955817972}
+  - component: {fileID: 955817973}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -48708,6 +48709,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ca00c442aecaa074cb849003e6be6e1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &955817973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 955817967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4948882224596e3428514dc13808185a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &957374297
