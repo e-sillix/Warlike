@@ -17,6 +17,7 @@ public class Boss : MonoBehaviour
     [SerializeField] private GameObject BossArmyPrefab,SpawnPoint;
 
     [SerializeField]private float LandAdvancingRate;
+    [SerializeField]private GameEnemyManager gameEnemyManager;
 
     public float detectionInterval = 5f;
 
@@ -107,6 +108,8 @@ public class Boss : MonoBehaviour
     }
     public void OnDefeat(){
         Debug.Log("Boss Defeated,Give Rewards");
+        gameEnemyManager.AEnemyKingDomIsDefeated(BossId);
+
         foreach (BossArmy bossArmy in SpawnedbossArmies){
             
             if(bossArmy){
@@ -119,6 +122,7 @@ public class Boss : MonoBehaviour
                 t.GetComponent<TowerCombat>().OnDefeat();
             }
            }
+
         Destroy(gameObject);
     }}
 
