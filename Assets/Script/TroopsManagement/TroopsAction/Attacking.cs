@@ -142,6 +142,9 @@ public class Attacking : MonoBehaviour
     else{
         GetComponent<TheUnit>().ReChaseEnemy();
     }}
+    if(Target==null&&health>0&&InCombact==true){
+        RefreshTarget();
+    }
     }
 
     //is being called by creep directly 
@@ -171,6 +174,7 @@ public class Attacking : MonoBehaviour
     }
     public void RefreshTarget(){
         //this will be triggered when changing target or returning home.
+        GetComponent<TroopsVisualInstance>().TriggerIdle();
         theCreep=null;
         bossArmy=null;
         bossAttacking=null;

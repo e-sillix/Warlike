@@ -22,6 +22,7 @@ public class CreepSpawnManager : MonoBehaviour
         // PlayerPrefs.DeleteKey("creepBatch");
 
         creepBatch=PlayerPrefs.GetInt("creepBatch");
+        PlayerPrefs.SetInt("creepBatch", 0);
         // Ensure the spawn point object is assigned
         if (SpawnPoint == null)
         {

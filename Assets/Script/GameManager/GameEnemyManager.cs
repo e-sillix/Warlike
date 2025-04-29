@@ -8,6 +8,7 @@ public class GameEnemyManager : MonoBehaviour
 
    
     private string filePath;
+    [SerializeField] private GameObject GameBeatenPanel;
     // [SerializeField]private GameObject EnemyRewardPanel;
     [SerializeField]private int Stone,Wood,Grain;
     [SerializeField]private RewardManager rewardManager;
@@ -26,6 +27,7 @@ public class GameEnemyManager : MonoBehaviour
         DefeatedEnemyData data = new DefeatedEnemyData();
         data = JsonUtility.FromJson<DefeatedEnemyData>(existingJson);
         Boss[] allBosses = FindObjectsOfType<Boss>();
+        
         foreach (Boss boss in allBosses)
         {
             if (data.defeatedEnemyIDs.Contains(boss.ReturnBossId()))
@@ -34,9 +36,16 @@ public class GameEnemyManager : MonoBehaviour
                 boss.gameObject.SetActive(false);
             }
         }
+
     }
     }
     public void AEnemyKingDomIsDefeated(int enemyID){
+        Boss[] allBosses = FindObjectsOfType<Boss>();
+        if(allBosses.Length==1){
+            // Debug.Log("Game beaten.");
+            BeatenTheGame();
+            return;
+        }
         rewardManager.GiveReward(new int[]{Wood,Grain,Stone});
         filePath = Application.persistentDataPath + "/DEnemyKingDom.json";
         DefeatedEnemyData data = new DefeatedEnemyData();
@@ -58,8 +67,12 @@ public class GameEnemyManager : MonoBehaviour
         {
             Debug.Log("⚠️ Enemy ID already exists: " + enemyID);
         }
+      
 
+   }
 
+   void BeatenTheGame(){
+    GameBeatenPanel.SetActive(true);
    }
 }
  [System.Serializable]
