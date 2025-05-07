@@ -1867,6 +1867,10 @@ MonoBehaviour:
   TowerBoundary3: {fileID: 5300839530802621601}
   TowerBoundary4: {fileID: 3022271340276625105}
   Flag: {fileID: 1153185137602021453}
+  rangeLine1: {fileID: 6690940045019339998}
+  rangeLine2: {fileID: 7777298007424648797}
+  rangeLine3: {fileID: 5300839530802621601}
+  rangeLine4: {fileID: 3022271340276625105}
   UIComponent: {fileID: 556352551922017882}
   UIButtonForAttack: {fileID: 4441344428297585004}
   TotalHealth: 0

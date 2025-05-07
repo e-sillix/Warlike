@@ -10,7 +10,7 @@ public class TowerInstance : MonoBehaviour
     [SerializeField]private GameObject TowerBoundary1,TowerBoundary2,
     TowerBoundary3,TowerBoundary4;
 
-    [SerializeField] private GameObject Flag;
+    [SerializeField] private GameObject Flag,rangeLine1,rangeLine2,rangeLine3,rangeLine4;
     [SerializeField]private GameObject UIComponent;
 
     [SerializeField]private GameObject UIButtonForAttack;
@@ -131,14 +131,25 @@ public class TowerInstance : MonoBehaviour
     public void AssignColor(Color newColor)
 {
     Renderer renderer1 = Flag.GetComponent<Renderer>();
-    // Renderer renderer2 = TowerBoundary2.GetComponent<Renderer>();
-    // Renderer renderer3 = TowerBoundary3.GetComponent<Renderer>();
-    // Renderer renderer4 = TowerBoundary4.GetComponent<Renderer>();
+    Renderer renderer2 = rangeLine1.GetComponent<Renderer>();
+    Renderer renderer3 = rangeLine2.GetComponent<Renderer>();
+    Renderer renderer4 = rangeLine3.GetComponent<Renderer>();
+    Renderer renderer5 = rangeLine4.GetComponent<Renderer>();
+    // if(renderer1==null)
+    // {
+    //     Debug.LogError("Renederer not found for flag.");
+    // }else{
+    //     Debug.Log("Renderer found for flag.");
+    // }
 
-    if (renderer1 != null) renderer1.material.SetColor("_Color", newColor);
-    // if (renderer2 != null) renderer2.material.SetColor("_Color", newColor);
-    // if (renderer3 != null) renderer3.material.SetColor("_Color", newColor);
-    // if (renderer4 != null) renderer4.material.SetColor("_Color", newColor);
+    // if (renderer1 != null) renderer1.material.SetColor("_Color", newColor);
+    if (renderer1 != null) renderer1.material.SetColor("_BaseColor",  newColor);
+    if (renderer2 != null) renderer2.material.color= newColor;
+    if (renderer3 != null) renderer3.material.SetColor("_BaseColor",  newColor);
+    if (renderer4 != null) renderer4.material.SetColor("_BaseColor",  newColor);
+    if (renderer5 != null) renderer5.material.SetColor("_BaseColor",  newColor);
+
+    
 }
 
 
